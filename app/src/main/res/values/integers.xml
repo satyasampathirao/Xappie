@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="integer_zero">0</integer>
+    <integer name="integer_one">1</integer>
+    <integer name="integer_two">2</integer>
+    <integer name="integer_three">3</integer>
+    <integer name="integer_four">4</integer>
+    <integer name="integer_five">5</integer>
+    <integer name="integer_six">6</integer>
+    <integer name="integer_seven">7</integer>
+    <integer name="integer_eight">8</integer>
+    <integer name="integer_nine">9</integer>
+    <integer name="integer_ten">10</integer>
+    <integer name="integer_eleveen">11</integer>
+    <integer name="integer_tweleve">12</integer>
+    <integer name="integer_thirteen">13</integer>
+    <integer name="integer_fourteen">14</integer>
+    <integer name="integer_fifteen">15</integer>
+    <integer name="integer_sixteen">16</integer>
+    <integer name="integer_nineteen">19</integer>
+    <integer name="integer_twenty_five">25</integer>
+    <integer name="integer_forty_five">45</integer>
+    <integer name="integer_fifty">50</integer>
+    <integer name="integer_fifty_five">55</integer>
+    <integer name="integer_two_hundred">200</integer>
+    <integer name="integer_two_hundred_fifty_five">255</integer>
+
+
+    <integer name="phone_number_length">10</integer>
+    <integer name="enter_onroad_length">10</integer>
+
+    <integer name="interest_rate_seek_bar_range">70</integer>
+    <integer name="payback_period_seek_bar_range">16</integer>
+    <integer name="interest_rate_start_value">8</integer>
+    <integer name="payback_period_start_value">12</integer>
+    <integer name="payback_period_interval_value">6</integer>
+
+    <integer name="down_payment_partition">25000</integer>
+
+</resources>
