@@ -3,4 +3,9 @@
 
     <string name="close_icon">&#xE5CD;</string>
     <string name="xappie_tour">Xappie Tour</string>
+
+    <!--Tour Screens-->
+    <string name="welcome_to_xappie">WELCOME TO XAPPIE!</string>
+    <string name="ready_to_get_started">Ready to get started?</string>
+    <string name="swipe_through_to_start_your_tour">Swipe through to start your tour.</string>
 </resources>

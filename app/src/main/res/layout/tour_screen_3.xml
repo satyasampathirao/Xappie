@@ -17,31 +17,28 @@
         android:src="@drawable/top_bg" />
 
     <TextView
-        android:id="@+id/tv_welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/welcome_to_xappie"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp"
+        android:textSize="@dimen/_18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_ready"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5dp"
         android:gravity="center"
         android:text="@string/ready_to_get_started"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_15sp" />
+        android:textSize="@dimen/_17sp" />
 
     <TextView
-        android:id="@+id/tv_swipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/swipe_through_to_start_your_tour"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_15sp" />
+        android:textSize="@dimen/_17sp" />
 </LinearLayout>

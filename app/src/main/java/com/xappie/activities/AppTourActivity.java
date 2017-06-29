@@ -37,7 +37,7 @@ public class AppTourActivity extends Activity {
         mViewPager.setAdapter(mAdapterforTour);
         cri.setViewPager(mViewPager);
         tv_close_icon.setTypeface(Utility.getMaterialIconsRegular(this));
-        tv_xappie_tour.setTypeface(Utility.geOpenSansRegular(this));
+        tv_xappie_tour.setTypeface(Utility.getOpenSansRegular(this));
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.AppTourActivity;
+import com.xappie.utils.Utility;
 
 /**
  * Created by shankar on 6/28/2017.
@@ -66,21 +67,25 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
         switch (position) {
             case 0:
                 mView = mLayoutInflater.inflate(R.layout.tour_screen_1, null);
+                TextView tv_welcome = (TextView) mView.findViewById(R.id.tv_welcome);
+                TextView tv_ready = (TextView) mView.findViewById(R.id.tv_ready);
+                TextView tv_swipe = (TextView) mView.findViewById(R.id.tv_swipe);
+                tv_welcome.setTypeface(Utility.getOpenSansBold(mContext));
+                tv_ready.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_swipe.setTypeface(Utility.getOpenSansRegular(mContext));
                 ((ViewPager) collection).addView(mView, 0);
-
                 break;
             case 1:
-                mView = mLayoutInflater.inflate(R.layout.tour_screen_1, null);
+                mView = mLayoutInflater.inflate(R.layout.tour_screen_2, null);
                 ((ViewPager) collection).addView(mView, 0);
-
                 break;
             case 2:
-                mView = mLayoutInflater.inflate(R.layout.tour_screen_1, null);
+                mView = mLayoutInflater.inflate(R.layout.tour_screen_3, null);
                 ((ViewPager) collection).addView(mView, 0);
 
                 break;
             case 3:
-                mView = mLayoutInflater.inflate(R.layout.tour_screen_1, null);
+                mView = mLayoutInflater.inflate(R.layout.tour_screen_4, null);
                 ((ViewPager) collection).addView(mView, 0);
                 break;
 

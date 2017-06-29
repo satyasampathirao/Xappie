@@ -52,11 +52,19 @@ public class Utility {
 
 
     /**
-     * OPENSANS REGULAR TYPEFACE
+     * OPEN SANS REGULAR TYPEFACE
      * This method is used to set the icons in Material Icons Regular
      **/
-    public static Typeface geOpenSansRegular(Context context) {
+    public static Typeface getOpenSansRegular(Context context) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Regular.ttf");
+    }
+
+    /**
+     * OPEN SANS BOLD TYPEFACE
+     * This method is used to set the icons in Material Icons Regular
+     **/
+    public static Typeface getOpenSansBold(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Bold.ttf");
     }
 
     /**
