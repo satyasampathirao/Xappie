@@ -8,4 +8,13 @@
     <string name="welcome_to_xappie">WELCOME TO XAPPIE!</string>
     <string name="ready_to_get_started">Ready to get started?</string>
     <string name="swipe_through_to_start_your_tour">Swipe through to start your tour.</string>
+
+    <string name="thats_it">THATS IT!</string>
+    <string name="time_to_be_e">Time to be e</string>
+    <string name="x">X</string>
+    <string name="tra_h">tra h</string>
+    <string name="appy">appy</string>
+    <string name="through_xappie">&#032;through Xappie.</string>
+
+    <string name="continue_text">CONTINUE</string>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
+import com.xappie.MainActivity;
 import com.xappie.R;
 import com.xappie.adapters.AdapterforTour;
 import com.xappie.customviews.CirclePageIndicatorForTour;
@@ -13,6 +14,7 @@ import com.xappie.utils.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AppTourActivity extends Activity {
     public static ViewPager mViewPager;
@@ -48,5 +50,14 @@ public class AppTourActivity extends Activity {
         startMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(startMain);
         finish();
+    }
+
+    @OnClick(R.id.tv_close_icon)
+    void navigateToHomeActivity() {
+        Intent intent = new Intent(AppTourActivity.this,
+                MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        AppTourActivity.this.startActivity(intent);
+        AppTourActivity.this.finish();
     }
 }

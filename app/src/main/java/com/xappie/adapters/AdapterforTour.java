@@ -1,6 +1,8 @@
 package com.xappie.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.xappie.MainActivity;
 import com.xappie.R;
 import com.xappie.activities.AppTourActivity;
 import com.xappie.utils.Utility;
@@ -86,6 +89,26 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
                 break;
             case 3:
                 mView = mLayoutInflater.inflate(R.layout.tour_screen_4, null);
+                TextView tv_thats_it = (TextView) mView.findViewById(R.id.tv_thats_it);
+                TextView tv_x = (TextView) mView.findViewById(R.id.tv_x);
+                TextView tv_tra_h = (TextView) mView.findViewById(R.id.tv_tra_h);
+                TextView tv_appy = (TextView) mView.findViewById(R.id.tv_appy);
+                TextView tv_through_xappie = (TextView) mView.findViewById(R.id.tv_through_xappie);
+                TextView tv_continue = (TextView) mView.findViewById(R.id.tv_continue);
+                tv_thats_it.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_x.setTypeface(Utility.getOpenSansBold(mContext));
+                tv_tra_h.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_appy.setTypeface(Utility.getOpenSansBold(mContext));
+                tv_through_xappie.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_continue.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_continue.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        navigateToHomeActivity();
+                    }
+
+                });
                 ((ViewPager) collection).addView(mView, 0);
                 break;
 
@@ -94,6 +117,14 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
         }
 
         return mView;
+    }
+
+    private void navigateToHomeActivity() {
+        Intent intent = new Intent(mContext,
+                MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mContext.startActivity(intent);
+        ((Activity) mContext).finish();
     }
 
 

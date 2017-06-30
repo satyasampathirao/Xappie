@@ -17,28 +17,80 @@
         android:src="@drawable/top_bg" />
 
     <TextView
+        android:id="@+id/tv_thats_it"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/welcome_to_xappie"
+        android:text="@string/thats_it"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_18sp"
+        android:textSize="@dimen/_17sp"
         android:textStyle="bold" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5dp"
         android:gravity="center"
-        android:text="@string/ready_to_get_started"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp" />
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_2dp"
+        android:paddingTop="@dimen/_2dp">
+
+        <TextView
+            android:id="@+id/tv_time_to_be_e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/time_to_be_e"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/_15sp" />
+
+        <TextView
+            android:id="@+id/tv_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/x"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_15sp" />
+
+        <TextView
+            android:id="@+id/tv_tra_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tra_h"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/_15sp" />
+
+        <TextView
+            android:id="@+id/tv_appy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/appy"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_15sp" />
+
+        <TextView
+            android:id="@+id/tv_through_xappie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/through_xappie"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/_15sp" />
+    </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/red_rectangular_bg"
+        android:ems="10"
         android:gravity="center"
-        android:text="@string/swipe_through_to_start_your_tour"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp" />
+        android:text="@string/continue_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sp" />
+
 </LinearLayout>
