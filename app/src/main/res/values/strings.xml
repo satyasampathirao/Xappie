@@ -17,4 +17,24 @@
     <string name="through_xappie">&#032;through Xappie.</string>
 
     <string name="continue_text">CONTINUE</string>
+
+    <string name="arrow_back_icon">&#xE314;</string>
+    <string name="menu_icon">&#xE3C7;</string>
+    <string name="my_profile"> My Profile </string>
+    <string name="notification_icon">&#xE7F5;</string>
+    <string name="location_icon">&#xE55F;</string>
+    <string name="font_icon"> &#xf1ab;</string>
+    <string name="text_colon"> &#58;</string>
+    <string name="ravi_kiran">Ravi Kiran Koya</string>
+    <string name="hyderabad">Hyderabad,India</string>
+    <string name="full_name">Full Name</string>
+    <string name="display_name">Display Name</string>
+    <string name="ravi_k">Ravi K</string>
+    <string name="email">Email</string>
+    <string name="ravi_email">ravikiran.koya@gmail.com</string>
+    <string name="moble">Mobile No</string>
+    <string name="ravi_mobile_no">9876543210</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="update">Update</string>
+
 </resources>
