@@ -36,5 +36,20 @@
     <string name="ravi_mobile_no">9876543210</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
+    <string name="log_in">Login</string>
+    <string name="sign_up">Signup</string>
+    <string name="password">Password</string>
+    <string name="trouble_getting_in">Trouble getting in ?</string>
+    <string name="show">Show</string>
+    <string name="check_icon">&#xE5CA;</string>
+    <string name="by_logging_agree">By Logging in you agree to our" "</string>
+    <string name="t_c"><![CDATA[T&C]]></string>
+    <string name="and"> " "and</string>
+    <string name="privacy_policy"> " "Privacy Policy</string>
+    <string name="or_sign_social">Or, Sign in with your Social accounts</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="twitter">Twitter</string>
 
 </resources>
