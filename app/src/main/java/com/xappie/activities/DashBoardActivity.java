@@ -17,16 +17,24 @@ import com.xappie.R;
 import com.xappie.fragments.HomeFragment;
 import com.xappie.utils.Utility;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class DashBoardActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
+
+    private TextView tv_location_icon;
+    private TextView tv_notifications_icon;
+    private TextView tv_language_icon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_dash_board);
+        ButterKnife.bind(this);
         initUI();
     }
 
@@ -35,8 +43,19 @@ public class DashBoardActivity extends BaseActivity {
      */
     private void initUI() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        tv_location_icon = (TextView) toolbar.findViewById(R.id.tv_location_icon);
+        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(this));
+
+        tv_notifications_icon = (TextView) toolbar.findViewById(R.id.tv_notifications_icon);
+        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(this));
+
+        tv_language_icon = (TextView) toolbar.findViewById(R.id.tv_language_icon);
+        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(this));
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
         initNavigationDrawer();
     }
 
@@ -47,7 +66,7 @@ public class DashBoardActivity extends BaseActivity {
         Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, DashBoardActivity.this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         NavigationMenuView navMenuView = (NavigationMenuView) navigationView.getChildAt(0);
-        navMenuView.addItemDecoration(new DividerItemDecoration(DashBoardActivity.this,DividerItemDecoration.VERTICAL));
+        navMenuView.addItemDecoration(new DividerItemDecoration(DashBoardActivity.this, DividerItemDecoration.VERTICAL));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -136,11 +155,38 @@ public class DashBoardActivity extends BaseActivity {
 
     }
 
+    /**
+     * This method is used to logout from the application
+     */
     private void logout() {
         navigateToDashBoard();
     }
 
     private void navigateToDashBoard() {
+
+    }
+
+    /**
+     * This method is used to navigation of location selection
+     */
+    @OnClick(R.id.tv_location_icon)
+    void navigateLocation() {
+
+    }
+
+    /**
+     * This method is used to navigation of notifications
+     */
+    @OnClick(R.id.tv_notifications_icon)
+    void navigateNotifications() {
+
+    }
+
+    /**
+     * This method is used to navigation of language
+     */
+    @OnClick(R.id.tv_language_icon)
+    void navigateLanguage() {
 
     }
 
