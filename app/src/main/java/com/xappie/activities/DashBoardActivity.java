@@ -1,9 +1,11 @@
 package com.xappie.activities;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -66,7 +68,18 @@ public class DashBoardActivity extends BaseActivity {
         Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, DashBoardActivity.this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         NavigationMenuView navMenuView = (NavigationMenuView) navigationView.getChildAt(0);
-        navMenuView.addItemDecoration(new DividerItemDecoration(DashBoardActivity.this, DividerItemDecoration.VERTICAL));
+
+        DividerItemDecoration horizontalDecoration = new DividerItemDecoration(DashBoardActivity.this,
+                DividerItemDecoration.VERTICAL);
+        Drawable horizontalDivider = ContextCompat.getDrawable(DashBoardActivity.this, R.drawable.horizontal_divider);
+        horizontalDecoration.setDrawable(horizontalDivider);
+        navMenuView.addItemDecoration(horizontalDecoration);
+
+
+       /* navMenuView.addItemDecoration(new DividerItemDecoration(DashBoardActivity.this, DividerItemDecoration.VERTICAL));
+        Drawable horizontalDivider = ContextCompat.getDrawable(getActivity(), R.drawable.horizontal_divider);
+        horizontalDecoration.setDrawable(horizontalDivider);*/
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
