@@ -3,7 +3,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="240dp"
-    android:background="@color/very_dark_grayish_red"
+    android:background="@color/nav_bg_red"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="@dimen/_45dp">

@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#851530</color>
     <color name="colorAccent">#AD343E</color>
 
-    <color name="very_dark_grayish_red">#AD343E</color>
     <color name="moderate_red">#C6363D</color>
+    <color name="nav_bg_red">#4E3638</color>
 
     <color name="white">#ffffff</color>
     <color name="light_gray">#c2c2c2</color>
