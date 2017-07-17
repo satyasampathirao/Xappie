@@ -10,6 +10,7 @@ import com.xappie.MainActivity;
 import com.xappie.R;
 import com.xappie.adapters.AdapterforTour;
 import com.xappie.customviews.CirclePageIndicatorForTour;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
@@ -54,6 +55,7 @@ public class AppTourActivity extends Activity {
 
     @OnClick(R.id.tv_close_icon)
     void navigateToHomeActivity() {
+        Utility.setSharedPrefBooleanData(this, Constants.IS_TOUR_COMPLETED, true);
         Intent intent = new Intent(AppTourActivity.this,
                 MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

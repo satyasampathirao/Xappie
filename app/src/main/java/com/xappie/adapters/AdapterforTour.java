@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.xappie.MainActivity;
 import com.xappie.R;
 import com.xappie.activities.AppTourActivity;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 /**
@@ -120,6 +121,7 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
     }
 
     private void navigateToHomeActivity() {
+        Utility.setSharedPrefBooleanData(mContext, Constants.IS_TOUR_COMPLETED, true);
         Intent intent = new Intent(mContext,
                 MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
