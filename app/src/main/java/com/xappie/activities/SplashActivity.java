@@ -14,7 +14,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Utility.getSharedPrefBooleanData(this, Constants.IS_TOUR_COMPLETED)) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, DashBoardActivity.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, AppTourActivity.class);

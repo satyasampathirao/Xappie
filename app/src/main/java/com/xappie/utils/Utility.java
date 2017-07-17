@@ -8,13 +8,20 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.xappie.R;
 
 /**
  * Created by Shankar on 6/29/2017.
@@ -256,5 +263,22 @@ public class Utility {
         }
         return "";
 
+    }
+
+    /**
+     * This method is used to navigate or replace fragment
+     */
+    public static void navigateDashBoardFragment(Fragment fragment,
+                                                 String tag, Bundle bundle, FragmentActivity fragmentActivity) {
+        FragmentManager fragmentManager = fragmentActivity
+                .getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+        fragmentTransaction.replace(R.id.content_frame, fragment, tag);
+        fragmentTransaction.addToBackStack(tag);
+        fragmentTransaction.commit();
     }
 }

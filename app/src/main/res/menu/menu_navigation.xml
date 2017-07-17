@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/discussions"
+            android:title="@string/discussions" />
+        <item
+            android:id="@+id/entertainment"
+            android:title="@string/entertainment" />
+        <item
+            android:id="@+id/top_stories"
+            android:title="@string/top_stories" />
+        <item
+            android:id="@+id/gallery"
+            android:title="@string/gallery" />
+        <item
+            android:id="@+id/videos"
+            android:title="@string/videos" />
+        <item
+            android:id="@+id/events"
+            android:title="@string/events" />
+        <item
+            android:id="@+id/classifieds"
+            android:title="@string/classifieds" />
+        <item
+            android:id="@+id/jobs"
+            android:title="@string/jobs" />
+        <item
+            android:id="@+id/account_settings"
+            android:title="@string/account_settings" />
+        <item
+            android:id="@+id/logout"
+            android:title="@string/logout" />
+    </group>
+</menu>

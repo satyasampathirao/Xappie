@@ -52,4 +52,22 @@
     <string name="google">Google</string>
     <string name="twitter">Twitter</string>
 
+    <string name="view_profile">View Profile</string>
+
+    <!--Navigation Drawer Menu Items-->
+    <string name="home">Home</string>
+    <string name="discussions">Discussions</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="top_stories">Top Stories</string>
+    <string name="gallery">Gallery</string>
+    <string name="videos">Videos</string>
+    <string name="events">Events</string>
+    <string name="classifieds">Classifieds</string>
+    <string name="jobs">Jobs</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="logout">logout</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
 </resources>
