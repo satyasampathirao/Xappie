@@ -211,12 +211,29 @@ public class DashBoardActivity extends BaseActivity {
 
     }
 
+    private int selected_position = 0;
+
     private void setDataToHomeTabs() {
+        layout_topics.removeAllViews();
         for (int i = 0; i < getTabNames().size(); i++) {
             @SuppressLint("InflateParams")
             LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(R.layout.textview_layout, null);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
             tv_title.setText(getTabNames().get(i));
+            if (i == selected_position) {
+                tv_title.setTypeface(Utility.getOpenSansBold(DashBoardActivity.this));
+            } else {
+                tv_title.setTypeface(Utility.getOpenSansRegular(DashBoardActivity.this));
+            }
+            tv_title.setId(i);
+            tv_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = view.getId();
+                    selected_position = pos;
+                    setDataToHomeTabs();
+                }
+            });
             layout_topics.addView(ll);
         }
     }
