@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
-import com.xappie.MainActivity;
 import com.xappie.R;
 import com.xappie.adapters.AdapterforTour;
 import com.xappie.customviews.CirclePageIndicatorForTour;
@@ -57,7 +56,7 @@ public class AppTourActivity extends Activity {
     void navigateToHomeActivity() {
         Utility.setSharedPrefBooleanData(this, Constants.IS_TOUR_COMPLETED, true);
         Intent intent = new Intent(AppTourActivity.this,
-                MainActivity.class);
+                DashBoardActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         AppTourActivity.this.startActivity(intent);
         AppTourActivity.this.finish();

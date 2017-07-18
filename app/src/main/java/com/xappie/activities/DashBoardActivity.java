@@ -1,5 +1,6 @@
 package com.xappie.activities;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenuView;
@@ -13,11 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.fragments.HomeFragment;
 import com.xappie.utils.Utility;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,6 +34,8 @@ public class DashBoardActivity extends BaseActivity {
     private TextView tv_location_icon;
     private TextView tv_notifications_icon;
     private TextView tv_language_icon;
+
+    private LinearLayout layout_topics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +61,12 @@ public class DashBoardActivity extends BaseActivity {
         tv_language_icon = (TextView) toolbar.findViewById(R.id.tv_language_icon);
         tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(this));
 
+        layout_topics = (LinearLayout) findViewById(R.id.layout_topics);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         initNavigationDrawer();
+        setDataToHomeTabs();
     }
 
     /**
@@ -201,6 +209,30 @@ public class DashBoardActivity extends BaseActivity {
     @OnClick(R.id.tv_language_icon)
     void navigateLanguage() {
 
+    }
+
+    private void setDataToHomeTabs() {
+        for (int i = 0; i < getTabNames().size(); i++) {
+            @SuppressLint("InflateParams")
+            LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(R.layout.textview_layout, null);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            tv_title.setText(getTabNames().get(i));
+            layout_topics.addView(ll);
+        }
+    }
+
+    private ArrayList<String> getTabNames() {
+        ArrayList<String> mTabNames = new ArrayList<>();
+        mTabNames.add(Utility.getResourcesString(this, R.string.home).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.discussions).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.entertainment).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.top_stories).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.gallery).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.videos).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.events).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.classifieds).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.jobs).toUpperCase());
+        return mTabNames;
     }
 
 }

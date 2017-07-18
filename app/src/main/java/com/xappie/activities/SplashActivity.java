@@ -3,7 +3,6 @@ package com.xappie.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.xappie.MainActivity;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
