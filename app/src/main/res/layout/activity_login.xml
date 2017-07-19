@@ -206,7 +206,7 @@
         android:layout_above="@+id/relative_login_bottom"
         android:layout_marginBottom="@dimen/_25dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/or_sign_social"
+        android:id="@+id/tv_or_sign_social"
         android:textSize="@dimen/_16sp"
         android:textColor="@color/color_black"
         android:text="@string/or_sign_social"/>

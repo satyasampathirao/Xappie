@@ -141,7 +141,7 @@ public class DashBoardActivity extends BaseActivity {
         tv_sign_in_to_xappie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DashBoardActivity.this, SignInActivity.class);
+                Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
