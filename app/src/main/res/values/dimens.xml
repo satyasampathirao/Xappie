@@ -169,4 +169,5 @@
 
     <dimen name="no_properties_text_size">22sp</dimen>
     <dimen name="_400dp">400dp</dimen>
+    <dimen name="_190dp">190dp</dimen>
 </resources>

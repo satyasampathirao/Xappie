@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/color_white"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -26,7 +27,7 @@
                 android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_20sp" />
+                android:textSize="@dimen/_22sp" />
 
             <Button
                 android:id="@+id/b_log_login"
@@ -38,7 +39,7 @@
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_24sp" />
+                android:textSize="@dimen/_25sp" />
 
             <Button
                 android:id="@+id/b_log_sign_up"
@@ -49,94 +50,94 @@
                 android:text="@string/sign_up"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_20sp" />
+                android:textSize="@dimen/_22sp" />
         </LinearLayout>
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:id="@+id/relative_login"
-      android:layout_below="@+id/linear_login"
-      android:layout_marginTop="@dimen/_5dp"
-      android:layout_marginBottom="@dimen/_60dp"
-      android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/relative_login"
+            android:layout_below="@+id/linear_login"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginBottom="@dimen/_65dp"
+            android:layout_height="wrap_content">
 
-      <EditText
-          android:layout_width="@dimen/_320dp"
-          android:id="@+id/et_email"
-          android:background="@drawable/edit_text_bottom_white"
-          android:layout_height="wrap_content"
-          android:ems="10"
-          android:hint="@string/email"
-          android:inputType="textEmailAddress"
-          android:layout_marginTop="@dimen/_40dp"
-          android:layout_marginStart="@dimen/_20dp"
-          android:paddingBottom="@dimen/_10dp"
-          android:textColor="@android:color/white"
-          android:textColorHint="@android:color/white"
-          android:textSize="@dimen/_20sp" />
+            <EditText
+                android:layout_width="@dimen/_320dp"
+                android:id="@+id/et_email"
+                android:background="@drawable/edit_text_bottom_white"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:layout_marginTop="@dimen/_40dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:paddingBottom="@dimen/_10dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/_20sp" />
 
-      <EditText
-          android:layout_width="@dimen/_320dp"
-          android:id="@+id/et_password"
-          android:background="@drawable/edit_text_bottom_white"
-          android:layout_height="wrap_content"
-          android:layout_below="@+id/et_email"
-          android:ems="10"
-          android:hint="@string/password"
-          android:inputType="textPassword"
-          android:layout_marginTop="@dimen/_40dp"
-          android:layout_marginStart="@dimen/_20dp"
-          android:paddingBottom="@dimen/_10dp"
-          android:textColor="@android:color/white"
-          android:textColorHint="@android:color/white"
-          android:textSize="@dimen/_20sp" />
+            <EditText
+                android:layout_width="@dimen/_320dp"
+                android:id="@+id/et_password"
+                android:background="@drawable/edit_text_bottom_white"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_email"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:layout_marginTop="@dimen/_35dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:paddingBottom="@dimen/_10dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="@dimen/_20sp" />
 
-      <TextView
-          android:id="@+id/tv_log_show"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-         android:layout_above="@+id/tv_trouble_getting"
-          android:layout_alignEnd="@+id/et_password"
-          android:padding="@dimen/_6dp"
-          android:text="@string/show"
-          android:textColor="@android:color/white"
-          android:textSize="@dimen/_15sp" />
-
-
-
-      <TextView
-          android:id="@+id/tv_trouble_getting"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentEnd="true"
-         android:layout_below="@+id/et_password"
-          android:layout_marginEnd="@dimen/_20dp"
-          android:layout_marginTop="@dimen/_20dp"
-          android:text="@string/trouble_getting_in"
-          android:textColor="@android:color/white"
-          android:textSize="@dimen/_16sp" />
-
-  </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_log_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_trouble_getting"
+                android:layout_alignEnd="@+id/et_password"
+                android:padding="@dimen/_6dp"
+                android:text="@string/show"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sp" />
 
 
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/tv_trouble_getting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/et_password"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginTop="@dimen/_15dp"
+                android:text="@string/trouble_getting_in"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_16sp" />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:gravity="center"
         android:id="@+id/relative_check_icon"
-       android:layout_centerHorizontal="true"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content">
 
         <Button
             android:layout_width="@dimen/_90dp"
-            android:layout_centerInParent="true"
             android:layout_height="@dimen/_90dp"
             android:id="@+id/b_check"
             android:background="@drawable/circle_red_with_white_border_shape"
             android:gravity="center"
+            android:layout_marginTop="@dimen/_5dp"
             android:text="@string/check_icon"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_40sp" />
@@ -147,7 +148,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/relative_check_icon"
         android:id="@+id/linear_login_privacy"
-        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/_2dp"
@@ -158,23 +159,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/dark_gray"
             android:id="@+id/tv_by_logging_agree"
             android:text="@string/by_logging_agree"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_14sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_t_c"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_15sp"
+            android:textSize="@dimen/_14sp"
             android:text="@string/t_c"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_and"
-            android:textSize="@dimen/_15sp"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/_14sp"
             android:text="@string/and"
             android:gravity="center"/>
         <TextView
@@ -182,8 +185,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_privacy"
             android:gravity="center"
+            android:lines="2"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_15sp"
+            android:textSize="@dimen/_14sp"
             android:text="@string/privacy_policy"/>
 
     </LinearLayout>
@@ -199,10 +203,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view_log_in"
-       android:layout_centerHorizontal="true"
+        android:layout_above="@+id/relative_login_bottom"
+        android:layout_marginBottom="@dimen/_25dp"
+        android:layout_centerHorizontal="true"
         android:id="@+id/or_sign_social"
-        android:layout_marginTop="@dimen/_25dp"
         android:textSize="@dimen/_16sp"
         android:textColor="@color/color_black"
         android:text="@string/or_sign_social"/>
@@ -213,38 +217,38 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_100dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="10dp">
 
 
         <ImageButton
             android:id="@+id/imageButton_facebook"
             style="?borderlessButtonStyle"
-            android:layout_width="@dimen/_70dp"
-            android:layout_height="@dimen/_70dp"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="@dimen/_80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="@dimen/_15dp"
-            android:layout_marginStart="@dimen/_50dp"
+            android:layout_marginStart="@dimen/_35dp"
             android:background="@drawable/social_facebook"
             android:contentDescription="@string/facebook" />
 
         <ImageButton
             android:id="@+id/imageButton_google"
             style="?borderlessButtonStyle"
-            android:layout_width="@dimen/_70dp"
-            android:layout_height="@dimen/_70dp"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="@dimen/_80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="@dimen/_15dp"
-            android:layout_marginEnd="44dp"
+            android:layout_marginEnd="35dp"
             android:background="@drawable/social_google"
             android:contentDescription="@string/google" />
 
         <ImageButton
             android:id="@+id/imageButton_twitter"
             style="?borderlessButtonStyle"
-            android:layout_width="@dimen/_70dp"
-            android:layout_height="@dimen/_70dp"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="@dimen/_80dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_15dp"

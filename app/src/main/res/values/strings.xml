@@ -76,4 +76,20 @@
     <string name="hello">Hello!</string>
     <string name="sign_in_to_xappie">Sign In To Xappie</string>
 
+    <!-- sign up Screen Items -->
+
+    <string name="moble_option">Mobile (optional)</string>
+    <string name="checkbox_text">I hereby certify that i am 18 years of age.</string>
+    <string name="enter_one_time">Enter One Time Password (OTP) sent to your Email ID ravikiran.koya@gmail.com or change Email ID</string>
+    <string name="otp">OTP</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="we_will_send_a">We will send a One Time Password (OTP) on your registered email ID to reset your password</string>
+    <string name="enter_email">Enter your Email ID</string>
+    <string name="reset_password">Reset Password</string>
+
 </resources>
