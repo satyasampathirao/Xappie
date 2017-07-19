@@ -1,6 +1,7 @@
 package com.xappie.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenuView;
@@ -134,8 +135,16 @@ public class DashBoardActivity extends BaseActivity {
         });
         View header = navigationView.getHeaderView(0);
         ImageView img_user_image = (ImageView) header.findViewById(R.id.img_user_image);
-        TextView txt_name = (TextView) header.findViewById(R.id.txt_name);
+        TextView tv_sign_in_to_xappie = (TextView) header.findViewById(R.id.tv_sign_in_to_xappie);
         TextView txt_user_designation = (TextView) header.findViewById(R.id.txt_user_designation);
+
+        tv_sign_in_to_xappie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashBoardActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        });
 
         final ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
