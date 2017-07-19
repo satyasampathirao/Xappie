@@ -73,5 +73,7 @@
     <string name="location_icon">&#xE0C8;</string>
     <string name="notifications_icon">&#xE7F4;</string>
     <string name="language_icon">&#xE8E2;</string>
+    <string name="hello">Hello!</string>
+    <string name="sign_in_to_xappie">Sign In To Xappie</string>
 
 </resources>
