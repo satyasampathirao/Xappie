@@ -15,6 +15,7 @@
         tools:context="com.learn2crack.myapplication.MainActivity">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/top_bg"
@@ -100,8 +101,7 @@
 
         <FrameLayout
             android:id="@+id/content_frame"
-            style="@style/match"
-            android:layout_marginTop="?attr/actionBarSize" />
+            style="@style/match" />
 
     </android.support.design.widget.CoordinatorLayout>
 

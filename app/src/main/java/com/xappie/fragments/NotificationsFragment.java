@@ -4,35 +4,26 @@ package com.xappie.fragments;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.xappie.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.customviews.CirclePageIndicatorForTour;
+
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class NotificationsFragment extends Fragment {
 
-    public static final String TAG = HomeFragment.class.getSimpleName();
+    public static final String TAG = NotificationsFragment.class.getSimpleName();
+
     private DashBoardActivity mParent;
     private Toolbar mToolbar;
     private AppBarLayout appBarLayout;
-
-    @BindView(R.id.card_pager)
-    ViewPager card_pager;
-
-    @BindView(R.id.indicator)
-    CirclePageIndicatorForTour indicator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,16 +33,15 @@ public class HomeFragment extends Fragment {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
-            appBarLayout.setVisibility(View.VISIBLE);
-
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+            appBarLayout.setVisibility(View.GONE);
+        View rootView = inflater.inflate(R.layout.fragment_notifications, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
+
 
 }

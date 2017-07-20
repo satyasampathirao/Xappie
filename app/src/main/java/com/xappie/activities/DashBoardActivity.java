@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenuView;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.fragments.HomeFragment;
+import com.xappie.fragments.NotificationsFragment;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class DashBoardActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
+    private AppBarLayout appBarLayout;
 
     private TextView tv_location_icon;
     private TextView tv_notifications_icon;
@@ -52,6 +55,7 @@ public class DashBoardActivity extends BaseActivity {
      */
     private void initUI() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
 
         tv_location_icon = (TextView) toolbar.findViewById(R.id.tv_location_icon);
         tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(this));
@@ -209,7 +213,7 @@ public class DashBoardActivity extends BaseActivity {
      */
     @OnClick(R.id.tv_notifications_icon)
     void navigateNotifications() {
-
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, DashBoardActivity.this);
     }
 
     /**
