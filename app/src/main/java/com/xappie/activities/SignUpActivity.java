@@ -80,18 +80,31 @@ public class SignUpActivity extends BaseActivity {
 
     private void initUI() {
         btn_check_sign_up.setTypeface(Utility.getMaterialIconsRegular(this));
+        btn_sign_up_cancel.setTypeface(Utility.getOpenSansRegular(this));
+        btn_sign_up_signup.setTypeface(Utility.getOpenSansRegular(this));
+        btn_sign_up_login.setTypeface(Utility.getOpenSansRegular(this));
+        edt_sign_up_email.setTypeface(Utility.getOpenSansRegular(this));
+        edt_sign_up_mobile.setTypeface(Utility.getOpenSansRegular(this));
+        edt_sign_up_password.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_show.setTypeface(Utility.getOpenSansRegular(this));
+        chb_sign_up.setTypeface(Utility.getOpenSansRegular(this));
+        tv_by_logging_agree.setTypeface(Utility.getOpenSansRegular(this));
+        tv_t_c.setTypeface(Utility.getOpenSansRegular(this));
+        tv_and.setTypeface(Utility.getOpenSansRegular(this));
+        tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
+        tv_or_sign_social.setTypeface(Utility.getOpenSansRegular(this));
     }
 
     @OnClick(R.id.b_check_sign_up)
-    public void sign_up() {
-        Intent i = new Intent(this, SignUpOtpActivity.class);
-        startActivity(i);
+    public void navigateSignUpOtp() {
+        Intent signUpOtpIntent = new Intent(this, SignUpOtpActivity.class);
+        startActivity(signUpOtpIntent);
     }
+
     @OnClick(R.id.b_sign_up_login)
-    public void login()
-    {
-        Intent i = new Intent(this,LoginActivity.class);
-        startActivity(i);
+    public void navigateLogin() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
     }
 
 

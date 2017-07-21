@@ -78,18 +78,30 @@ public class LoginActivity extends BaseActivity {
 
     private void initUI() {
         btn_check.setTypeface(Utility.getMaterialIconsRegular(this));
+        tv_log_show.setTypeface(Utility.getOpenSansRegular(this));
+        tv_trouble_getting.setTypeface(Utility.getOpenSansRegular(this));
+        tv_by_logging_agree.setTypeface(Utility.getOpenSansRegular(this));
+        tv_t_c.setTypeface(Utility.getOpenSansRegular(this));
+        tv_and.setTypeface(Utility.getOpenSansRegular(this));
+        tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
+        tv_or_sign_social.setTypeface(Utility.getOpenSansRegular(this));
+        btn_log_cancel.setTypeface(Utility.getOpenSansRegular(this));
+        btn_log_login.setTypeface(Utility.getOpenSansRegular(this));
+        btn_log_sign_up.setTypeface(Utility.getOpenSansRegular(this));
+        edt_email.setTypeface(Utility.getOpenSansRegular(this));
+        edt_password.setTypeface(Utility.getOpenSansRegular(this));
     }
 
     @OnClick(R.id.b_log_sign_up)
 
-    public void sign_up() {
-        Intent i = new Intent(this, SignUpActivity.class);
-        startActivity(i);
+    public void navigateSignUp() {
+        Intent signUpIntent = new Intent(this, SignUpActivity.class);
+        startActivity(signUpIntent);
     }
 
     @OnClick(R.id.tv_trouble_getting)
-    public void trouble() {
-        Intent i = new Intent(this, ForgotPasswordActivity.class);
-        startActivity(i);
+    public void navigateForgotPassword() {
+        Intent forgotPasswordIntent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(forgotPasswordIntent);
     }
 }

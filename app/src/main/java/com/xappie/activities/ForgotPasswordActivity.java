@@ -8,13 +8,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.utils.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ForgotPasswordActivity extends BaseActivity
-{
-   @BindView(R.id.relativeLayout_forgot_password)
+public class ForgotPasswordActivity extends BaseActivity {
+    @BindView(R.id.relativeLayout_forgot_password)
     RelativeLayout rl_forgot_password;
     @BindView(R.id.tv_forgot_password)
     TextView tv_forgot_password;
@@ -36,8 +36,11 @@ public class ForgotPasswordActivity extends BaseActivity
         initUI();
     }
 
-    private void initUI()
-    {
-
+    private void initUI() {
+        tv_forgot_password.setTypeface(Utility.getOpenSansRegular(this));
+        tv_we_will_send.setTypeface(Utility.getOpenSansRegular(this));
+        edt_sign_up_email.setTypeface(Utility.getOpenSansRegular(this));
+        btn_forgot_cancel.setTypeface(Utility.getOpenSansRegular(this));
+        btn_forgot_reset_password.setTypeface(Utility.getOpenSansRegular(this));
     }
 }

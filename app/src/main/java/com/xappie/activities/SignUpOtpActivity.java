@@ -40,9 +40,9 @@ public class SignUpOtpActivity extends BaseActivity {
     @BindView(R.id.tv_resend_otp)
     TextView tv_resend_otp;
     @BindView(R.id.et_sign_in_first_name)
-    EditText edt_sign_in_first_name;
+    EditText edt_sign_up_first_name;
     @BindView(R.id.et_sign_in_last_name)
-    EditText edt_sign_in_last_name;
+    EditText edt_sign_up_last_name;
     @BindView(R.id.radio_group_sign_up_otp)
     RadioGroup rg_sign_up_otp;
     @BindView(R.id.radio_button_male)
@@ -74,11 +74,25 @@ public class SignUpOtpActivity extends BaseActivity {
 
     private void initUI() {
         btn_check_sign_up_otp.setTypeface(Utility.getMaterialIconsRegular(this));
+        btn_sign_up_otp_cancel.setTypeface(Utility.getOpenSansRegular(this));
+        btn_sign_up_otp_signup.setTypeface(Utility.getOpenSansRegular(this));
+        btn_sign_up_otp_login.setTypeface(Utility.getOpenSansRegular(this));
+        tv_enter_otp.setTypeface(Utility.getOpenSansRegular(this));
+        edt_sign_up_otp_otp.setTypeface(Utility.getOpenSansRegular(this));
+        tv_resend_otp.setTypeface(Utility.getOpenSansRegular(this));
+        edt_sign_up_first_name.setTypeface(Utility.getOpenSansRegular(this));
+        edt_sign_up_last_name.setTypeface(Utility.getOpenSansRegular(this));
+        rb_male.setTypeface(Utility.getOpenSansRegular(this));
+        rb_female.setTypeface(Utility.getOpenSansRegular(this));
+        tv_by_logging_agree.setTypeface(Utility.getOpenSansRegular(this));
+        tv_t_c.setTypeface(Utility.getOpenSansRegular(this));
+        tv_and.setTypeface(Utility.getOpenSansRegular(this));
+        tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
     }
+
     @OnClick(R.id.b_sign_up_otp_login)
-    public void otp_login()
-    {
-        Intent i = new Intent(this,LoginActivity.class);
-        startActivity(i);
+    public void navigateLogin() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
     }
 }

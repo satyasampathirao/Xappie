@@ -3,21 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.xappie.MainActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/relative_my_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/img_ravi_image"
+            android:layout_width="@dimen/_70dp"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_height="@dimen/_70dp"
+            android:src="@drawable/avatar_image" />
+
+
 
         <TextView
             android:id="@+id/tv_ravi_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="90dp"
+            android:layout_marginStart="20dp"
+            android:layout_toRightOf="@+id/img_ravi_image"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/ravi_kiran"
             android:textColor="@color/colorAccent"
