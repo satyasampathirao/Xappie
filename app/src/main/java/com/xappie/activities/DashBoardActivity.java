@@ -20,7 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.fragments.AccountSettingFragment;
 import com.xappie.fragments.HomeFragment;
+import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
 import com.xappie.utils.Utility;
 
@@ -129,6 +131,7 @@ public class DashBoardActivity extends BaseActivity {
                         break;
                     case R.id.account_settings:
                         drawerLayout.closeDrawers();
+                        Utility.navigateDashBoardFragment(new AccountSettingFragment(),AccountSettingFragment.TAG,null,DashBoardActivity.this);
                         break;
                     case R.id.logout:
                         logout();

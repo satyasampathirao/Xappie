@@ -117,5 +117,10 @@
     <string name="gallery_caps">GALLERY</string>
     <string name="videos_caps">VIDEOS</string>
     <string name="ads">ADS</string>
+    <string name="email_id">Email ID</string>
+    <string name="old_password">Old Password</string>
+    <string name="xxxxxx">xxxxxxxx</string>
+    <string name="new_password">New Password</string>
+    <string name="re_enter_new_password">Re Enter New Password</string>
 
 </resources>

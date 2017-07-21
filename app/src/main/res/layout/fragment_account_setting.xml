@@ -1,13 +1,125 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xappie.fragments.AccountSettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <include layout="@layout/action_bar_account_settings"
+    android:id="@+id/tool_bar_account_settings"/>
+
+    <LinearLayout
+        android:id="@+id/linear_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tool_bar_account_settings"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_email_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/email_id"
+            android:textSize="@dimen/_18sp" />
+
+        <TextView
+            android:id="@+id/tv_ravi_email_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_18dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:hint="@string/ravi_email"
+            android:textColor="@color/colorPrimary"
+            android:paddingLeft="@dimen/_20dp"
+            android:textSize="@dimen/_18sp" />
+
+
+        <TextView
+            android:id="@+id/tv_old_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/old_password"
+            android:textSize="@dimen/_18sp" />
+
+        <EditText
+            android:id="@+id/edit_text_old_password"
+            android:layout_width="@dimen/_320dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginStart="@dimen/_18dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/edit_text_bg_rectangle"
+            android:cursorVisible="false"
+            android:hint="@string/xxxxxx"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/_20dp"
+            android:textSize="@dimen/_18sp" />
+
+        <TextView
+            android:id="@+id/tv_new_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/new_password"
+            android:textSize="@dimen/_18sp" />
+
+        <EditText
+            android:id="@+id/edit_new_password"
+            android:layout_width="@dimen/_320dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginStart="@dimen/_18dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/edit_text_bg_rectangle"
+            android:cursorVisible="false"
+            android:hint="@string/xxxxxx"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/_20dp"
+            android:textSize="@dimen/_18sp" />
+
+        <TextView
+            android:id="@+id/tv_re_enter_new_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/re_enter_new_password"
+            android:textSize="@dimen/_18sp" />
+
+        <EditText
+            android:id="@+id/edit_re_enter_new_password"
+            android:layout_width="@dimen/_320dp"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginStart="@dimen/_18dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/edit_text_bg_rectangle"
+            android:cursorVisible="false"
+            android:hint="@string/xxxxxx"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/_20dp"
+            android:textSize="@dimen/_18sp" />
+
+        <Button
+            android:id="@+id/b_account_update"
+            android:layout_width="@dimen/_320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_18dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@drawable/red_rectangular_bg"
+            android:text="@string/update"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_21sp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+
+
