@@ -5,54 +5,37 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.HomeViewPagerAdapter;
-import com.xappie.customviews.CirclePageIndicatorForTour;
 
-import java.util.ArrayList;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Shankar 21/07/2017
  */
-public class HomeFragment extends Fragment {
+public class AccountSettingFragment extends Fragment {
 
-    public static final String TAG = HomeFragment.class.getSimpleName();
+    public static final String TAG = AccountSettingFragment.class.getSimpleName();
     private DashBoardActivity mParent;
-    private Toolbar mToolbar;
     private AppBarLayout appBarLayout;
-
-    @BindView(R.id.card_pager)
-    ViewPager card_pager;
-
-    @BindView(R.id.indicator)
-    CirclePageIndicatorForTour indicator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
-        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
-            appBarLayout.setVisibility(View.VISIBLE);
-
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+            appBarLayout.setVisibility(View.GONE);
+        View rootView = inflater.inflate(R.layout.fragment_account_setting, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -63,12 +46,11 @@ public class HomeFragment extends Fragment {
         initUI();
     }
 
+    /**
+     * This method is used to initialization
+     */
     private void initUI() {
-        ArrayList<String> mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        card_pager.setAdapter(new HomeViewPagerAdapter(mParent, mList));
+
     }
 }
+

@@ -3,6 +3,7 @@
     package="com.xappie">
 
     <application
+        android:name=".app.XappieApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,7 +25,7 @@
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.SignUpActivity" />
         <activity android:name=".activities.SignUpOtpActivity" />
-        <activity android:name=".activities.ForgotPasswordActivity"/>
+        <activity android:name=".activities.ForgotPasswordActivity" />
     </application>
 
 </manifest>

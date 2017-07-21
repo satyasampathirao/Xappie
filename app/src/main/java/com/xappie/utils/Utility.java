@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -19,8 +20,14 @@ import android.support.v4.content.CursorLoader;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.xappie.R;
 
 /**
@@ -280,5 +287,48 @@ public class Utility {
         fragmentTransaction.replace(R.id.content_frame, fragment, tag);
         fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
+    }
+
+    /**
+     * UNIVERSAL IMAGE LOADER
+     * <p>
+     * to load image uri to image
+     */
+    public static void universalImageLoaderPicLoading(ImageView ivImageView, String ImageUrl, final ProgressBar progressBar, int placeholder) {
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(placeholder)
+                .showImageForEmptyUri(placeholder)
+                .showImageOnFail(placeholder)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+
+        if (progressBar != null) {
+            ImageLoader.getInstance().displayImage(ImageUrl, ivImageView, options, new SimpleImageLoadingListener() {
+
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    progressBar.setVisibility(View.GONE);
+                }
+
+
+            });
+        } else {
+            ImageLoader.getInstance().displayImage(ImageUrl, ivImageView, options);
+        }
+
     }
 }
