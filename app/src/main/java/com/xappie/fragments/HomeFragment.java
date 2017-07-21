@@ -10,11 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.HomeViewPagerAdapter;
-import com.xappie.customviews.CirclePageIndicatorForTour;
+import com.xappie.models.GalleryModel;
+import com.xappie.models.VideosModel;
+import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
 
@@ -34,8 +40,28 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.card_pager)
     ViewPager card_pager;
 
-    @BindView(R.id.indicator)
-    CirclePageIndicatorForTour indicator;
+    /**
+     * Gallery View Ids
+     */
+    @BindView(R.id.layout_gallery)
+    LinearLayout layout_gallery;
+
+    @BindView(R.id.tv_gallery)
+    TextView tv_gallery;
+    @BindView(R.id.tv_gallery_more)
+    TextView tv_gallery_more;
+
+    /**
+     * Videos View Ids
+     */
+    @BindView(R.id.layout_videos)
+    LinearLayout layout_videos;
+
+    @BindView(R.id.tv_videos)
+    TextView tv_videos;
+    @BindView(R.id.tv_videos_more)
+    TextView tv_videos_more;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,5 +96,68 @@ public class HomeFragment extends Fragment {
         mList.add("");
         mList.add("");
         card_pager.setAdapter(new HomeViewPagerAdapter(mParent, mList));
+        setTypeface();
+        setGalleryData();
+        setVideosData();
+    }
+
+    /**
+     * This method is used to set font
+     */
+    private void setTypeface() {
+        tv_gallery.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_gallery_more.setTypeface(Utility.getOpenSansBold(mParent));
+
+        tv_videos.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_videos_more.setTypeface(Utility.getOpenSansBold(mParent));
+    }
+
+    private void setGalleryData() {
+        layout_gallery.removeAllViews();
+        for (int i = 0; i < getGallerySizes().size(); i++) {
+            RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.gallery_item, null);
+            ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_title.setText(getGallerySizes().get(i).getTitle());
+            img_gallery_image.setImageDrawable(Utility.getDrawable(mParent, getGallerySizes().get(i).getId()));
+            layout_gallery.addView(ll);
+        }
+    }
+
+    private void setVideosData() {
+        layout_videos.removeAllViews();
+        for (int i = 0; i < getVideosSizes().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_item, null);
+            ImageView img_video_image = (ImageView) ll.findViewById(R.id.img_video_image);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_title.setText(getVideosSizes().get(i).getTitle());
+            img_video_image.setImageDrawable(Utility.getDrawable(mParent, getVideosSizes().get(i).getId()));
+            layout_videos.addView(ll);
+        }
+    }
+
+    private ArrayList<GalleryModel> getGallerySizes() {
+        ArrayList<GalleryModel> galleryModels = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            GalleryModel galleryModel = new GalleryModel();
+            galleryModel.setTitle("Ileana's hottest holiday picture");
+            galleryModel.setId(R.drawable.illiyana);
+            galleryModels.add(galleryModel);
+        }
+        return galleryModels;
+    }
+
+    private ArrayList<VideosModel> getVideosSizes() {
+        ArrayList<VideosModel> videosModels = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            VideosModel videosModel = new VideosModel();
+            videosModel.setTitle("Pawan Kalyan's katamarayudu 50days collections in AP & TG");
+            videosModel.setId(R.drawable.video_hint);
+            videosModels.add(videosModel);
+        }
+        return videosModels;
     }
 }
