@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.HomeViewPagerAdapter;
+import com.xappie.models.AdsModel;
 import com.xappie.models.GalleryModel;
 import com.xappie.models.VideosModel;
 import com.xappie.utils.Utility;
@@ -62,6 +63,26 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.tv_videos_more)
     TextView tv_videos_more;
 
+    /**
+     * ADS View Ids
+     */
+
+    @BindView(R.id.tv_ads)
+    TextView tv_ads;
+
+    @BindView(R.id.layout_ads)
+    LinearLayout layout_ads;
+
+
+    /**
+     * Tops stories View Ids
+     */
+
+    @BindView(R.id.tv_top_stories)
+    TextView tv_top_stories;
+
+    @BindView(R.id.tv_top_stories_more)
+    TextView tv_top_stories_more;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,6 +120,7 @@ public class HomeFragment extends Fragment {
         setTypeface();
         setGalleryData();
         setVideosData();
+        setAdsData();
     }
 
     /**
@@ -110,6 +132,12 @@ public class HomeFragment extends Fragment {
 
         tv_videos.setTypeface(Utility.getOpenSansBold(mParent));
         tv_videos_more.setTypeface(Utility.getOpenSansBold(mParent));
+
+        tv_ads.setTypeface(Utility.getOpenSansBold(mParent));
+
+        tv_top_stories.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_top_stories.setText(tv_top_stories.getText().toString().toUpperCase());
+        tv_top_stories_more.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
     private void setGalleryData() {
@@ -138,6 +166,16 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private void setAdsData() {
+        layout_ads.removeAllViews();
+        for (int i = 0; i < getAdsSizes().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
+            ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
+            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getId()));
+            layout_ads.addView(ll);
+        }
+    }
+
     private ArrayList<GalleryModel> getGallerySizes() {
         ArrayList<GalleryModel> galleryModels = new ArrayList<>();
 
@@ -159,5 +197,15 @@ public class HomeFragment extends Fragment {
             videosModels.add(videosModel);
         }
         return videosModels;
+    }
+
+    private ArrayList<AdsModel> getAdsSizes() {
+        ArrayList<AdsModel> adsModels = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            AdsModel adsModel = new AdsModel();
+            adsModel.setId(R.drawable.ads);
+            adsModels.add(adsModel);
+        }
+        return adsModels;
     }
 }
