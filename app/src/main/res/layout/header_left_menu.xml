@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="wrap_content"
     android:background="@color/nav_bg_red"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="@dimen/_45dp">
+    android:paddingBottom="@dimen/_10dp"
+    android:paddingTop="@dimen/_35dp">
 
     <ImageView
         android:id="@+id/img_user_image"
@@ -23,7 +24,7 @@
         android:gravity="center"
         android:text="@string/hello"
         android:textColor="@color/hello_color"
-        android:textSize="@dimen/_18sp"
+        android:textSize="@dimen/_16sp"
         android:textStyle="bold" />
 
     <TextView
@@ -34,18 +35,27 @@
         android:gravity="center"
         android:text="@string/sign_in_to_xappie"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/_18sp" />
+        android:textSize="@dimen/_16sp" />
 
     <TextView
-        android:id="@+id/txt_user_designation"
+        android:id="@+id/tv_joined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_15dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center"
+        android:text="@string/joined"
+        android:textColor="@color/joined_color"
+        android:textSize="@dimen/_13sp" />
+
+    <TextView
+        android:id="@+id/txt_view_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10dp"
         android:background="@drawable/red_corners"
         android:gravity="center"
         android:text="@string/view_profile"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/_18sp"
-        android:visibility="gone" />
+        android:textSize="@dimen/_17sp"
+        android:visibility="visible" />
 </LinearLayout>

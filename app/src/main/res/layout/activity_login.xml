@@ -244,7 +244,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/b_check"
+        android:id="@+id/btn_check"
         android:layout_width="@dimen/_80dp"
         android:layout_height="@dimen/_80dp"
         android:layout_centerInParent="true"

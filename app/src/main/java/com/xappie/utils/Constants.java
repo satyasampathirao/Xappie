@@ -11,4 +11,6 @@ public class Constants {
     /* shared pref */
     public static final String APP_PREF = "Xappie_Pref";
     public static final String IS_TOUR_COMPLETED = "IS_TOUR_COMPLETED";
+
+    public static final String IS_LOGIN_COMPLETED = "IS_LOGIN_COMPLETED";
 }

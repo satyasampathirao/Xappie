@@ -6,6 +6,8 @@
 
     <color name="moderate_red">#C6363D</color>
     <color name="nav_bg_red">#4E3638</color>
+    <color name="view_profile_bg">#c13838</color>
+    <color name="joined_color">#837274</color>
 
     <color name="white">#ffffff</color>
     <color name="light_gray">#c2c2c2</color>

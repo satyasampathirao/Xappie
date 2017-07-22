@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
@@ -18,8 +19,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
-    @BindView(R.id.b_check)
+    @BindView(R.id.btn_check)
     Button btn_check;
+
     @BindView(R.id.linear_login)
     LinearLayout ll_login;
     @BindView(R.id.b_log_cancel)
@@ -88,9 +90,16 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.b_log_sign_up)
-
     public void navigateSignUp() {
         Intent signUpIntent = new Intent(this, SignUpActivity.class);
+        startActivity(signUpIntent);
+    }
+
+    @OnClick(R.id.btn_check)
+    public void navigateLogin() {
+        Utility.setSharedPrefBooleanData(LoginActivity.this, Constants.IS_LOGIN_COMPLETED, true);
+        finish();
+        Intent signUpIntent = new Intent(this, DashBoardActivity.class);
         startActivity(signUpIntent);
     }
 

@@ -24,6 +24,7 @@ import com.xappie.fragments.AccountSettingFragment;
 import com.xappie.fragments.HomeFragment;
 import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -131,7 +132,7 @@ public class DashBoardActivity extends BaseActivity {
                         break;
                     case R.id.account_settings:
                         drawerLayout.closeDrawers();
-                        Utility.navigateDashBoardFragment(new AccountSettingFragment(),AccountSettingFragment.TAG,null,DashBoardActivity.this);
+                        Utility.navigateDashBoardFragment(new AccountSettingFragment(), AccountSettingFragment.TAG, null, DashBoardActivity.this);
                         break;
                     case R.id.logout:
                         logout();
@@ -143,8 +144,26 @@ public class DashBoardActivity extends BaseActivity {
         View header = navigationView.getHeaderView(0);
         ImageView img_user_image = (ImageView) header.findViewById(R.id.img_user_image);
         TextView tv_sign_in_to_xappie = (TextView) header.findViewById(R.id.tv_sign_in_to_xappie);
-        TextView txt_user_designation = (TextView) header.findViewById(R.id.txt_user_designation);
+        tv_sign_in_to_xappie.setTypeface(Utility.getOpenSansBold(this));
+        TextView txt_view_profile = (TextView) header.findViewById(R.id.txt_view_profile);
+        txt_view_profile.setTypeface(Utility.getOpenSansBold(this));
+        TextView tv_joined = (TextView) header.findViewById(R.id.tv_joined);
+        tv_joined.setTypeface(Utility.getOpenSansRegular(this));
+        TextView txt_hello = (TextView) header.findViewById(R.id.txt_hello);
+        txt_hello.setTypeface(Utility.getOpenSansBold(this));
 
+        if (Utility.getSharedPrefBooleanData(this, Constants.IS_LOGIN_COMPLETED)) {
+            tv_sign_in_to_xappie.setVisibility(View.GONE);
+            tv_joined.setVisibility(View.VISIBLE);
+            txt_view_profile.setVisibility(View.VISIBLE);
+            txt_hello.setText("Ravi Kiran");
+        } else {
+            img_user_image.setImageDrawable(Utility.getDrawable(this, R.drawable.avatar_image));
+            tv_sign_in_to_xappie.setVisibility(View.VISIBLE);
+            tv_joined.setVisibility(View.GONE);
+            txt_view_profile.setVisibility(View.GONE);
+            txt_hello.setText(Utility.getResourcesString(this, R.string.hello));
+        }
         tv_sign_in_to_xappie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
