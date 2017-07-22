@@ -1,7 +1,6 @@
 package com.xappie.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +20,6 @@ import butterknife.OnClick;
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.b_check)
     Button btn_check;
-    @BindView(R.id.relativeLayout_login)
-    RelativeLayout rl_login;
     @BindView(R.id.linear_login)
     LinearLayout ll_login;
     @BindView(R.id.b_log_cancel)
@@ -41,8 +38,6 @@ public class LoginActivity extends BaseActivity {
     TextView tv_log_show;
     @BindView(R.id.tv_trouble_getting)
     TextView tv_trouble_getting;
-    @BindView(R.id.relative_check_icon)
-    RelativeLayout rl_check_icon;
     @BindView(R.id.linear_login_privacy)
     LinearLayout ll_login_privacy;
     @BindView(R.id.tv_by_logging_agree)
