@@ -149,6 +149,28 @@
                     android:textSize="@dimen/_14sp" />
             </RelativeLayout>
 
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingStart="@dimen/_10dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/layout_top_stories"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/ll_top_stories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerPadding="@dimen/_2dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

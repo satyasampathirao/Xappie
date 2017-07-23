@@ -20,6 +20,7 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.HomeViewPagerAdapter;
 import com.xappie.models.AdsModel;
 import com.xappie.models.GalleryModel;
+import com.xappie.models.NewsModel;
 import com.xappie.models.VideosModel;
 import com.xappie.utils.Utility;
 
@@ -84,6 +85,11 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.tv_top_stories_more)
     TextView tv_top_stories_more;
 
+    @BindView(R.id.layout_top_stories)
+    LinearLayout layout_top_stories;
+    @BindView(R.id.ll_top_stories)
+    LinearLayout ll_top_stories;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +127,45 @@ public class HomeFragment extends Fragment {
         setGalleryData();
         setVideosData();
         setAdsData();
+        setTopStoriesData();
+    }
+
+    /**
+     * Settings Top Stories data
+     */
+    private void setTopStoriesData() {
+        layout_top_stories.removeAllViews();
+        for (int i = 0; i < getLanguagesData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(getLanguagesData().get(i));
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            layout_top_stories.addView(ll);
+        }
+
+
+        ll_top_stories.removeAllViews();
+        for (int i = 0; i < getNewsModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+            tv_title.setText(getNewsModels().get(i).getTitle());
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            tv_time.setText(getNewsModels().get(i).getTime());
+            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll_top_stories.addView(ll);
+        }
     }
 
     /**
@@ -207,5 +252,26 @@ public class HomeFragment extends Fragment {
             adsModels.add(adsModel);
         }
         return adsModels;
+    }
+
+    private ArrayList<String> getLanguagesData() {
+        ArrayList<String> mLanguagesData = new ArrayList<>();
+        mLanguagesData.add("HINDI");
+        mLanguagesData.add("ENGLISH");
+        mLanguagesData.add("TELUGU");
+        mLanguagesData.add("TAMIL");
+        return mLanguagesData;
+    }
+
+    private ArrayList<NewsModel> getNewsModels() {
+        ArrayList<NewsModel> newsModels = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            NewsModel newsModel = new NewsModel();
+            newsModel.setTitle("PM Modi arrives in France on last leg of 4-nation tour");
+            newsModel.setTime("30 MINUTES AGO");
+            newsModel.setId(R.drawable.news_image);
+            newsModels.add(newsModel);
+        }
+        return newsModels;
     }
 }
