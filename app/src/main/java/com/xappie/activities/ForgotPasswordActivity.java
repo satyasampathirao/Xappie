@@ -12,6 +12,7 @@ import com.xappie.utils.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ForgotPasswordActivity extends BaseActivity {
     @BindView(R.id.relativeLayout_forgot_password)
@@ -42,5 +43,11 @@ public class ForgotPasswordActivity extends BaseActivity {
         edt_sign_up_email.setTypeface(Utility.getOpenSansRegular(this));
         btn_forgot_cancel.setTypeface(Utility.getOpenSansRegular(this));
         btn_forgot_reset_password.setTypeface(Utility.getOpenSansRegular(this));
+    }
+
+    @OnClick(R.id.b_forgot_cancel)
+    public void navigateBack()
+    {
+        this.onBackPressed();
     }
 }

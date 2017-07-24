@@ -1,26 +1,34 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.AdapterforNotificationsSettingsList;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NotificationsSettingsFragment extends Fragment {
+
+    public static final String TAG = NotificationsSettingsFragment.class.getSimpleName();
+    private DashBoardActivity mParent;
+    private AppBarLayout appBarLayout;
 
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
@@ -32,32 +40,60 @@ public class NotificationsSettingsFragment extends Fragment {
     TextView tv_notification_settings_icon;
     @BindView(R.id.tv_settings)
     TextView tv_settings;
+    @BindView(R.id.linear_discussions)
+    LinearLayout ll_discussions;
+    @BindView(R.id.linear_gallery)
+    LinearLayout ll_gallery;
+    @BindView(R.id.linear_entertainment)
+    LinearLayout ll_entertainment;
+    @BindView(R.id.linear_classifieds)
+    LinearLayout ll_classifieds;
+    @BindView(R.id.linear_top_stories)
+    LinearLayout ll_top_stories;
+    @BindView(R.id.linear_events)
+    LinearLayout ll_events;
+    @BindView(R.id.linear_videos)
+    LinearLayout ll_top_videos;
+    @BindView(R.id.linear_jobs)
+    LinearLayout ll_jobs;
+    @BindView(R.id.tv_discussions)
+    TextView tv_discussions;
+    @BindView(R.id.tv_entertainment)
+    TextView tv_entertainment;
+    @BindView(R.id.tv_top_stories)
+    TextView tv_top_stories;
+    @BindView(R.id.tv_text_gallery)
+    TextView tv_text_gallery;
+    @BindView(R.id.tv_videos)
+    TextView tv_videos;
+    @BindView(R.id.tv_events)
+    TextView tv_events;
+    @BindView(R.id.tv_classifieds)
+    TextView tv_classifieds;
+    @BindView(R.id.tv_jobs)
+    TextView tv_jobs;
+    @BindView(R.id.b_notification_settings_update)
+    Button btn_notification_settings_update;
+    @BindView(R.id.switch_button_jobs)
+    SwitchCompat sw_button_jobs;
+    @BindView(R.id.switch_button_entertainment)
+    SwitchCompat sw_button_entertainment;
+    @BindView(R.id.switch_button_events)
+    SwitchCompat sw_button_events;
+    @BindView(R.id.switch_button_videos)
+    SwitchCompat sw_button_videos;
+    @BindView(R.id.switch_button_gallery)
+    SwitchCompat sw_button_gallery;
+    @BindView(R.id.switch_button_classifieds)
+    SwitchCompat sw_button_classifieds;
+    @BindView(R.id.switch_button_discussion)
+    SwitchCompat sw_button_discussions;
+    @BindView(R.id.switch_button_top_stories)
+    SwitchCompat sw_button_top_stories;
 
-    public static final String TAG = NotificationsSettingsFragment.class.getSimpleName();
-    private DashBoardActivity mParent;
-
-    ListView lv_notifications_settings;
 
 
-    private int[] setting_text = {
-            R.string.discussions,
-            R.string.entertainment,
-            R.string.top_stories,
-            R.string.gallery,
-            R.string.videos,
-            R.string.events,
-            R.string.classifieds,
-            R.string.jobs
 
-
-    };
-
-    private boolean[] check_state = {
-            true,
-            false,false,
-            true,false,false,false,true
-
-    };
 
     public NotificationsSettingsFragment() {
         // Required empty public constructor
@@ -72,11 +108,9 @@ public class NotificationsSettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        if (appBarLayout != null)
+            appBarLayout.setVisibility(View.GONE);
         View rootView = inflater.inflate(R.layout.fragment_notifications_settings, container, false);
-        lv_notifications_settings = (ListView) rootView.findViewById(R.id.notification_settings_list_item);
-        lv_notifications_settings.setAdapter(new AdapterforNotificationsSettingsList(mParent,setting_text,check_state));
-
         ButterKnife.bind(this, rootView);
         initUI();
         return rootView;
@@ -86,8 +120,29 @@ public class NotificationsSettingsFragment extends Fragment {
         tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
         tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
         tv_notification_settings_icon.setVisibility(View.GONE);
+        tv_notification.setTypeface(Utility.getOpenSansRegular(getActivity()));
         tv_settings.setVisibility(View.GONE);
-
+        tv_classifieds.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_discussions.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_entertainment.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_events.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_jobs.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_text_gallery.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_videos.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_top_stories.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        btn_notification_settings_update.setTypeface(Utility.getOpenSansRegular(getActivity()));
     }
 
+    @OnClick(R.id.tv_notification_arrow_back_icon)
+    public void navigateBack()
+    {
+        mParent.onBackPressed();
+    }
+
+    @OnClick(R.id.b_notification_settings_update)
+    public void navigateHome()
+    {
+        Intent dashBoardintent = new Intent(getActivity(),DashBoardActivity.class);
+        startActivity(dashBoardintent);
+    }
 }

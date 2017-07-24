@@ -118,6 +118,12 @@ public class EditProfileFragment extends Fragment {
     @OnClick(R.id.tv_edit_arrow_back_icon)
     public void navigateBackMyProfile()
     {
+       mParent.onBackPressed();
+    }
 
+    @OnClick(R.id.tv_edit_notifications_icon)
+    public void navigateNotifications()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
     }
 }

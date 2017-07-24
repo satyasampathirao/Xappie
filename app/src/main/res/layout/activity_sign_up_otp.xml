@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="3">
-            <Button
-                android:id="@+id/b_sign_up_otp_cancel"
+            <TextView
+                android:id="@+id/tv_sign_up_otp_cancel"
                 style="?borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,8 +27,8 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_22sp" />
 
-            <Button
-                android:id="@+id/b_sign_up_otp_signUp"
+            <TextView
+                android:id="@+id/tv_sign_up_otp_signUp"
                 style="?borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,8 +39,8 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_25sp" />
 
-            <Button
-                android:id="@+id/b_sign_up_otp_login"
+            <TextView
+                android:id="@+id/tv_sign_up_otp_login"
                 style="?borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

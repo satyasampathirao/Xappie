@@ -103,5 +103,10 @@ public class NotificationsFragment extends Fragment {
         Utility.navigateDashBoardFragment(new NotificationsSettingsFragment(), NotificationsSettingsFragment.TAG, null, mParent);
     }
 
+    @OnClick(R.id.tv_notification_arrow_back_icon)
+    public void navigateToBack()
+    {
+        mParent.onBackPressed();
+    }
 
 }

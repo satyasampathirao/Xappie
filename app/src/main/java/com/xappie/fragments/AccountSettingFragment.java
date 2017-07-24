@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -107,15 +108,21 @@ public class AccountSettingFragment extends Fragment {
     @OnClick (R.id.b_account_update)
     public void navigateHome()
     {
-
+        Intent navigateDashIntent = new Intent(getActivity(),DashBoardActivity.class);
+        startActivity(navigateDashIntent);
     }
 
     @OnClick (R.id.tv_account_arrow_back_icon)
     public void navigateBack()
     {
-
+       mParent.onBackPressed();
     }
 
+    @OnClick(R.id.tv_account_notifications_icon)
+    public void navigateNotification()
+    {
+       Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
 
 }
 

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
@@ -25,12 +26,12 @@ public class SignUpOtpActivity extends BaseActivity {
     RelativeLayout rl_sign_up_otp;
     @BindView(R.id.linear_sign_up_otp)
     LinearLayout ll_sign_up_otp;
-    @BindView(R.id.b_sign_up_otp_cancel)
-    Button btn_sign_up_otp_cancel;
-    @BindView(R.id.b_sign_up_otp_signUp)
-    Button btn_sign_up_otp_signup;
-    @BindView(R.id.b_sign_up_otp_login)
-    Button btn_sign_up_otp_login;
+    @BindView(R.id.tv_sign_up_otp_cancel)
+    TextView tv_sign_up_otp_cancel;
+    @BindView(R.id.tv_sign_up_otp_signUp)
+    TextView tv_sign_up_otp_signup;
+    @BindView(R.id.tv_sign_up_otp_login)
+    TextView tv_sign_up_otp_login;
     @BindView(R.id.relative_sign_up_otp_middle)
     RelativeLayout rl_sign_up_otp_otp;
     @BindView(R.id.tv_enter_otp)
@@ -74,9 +75,9 @@ public class SignUpOtpActivity extends BaseActivity {
 
     private void initUI() {
         btn_check_sign_up_otp.setTypeface(Utility.getMaterialIconsRegular(this));
-        btn_sign_up_otp_cancel.setTypeface(Utility.getOpenSansRegular(this));
-        btn_sign_up_otp_signup.setTypeface(Utility.getOpenSansRegular(this));
-        btn_sign_up_otp_login.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_otp_cancel.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_otp_signup.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_otp_login.setTypeface(Utility.getOpenSansRegular(this));
         tv_enter_otp.setTypeface(Utility.getOpenSansRegular(this));
         edt_sign_up_otp_otp.setTypeface(Utility.getOpenSansRegular(this));
         tv_resend_otp.setTypeface(Utility.getOpenSansRegular(this));
@@ -90,9 +91,25 @@ public class SignUpOtpActivity extends BaseActivity {
         tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
     }
 
-    @OnClick(R.id.b_sign_up_otp_login)
+    @OnClick(R.id.tv_sign_up_otp_login)
     public void navigateLogin() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
+    }
+
+    @OnClick(R.id.tv_sign_up_otp_cancel)
+    public void backToCancel()
+    {
+        this.onBackPressed();
+    }
+
+    @OnClick(R.id.b_check_sign_up_otp)
+    public void navigateDash()
+    {
+        Utility.setSharedPrefBooleanData(SignUpOtpActivity.this, Constants.IS_LOGIN_COMPLETED, true);
+        finish();
+        Intent signUpIntent = new Intent(this, DashBoardActivity.class);
+        startActivity(signUpIntent);
+
     }
 }

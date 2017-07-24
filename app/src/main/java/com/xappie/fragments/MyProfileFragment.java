@@ -120,6 +120,11 @@ public class MyProfileFragment extends Fragment {
     @OnClick(R.id.tv_my_arrow_back_icon)
     public void navigateBack()
     {
-
+       mParent.onBackPressed();
+    }
+    @OnClick(R.id.tv_my_notifications_icon)
+    public void navigateToNotification()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
     }
 }

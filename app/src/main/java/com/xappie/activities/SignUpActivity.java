@@ -25,12 +25,12 @@ public class SignUpActivity extends BaseActivity {
     RelativeLayout rl_sign_up;
     @BindView(R.id.linear_sign_up)
     LinearLayout ll_sign_up;
-    @BindView(R.id.b_sign_up_cancel)
-    Button btn_sign_up_cancel;
-    @BindView(R.id.b_sign_up_signUp)
-    Button btn_sign_up_signup;
-    @BindView(R.id.b_sign_up_login)
-    Button btn_sign_up_login;
+    @BindView(R.id.tv_sign_up_cancel)
+    TextView tv_sign_up_cancel;
+    @BindView(R.id.tv_sign_up_signUp)
+    TextView tv_sign_up_signup;
+    @BindView(R.id.tv_sign_up_login)
+    TextView tv_sign_up_login;
     @BindView(R.id.relative_sign_up)
     RelativeLayout rl_sign_up_email;
     @BindView(R.id.et_sign_up_email)
@@ -80,9 +80,9 @@ public class SignUpActivity extends BaseActivity {
 
     private void initUI() {
         btn_check_sign_up.setTypeface(Utility.getMaterialIconsRegular(this));
-        btn_sign_up_cancel.setTypeface(Utility.getOpenSansRegular(this));
-        btn_sign_up_signup.setTypeface(Utility.getOpenSansRegular(this));
-        btn_sign_up_login.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_cancel.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_signup.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_login.setTypeface(Utility.getOpenSansRegular(this));
         edt_sign_up_email.setTypeface(Utility.getOpenSansRegular(this));
         edt_sign_up_mobile.setTypeface(Utility.getOpenSansRegular(this));
         edt_sign_up_password.setTypeface(Utility.getOpenSansRegular(this));
@@ -101,10 +101,16 @@ public class SignUpActivity extends BaseActivity {
         startActivity(signUpOtpIntent);
     }
 
-    @OnClick(R.id.b_sign_up_login)
+    @OnClick(R.id.tv_sign_up_login)
     public void navigateLogin() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
+    }
+
+    @OnClick(R.id.tv_sign_up_cancel)
+    public void navigateCancel()
+    {
+        this.onBackPressed();
     }
 
 
