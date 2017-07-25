@@ -85,10 +85,26 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.tv_top_stories_more)
     TextView tv_top_stories_more;
 
-    @BindView(R.id.layout_top_stories)
-    LinearLayout layout_top_stories;
+    @BindView(R.id.ll_languages_layout_top_stories)
+    LinearLayout ll_languages_layout_top_stories;
     @BindView(R.id.ll_top_stories)
     LinearLayout ll_top_stories;
+
+
+    /**
+     * Entertainment View Ids
+     */
+
+    @BindView(R.id.tv_entertainment)
+    TextView tv_entertainment;
+
+    @BindView(R.id.tv_entertainment_more)
+    TextView tv_entertainment_more;
+
+    @BindView(R.id.ll_languages_layout_entertainment)
+    LinearLayout ll_languages_layout_entertainment;
+    @BindView(R.id.ll_entertainment)
+    LinearLayout ll_entertainment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,13 +144,14 @@ public class HomeFragment extends Fragment {
         setVideosData();
         setAdsData();
         setTopStoriesData();
+        setEntertainmentData();
     }
 
     /**
-     * Settings Top Stories data
+     * Sets Entertainment data
      */
-    private void setTopStoriesData() {
-        layout_top_stories.removeAllViews();
+    private void setEntertainmentData() {
+        ll_languages_layout_entertainment.removeAllViews();
         for (int i = 0; i < getLanguagesData().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
@@ -147,7 +164,45 @@ public class HomeFragment extends Fragment {
             } else {
                 view.setVisibility(View.GONE);
             }
-            layout_top_stories.addView(ll);
+            ll_languages_layout_entertainment.addView(ll);
+        }
+
+
+        ll_entertainment.removeAllViews();
+        for (int i = 0; i < getNewsModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+            tv_title.setText(getNewsModels().get(i).getTitle());
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            tv_time.setText(getNewsModels().get(i).getTime());
+            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll_entertainment.addView(ll);
+        }
+    }
+
+    /**
+     * Sets Top Stories data
+     */
+    private void setTopStoriesData() {
+        ll_languages_layout_top_stories.removeAllViews();
+        for (int i = 0; i < getLanguagesData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(getLanguagesData().get(i));
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages_layout_top_stories.addView(ll);
         }
 
 
@@ -183,6 +238,11 @@ public class HomeFragment extends Fragment {
         tv_top_stories.setTypeface(Utility.getOpenSansBold(mParent));
         tv_top_stories.setText(tv_top_stories.getText().toString().toUpperCase());
         tv_top_stories_more.setTypeface(Utility.getOpenSansBold(mParent));
+
+
+        tv_entertainment.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_entertainment.setText(tv_entertainment.getText().toString().toUpperCase());
+        tv_entertainment_more.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
     private void setGalleryData() {
