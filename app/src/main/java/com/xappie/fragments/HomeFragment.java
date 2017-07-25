@@ -106,6 +106,52 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.ll_entertainment)
     LinearLayout ll_entertainment;
 
+
+    /**
+     * Discussions View Ids
+     */
+
+    @BindView(R.id.tv_discussions)
+    TextView tv_discussions;
+
+    @BindView(R.id.tv_discussions_more)
+    TextView tv_discussions_more;
+
+    @BindView(R.id.ll_languages_layout_discussions)
+    LinearLayout ll_languages_layout_discussions;
+    @BindView(R.id.ll_discussions)
+    LinearLayout ll_discussions;
+
+    /**
+     * Events View Ids
+     */
+
+    @BindView(R.id.tv_events)
+    TextView tv_events;
+
+    @BindView(R.id.tv_events_more)
+    TextView tv_events_more;
+
+    @BindView(R.id.ll_languages_layout_events)
+    LinearLayout ll_languages_layout_events;
+    @BindView(R.id.ll_events)
+    LinearLayout ll_events;
+
+    /**
+     * Jobs View Ids
+     */
+
+    @BindView(R.id.tv_jobs)
+    TextView tv_jobs;
+
+    @BindView(R.id.tv_jobs_more)
+    TextView tv_jobs_more;
+
+    @BindView(R.id.ll_languages_layout_jobs)
+    LinearLayout ll_languages_layout_jobs;
+    @BindView(R.id.ll_jobs)
+    LinearLayout ll_jobs;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +191,126 @@ public class HomeFragment extends Fragment {
         setAdsData();
         setTopStoriesData();
         setEntertainmentData();
+        setDiscussionsData();
+        setEventsData();
+        setJobsData();
+    }
+
+    /**
+     * Sets Jobs data
+     */
+    private void setJobsData() {
+
+        ll_languages_layout_jobs.removeAllViews();
+        for (int i = 0; i < getEventsData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(getEventsData().get(i));
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages_layout_jobs.addView(ll);
+        }
+
+
+        ll_jobs.removeAllViews();
+        for (int i = 0; i < getNewsModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+            tv_title.setText(getNewsModels().get(i).getTitle());
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            tv_time.setText(getNewsModels().get(i).getTime());
+            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll_jobs.addView(ll);
+        }
+    }
+
+    /**
+     * Sets Events data
+     */
+    private void setEventsData() {
+
+        ll_languages_layout_events.removeAllViews();
+        for (int i = 0; i < getEventsData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(getEventsData().get(i));
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages_layout_events.addView(ll);
+        }
+
+
+        ll_events.removeAllViews();
+        for (int i = 0; i < getNewsModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+            tv_title.setText(getNewsModels().get(i).getTitle());
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            tv_time.setText(getNewsModels().get(i).getTime());
+            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll_events.addView(ll);
+        }
+
+    }
+
+    /**
+     * Sets Discussions data
+     */
+    private void setDiscussionsData() {
+        ll_languages_layout_discussions.removeAllViews();
+        for (int i = 0; i < getDiscussionsData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(getDiscussionsData().get(i));
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages_layout_discussions.addView(ll);
+        }
+
+
+        ll_discussions.removeAllViews();
+        for (int i = 0; i < getNewsModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+            tv_title.setText(getNewsModels().get(i).getTitle());
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            tv_time.setText(getNewsModels().get(i).getTime());
+            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll_discussions.addView(ll);
+        }
     }
 
     /**
@@ -243,6 +409,18 @@ public class HomeFragment extends Fragment {
         tv_entertainment.setTypeface(Utility.getOpenSansBold(mParent));
         tv_entertainment.setText(tv_entertainment.getText().toString().toUpperCase());
         tv_entertainment_more.setTypeface(Utility.getOpenSansBold(mParent));
+
+        tv_discussions.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_discussions.setText(tv_discussions.getText().toString().toUpperCase());
+        tv_discussions_more.setTypeface(Utility.getOpenSansBold(mParent));
+
+        tv_events.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_events.setText(tv_events.getText().toString().toUpperCase());
+        tv_events_more.setTypeface(Utility.getOpenSansBold(mParent));
+
+        tv_jobs.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_jobs.setText(tv_jobs.getText().toString().toUpperCase());
+        tv_jobs_more.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
     private void setGalleryData() {
@@ -320,6 +498,26 @@ public class HomeFragment extends Fragment {
         mLanguagesData.add("ENGLISH");
         mLanguagesData.add("TELUGU");
         mLanguagesData.add("TAMIL");
+        return mLanguagesData;
+    }
+
+    private ArrayList<String> getDiscussionsData() {
+        ArrayList<String> mLanguagesData = new ArrayList<>();
+        mLanguagesData.add("DOCTORS");
+        mLanguagesData.add("LAWYERS");
+        mLanguagesData.add("STUDENTS");
+        mLanguagesData.add("KIDS");
+        mLanguagesData.add("ROOMMATES");
+        return mLanguagesData;
+    }
+
+    private ArrayList<String> getEventsData() {
+        ArrayList<String> mLanguagesData = new ArrayList<>();
+        mLanguagesData.add("BAY AREA");
+        mLanguagesData.add("SAN JOSE");
+        mLanguagesData.add("SEATTLE");
+        mLanguagesData.add("NEW JERSEY");
+        mLanguagesData.add("DC");
         return mLanguagesData;
     }
 
