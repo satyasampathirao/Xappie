@@ -27,5 +27,6 @@
 
     <color name="title_color">#8a1131</color>
     <color name="more_color">#f54955</color>
+    <color name="twenty_percent_black">#33000000</color>
 
 </resources>
