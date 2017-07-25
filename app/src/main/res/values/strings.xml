@@ -125,4 +125,6 @@
     <string name="new_password">New Password</string>
     <string name="re_enter_new_password">Re Enter New Password</string>
 
+    <string name="auto_mobiles">Auto Mobiles</string>
+
 </resources>

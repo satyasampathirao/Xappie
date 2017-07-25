@@ -138,6 +138,21 @@ public class HomeFragment extends Fragment {
     LinearLayout ll_events;
 
     /**
+     * Classifieds View Ids
+     */
+
+    @BindView(R.id.tv_classifieds)
+    TextView tv_classifieds;
+
+    @BindView(R.id.tv_classifieds_more)
+    TextView tv_classifieds_more;
+
+    @BindView(R.id.ll_languages_layout_classifieds)
+    LinearLayout ll_languages_layout_classifieds;
+    @BindView(R.id.ll_classifieds)
+    LinearLayout ll_classifieds;
+
+    /**
      * Jobs View Ids
      */
 
@@ -193,7 +208,43 @@ public class HomeFragment extends Fragment {
         setEntertainmentData();
         setDiscussionsData();
         setEventsData();
+        setClassifiedsData();
         setJobsData();
+    }
+
+    private void setClassifiedsData() {
+
+        ll_languages_layout_classifieds.removeAllViews();
+        for (int i = 0; i < getEventsData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(getEventsData().get(i));
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages_layout_classifieds.addView(ll);
+        }
+
+        ll_classifieds.removeAllViews();
+        LinearLayout linearLayout = new LinearLayout(mParent);
+        for (int i = 0; i < 3; i++) {
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
+            ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            linearLayout.addView(ll);
+
+            if (i == 2)
+                ll_classifieds.addView(linearLayout);
+        }
+
     }
 
     /**
@@ -417,6 +468,10 @@ public class HomeFragment extends Fragment {
         tv_events.setTypeface(Utility.getOpenSansBold(mParent));
         tv_events.setText(tv_events.getText().toString().toUpperCase());
         tv_events_more.setTypeface(Utility.getOpenSansBold(mParent));
+
+        tv_classifieds.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_classifieds.setText(tv_classifieds.getText().toString().toUpperCase());
+        tv_classifieds_more.setTypeface(Utility.getOpenSansBold(mParent));
 
         tv_jobs.setTypeface(Utility.getOpenSansBold(mParent));
         tv_jobs.setText(tv_jobs.getText().toString().toUpperCase());
