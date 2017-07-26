@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment {
     private DashBoardActivity mParent;
     private Toolbar mToolbar;
     private AppBarLayout appBarLayout;
+    private View rootView;
 
     @BindView(R.id.card_pager)
     ViewPager card_pager;
@@ -181,8 +182,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
             appBarLayout.setVisibility(View.VISIBLE);
-
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }

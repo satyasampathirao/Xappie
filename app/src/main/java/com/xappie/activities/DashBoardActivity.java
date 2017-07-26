@@ -27,6 +27,7 @@ import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
 import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
+import com.xappie.fragments.TopStoriesFragment;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -117,6 +118,7 @@ public class DashBoardActivity extends BaseActivity {
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.top_stories:
+                        Utility.navigateDashBoardFragment(new TopStoriesFragment(), TopStoriesFragment.TAG, null, DashBoardActivity.this);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.gallery:
@@ -281,6 +283,9 @@ public class DashBoardActivity extends BaseActivity {
                             break;
                         case 2:
                             Utility.navigateDashBoardFragment(new EntertainmentFragment(), EntertainmentFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 3:
+                            Utility.navigateDashBoardFragment(new TopStoriesFragment(), TopStoriesFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 4:
                             Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);

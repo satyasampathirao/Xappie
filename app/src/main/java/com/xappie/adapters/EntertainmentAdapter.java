@@ -76,13 +76,6 @@ public class EntertainmentAdapter extends BaseAdapter {
         mEntertainmentHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string._1day));
         mEntertainmentHolder.tv_posted_by.setText("Time of India");
 
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         return convertView;
     }
 
