@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.models.RelatedTopicsModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Shankar 26/07/2017
  */
 public class GalleryDetailViewFragment extends Fragment {
 

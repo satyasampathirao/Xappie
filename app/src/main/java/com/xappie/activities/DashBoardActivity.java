@@ -28,6 +28,7 @@ import com.xappie.fragments.HomeFragment;
 import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
 import com.xappie.fragments.TopStoriesFragment;
+import com.xappie.fragments.VideosFragment;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -289,6 +290,9 @@ public class DashBoardActivity extends BaseActivity {
                             break;
                         case 4:
                             Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 5:
+                            Utility.navigateDashBoardFragment(new VideosFragment(), VideosFragment.TAG, null, DashBoardActivity.this);
                             break;
 
                     }

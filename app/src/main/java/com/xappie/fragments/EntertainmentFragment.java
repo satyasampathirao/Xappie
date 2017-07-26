@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -145,6 +146,15 @@ public class EntertainmentFragment extends Fragment {
         mLanguagesData.add("TELUGU");
         mLanguagesData.add("TAMIL");
         return mLanguagesData;
+    }
+
+    /**
+     * This method is used for back from the fragment
+     */
+    @OnClick({R.id.tv_notification_arrow_back_icon,
+            R.id.tv_notification_menu_icon})
+    void backToTheHome() {
+        mParent.onBackPressed();
     }
 
 }

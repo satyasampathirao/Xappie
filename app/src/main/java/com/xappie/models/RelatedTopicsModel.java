@@ -1,4 +1,4 @@
-package com.xappie.fragments;
+package com.xappie.models;
 
 /**
  * Created by Shankar on 7/26/2017.

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.ActressGridAdapter;
+import com.xappie.adapters.VideosGridAdapter;
 import com.xappie.models.ActressModel;
 import com.xappie.utils.Utility;
 
@@ -24,11 +24,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Shankar 26/07/2017.
+ * Created by Shankar 26/07/2017
  */
-public class ActressFragment extends Fragment {
+public class VideosFragment extends Fragment {
 
-    public static final String TAG = ActressFragment.class.getSimpleName();
+    public static final String TAG = VideosFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
 
@@ -69,7 +69,7 @@ public class ActressFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
             appBarLayout.setVisibility(View.GONE);
-        View rootView = inflater.inflate(R.layout.fragment_actress, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_videos, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -89,7 +89,7 @@ public class ActressFragment extends Fragment {
         tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.actress));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.videos));
         tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
         tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
@@ -102,8 +102,8 @@ public class ActressFragment extends Fragment {
 
     /*This method is used to set the grid view data*/
     private void setGridViewData() {
-        ActressGridAdapter actressGridAdapter = new ActressGridAdapter(mParent, getActressData());
-        grid_view.setAdapter(actressGridAdapter);
+        VideosGridAdapter videosGridAdapter = new VideosGridAdapter(mParent, getActressData());
+        grid_view.setAdapter(videosGridAdapter);
     }
 
     private ArrayList<ActressModel> getActressData() {
