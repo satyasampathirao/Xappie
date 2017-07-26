@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.fragments.AccountSettingFragment;
+import com.xappie.fragments.EntertainmentFragment;
 import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
@@ -112,6 +113,7 @@ public class DashBoardActivity extends BaseActivity {
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.entertainment:
+                        Utility.navigateDashBoardFragment(new EntertainmentFragment(), EntertainmentFragment.TAG, null, DashBoardActivity.this);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.top_stories:
@@ -276,6 +278,9 @@ public class DashBoardActivity extends BaseActivity {
                             break;
                         case 1:
 
+                            break;
+                        case 2:
+                            Utility.navigateDashBoardFragment(new EntertainmentFragment(), EntertainmentFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 4:
                             Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
