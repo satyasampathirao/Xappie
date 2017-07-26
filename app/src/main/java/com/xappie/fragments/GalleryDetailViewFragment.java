@@ -27,11 +27,9 @@ import butterknife.ButterKnife;
  */
 public class GalleryDetailViewFragment extends Fragment {
 
-
     public static final String TAG = GalleryDetailViewFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
-
 
     /**
      * Gallery Toolbar
