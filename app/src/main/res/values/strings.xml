@@ -131,5 +131,6 @@
     <string name="actress">Actress</string>
     <string name="posted_by">Posted By</string>
     <string name="next_icon">&#xE409;</string>
+    <string name="share_icon">&#xf045;</string>
 
 </resources>
