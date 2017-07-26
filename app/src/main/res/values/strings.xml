@@ -126,5 +126,8 @@
     <string name="re_enter_new_password">Re Enter New Password</string>
 
     <string name="auto_mobiles">Auto Mobiles</string>
+    <string name="next_news">Next News</string>
+    <string name="more_topics">MORE TOPICS</string>
+    <string name="next_icon">&#xE409;</string>
 
 </resources>

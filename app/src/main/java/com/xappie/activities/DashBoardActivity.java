@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.fragments.AccountSettingFragment;
+import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
 import com.xappie.fragments.MyProfileFragment;
@@ -118,7 +119,8 @@ public class DashBoardActivity extends BaseActivity {
                         break;
                     case R.id.gallery:
                         drawerLayout.closeDrawers();
-                        Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
+                        //Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
+                        Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, DashBoardActivity.this);
                         break;
                     case R.id.videos:
                         drawerLayout.closeDrawers();
