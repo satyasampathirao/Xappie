@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.fragments.AccountSettingFragment;
+import com.xappie.fragments.ClassifiedsFragment;
 import com.xappie.fragments.EntertainmentFragment;
 import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
@@ -135,6 +136,7 @@ public class DashBoardActivity extends BaseActivity {
                         break;
                     case R.id.classifieds:
                         drawerLayout.closeDrawers();
+                        Utility.navigateDashBoardFragment(new ClassifiedsFragment(), ClassifiedsFragment.TAG, null, DashBoardActivity.this);
                         break;
                     case R.id.jobs:
                         drawerLayout.closeDrawers();
@@ -293,6 +295,13 @@ public class DashBoardActivity extends BaseActivity {
                             break;
                         case 5:
                             Utility.navigateDashBoardFragment(new VideosFragment(), VideosFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            Utility.navigateDashBoardFragment(new ClassifiedsFragment(), ClassifiedsFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 8:
                             break;
 
                     }

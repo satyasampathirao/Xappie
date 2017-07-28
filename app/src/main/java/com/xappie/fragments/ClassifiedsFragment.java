@@ -1,6 +1,5 @@
 package com.xappie.fragments;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -9,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.VideosGridAdapter;
-import com.xappie.models.ActressModel;
+import com.xappie.adapters.ClassifiedsAdapter;
+import com.xappie.models.ClassifiedsModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -25,11 +23,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Shankar 26/07/2017
+ * Created by Shankar on 7/28/2017.
  */
-public class VideosFragment extends Fragment {
 
-    public static final String TAG = VideosFragment.class.getSimpleName();
+public class ClassifiedsFragment extends Fragment {
+
+    public static final String TAG = ClassifiedsFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
 
@@ -53,8 +52,6 @@ public class VideosFragment extends Fragment {
     /**
      * Gallery Actress setup
      */
-    @BindView(R.id.ll_languages)
-    LinearLayout ll_languages;
     @BindView(R.id.grid_view)
     GridView grid_view;
 
@@ -70,7 +67,7 @@ public class VideosFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
             appBarLayout.setVisibility(View.GONE);
-        View rootView = inflater.inflate(R.layout.fragment_videos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_classifieds, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -90,32 +87,14 @@ public class VideosFragment extends Fragment {
         tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.videos));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.classifieds));
         tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
         tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
-        setLanguages();
         setGridViewData();
-    }
-
-    /*This method is used to set the grid view data*/
-    private void setGridViewData() {
-        VideosGridAdapter videosGridAdapter = new VideosGridAdapter(mParent, getActressData());
-        grid_view.setAdapter(videosGridAdapter);
-    }
-
-    private ArrayList<ActressModel> getActressData() {
-        ArrayList<ActressModel> actressModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            ActressModel actressModel = new ActressModel();
-            actressModel.setId(R.drawable.video_hint);
-            actressModel.setTitle("Kajal");
-            actressModels.add(actressModel);
-        }
-        return actressModels;
     }
 
     /**
@@ -127,34 +106,20 @@ public class VideosFragment extends Fragment {
         mParent.onBackPressed();
     }
 
-    /*This method is used to set the languages*/
-    private void setLanguages() {
-        ll_languages.removeAllViews();
-        for (int i = 0; i < getLanguagesData().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
-            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
-            View view = (View) ll.findViewById(R.id.view);
-            tv_language_name.setText(getLanguagesData().get(i));
-            tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
-                view.setVisibility(View.VISIBLE);
-                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
-                view.setBackgroundColor(Utility.getColor(mParent, R.color.white));
-            } else {
-                view.setVisibility(View.GONE);
-            }
-            ll_languages.addView(ll);
+    /*This method is used to set the grid view data*/
+    private void setGridViewData() {
+        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent, getActressData());
+        grid_view.setAdapter(classifiedsAdapter);
+    }
+
+    private ArrayList<ClassifiedsModel> getActressData() {
+        ArrayList<ClassifiedsModel> classifiedsModels = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            ClassifiedsModel classifiedsModel = new ClassifiedsModel();
+            classifiedsModel.setId(R.drawable.classifieds);
+            classifiedsModel.setTitle("Auto Mobiles");
+            classifiedsModels.add(classifiedsModel);
         }
+        return classifiedsModels;
     }
-
-    private ArrayList<String> getLanguagesData() {
-        ArrayList<String> mLanguagesData = new ArrayList<>();
-        mLanguagesData.add("HINDI");
-        mLanguagesData.add("ENGLISH");
-        mLanguagesData.add("TELUGU");
-        mLanguagesData.add("TAMIL");
-        return mLanguagesData;
-    }
-
 }
