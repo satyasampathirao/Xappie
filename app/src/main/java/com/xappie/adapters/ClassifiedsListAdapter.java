@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.fragments.ClassifiedsDetailFragment;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.utils.Utility;
 
@@ -77,6 +78,13 @@ public class ClassifiedsListAdapter extends BaseAdapter {
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText("Lorem ipsum is simply dummy text of the printing and typesetting industry");
         mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.ravi_kiran).toUpperCase());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, null, mDashBoardActivity);
+            }
+        });
 
 
         return convertView;

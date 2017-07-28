@@ -8,10 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
@@ -24,9 +21,10 @@ import butterknife.ButterKnife;
 /**
  * Created by Shankar on 7/28/2017.
  */
-public class ClassifiedsPostFragment extends Fragment {
 
-    public static final String TAG = ClassifiedsPostFragment.class.getSimpleName();
+public class ClassifiedsDetailFragment extends Fragment {
+
+    public static final String TAG = ClassifiedsDetailFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
 
@@ -47,28 +45,21 @@ public class ClassifiedsPostFragment extends Fragment {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
+    @BindView(R.id.img_person)
+    ImageView img_person;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.tv_date)
+    TextView tv_date;
 
-    @BindView(R.id.tv_post)
-    TextView tv_post;
-    @BindView(R.id.edt_topic_title)
-    EditText edt_topic_title;
-    @BindView(R.id.edt_description)
-    EditText edt_description;
-
-
-    @BindView(R.id.rl_img_item)
-    RelativeLayout rl_img_item;
-    @BindView(R.id.img_selected)
-    ImageView img_selected;
-    @BindView(R.id.tv_delete_icon)
-    TextView tv_delete_icon;
-
-    @BindView(R.id.ll_browse)
-    LinearLayout ll_browse;
-    @BindView(R.id.tv_camera_icon)
-    TextView tv_camera_icon;
-    @BindView(R.id.tv_gallery_icon)
-    TextView tv_gallery_icon;
+    @BindView(R.id.tv_post_title)
+    TextView tv_post_title;
+    @BindView(R.id.tv_topic_details)
+    TextView tv_topic_details;
+    @BindView(R.id.tv_price)
+    TextView tv_price;
+    @BindView(R.id.img_uploaded)
+    ImageView img_uploaded;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +73,7 @@ public class ClassifiedsPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
             appBarLayout.setVisibility(View.GONE);
-        View rootView = inflater.inflate(R.layout.fragment_classifieds_post, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_classifieds_detail, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -109,14 +100,20 @@ public class ClassifiedsPostFragment extends Fragment {
         tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
-        tv_post.setTypeface(Utility.getOpenSansRegular(mParent));
-        edt_topic_title.setTypeface(Utility.getOpenSansRegular(mParent));
-        edt_description.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_name.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_date.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_post_title.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_topic_details.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_price.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_post_title.setText("Lorem ipsum is simply dummy text of the printing and typesetting");
+        tv_topic_details.setText("Lorem ipsum is simply dummy text of the printing and typesetting" +
+                "Lorem ipsum is simply dummy text of the printing and typesetting" +
+                "Lorem ipsum is simply dummy text of the printing and typesetting" +
+                "Lorem ipsum is simply dummy text of the printing and typesetting" +
+                "Lorem ipsum is simply dummy text of the printing and typesetting" +
+                "Lorem ipsum is simply dummy text of the printing and typesetting");
 
-        tv_delete_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_camera_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_gallery_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-
+        tv_price.setText("Price : $20,200");
     }
 
 }
