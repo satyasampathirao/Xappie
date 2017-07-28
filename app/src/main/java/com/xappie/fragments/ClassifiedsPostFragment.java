@@ -8,32 +8,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.ClassifiedsListAdapter;
-import com.xappie.models.EntertainmentModel;
 import com.xappie.utils.Utility;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
- * Created by Shankar Pilli on 07/28/2017
+ * A simple {@link Fragment} subclass.
  */
-public class ClassifiedsListFragment extends Fragment {
+public class ClassifiedsPostFragment extends Fragment {
 
-    public static final String TAG = ClassifiedsListFragment.class.getSimpleName();
+    public static final String TAG = ClassifiedsPostFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
 
     /**
-     * Classifieds Toolbar
+     * Gallery Toolbar
      */
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
@@ -49,11 +47,28 @@ public class ClassifiedsListFragment extends Fragment {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
-    /**
-     * Classifieds List set up
-     */
-    @BindView(R.id.list_view)
-    ListView list_view;
+
+    @BindView(R.id.tv_post)
+    TextView tv_post;
+    @BindView(R.id.edt_topic_title)
+    EditText edt_topic_title;
+    @BindView(R.id.edt_description)
+    EditText edt_description;
+
+
+    @BindView(R.id.rl_img_item)
+    RelativeLayout rl_img_item;
+    @BindView(R.id.img_selected)
+    ImageView img_selected;
+    @BindView(R.id.tv_delete_icon)
+    TextView tv_delete_icon;
+
+    @BindView(R.id.ll_browse)
+    LinearLayout ll_browse;
+    @BindView(R.id.tv_camera_icon)
+    TextView tv_camera_icon;
+    @BindView(R.id.tv_gallery_icon)
+    TextView tv_gallery_icon;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +82,7 @@ public class ClassifiedsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
             appBarLayout.setVisibility(View.GONE);
-        View rootView = inflater.inflate(R.layout.fragment_classifieds_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_classifieds_post, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -94,42 +109,14 @@ public class ClassifiedsListFragment extends Fragment {
         tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
-        setGridViewData();
-    }
+        tv_post.setTypeface(Utility.getOpenSansRegular(mParent));
+        edt_topic_title.setTypeface(Utility.getOpenSansRegular(mParent));
+        edt_description.setTypeface(Utility.getOpenSansRegular(mParent));
 
-    /*This method is used to set the lsit view data*/
-    private void setGridViewData() {
-        ClassifiedsListAdapter classifiedsListAdapter = new ClassifiedsListAdapter(mParent, getEntertainData());
-        list_view.setAdapter(classifiedsListAdapter);
-    }
+        tv_delete_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_camera_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_gallery_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
-    private ArrayList<EntertainmentModel> getEntertainData() {
-        ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            EntertainmentModel entertainmentModel = new EntertainmentModel();
-            entertainmentModel.setId(R.drawable.video_hint);
-            entertainmentModel.setTitle("Rarandoi");
-            entertainmentModels.add(entertainmentModel);
-        }
-        return entertainmentModels;
-    }
-
-    /**
-     * This method is used for back from the fragment
-     */
-    @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_notification_menu_icon})
-    void backToTheHome() {
-        mParent.onBackPressed();
-    }
-
-    /**
-     * This method is used navigate post
-     */
-    @OnClick(R.id.fab)
-    void navigateToPost() {
-        Utility.navigateDashBoardFragment(new ClassifiedsPostFragment(), ClassifiedsPostFragment.TAG, null, mParent);
     }
 
 }
-

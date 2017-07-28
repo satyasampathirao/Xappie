@@ -130,7 +130,13 @@
     <string name="more_topics">MORE TOPICS</string>
     <string name="actress">Actress</string>
     <string name="posted_by">Posted By</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="post">POST</string>
     <string name="next_icon">&#xE409;</string>
     <string name="share_icon">&#xf045;</string>
+    <string name="delete_icon">&#xE16C;</string>
+    <string name="camera_icon">&#xE412;</string>
+    <string name="gallery_icon">&#xE3F4;</string>
 
 </resources>
