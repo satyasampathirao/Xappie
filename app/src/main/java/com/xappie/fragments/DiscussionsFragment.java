@@ -1,5 +1,6 @@
 package com.xappie.fragments;
 
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -12,8 +13,8 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.ClassifiedsAdapter;
-import com.xappie.models.ClassifiedsModel;
+import com.xappie.adapters.DiscussionsAdapter;
+import com.xappie.models.DiscussionsModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -25,15 +26,14 @@ import butterknife.OnClick;
 /**
  * Created by Shankar on 7/28/2017.
  */
+public class DiscussionsFragment extends Fragment {
 
-public class ClassifiedsFragment extends Fragment {
-
-    public static final String TAG = ClassifiedsFragment.class.getSimpleName();
+    public static final String TAG = DiscussionsFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
 
     /**
-     * Gallery Toolbar
+     * Discussions Discussions
      */
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
@@ -50,10 +50,11 @@ public class ClassifiedsFragment extends Fragment {
     TextView tv_language_icon;
 
     /**
-     * Gallery Classifieds setup
+     * Gallery Discussions setup
      */
     @BindView(R.id.grid_view)
     GridView grid_view;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class ClassifiedsFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (appBarLayout != null)
             appBarLayout.setVisibility(View.GONE);
-        View rootView = inflater.inflate(R.layout.fragment_classifieds, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_discussions, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -87,7 +88,7 @@ public class ClassifiedsFragment extends Fragment {
         tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.classifieds));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.discussions));
         tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
         tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
@@ -110,19 +111,19 @@ public class ClassifiedsFragment extends Fragment {
      * This method is used to set the grid view data
      */
     private void setGridViewData() {
-        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent, getClassifiedsData());
-        grid_view.setAdapter(classifiedsAdapter);
+        DiscussionsAdapter discussionsAdapter = new DiscussionsAdapter(mParent, getDiscussionsData());
+        grid_view.setAdapter(discussionsAdapter);
     }
 
-    private ArrayList<ClassifiedsModel> getClassifiedsData() {
-        ArrayList<ClassifiedsModel> classifiedsModels = new ArrayList<>();
+    private ArrayList<DiscussionsModel> getDiscussionsData() {
+        ArrayList<DiscussionsModel> discussionsModels = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
-            ClassifiedsModel classifiedsModel = new ClassifiedsModel();
-            classifiedsModel.setId(R.drawable.classifieds);
-            classifiedsModel.setTitle("Auto Mobiles");
-            classifiedsModels.add(classifiedsModel);
+            DiscussionsModel discussionsModel = new DiscussionsModel();
+            //discussionsModel.setId(R.drawable.classifieds);
+            discussionsModel.setName("Doctors");
+            discussionsModels.add(discussionsModel);
         }
-        return classifiedsModels;
+        return discussionsModels;
     }
 
 }

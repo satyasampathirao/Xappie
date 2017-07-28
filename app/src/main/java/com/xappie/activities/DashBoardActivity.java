@@ -22,11 +22,11 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.fragments.AccountSettingFragment;
 import com.xappie.fragments.ClassifiedsFragment;
+import com.xappie.fragments.DiscussionsFragment;
 import com.xappie.fragments.EntertainmentFragment;
 import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
-import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
 import com.xappie.fragments.TopStoriesFragment;
 import com.xappie.fragments.VideosFragment;
@@ -112,7 +112,7 @@ public class DashBoardActivity extends BaseActivity {
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.discussions:
-
+                        Utility.navigateDashBoardFragment(new DiscussionsFragment(), DiscussionsFragment.TAG, null, DashBoardActivity.this);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.entertainment:
@@ -282,7 +282,7 @@ public class DashBoardActivity extends BaseActivity {
 
                             break;
                         case 1:
-
+                            Utility.navigateDashBoardFragment(new DiscussionsFragment(), DiscussionsFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 2:
                             Utility.navigateDashBoardFragment(new EntertainmentFragment(), EntertainmentFragment.TAG, null, DashBoardActivity.this);
