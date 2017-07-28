@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.fragments.ClassifiedsFragment;
+import com.xappie.fragments.ClassifiedsListFragment;
 import com.xappie.models.ClassifiedsModel;
 import com.xappie.utils.Utility;
 
@@ -67,6 +69,13 @@ public class ClassifiedsAdapter extends BaseAdapter {
 
         ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
         mClassifiedsGridHolder.tv_title.setText(classifiedsModel.getTitle());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.navigateDashBoardFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mDashBoardActivity);
+            }
+        });
 
         return convertView;
     }
