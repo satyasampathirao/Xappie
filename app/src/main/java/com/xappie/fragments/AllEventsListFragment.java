@@ -11,15 +11,13 @@ import android.view.ViewGroup;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.ClassifiedsListAdapter;
+import com.xappie.adapters.AllEventsListAdapter;
 import com.xappie.models.EntertainmentModel;
-import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by Shankar Pilli on 07/28/2017
@@ -61,8 +59,8 @@ public class AllEventsListFragment extends Fragment {
 
     /*This method is used to set the lsit view data*/
     private void setGridViewData() {
-        ClassifiedsListAdapter classifiedsListAdapter = new ClassifiedsListAdapter(mParent, getEntertainData());
-        listView.setAdapter(classifiedsListAdapter);
+        AllEventsListAdapter allEventsListAdapter = new AllEventsListAdapter(mParent, getEntertainData());
+        listView.setAdapter(allEventsListAdapter);
     }
 
     private ArrayList<EntertainmentModel> getEntertainData() {

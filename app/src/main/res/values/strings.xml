@@ -133,6 +133,7 @@
     <string name="posted_by">Posted By</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="location">Location</string>
     <string name="post">POST</string>
     <string name="next_icon">&#xE409;</string>
     <string name="share_icon">&#xf045;</string>
