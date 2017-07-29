@@ -1,0 +1,141 @@
+package com.xappie.fragments;
+
+
+import android.graphics.Typeface;/**
+ * Created by Shankar on 7/28/2017.
+ */
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.xappie.R;
+import com.xappie.activities.DashBoardActivity;
+import com.xappie.utils.Utility;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+
+public class EventsFragment extends Fragment {
+
+    public static final String TAG = EventsFragment.class.getSimpleName();
+    private DashBoardActivity mParent;
+    private AppBarLayout appBarLayout;
+
+    /**
+     * Events Toolbar
+     */
+    @BindView(R.id.tv_notification_arrow_back_icon)
+    TextView tv_notification_arrow_back_icon;
+    @BindView(R.id.tv_notification_menu_icon)
+    TextView tv_notification_menu_icon;
+
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+    @BindView(R.id.tv_location_icon)
+    TextView tv_location_icon;
+    @BindView(R.id.tv_notifications_icon)
+    TextView tv_notifications_icon;
+    @BindView(R.id.tv_language_icon)
+    TextView tv_language_icon;
+
+    @BindView(R.id.tv_all_events)
+    TextView tv_all_events;
+    @BindView(R.id.tv_add_new_event)
+    TextView tv_add_new_event;
+    @BindView(R.id.tv_my_events)
+    TextView tv_my_events;
+
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceMaterialIconsRegular;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (DashBoardActivity) getActivity();
+        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        if (appBarLayout != null)
+            appBarLayout.setVisibility(View.GONE);
+        View rootView = inflater.inflate(R.layout.fragment_events, container, false);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    /**
+     * This method is used for back from the fragment
+     */
+    @OnClick({R.id.tv_notification_arrow_back_icon,
+            R.id.tv_notification_menu_icon})
+    void backToTheHome() {
+        mParent.onBackPressed();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initUI();
+    }
+
+    private void initUI() {
+        setTypeFace();
+    }
+
+    private void setTypeFace() {
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceMaterialIconsRegular = Utility.getMaterialIconsRegular(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceMaterialIconsRegular);
+        tv_notification_menu_icon.setTypeface(mTypefaceMaterialIconsRegular);
+
+        tv_title.setVisibility(View.VISIBLE);
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.events).toUpperCase());
+        tv_title.setTypeface(mTypefaceOpenSansRegular);
+
+        tv_location_icon.setTypeface(mTypefaceMaterialIconsRegular);
+        tv_notifications_icon.setTypeface(mTypefaceMaterialIconsRegular);
+        tv_language_icon.setTypeface(mTypefaceMaterialIconsRegular);
+
+        tv_my_events.setTypeface(mTypefaceOpenSansRegular);
+        tv_add_new_event.setTypeface(mTypefaceOpenSansRegular);
+        tv_all_events.setTypeface(mTypefaceOpenSansRegular);
+
+        Utility.navigateAllEventsFragment(new AllEventsListFragment(), AllEventsListFragment.TAG, null, mParent);
+
+    }
+
+    /**
+     * This method is used to navigate all events fragment
+     */
+    @OnClick(R.id.tv_all_events)
+    void navigateAllEvents() {
+        Utility.navigateAllEventsFragment(new AllEventsListFragment(), AllEventsListFragment.TAG, null, mParent);
+    }
+
+    /**
+     * This method is used to navigate all events fragment
+     */
+    @OnClick(R.id.tv_add_new_event)
+    void navigateAddNewEvents() {
+        Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
+    }
+
+    /**
+     * This method is used to navigate all events fragment
+     */
+    @OnClick(R.id.tv_my_events)
+    void navigateMyEvents() {
+        Utility.navigateAllEventsFragment(new AllMyEventsFragment(), AllMyEventsFragment.TAG, null, mParent);
+    }
+
+}

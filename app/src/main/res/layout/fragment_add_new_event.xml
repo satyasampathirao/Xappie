@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/add_new_event_gray"
+    android:orientation="vertical"
+    android:padding="@dimen/_5dp">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_about_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/about_event"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_name_of_the_event"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:background="@drawable/white_corners"
+                android:hint="@string/name_of_the_event"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingStart="@dimen/_10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/_15sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

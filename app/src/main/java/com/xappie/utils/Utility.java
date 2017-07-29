@@ -29,6 +29,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.xappie.R;
+import com.xappie.fragments.AllEventsListFragment;
 
 /**
  * Created by Shankar on 6/29/2017.
@@ -286,6 +287,24 @@ public class Utility {
         }
         fragmentTransaction.replace(R.id.content_frame, fragment, tag);
         fragmentTransaction.addToBackStack(tag);
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * This method is used to navigate or replace fragment
+     */
+    public static void navigateAllEventsFragment(Fragment fragment,
+                                                 String tag, Bundle bundle, FragmentActivity fragmentActivity) {
+        FragmentManager fragmentManager = fragmentActivity
+                .getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+        fragmentTransaction.replace(R.id.content_frame_events, fragment, tag);
+        if (!tag.equalsIgnoreCase(AllEventsListFragment.TAG))
+            fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
     }
 

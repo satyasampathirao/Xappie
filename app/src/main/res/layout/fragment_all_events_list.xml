@@ -12,19 +12,6 @@
         android:layout_margin="@dimen/_16dp"
         android:src="@drawable/ic_add" />
 
-    <LinearLayout
-        android:id="@+id/ll_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/calssifieds_top"
-        android:orientation="vertical">
-
-        <include
-            android:id="@+id/tool_bar_gallery"
-            layout="@layout/gallery_toolbar" />
-
-    </LinearLayout>
-
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"

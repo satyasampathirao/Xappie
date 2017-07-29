@@ -95,7 +95,8 @@
     <string name="reset_password">Reset Password</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about_event">About Event</string>
+    <string name="name_of_the_event">Name of the Event*</string>
 
     <!-- Notification Screen Items -->
 
@@ -138,5 +139,12 @@
     <string name="delete_icon">&#xE16C;</string>
     <string name="camera_icon">&#xE412;</string>
     <string name="gallery_icon">&#xE3F4;</string>
+
+    <string name="all_events">ALL EVENTS</string>
+    <string name="add_new_event">ADD NEW EVENT</string>
+    <string name="my_events">MY EVENTS</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

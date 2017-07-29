@@ -31,5 +31,6 @@
     <color name="twenty_percent_black">#33000000</color>
     <color name="gallery_header_color">#383838</color>
     <color name="background_gray">#EAEAEA</color>
+    <color name="add_new_event_gray">#F0F0F0</color>
 
 </resources>
