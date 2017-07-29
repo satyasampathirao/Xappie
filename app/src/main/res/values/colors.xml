@@ -27,6 +27,7 @@
     <color name="color_white">#FFFFFF</color>
 
     <color name="title_color">#8a1131</color>
+    <color name="text_upload_color">#871431</color>
     <color name="more_color">#f54955</color>
     <color name="twenty_percent_black">#33000000</color>
     <color name="gallery_header_color">#383838</color>

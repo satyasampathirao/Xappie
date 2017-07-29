@@ -32,8 +32,8 @@ public class AllEventsListFragment extends Fragment {
     /**
      * AllEvents List set up
      */
-    @BindView(R.id.list_view)
-    SwipeMenuListView list_view;
+    @BindView(R.id.listView)
+    SwipeMenuListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class AllEventsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_all_events_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_all_my_events, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -62,7 +62,7 @@ public class AllEventsListFragment extends Fragment {
     /*This method is used to set the lsit view data*/
     private void setGridViewData() {
         ClassifiedsListAdapter classifiedsListAdapter = new ClassifiedsListAdapter(mParent, getEntertainData());
-        list_view.setAdapter(classifiedsListAdapter);
+        listView.setAdapter(classifiedsListAdapter);
     }
 
     private ArrayList<EntertainmentModel> getEntertainData() {
@@ -74,15 +74,6 @@ public class AllEventsListFragment extends Fragment {
             entertainmentModels.add(entertainmentModel);
         }
         return entertainmentModels;
-    }
-
-
-    /**
-     * This method is used navigate post
-     */
-    @OnClick(R.id.fab)
-    void navigateToPost() {
-        Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
     }
 
 }
