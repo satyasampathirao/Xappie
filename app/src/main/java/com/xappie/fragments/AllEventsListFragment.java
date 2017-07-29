@@ -7,17 +7,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.AllEventsListAdapter;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Shankar Pilli on 07/28/2017
@@ -30,8 +33,8 @@ public class AllEventsListFragment extends Fragment {
     /**
      * AllEvents List set up
      */
-    @BindView(R.id.listView)
-    SwipeMenuListView listView;
+    @BindView(R.id.list_view)
+    ListView list_view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class AllEventsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_all_my_events, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_all_events_list, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -60,7 +63,7 @@ public class AllEventsListFragment extends Fragment {
     /*This method is used to set the lsit view data*/
     private void setGridViewData() {
         AllEventsListAdapter allEventsListAdapter = new AllEventsListAdapter(mParent, getEntertainData());
-        listView.setAdapter(allEventsListAdapter);
+        list_view.setAdapter(allEventsListAdapter);
     }
 
     private ArrayList<EntertainmentModel> getEntertainData() {
@@ -72,6 +75,14 @@ public class AllEventsListFragment extends Fragment {
             entertainmentModels.add(entertainmentModel);
         }
         return entertainmentModels;
+    }
+
+    /**
+     * This method is used navigate post
+     */
+    @OnClick(R.id.fab)
+    void navigateToPost() {
+        Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
     }
 
 }
