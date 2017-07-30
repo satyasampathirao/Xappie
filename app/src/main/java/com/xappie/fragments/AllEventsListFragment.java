@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * Created by Shankar Pilli on 07/28/2017
@@ -85,5 +86,9 @@ public class AllEventsListFragment extends Fragment {
         Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
     }
 
+    /*@OnItemClick(R.id.list_view)
+    void onItemClick(int position) {
+        Utility.navigateAllEventsFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null, mParent);
+    }*/
 }
 

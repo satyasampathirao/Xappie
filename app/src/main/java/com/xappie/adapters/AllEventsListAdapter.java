@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.ClassifiedsDetailFragment;
+import com.xappie.fragments.EventDetailViewFragment;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.utils.Utility;
 
@@ -80,7 +81,7 @@ public class AllEventsListAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, null, mDashBoardActivity);
+                Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null, mDashBoardActivity);
             }
         });
 

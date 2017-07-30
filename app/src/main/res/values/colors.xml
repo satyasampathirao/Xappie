@@ -33,5 +33,8 @@
     <color name="gallery_header_color">#383838</color>
     <color name="background_gray">#EAEAEA</color>
     <color name="add_new_event_gray">#F0F0F0</color>
+    <color name="event_name_bg">#F4F4F4</color>
+    <color name="event_total_cost_bg">#6c1027</color>
+    <color name="event_tag_line_bg">#985868</color>
 
 </resources>
