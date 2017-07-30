@@ -4,12 +4,14 @@ package com.xappie.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +31,8 @@ public class NotificationsSettingsFragment extends Fragment {
     public static final String TAG = NotificationsSettingsFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
+    private FrameLayout mFrameLayout;
+    private CoordinatorLayout.LayoutParams mParams;
 
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
@@ -91,25 +95,23 @@ public class NotificationsSettingsFragment extends Fragment {
     @BindView(R.id.switch_button_top_stories)
     SwitchCompat sw_button_top_stories;
 
-
-
-
-
-    public NotificationsSettingsFragment() {
-        // Required empty public constructor
-    }
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
+        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
+        mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
+        mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (appBarLayout != null)
+        if (appBarLayout != null) {
+            mParams.setBehavior(null);
+            mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
+        }
         View rootView = inflater.inflate(R.layout.fragment_notifications_settings, container, false);
         ButterKnife.bind(this, rootView);
         initUI();
@@ -134,15 +136,13 @@ public class NotificationsSettingsFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_notification_arrow_back_icon)
-    public void navigateBack()
-    {
+    public void navigateBack() {
         mParent.onBackPressed();
     }
 
     @OnClick(R.id.b_notification_settings_update)
-    public void navigateHome()
-    {
-        Intent dashBoardintent = new Intent(getActivity(),DashBoardActivity.class);
+    public void navigateHome() {
+        Intent dashBoardintent = new Intent(getActivity(), DashBoardActivity.class);
         startActivity(dashBoardintent);
     }
 }
