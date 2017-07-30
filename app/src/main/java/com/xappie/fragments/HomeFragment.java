@@ -4,12 +4,14 @@ package com.xappie.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,7 +40,9 @@ public class HomeFragment extends Fragment {
     private DashBoardActivity mParent;
     private Toolbar mToolbar;
     private AppBarLayout appBarLayout;
+    private FrameLayout mFrameLayout;
     private View rootView;
+    private CoordinatorLayout.LayoutParams mParams;
 
     @BindView(R.id.card_pager)
     ViewPager card_pager;
@@ -174,14 +178,18 @@ public class HomeFragment extends Fragment {
         mParent = (DashBoardActivity) getActivity();
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
+        mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
+        mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (appBarLayout != null)
+        if (appBarLayout != null) {
             appBarLayout.setVisibility(View.VISIBLE);
+            mParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        }
         if (rootView != null) {
             return rootView;
         }
