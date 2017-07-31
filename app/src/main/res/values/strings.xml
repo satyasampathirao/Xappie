@@ -164,5 +164,8 @@
     <string name="restrictions">Restrictions</string>
     <string name="event_tag_line_text_comes_here">Event tag line text comes here</string>
     <string name="total_cost">Total cost</string>
+    <string name="who_is_going">Who is Going</string>
+    <string name="may_be">May be</string>
+    <string name="i_am_going">I\'m Going</string>
 
 </resources>

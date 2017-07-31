@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -65,6 +66,16 @@ public class EventDetailViewFragment extends Fragment {
     TextView tv_event_tag_line_text_comes_here;
     @BindView(R.id.tv_total_cost)
     TextView tv_total_cost;
+    @BindView(R.id.tv_details)
+    TextView tv_details;
+
+
+    @BindView(R.id.btn_i_am_going)
+    Button btn_i_am_going;
+    @BindView(R.id.btn_may_be)
+    Button btn_may_be;
+    @BindView(R.id.btn_who_is_going)
+    Button btn_who_is_going;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,5 +131,10 @@ public class EventDetailViewFragment extends Fragment {
 
         tv_event_tag_line_text_comes_here.setTypeface(Utility.getOpenSansBold(mParent));
         tv_total_cost.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_details.setTypeface(Utility.getOpenSansRegular(mParent));
+
+        btn_who_is_going.setTypeface(Utility.getOpenSansRegular(mParent));
+        btn_may_be.setTypeface(Utility.getOpenSansRegular(mParent));
+        btn_i_am_going.setTypeface(Utility.getOpenSansRegular(mParent));
     }
 }

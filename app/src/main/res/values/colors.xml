@@ -36,5 +36,9 @@
     <color name="event_name_bg">#F4F4F4</color>
     <color name="event_total_cost_bg">#6c1027</color>
     <color name="event_tag_line_bg">#985868</color>
+    <color name="event_data_bg">#ffdce3</color>
+    <color name="event_who_is_going_bg">#b9373f</color>
+    <color name="event_im_going_bg">#8a4152</color>
+    <color name="event_who_is_going_text_bg">#c75f66</color>
 
 </resources>

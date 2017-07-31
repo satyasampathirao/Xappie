@@ -144,7 +144,80 @@
                 android:paddingTop="@dimen/_10dp"
                 android:text="@string/total_cost"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_18sp"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/event_data_bg"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/_10dp"
+                    android:paddingTop="@dimen/_10dp"
+                    android:text="@string/where_is_the_event_taking_place"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60dp"
+                android:background="@color/event_total_cost_bg"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_i_am_going"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30dp"
+                    android:background="@color/event_im_going_bg"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:paddingStart="@dimen/_30dp"
+                    android:text="@string/i_am_going"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_18sp" />
+
+                <Button
+                    android:id="@+id/btn_may_be"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:background="@color/event_im_going_bg"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:paddingStart="@dimen/_30dp"
+                    android:text="@string/may_be"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60dp"
+                android:background="@color/event_who_is_going_bg"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_who_is_going"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30dp"
+                    android:background="@color/event_who_is_going_text_bg"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_30dp"
+                    android:paddingStart="@dimen/_30dp"
+                    android:text="@string/who_is_going"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_18sp" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
