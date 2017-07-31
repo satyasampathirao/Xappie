@@ -68,6 +68,8 @@ public class EventDetailViewFragment extends Fragment {
     TextView tv_total_cost;
     @BindView(R.id.tv_details)
     TextView tv_details;
+    @BindView(R.id.tv_a_weekly_desi)
+    TextView tv_a_weekly_desi;
 
 
     @BindView(R.id.btn_i_am_going)
@@ -132,6 +134,7 @@ public class EventDetailViewFragment extends Fragment {
         tv_event_tag_line_text_comes_here.setTypeface(Utility.getOpenSansBold(mParent));
         tv_total_cost.setTypeface(Utility.getOpenSansRegular(mParent));
         tv_details.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_a_weekly_desi.setTypeface(Utility.getOpenSansRegular(mParent));
 
         btn_who_is_going.setTypeface(Utility.getOpenSansRegular(mParent));
         btn_may_be.setTypeface(Utility.getOpenSansRegular(mParent));
