@@ -1,7 +1,6 @@
 package com.xappie.fragments;
 
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -10,31 +9,36 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.adapters.EventGoingGridAdapter;
+import com.xappie.models.EventGoingModel;
 import com.xappie.utils.Utility;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
- * Created by Shankar on 7/28/2017.
+ * A simple {@link Fragment} subclass.
  */
-public class EventDetailViewFragment extends Fragment {
+public class EventsGoingMaybeGoingFragment extends Fragment {
 
-    public static final String TAG = EventDetailViewFragment.class.getSimpleName();
+    public static final String TAG = EventsGoingMaybeGoingFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
+
     /**
-     * Event Detail
+     * Going Toolbar
      */
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
@@ -50,35 +54,14 @@ public class EventDetailViewFragment extends Fragment {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
-    @BindView(R.id.tv_event_name)
-    TextView tv_event_name;
-    @BindView(R.id.tv_date_time)
-    TextView tv_date_time;
-    @BindView(R.id.tv_dress_code)
-    TextView tv_dress_code;
-    @BindView(R.id.tv_dress_code_value)
-    TextView tv_dress_code_value;
-    @BindView(R.id.tv_restrictions)
-    TextView tv_restrictions;
-    @BindView(R.id.tv_address)
-    TextView tv_address;
 
-    @BindView(R.id.tv_event_tag_line_text_comes_here)
-    TextView tv_event_tag_line_text_comes_here;
-    @BindView(R.id.tv_total_cost)
-    TextView tv_total_cost;
-    @BindView(R.id.tv_details)
-    TextView tv_details;
-    @BindView(R.id.tv_a_weekly_desi)
-    TextView tv_a_weekly_desi;
-
-
-    @BindView(R.id.btn_i_am_going)
-    Button btn_i_am_going;
-    @BindView(R.id.btn_may_be)
-    Button btn_may_be;
-    @BindView(R.id.btn_who_is_going)
-    Button btn_who_is_going;
+    /**
+     * Going setup
+     */
+    @BindView(R.id.ll_languages)
+    LinearLayout ll_languages;
+    @BindView(R.id.grid_view)
+    GridView grid_view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,7 +80,7 @@ public class EventDetailViewFragment extends Fragment {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_event_detail_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_events_going_maybe_going, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -117,35 +100,60 @@ public class EventDetailViewFragment extends Fragment {
         tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.events));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.actress));
         tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
         tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
-        tv_event_name.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_date_time.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_dress_code.setPaintFlags(tv_dress_code.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv_dress_code.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_dress_code_value.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_restrictions.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_address.setTypeface(Utility.getOpenSansBold(mParent));
-
-        tv_event_tag_line_text_comes_here.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_total_cost.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_details.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_a_weekly_desi.setTypeface(Utility.getOpenSansRegular(mParent));
-
-        btn_who_is_going.setTypeface(Utility.getOpenSansRegular(mParent));
-        btn_may_be.setTypeface(Utility.getOpenSansRegular(mParent));
-        btn_i_am_going.setTypeface(Utility.getOpenSansRegular(mParent));
+        setGoing();
+        setGridViewData();
     }
 
-    /*This method is used to navigate event detail view*/
-    @OnClick(R.id.btn_who_is_going)
-    void whoIsGoing() {
-        Utility.navigateDashBoardFragment(new EventsGoingMaybeGoingFragment(), EventsGoingMaybeGoingFragment.TAG, null, mParent);
+    /*This method is used to set the grid view data*/
+    private void setGridViewData() {
+        EventGoingGridAdapter actressGridAdapter = new EventGoingGridAdapter(mParent, getWhoIsGoingData());
+        grid_view.setAdapter(actressGridAdapter);
+    }
+
+    private ArrayList<EventGoingModel> getWhoIsGoingData() {
+        ArrayList<EventGoingModel> eventGoingModels = new ArrayList<>();
+        for (int i = 0; i < 24; i++) {
+            EventGoingModel eventGoingModel = new EventGoingModel();
+            eventGoingModel.setId(R.drawable.video_hint);
+            eventGoingModel.setName("Kajal");
+            eventGoingModels.add(eventGoingModel);
+        }
+        return eventGoingModels;
+    }
+
+    /*This method is used to set the languages*/
+    private void setGoing() {
+        ll_languages.removeAllViews();
+        for (int i = 0; i < getGoingData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(getGoingData().get(i));
+            tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
+                view.setBackgroundColor(Utility.getColor(mParent, R.color.white));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages.addView(ll);
+        }
+    }
+
+    private ArrayList<String> getGoingData() {
+        ArrayList<String> mLanguagesData = new ArrayList<>();
+        mLanguagesData.add("GOING(58)");
+        mLanguagesData.add("MAYBE GOING(16)");
+        return mLanguagesData;
     }
 
 }
