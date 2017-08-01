@@ -7,54 +7,55 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.GalleryDetailImageAdapter;
+import com.xappie.adapters.CountriesListAdapter;
+import com.xappie.models.CountriesListModel;
 import com.xappie.utils.Utility;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Shankar 26/07/2017
+ * A simple {@link Fragment} subclass.
  */
-public class GalleryImageViewFragment extends Fragment {
+public class CountriesFragment extends Fragment {
+    public static final String TAG = CountriesFragment.class.getSimpleName();
 
-    public static final String TAG = GalleryImageViewFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    /**
-     * Gallery Toolbar
-     */
-    @BindView(R.id.tv_notification_arrow_back_icon)
-    TextView tv_notification_arrow_back_icon;
-    @BindView(R.id.tv_title_from)
-    TextView tv_title_from;
-
-    @BindView(R.id.tv_page_no)
-    TextView tv_page_no;
-    @BindView(R.id.tv_share_icon)
-    TextView tv_share_icon;
-
-    @BindView(R.id.gallery_images_view_pager)
-    protected ViewPager gallery_images_view_pager;
-
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
 
-    private GalleryDetailImageAdapter galleryDetailImageAdapter;
+    @BindView(R.id.tv_countries_arrow_back_icon)
+    TextView tv_countries_arrow_back_icon;
+    @BindView(R.id.tv_countries_menu_icon)
+    TextView tv_countries_menu_icon;
+    @BindView(R.id.tv_countries)
+    TextView tv_countries;
+    @BindView(R.id.tv_notifications_icon)
+    TextView tv_notification_icon;
+    @BindView(R.id.tv_language_icon)
+    TextView tv_language_icon;
+    @BindView(R.id.tv_select_country)
+    TextView tv_select_country;
+
+    @BindView(R.id.country_list_view)
+    ListView country_list_item;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,12 @@ public class GalleryImageViewFragment extends Fragment {
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
+
+    public CountriesFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,43 +80,53 @@ public class GalleryImageViewFragment extends Fragment {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_gallery_image_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_countries, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
-
     private void initUI() {
+
         setTypeFace();
-    }
 
-    /**
-     * This method is used for back from the fragment
-     */
-    @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_title_from})
-    void backToView() {
-        mParent.onBackPressed();
     }
-
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_title_from.setTypeface(mTypefaceOpenSansRegular);
+        tv_countries.setTypeface(mTypefaceOpenSansRegular);
+        tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_select_country.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_page_no.setTypeface(mTypefaceOpenSansRegular);
-        tv_share_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-
-        galleryDetailImageAdapter = new GalleryDetailImageAdapter(mParent);
-        gallery_images_view_pager.setAdapter(galleryDetailImageAdapter);
+        country_list_item.setAdapter(new CountriesListAdapter(mParent,getSampleData()));
     }
+    private ArrayList<CountriesListModel> getSampleData() {
+
+        ArrayList<CountriesListModel> countriesListModels = new ArrayList<>();
+
+        for (int i = 0; i < 15; i++) {
+            CountriesListModel countriesListModel =  new CountriesListModel();
+           countriesListModel.setId(R.drawable.video_hint);
+            countriesListModel.setTitle("INDIA");
+            countriesListModels.add(countriesListModel);
+
+        }
+        return countriesListModels;
+    }
+
+    @OnClick(R.id.tv_countries_arrow_back_icon)
+    public void navigateToBack()
+    {
+        mParent.onBackPressed();
+    }
+
 
 
 }

@@ -59,7 +59,7 @@ public class EventsFragment extends Fragment {
     TextView tv_my_events;
 
     private Typeface mTypefaceOpenSansRegular;
-    private Typeface mTypefaceMaterialIconsRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,18 +104,18 @@ public class EventsFragment extends Fragment {
 
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
-        mTypefaceMaterialIconsRegular = Utility.getMaterialIconsRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_notification_arrow_back_icon.setTypeface(mTypefaceMaterialIconsRegular);
-        tv_notification_menu_icon.setTypeface(mTypefaceMaterialIconsRegular);
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.events).toUpperCase());
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_location_icon.setTypeface(mTypefaceMaterialIconsRegular);
-        tv_notifications_icon.setTypeface(mTypefaceMaterialIconsRegular);
-        tv_language_icon.setTypeface(mTypefaceMaterialIconsRegular);
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_my_events.setTypeface(mTypefaceOpenSansRegular);
         tv_add_new_event.setTypeface(mTypefaceOpenSansRegular);

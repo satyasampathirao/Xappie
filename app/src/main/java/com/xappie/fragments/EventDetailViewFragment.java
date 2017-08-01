@@ -2,6 +2,7 @@ package com.xappie.fragments;
 
 
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -80,6 +81,10 @@ public class EventDetailViewFragment extends Fragment {
     @BindView(R.id.btn_who_is_going)
     Button btn_who_is_going;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceOpenSansBold;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,33 +118,37 @@ public class EventDetailViewFragment extends Fragment {
     }
 
     private void setTypeFace() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.events));
-        tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_title.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_event_name.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_date_time.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_event_name.setTypeface(mTypefaceOpenSansBold);
+        tv_date_time.setTypeface(mTypefaceOpenSansBold);
         tv_dress_code.setPaintFlags(tv_dress_code.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv_dress_code.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_dress_code_value.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_restrictions.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_address.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_dress_code.setTypeface(mTypefaceOpenSansRegular);
+        tv_dress_code_value.setTypeface(mTypefaceOpenSansBold);
+        tv_restrictions.setTypeface(mTypefaceOpenSansBold);
+        tv_address.setTypeface(mTypefaceOpenSansBold);
 
-        tv_event_tag_line_text_comes_here.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_total_cost.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_details.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_a_weekly_desi.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
+        tv_total_cost.setTypeface(mTypefaceOpenSansRegular);
+        tv_details.setTypeface(mTypefaceOpenSansRegular);
+        tv_a_weekly_desi.setTypeface(mTypefaceOpenSansRegular);
 
-        btn_who_is_going.setTypeface(Utility.getOpenSansRegular(mParent));
-        btn_may_be.setTypeface(Utility.getOpenSansRegular(mParent));
-        btn_i_am_going.setTypeface(Utility.getOpenSansRegular(mParent));
+        btn_who_is_going.setTypeface(mTypefaceOpenSansRegular);
+        btn_may_be.setTypeface(mTypefaceOpenSansRegular);
+        btn_i_am_going.setTypeface(mTypefaceOpenSansRegular);
     }
 
     /*This method is used to navigate event detail view*/

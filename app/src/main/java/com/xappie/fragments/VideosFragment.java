@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -62,6 +63,10 @@ public class VideosFragment extends Fragment {
     @BindView(R.id.grid_view)
     GridView grid_view;
 
+
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,16 +100,19 @@ public class VideosFragment extends Fragment {
     }
 
     private void setTypeFace() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.videos));
-        tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_title.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         setLanguages();
         setGridViewData();

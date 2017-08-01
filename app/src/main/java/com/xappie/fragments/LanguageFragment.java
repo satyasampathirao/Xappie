@@ -7,54 +7,48 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.GalleryDetailImageAdapter;
+import com.xappie.adapters.LanguagesListAdapter;
+import com.xappie.models.LanguagesListModel;
 import com.xappie.utils.Utility;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Shankar 26/07/2017
+ * A simple {@link Fragment} subclass.
  */
-public class GalleryImageViewFragment extends Fragment {
+public class LanguageFragment extends Fragment {
 
-    public static final String TAG = GalleryImageViewFragment.class.getSimpleName();
-    private DashBoardActivity mParent;
-    private AppBarLayout appBarLayout;
-    private FrameLayout mFrameLayout;
-    private CoordinatorLayout.LayoutParams mParams;
+    public static final String TAG = LanguageFragment.class.getSimpleName();
 
-    /**
-     * Gallery Toolbar
-     */
-    @BindView(R.id.tv_notification_arrow_back_icon)
-    TextView tv_notification_arrow_back_icon;
-    @BindView(R.id.tv_title_from)
-    TextView tv_title_from;
-
-    @BindView(R.id.tv_page_no)
-    TextView tv_page_no;
-    @BindView(R.id.tv_share_icon)
-    TextView tv_share_icon;
-
-    @BindView(R.id.gallery_images_view_pager)
-    protected ViewPager gallery_images_view_pager;
+    @BindView(R.id.tv_languages_arrow_back_icon)
+    TextView tv_languages_arrow_back_icon;
+    @BindView(R.id.tv_languages_menu_icon)
+    TextView tv_languages_menu_icon;
+    @BindView(R.id.tv_languages)
+    TextView tv_languages;
+    @BindView(R.id.language_list_item)
+    ListView language_list_item;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
-
-    private GalleryDetailImageAdapter galleryDetailImageAdapter;
+    private DashBoardActivity mParent;
+    private AppBarLayout appBarLayout;
+    private FrameLayout mFrameLayout;
+    private CoordinatorLayout.LayoutParams mParams;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,15 +59,21 @@ public class GalleryImageViewFragment extends Fragment {
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
+    public LanguageFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         if (appBarLayout != null) {
             mParams.setBehavior(null);
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_gallery_image_view, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_language, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -83,33 +83,34 @@ public class GalleryImageViewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
-
     private void initUI() {
         setTypeFace();
     }
-
-    /**
-     * This method is used for back from the fragment
-     */
-    @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_title_from})
-    void backToView() {
-        mParent.onBackPressed();
-    }
-
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_title_from.setTypeface(mTypefaceOpenSansRegular);
+        tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_page_no.setTypeface(mTypefaceOpenSansRegular);
-        tv_share_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        language_list_item.setAdapter(new LanguagesListAdapter(mParent,getSampleData()));
+    }
 
-        galleryDetailImageAdapter = new GalleryDetailImageAdapter(mParent);
-        gallery_images_view_pager.setAdapter(galleryDetailImageAdapter);
+    private ArrayList<LanguagesListModel> getSampleData() {
+        ArrayList<LanguagesListModel> languagesListModels = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            LanguagesListModel languagesListModel = new LanguagesListModel();
+            languagesListModel.setTitle("HINDI");
+            languagesListModels.add(languagesListModel);
+        }
+        return languagesListModels;
     }
 
 
+    @OnClick(R.id.tv_languages_arrow_back_icon)
+    public void navigateBack()
+    {
+        mParent.onBackPressed();
+    }
 }

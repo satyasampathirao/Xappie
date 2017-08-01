@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -74,6 +75,10 @@ public class ClassifiedsPostFragment extends Fragment {
     @BindView(R.id.tv_gallery_icon)
     TextView tv_gallery_icon;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceMaterialIcons;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,24 +112,27 @@ public class ClassifiedsPostFragment extends Fragment {
     }
 
     private void setTypeFace() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+         mTypefaceMaterialIcons = Utility.getMaterialIconsRegular(mParent);
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.auto_mobiles));
-        tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_title.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_post.setTypeface(Utility.getOpenSansRegular(mParent));
-        edt_topic_title.setTypeface(Utility.getOpenSansRegular(mParent));
-        edt_description.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_post.setTypeface(mTypefaceOpenSansRegular);
+        edt_topic_title.setTypeface(mTypefaceOpenSansRegular);
+        edt_description.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_delete_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_camera_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_gallery_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_delete_icon.setTypeface(mTypefaceMaterialIcons);
+        tv_camera_icon.setTypeface(mTypefaceMaterialIcons);
+        tv_gallery_icon.setTypeface(mTypefaceMaterialIcons);
 
     }
 

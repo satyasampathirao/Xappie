@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -46,6 +47,10 @@ public class NotificationsFragment extends Fragment {
     @BindView(R.id.notification_list_item)
     ListView notification_list_item;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+
+
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
@@ -80,15 +85,20 @@ public class NotificationsFragment extends Fragment {
     }
 
     private void initUI() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
+        setTypeFace();
+    }
+    private void setTypeFace() {
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_settings_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_notification.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_settings.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        tv_notification.setTypeface(mTypefaceOpenSansRegular);
+        tv_settings.setTypeface(mTypefaceOpenSansRegular);
 
         notification_list_item.setAdapter(new NotificationListAdapter(mParent, getSampleData()));
     }
-
     private ArrayList<NotificationsListModel> getSampleData() {
         ArrayList<NotificationsListModel> notificationsListModels = new ArrayList<>();
         for (int i = 0; i < 20; i++) {

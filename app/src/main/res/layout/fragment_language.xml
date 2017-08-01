@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xappie.fragments.LanguageFragment">
+
+    <include
+        android:id="@+id/tool_bar_language"
+        layout="@layout/action_bar_language" />
+
+    <ListView
+        android:id="@+id/language_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar_language"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+
+
+
+</RelativeLayout>

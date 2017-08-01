@@ -2,6 +2,7 @@ package com.xappie.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -65,6 +66,9 @@ public class AccountSettingFragment extends Fragment {
     @BindView(R.id.b_account_update)
     Button b_account_update;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,21 +101,30 @@ public class AccountSettingFragment extends Fragment {
      * This method is used to initialization
      */
     private void initUI() {
-        tv_account_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_account_menu_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_account_language_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_account_location_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_account_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_account_settings.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_email_id.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_ravi_email_id.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_old_password.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        edt_text_old_password.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_new_password.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        edt_new_password.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_re_enter_new_password.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        edt_re_enter_new_password.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        b_account_update.setTypeface(Utility.getOpenSansRegular(getActivity()));
+
+        setTypeFace();
+
+    }
+
+    private void setTypeFace() {
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+        tv_account_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_account_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_account_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_account_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_account_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_account_settings.setTypeface(mTypefaceOpenSansRegular);
+        tv_email_id.setTypeface(mTypefaceOpenSansRegular);
+        tv_ravi_email_id.setTypeface(mTypefaceOpenSansRegular);
+        tv_old_password.setTypeface(mTypefaceOpenSansRegular);
+        edt_text_old_password.setTypeface(mTypefaceOpenSansRegular);
+        tv_new_password.setTypeface(mTypefaceOpenSansRegular);
+        edt_new_password.setTypeface(mTypefaceOpenSansRegular);
+        edt_re_enter_new_password.setTypeface(mTypefaceOpenSansRegular);
+        tv_re_enter_new_password.setTypeface(mTypefaceOpenSansRegular);
+        b_account_update.setTypeface(mTypefaceOpenSansRegular);
     }
 
     @OnClick (R.id.b_account_update)

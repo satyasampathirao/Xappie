@@ -1,0 +1,46 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xappie.fragments.CountriesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_country_list"
+        android:background="@drawable/top_bg"
+        android:orientation="vertical">
+
+    <include layout="@layout/action_bar_countries"
+    android:id="@+id/tool_bar_countries"/>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:background="@color/twenty_percent_black"
+    android:layout_height="@dimen/_43dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_select_country"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:text="@string/select_countries"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/country_list_view"
+        android:layout_below="@+id/ll_country_list"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>

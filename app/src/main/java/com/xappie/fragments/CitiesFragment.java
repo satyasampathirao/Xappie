@@ -11,13 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.DiscussionsAdapter;
-import com.xappie.models.DiscussionsModel;
+import com.xappie.adapters.CityListAdapter;
+import com.xappie.models.CitiesListModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -27,42 +27,43 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Shankar on 7/28/2017.
+ * A simple {@link Fragment} subclass.
  */
-public class DiscussionsFragment extends Fragment {
+public class CitiesFragment extends Fragment {
 
-    public static final String TAG = DiscussionsFragment.class.getSimpleName();
+    public static final String TAG = CitiesFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    /**
-     * Discussions Discussions
-     */
-    @BindView(R.id.tv_notification_arrow_back_icon)
-    TextView tv_notification_arrow_back_icon;
-    @BindView(R.id.tv_notification_menu_icon)
-    TextView tv_notification_menu_icon;
 
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.tv_location_icon)
-    TextView tv_location_icon;
+    @BindView(R.id.tv_countries_arrow_back_icon)
+    TextView tv_countries_arrow_back_icon;
+    @BindView(R.id.tv_countries_menu_icon)
+    TextView tv_countries_menu_icon;
+    @BindView(R.id.tv_countries)
+    TextView tv_countries;
     @BindView(R.id.tv_notifications_icon)
-    TextView tv_notifications_icon;
+    TextView tv_notification_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+    @BindView(R.id.tv_country_name)
+    TextView tv_country_name;
+    @BindView(R.id.tv_arrow_right_icon)
+    TextView tv_arrow_right_icon;
+    @BindView(R.id.tv_city_name)
+    TextView tv_city_name;
+    @BindView(R.id.city_list_view)
+    ListView city_list_view;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
-    /**
-     * Gallery Discussions setup
-     */
-    @BindView(R.id.grid_view)
-    GridView grid_view;
 
+    public CitiesFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class DiscussionsFragment extends Fragment {
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,18 +83,17 @@ public class DiscussionsFragment extends Fragment {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_discussions, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_cities, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
-
     private void initUI() {
+
         setTypeFace();
     }
 
@@ -100,46 +101,36 @@ public class DiscussionsFragment extends Fragment {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-
-        tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.discussions));
-        tv_title.setTypeface(mTypefaceOpenSansRegular);
-
-        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_countries.setTypeface(mTypefaceOpenSansRegular);
+        tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_arrow_right_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_city_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_country_name.setTypeface(mTypefaceOpenSansRegular);
 
-        setGridViewData();
+        city_list_view.setAdapter(new CityListAdapter(mParent,getSampleData()));
     }
 
-    /**
-     * This method is used for back from the fragment
-     */
-    @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_notification_menu_icon})
-    void backToTheHome() {
-        mParent.onBackPressed();
-    }
+    private ArrayList<CitiesListModel> getSampleData()
+    {
+        ArrayList<CitiesListModel> citiesListModels = new ArrayList<>();
 
-    /**
-     * This method is used to set the grid view data
-     */
-    private void setGridViewData() {
-        DiscussionsAdapter discussionsAdapter = new DiscussionsAdapter(mParent, getDiscussionsData());
-        grid_view.setAdapter(discussionsAdapter);
-    }
+        for (int i = 0; i < 15; i++) {
+            CitiesListModel citiesListModel = new CitiesListModel();
+            citiesListModel.setTitle("WASHINGTON DC");
+            citiesListModels.add(citiesListModel);
 
-    private ArrayList<DiscussionsModel> getDiscussionsData() {
-        ArrayList<DiscussionsModel> discussionsModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            DiscussionsModel discussionsModel = new DiscussionsModel();
-            //discussionsModel.setId(R.drawable.classifieds);
-            discussionsModel.setName("Doctors");
-            discussionsModels.add(discussionsModel);
         }
-        return discussionsModels;
+        return citiesListModels;
+
+    }
+
+    @OnClick(R.id.tv_countries_arrow_back_icon)
+    public void navigateToBack()
+    {
+        mParent.onBackPressed();
     }
 
 }

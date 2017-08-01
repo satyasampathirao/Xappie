@@ -19,7 +19,7 @@
     <RelativeLayout style="@style/matchWidth">
 
         <TextView
-            android:id="@+id/tv_account_arrow_back_icon"
+            android:id="@+id/tv_languages_arrow_back_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -29,66 +29,28 @@
             android:textSize="@dimen/_26sp" />
 
         <TextView
-            android:id="@+id/tv_account_menu_icon"
+            android:id="@+id/tv_languages_menu_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10dp"
-            android:layout_toRightOf="@+id/tv_account_arrow_back_icon"
+            android:layout_toRightOf="@+id/tv_languages_arrow_back_icon"
             android:gravity="center"
             android:text="@string/menu_icon"
             android:textColor="@color/color_white"
             android:textSize="@dimen/_22sp" />
 
         <TextView
-            android:id="@+id/tv_account_settings"
+            android:id="@+id/tv_languages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:clickable="false"
             android:focusable="false"
-            android:gravity="center"
             android:longClickable="false"
-            android:maxLines="1"
-            android:text="@string/account_settings"
+            android:text="@string/languages"
             android:textColor="@color/color_white"
             android:textSize="@dimen/_19sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_account_location_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_5dp"
-            android:layout_toLeftOf="@+id/tv_account_notifications_icon"
-            android:gravity="center_vertical"
-            android:text="@string/location_icon"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_25sp" />
-
-        <TextView
-            android:id="@+id/tv_account_notifications_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_5dp"
-            android:gravity="center_vertical"
-            android:layout_toLeftOf="@+id/tv_account_language_icon"
-            android:text="@string/notifications_icon"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_25sp" />
-
-        <TextView
-            android:id="@+id/tv_account_language_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_5dp"
-            android:gravity="center_vertical"
-            android:layout_alignParentEnd="true"
-            android:text="@string/language_icon"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_25sp" />
-
-    </RelativeLayout>
-
-
-</android.support.v7.widget.Toolbar>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>

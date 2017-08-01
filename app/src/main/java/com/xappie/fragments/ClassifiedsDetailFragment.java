@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -65,6 +66,10 @@ public class ClassifiedsDetailFragment extends Fragment {
     @BindView(R.id.img_uploaded)
     ImageView img_uploaded;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,21 +103,25 @@ public class ClassifiedsDetailFragment extends Fragment {
     }
 
     private void setTypeFace() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.auto_mobiles));
-        tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_title.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_name.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_date.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_post_title.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_topic_details.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_date.setTypeface(mTypefaceOpenSansRegular);
+        tv_post_title.setTypeface(mTypefaceOpenSansRegular);
+        tv_topic_details.setTypeface(mTypefaceOpenSansRegular);
         tv_price.setTypeface(Utility.getOpenSansBold(mParent));
         tv_post_title.setText("Lorem ipsum is simply dummy text of the printing and typesetting");
         tv_topic_details.setText("Lorem ipsum is simply dummy text of the printing and typesetting" +

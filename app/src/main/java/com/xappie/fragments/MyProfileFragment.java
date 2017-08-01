@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -67,6 +68,8 @@ public class MyProfileFragment extends Fragment {
     TextView tv_ravi_mobile_nbr;
     @BindView(R.id.b_edit_profile)
     Button btn_edit_profile;
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,26 +104,34 @@ public class MyProfileFragment extends Fragment {
      */
     private void initUI() {
 
-        tv_my_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_my_menu_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_my_language_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_my_location_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_my_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_my_profile.setTypeface(Utility.getOpenSansRegular(getActivity()));
-      tv_ravi_profile_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_ravi_hyd.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_full_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_profile_full_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_display_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_profile_display_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_email.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_ravi_email.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_mobile_no.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_ravi_mobile_nbr.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        btn_edit_profile.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        setTypeFace();
+
+    }
+    private void setTypeFace() {
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+        tv_my_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_my_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_my_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_my_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_my_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_my_profile.setTypeface(mTypefaceOpenSansRegular);
+        tv_ravi_profile_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_ravi_hyd.setTypeface(mTypefaceOpenSansRegular);
+        tv_full_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_profile_full_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_display_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_profile_display_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_email.setTypeface(mTypefaceOpenSansRegular);
+        tv_ravi_email.setTypeface(mTypefaceOpenSansRegular);
+        tv_mobile_no.setTypeface(mTypefaceOpenSansRegular);
+        tv_ravi_mobile_nbr.setTypeface(mTypefaceOpenSansRegular);
+        btn_edit_profile.setTypeface(mTypefaceOpenSansRegular);
+
     }
 
-  @OnClick(R.id.b_edit_profile)
+        @OnClick(R.id.b_edit_profile)
     public void navigateEditProfile()
     {
         Utility.navigateDashBoardFragment(new EditProfileFragment(),EditProfileFragment.TAG,null,mParent);

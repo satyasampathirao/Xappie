@@ -2,6 +2,7 @@ package com.xappie.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -95,6 +96,10 @@ public class NotificationsSettingsFragment extends Fragment {
     @BindView(R.id.switch_button_top_stories)
     SwitchCompat sw_button_top_stories;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
@@ -119,22 +124,28 @@ public class NotificationsSettingsFragment extends Fragment {
     }
 
     private void initUI() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_notification_settings_icon.setVisibility(View.GONE);
-        tv_notification.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_settings.setVisibility(View.GONE);
-        tv_classifieds.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_discussions.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_entertainment.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_events.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_jobs.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_text_gallery.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_videos.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_top_stories.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        btn_notification_settings_update.setTypeface(Utility.getOpenSansRegular(getActivity()));
-    }
 
+        setTypeFace();
+    }
+    private void setTypeFace() {
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_settings_icon.setVisibility(View.GONE);
+        tv_notification.setTypeface(mTypefaceOpenSansRegular);
+        tv_settings.setVisibility(View.GONE);
+        tv_classifieds.setTypeface(mTypefaceOpenSansRegular);
+        tv_discussions.setTypeface(mTypefaceOpenSansRegular);
+        tv_entertainment.setTypeface(mTypefaceOpenSansRegular);
+        tv_events.setTypeface(mTypefaceOpenSansRegular);
+        tv_jobs.setTypeface(mTypefaceOpenSansRegular);
+        tv_text_gallery.setTypeface(mTypefaceOpenSansRegular);
+        tv_videos.setTypeface(mTypefaceOpenSansRegular);
+        tv_top_stories.setTypeface(mTypefaceOpenSansRegular);
+        btn_notification_settings_update.setTypeface(mTypefaceOpenSansRegular);
+    }
     @OnClick(R.id.tv_notification_arrow_back_icon)
     public void navigateBack() {
         mParent.onBackPressed();

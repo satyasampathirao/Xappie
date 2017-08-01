@@ -22,12 +22,15 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.fragments.AccountSettingFragment;
 import com.xappie.fragments.ClassifiedsFragment;
+import com.xappie.fragments.CountriesFragment;
 import com.xappie.fragments.DiscussionsFragment;
 import com.xappie.fragments.EntertainmentFragment;
 import com.xappie.fragments.EventsFragment;
 import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
+import com.xappie.fragments.LanguageFragment;
+import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
 import com.xappie.fragments.TopStoriesFragment;
 import com.xappie.fragments.VideosFragment;
@@ -68,13 +71,13 @@ public class DashBoardActivity extends BaseActivity {
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
 
         tv_location_icon = (TextView) toolbar.findViewById(R.id.tv_location_icon);
-        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(this));
+        tv_location_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
 
         tv_notifications_icon = (TextView) toolbar.findViewById(R.id.tv_notifications_icon);
-        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(this));
+        tv_notifications_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
 
         tv_language_icon = (TextView) toolbar.findViewById(R.id.tv_language_icon);
-        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(this));
+        tv_language_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
 
         layout_topics = (LinearLayout) findViewById(R.id.layout_topics);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
@@ -170,6 +173,7 @@ public class DashBoardActivity extends BaseActivity {
             tv_joined.setVisibility(View.VISIBLE);
             txt_view_profile.setVisibility(View.VISIBLE);
             txt_hello.setText("Ravi Kiran");
+
         } else {
             img_user_image.setImageDrawable(Utility.getDrawable(this, R.drawable.avatar_image));
             tv_sign_in_to_xappie.setVisibility(View.VISIBLE);
@@ -182,6 +186,14 @@ public class DashBoardActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        txt_view_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                Utility.navigateDashBoardFragment(new MyProfileFragment(),MyProfileFragment.TAG,null,DashBoardActivity.this);
             }
         });
 
@@ -241,6 +253,7 @@ public class DashBoardActivity extends BaseActivity {
     @OnClick(R.id.tv_location_icon)
     void navigateLocation() {
 
+        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,DashBoardActivity.this);
     }
 
     /**
@@ -256,6 +269,7 @@ public class DashBoardActivity extends BaseActivity {
      */
     @OnClick(R.id.tv_language_icon)
     void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,DashBoardActivity.this);
 
     }
 

@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -54,6 +55,9 @@ public class ActressFragment extends Fragment {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+
     /**
      * Gallery Actress setup
      */
@@ -95,16 +99,21 @@ public class ActressFragment extends Fragment {
     }
 
     private void setTypeFace() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.actress));
         tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
-        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         setLanguages();
         setGridViewData();

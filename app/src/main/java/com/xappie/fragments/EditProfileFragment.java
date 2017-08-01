@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -65,7 +66,8 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.b_update)
     Button btn_update;
 
-
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,21 +102,27 @@ public class EditProfileFragment extends Fragment {
      */
     private void initUI() {
 
-        tv_edit_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_edit_menu_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_edit_language_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_edit_location_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_edit_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_edit_profile.setTypeface(Utility.getOpenSansRegular(getActivity()));
-      tv_edit_profile_full_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-         edt_text_full_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_edit_profile_display_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        edt_text_display_name.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_edit_profile_email.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        edt_text_email.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        tv_edit_profile_mobile.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        edt_text_mobile.setTypeface(Utility.getOpenSansRegular(getActivity()));
-        btn_update.setTypeface(Utility.getOpenSansRegular(getActivity()));
+        setTypeFace();
+    }
+    private void setTypeFace() {
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+
+        tv_edit_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_edit_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_edit_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_edit_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_edit_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_edit_profile.setTypeface(mTypefaceOpenSansRegular);
+        tv_edit_profile_full_name.setTypeface(mTypefaceOpenSansRegular);
+        edt_text_full_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_edit_profile_display_name.setTypeface(mTypefaceOpenSansRegular);
+        edt_text_display_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_edit_profile_email.setTypeface(mTypefaceOpenSansRegular);
+        edt_text_email.setTypeface(mTypefaceOpenSansRegular);
+        tv_edit_profile_mobile.setTypeface(mTypefaceOpenSansRegular);
+        edt_text_mobile.setTypeface(mTypefaceOpenSansRegular);
+        btn_update.setTypeface(mTypefaceOpenSansRegular);
     }
 
 

@@ -2,6 +2,7 @@ package com.xappie.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -78,6 +79,10 @@ public class GalleryDetailViewFragment extends Fragment {
     @BindView(R.id.ll_related_topics)
     LinearLayout ll_related_topics;
 
+    private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceMaterialIcons;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,20 +120,24 @@ public class GalleryDetailViewFragment extends Fragment {
      * This method is used for sets the typeface screen
      */
     private void setTypeFace() {
-        tv_notification_arrow_back_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notification_menu_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceMaterialIcons = Utility.getMaterialIconsRegular(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.INVISIBLE);
 
-        tv_location_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_notifications_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_language_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_header_title.setText("Allu arjun, Pooja Hedga are the saving grace of this tacky song");
-        tv_header_title.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_header_title.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_written_by.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_written_by.setTypeface(mTypefaceOpenSansRegular);
+        tv_time.setTypeface(mTypefaceOpenSansRegular);
         tv_description.setText("Allu arjun, Pooja Hedga are the saving grace of this tacky song " +
                 "Allu arjun, Pooja Hedga are the saving grace of this tacky song " +
                 "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
@@ -155,14 +164,14 @@ public class GalleryDetailViewFragment extends Fragment {
                 "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
                 "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
                 "Allu arjun, Pooja Hedga are the saving grace of this tacky song");
-        tv_description.setTypeface(Utility.getOpenSansRegular(mParent));
-        tv_next_news.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_description.setTypeface(mTypefaceOpenSansRegular);
+        tv_next_news.setTypeface(mTypefaceOpenSansRegular);
         tv_next_news_header_title.setText("Arjun is back with Kurukshetra movie. For more gossips, film reviews, mania, life things, series");
         tv_next_news_header_title.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_next_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_next_icon.setTypeface(mTypefaceMaterialIcons);
 
-        tv_more_topics.setTypeface(Utility.getMaterialIconsRegular(mParent));
-        tv_more.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_more_topics.setTypeface(mTypefaceMaterialIcons);
+        tv_more.setTypeface(mTypefaceMaterialIcons);
 
         setRelatedTopics(getRelatedTopicsData());
     }
