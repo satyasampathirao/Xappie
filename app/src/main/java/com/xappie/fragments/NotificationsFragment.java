@@ -49,7 +49,7 @@ public class NotificationsFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
-
+    private Typeface mTypefaceOpenSansBold;
 
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
@@ -90,11 +90,12 @@ public class NotificationsFragment extends Fragment {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_settings_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_notification.setTypeface(mTypefaceOpenSansRegular);
+        tv_notification.setTypeface(mTypefaceOpenSansBold);
         tv_settings.setTypeface(mTypefaceOpenSansRegular);
 
         notification_list_item.setAdapter(new NotificationListAdapter(mParent, getSampleData()));
@@ -112,17 +113,12 @@ public class NotificationsFragment extends Fragment {
         return notificationsListModels;
     }
 
-    @OnClick(R.id.tv_notification_settings_icon)
+    @OnClick({R.id.tv_notification_settings_icon,R.id.tv_settings})
     public void navigateNotificationsSettings() {
         Utility.navigateDashBoardFragment(new NotificationsSettingsFragment(), NotificationsSettingsFragment.TAG, null, mParent);
     }
 
-    @OnClick(R.id.tv_settings)
-    public void navigateNotificationSettings() {
-        Utility.navigateDashBoardFragment(new NotificationsSettingsFragment(), NotificationsSettingsFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_notification_arrow_back_icon)
+    @OnClick({R.id.tv_notification_arrow_back_icon,R.id.tv_notification_menu_icon})
     public void navigateToBack()
     {
         mParent.onBackPressed();

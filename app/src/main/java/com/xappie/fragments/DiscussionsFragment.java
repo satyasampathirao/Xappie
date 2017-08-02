@@ -142,4 +142,20 @@ public class DiscussionsFragment extends Fragment {
         return discussionsModels;
     }
 
+    @OnClick(R.id.tv_notifications_icon)
+    public void navigateNotification()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_location_icon)
+    public void navigateLocation()
+    {
+        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    }
+
 }

@@ -39,6 +39,7 @@ public class CountriesFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceOpenSansBold;
 
 
     @BindView(R.id.tv_countries_arrow_back_icon)
@@ -97,8 +98,9 @@ public class CountriesFragment extends Fragment {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_countries.setTypeface(mTypefaceOpenSansRegular);
+        tv_countries.setTypeface(mTypefaceOpenSansBold);
         tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -121,12 +123,20 @@ public class CountriesFragment extends Fragment {
         return countriesListModels;
     }
 
-    @OnClick(R.id.tv_countries_arrow_back_icon)
+    @OnClick({R.id.tv_countries_arrow_back_icon,R.id.tv_countries_menu_icon})
     public void navigateToBack()
     {
         mParent.onBackPressed();
     }
 
-
-
+    @OnClick(R.id.tv_notifications_icon)
+    public void navigateToNotification()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_language_icon)
+    public void navigateToLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
 }

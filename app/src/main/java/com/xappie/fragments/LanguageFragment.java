@@ -43,6 +43,7 @@ public class LanguageFragment extends Fragment {
     ListView language_list_item;
 
     private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceOpenSansBold;
     private Typeface mTypefaceFontAwesomeWebFont;
 
     private DashBoardActivity mParent;
@@ -89,7 +90,9 @@ public class LanguageFragment extends Fragment {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
+        tv_languages.setTypeface(mTypefaceOpenSansBold);
         tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -108,7 +111,7 @@ public class LanguageFragment extends Fragment {
     }
 
 
-    @OnClick(R.id.tv_languages_arrow_back_icon)
+    @OnClick({R.id.tv_languages_arrow_back_icon,R.id.tv_languages_menu_icon})
     public void navigateBack()
     {
         mParent.onBackPressed();

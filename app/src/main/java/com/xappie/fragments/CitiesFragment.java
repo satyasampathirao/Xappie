@@ -42,8 +42,8 @@ public class CitiesFragment extends Fragment {
     TextView tv_countries_arrow_back_icon;
     @BindView(R.id.tv_countries_menu_icon)
     TextView tv_countries_menu_icon;
-    @BindView(R.id.tv_countries)
-    TextView tv_countries;
+    @BindView(R.id.tv_cities)
+    TextView tv_cities;
     @BindView(R.id.tv_notifications_icon)
     TextView tv_notification_icon;
     @BindView(R.id.tv_language_icon)
@@ -59,7 +59,7 @@ public class CitiesFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
-
+    private Typeface mTypefaceOpenSansBold;
 
     public CitiesFragment() {
         // Required empty public constructor
@@ -100,8 +100,9 @@ public class CitiesFragment extends Fragment {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_countries.setTypeface(mTypefaceOpenSansRegular);
+        tv_cities.setTypeface(mTypefaceOpenSansBold);
         tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -127,10 +128,20 @@ public class CitiesFragment extends Fragment {
 
     }
 
-    @OnClick(R.id.tv_countries_arrow_back_icon)
+    @OnClick({R.id.tv_countries_arrow_back_icon,R.id.tv_countries_menu_icon})
     public void navigateToBack()
     {
         mParent.onBackPressed();
     }
 
+    @OnClick(R.id.tv_notifications_icon)
+    public void navigateNotification()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
 }

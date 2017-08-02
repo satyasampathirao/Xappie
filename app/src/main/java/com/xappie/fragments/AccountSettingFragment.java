@@ -68,6 +68,7 @@ public class AccountSettingFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceOpenSansBold;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,13 +110,14 @@ public class AccountSettingFragment extends Fragment {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_account_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_account_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_account_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_account_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_account_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_account_settings.setTypeface(mTypefaceOpenSansRegular);
+        tv_account_settings.setTypeface(mTypefaceOpenSansBold);
         tv_email_id.setTypeface(mTypefaceOpenSansRegular);
         tv_ravi_email_id.setTypeface(mTypefaceOpenSansRegular);
         tv_old_password.setTypeface(mTypefaceOpenSansRegular);
@@ -134,7 +136,7 @@ public class AccountSettingFragment extends Fragment {
         startActivity(navigateDashIntent);
     }
 
-    @OnClick (R.id.tv_account_arrow_back_icon)
+    @OnClick ({R.id.tv_account_arrow_back_icon, R.id.tv_account_menu_icon})
     public void navigateBack()
     {
        mParent.onBackPressed();
@@ -145,6 +147,15 @@ public class AccountSettingFragment extends Fragment {
     {
        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
     }
-
+    @OnClick(R.id.tv_account_language_icon)
+    public void navigateLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_account_location_icon)
+    public void navigateLocation()
+    {
+        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    }
 }
 

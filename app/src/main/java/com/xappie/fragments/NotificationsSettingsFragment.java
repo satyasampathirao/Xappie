@@ -98,6 +98,7 @@ public class NotificationsSettingsFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceOpenSansBold;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -130,11 +131,12 @@ public class NotificationsSettingsFragment extends Fragment {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_settings_icon.setVisibility(View.GONE);
-        tv_notification.setTypeface(mTypefaceOpenSansRegular);
+        tv_notification.setTypeface(mTypefaceOpenSansBold);
         tv_settings.setVisibility(View.GONE);
         tv_classifieds.setTypeface(mTypefaceOpenSansRegular);
         tv_discussions.setTypeface(mTypefaceOpenSansRegular);
@@ -146,14 +148,14 @@ public class NotificationsSettingsFragment extends Fragment {
         tv_top_stories.setTypeface(mTypefaceOpenSansRegular);
         btn_notification_settings_update.setTypeface(mTypefaceOpenSansRegular);
     }
-    @OnClick(R.id.tv_notification_arrow_back_icon)
+    @OnClick({R.id.tv_notification_arrow_back_icon,R.id.tv_notification_menu_icon})
     public void navigateBack() {
         mParent.onBackPressed();
     }
 
     @OnClick(R.id.b_notification_settings_update)
     public void navigateHome() {
-        Intent dashBoardintent = new Intent(getActivity(), DashBoardActivity.class);
-        startActivity(dashBoardintent);
+        Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
+        startActivity(dashBoardIntent);
     }
 }

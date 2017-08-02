@@ -144,6 +144,22 @@ public class VideosFragment extends Fragment {
         mParent.onBackPressed();
     }
 
+    @OnClick(R.id.tv_notifications_icon)
+    public void navigateNotification()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_location_icon)
+    public void navigateLocation()
+    {
+        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    }
+
     /*This method is used to set the languages*/
     private void setLanguages() {
         ll_languages.removeAllViews();

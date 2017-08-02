@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Shankar 26/07/2017
@@ -160,6 +161,28 @@ public class MoviesFragment extends Fragment {
         mLanguagesData.add("TELUGU");
         mLanguagesData.add("TAMIL");
         return mLanguagesData;
+    }
+
+    @OnClick({R.id.tv_notification_arrow_back_icon,
+            R.id.tv_notification_menu_icon})
+    void backToTheHome() {
+        mParent.onBackPressed();
+    }
+
+    @OnClick(R.id.tv_notifications_icon)
+    public void navigateNotification()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_location_icon)
+    public void navigateLocation()
+    {
+        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
     }
 
 }

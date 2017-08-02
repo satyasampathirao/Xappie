@@ -68,6 +68,7 @@ public class EditProfileFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceOpenSansBold;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,13 +108,14 @@ public class EditProfileFragment extends Fragment {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_edit_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_edit_profile.setTypeface(mTypefaceOpenSansRegular);
+        tv_edit_profile.setTypeface(mTypefaceOpenSansBold);
         tv_edit_profile_full_name.setTypeface(mTypefaceOpenSansRegular);
         edt_text_full_name.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_display_name.setTypeface(mTypefaceOpenSansRegular);
@@ -132,7 +134,7 @@ public class EditProfileFragment extends Fragment {
         Utility.navigateDashBoardFragment(new MyProfileFragment(),MyProfileFragment.TAG,null,mParent);
     }
 
-    @OnClick(R.id.tv_edit_arrow_back_icon)
+    @OnClick({R.id.tv_edit_arrow_back_icon,R.id.tv_edit_menu_icon})
     public void navigateBackMyProfile()
     {
        mParent.onBackPressed();
@@ -142,5 +144,15 @@ public class EditProfileFragment extends Fragment {
     public void navigateNotifications()
     {
         Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_edit_language_icon)
+    public void navigateLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_edit_location_icon)
+    public void navigateLocation()
+    {
+        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
     }
 }

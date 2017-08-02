@@ -109,7 +109,7 @@ public class ActressFragment extends Fragment {
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.actress));
-        tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -173,6 +173,22 @@ public class ActressFragment extends Fragment {
             R.id.tv_notification_menu_icon})
     void backToTheHome() {
         mParent.onBackPressed();
+    }
+
+    @OnClick(R.id.tv_notifications_icon)
+    public void navigateNotification()
+    {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage()
+    {
+        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    }
+    @OnClick(R.id.tv_location_icon)
+    public void navigateLocation()
+    {
+        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
     }
 
 }

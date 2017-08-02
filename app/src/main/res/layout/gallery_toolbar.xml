@@ -23,10 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_8dp"
             android:text="@string/arrow_back_icon"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_26sp"
+            android:textSize="@dimen/_25sp"
             android:textStyle="bold" />
 
         <TextView
@@ -34,12 +34,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_toRightOf="@+id/tv_notification_arrow_back_icon"
             android:gravity="center"
             android:text="@string/menu_icon"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_22sp"
+            android:textSize="@dimen/_20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -54,31 +54,31 @@
             android:maxLines="1"
             android:text="@string/gallery"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_19sp"
+            android:textSize="@dimen/_18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_location_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_toLeftOf="@+id/tv_notifications_icon"
             android:gravity="center_vertical"
             android:text="@string/location_icon"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_25sp"
+            android:textSize="@dimen/_21sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_notifications_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:layout_toLeftOf="@+id/tv_language_icon"
             android:gravity="center_vertical"
             android:text="@string/notifications_icon"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_25sp"
+            android:textSize="@dimen/_21sp"
             android:textStyle="bold" />
 
         <TextView
@@ -86,11 +86,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_8dp"
             android:gravity="center_vertical"
             android:text="@string/language_icon"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_25sp"
+            android:textSize="@dimen/_21sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
