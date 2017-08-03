@@ -36,7 +36,7 @@
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/discussions"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
@@ -73,11 +73,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_entertainment"
                 android:layout_marginStart="@dimen/_20dp"
-                android:layout_marginTop="@dimen/_15dp"
+                android:layout_marginTop="@dimen/_14dp"
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/entertainment"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/top_stories"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
@@ -153,11 +153,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_text_gallery"
                 android:layout_marginStart="@dimen/_20dp"
-                android:layout_marginTop="@dimen/_15dp"
+                android:layout_marginTop="@dimen/_14dp"
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/gallery"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
@@ -193,11 +193,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_videos"
                 android:layout_marginStart="@dimen/_20dp"
-                android:layout_marginTop="@dimen/_15dp"
+                android:layout_marginTop="@dimen/_14dp"
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/videos"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
@@ -236,7 +236,7 @@
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/events"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
@@ -275,7 +275,7 @@
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/classifieds"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="@dimen/_0dp"
@@ -314,7 +314,7 @@
                 android:textColor="@color/color_black"
                 android:layout_weight="1"
                 android:text="@string/jobs"
-                android:textSize="@dimen/_18sp"/>
+                android:textSize="@dimen/_13sp"/>
 
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="wrap_content"
@@ -351,7 +351,8 @@
             android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_21sp" />
+            android:layout_marginBottom="@dimen/_25dp"
+            android:textSize="@dimen/_17sp" />
 
     </LinearLayout>
 

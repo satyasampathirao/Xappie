@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_languages_list"
         android:layout_marginStart="@dimen/_25dp"
-        android:textSize="@dimen/_16sp"
+        android:textSize="@dimen/_15sp"
         android:layout_marginTop="@dimen/_20dp"/>
 
     <View

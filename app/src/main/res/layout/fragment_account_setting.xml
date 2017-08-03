@@ -23,7 +23,7 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/email_id"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_14sp" />
 
         <TextView
             android:id="@+id/tv_ravi_email_id"
@@ -34,7 +34,7 @@
             android:hint="@string/ravi_email"
             android:textColor="@color/colorPrimary"
             android:paddingLeft="@dimen/_20dp"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_15sp" />
 
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/old_password"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_14sp" />
 
         <EditText
             android:id="@+id/edit_text_old_password"
@@ -57,7 +57,7 @@
             android:hint="@string/xxxxxx"
             android:inputType="textPassword"
             android:paddingLeft="@dimen/_20dp"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_15sp" />
 
         <TextView
             android:id="@+id/tv_new_password"
@@ -66,7 +66,7 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/new_password"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_14sp" />
 
         <EditText
             android:id="@+id/edit_new_password"
@@ -79,7 +79,7 @@
             android:hint="@string/xxxxxx"
             android:inputType="textPassword"
             android:paddingLeft="@dimen/_20dp"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_15sp" />
 
         <TextView
             android:id="@+id/tv_re_enter_new_password"
@@ -88,7 +88,7 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/re_enter_new_password"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_14sp" />
 
         <EditText
             android:id="@+id/edit_re_enter_new_password"
@@ -101,7 +101,7 @@
             android:hint="@string/xxxxxx"
             android:inputType="textPassword"
             android:paddingLeft="@dimen/_20dp"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_15sp" />
 
         <Button
             android:id="@+id/b_account_update"
@@ -114,7 +114,7 @@
             android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_21sp" />
+            android:textSize="@dimen/_18sp" />
 
     </LinearLayout>
 

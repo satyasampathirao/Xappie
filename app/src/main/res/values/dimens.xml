@@ -172,4 +172,6 @@
     <dimen name="no_properties_text_size">22sp</dimen>
     <dimen name="_400dp">400dp</dimen>
     <dimen name="_190dp">190dp</dimen>
+    <dimen name="_85dp">85dp</dimen>
+    <dimen name="_155dp">155dp</dimen>
 </resources>

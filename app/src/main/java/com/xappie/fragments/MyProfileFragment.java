@@ -118,7 +118,7 @@ public class MyProfileFragment extends Fragment {
         tv_my_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_my_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_my_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_my_profile.setTypeface(mTypefaceOpenSansBold);
+        tv_my_profile.setTypeface(mTypefaceOpenSansRegular);
         tv_ravi_profile_name.setTypeface(mTypefaceOpenSansRegular);
         tv_ravi_hyd.setTypeface(mTypefaceOpenSansRegular);
         tv_full_name.setTypeface(mTypefaceOpenSansRegular);

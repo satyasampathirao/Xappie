@@ -28,7 +28,7 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:textColor="@color/gallery_header_color"
-                android:textSize="@dimen/_20sp" />
+                android:textSize="@dimen/_18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:paddingEnd="@dimen/_5dp"
                     android:text="@string/app_name"
                     android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/_15sp" />
+                    android:textSize="@dimen/_14sp" />
 
                 <View
                     android:layout_width="@dimen/_10dp"
@@ -61,7 +61,7 @@
                     android:paddingStart="@dimen/_5dp"
                     android:text="@string/_1day"
                     android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/_15sp" />
+                    android:textSize="@dimen/_14sp" />
 
             </LinearLayout>
 
@@ -89,7 +89,7 @@
                 android:paddingTop="@dimen/_15dp"
                 android:text="@string/next_news"
                 android:textColor="@color/dark_gray"
-                android:textSize="@dimen/_15sp" />
+                android:textSize="@dimen/_14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,7 +106,7 @@
                     android:paddingEnd="@dimen/_10dp"
                     android:paddingStart="@dimen/_10dp"
                     android:textColor="@color/gallery_header_color"
-                    android:textSize="@dimen/_20sp" />
+                    android:textSize="@dimen/_18sp" />
 
                 <TextView
                     android:id="@+id/tv_next_icon"
@@ -117,7 +117,6 @@
                     android:paddingEnd="@dimen/_5dp"
                     android:paddingStart="@dimen/_5dp"
                     android:text="@string/next_icon"
-                    android:textColor="@color/color_black"
                     android:textSize="@dimen/_25sp" />
 
             </LinearLayout>

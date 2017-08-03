@@ -108,7 +108,7 @@ public class TopStoriesFragment extends Fragment {
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.top_stories).toUpperCase());
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.top_stories));
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);

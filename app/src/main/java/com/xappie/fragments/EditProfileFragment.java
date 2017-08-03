@@ -115,7 +115,7 @@ public class EditProfileFragment extends Fragment {
         tv_edit_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_edit_profile.setTypeface(mTypefaceOpenSansBold);
+        tv_edit_profile.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_full_name.setTypeface(mTypefaceOpenSansRegular);
         edt_text_full_name.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_display_name.setTypeface(mTypefaceOpenSansRegular);

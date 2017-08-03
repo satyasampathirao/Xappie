@@ -136,16 +136,16 @@ public class NotificationsSettingsFragment extends Fragment {
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_settings_icon.setVisibility(View.GONE);
-        tv_notification.setTypeface(mTypefaceOpenSansBold);
+        tv_notification.setTypeface(mTypefaceOpenSansRegular);
         tv_settings.setVisibility(View.GONE);
-        tv_classifieds.setTypeface(mTypefaceOpenSansRegular);
-        tv_discussions.setTypeface(mTypefaceOpenSansRegular);
-        tv_entertainment.setTypeface(mTypefaceOpenSansRegular);
-        tv_events.setTypeface(mTypefaceOpenSansRegular);
-        tv_jobs.setTypeface(mTypefaceOpenSansRegular);
-        tv_text_gallery.setTypeface(mTypefaceOpenSansRegular);
-        tv_videos.setTypeface(mTypefaceOpenSansRegular);
-        tv_top_stories.setTypeface(mTypefaceOpenSansRegular);
+        tv_classifieds.setTypeface(mTypefaceOpenSansBold);
+        tv_discussions.setTypeface(mTypefaceOpenSansBold);
+        tv_entertainment.setTypeface(mTypefaceOpenSansBold);
+        tv_events.setTypeface(mTypefaceOpenSansBold);
+        tv_jobs.setTypeface(mTypefaceOpenSansBold);
+        tv_text_gallery.setTypeface(mTypefaceOpenSansBold);
+        tv_videos.setTypeface(mTypefaceOpenSansBold);
+        tv_top_stories.setTypeface(mTypefaceOpenSansBold);
         btn_notification_settings_update.setTypeface(mTypefaceOpenSansRegular);
     }
     @OnClick({R.id.tv_notification_arrow_back_icon,R.id.tv_notification_menu_icon})

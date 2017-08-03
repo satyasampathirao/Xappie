@@ -92,7 +92,7 @@ public class LanguageFragment extends Fragment {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
          mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_languages.setTypeface(mTypefaceOpenSansBold);
+        tv_languages.setTypeface(mTypefaceOpenSansRegular);
         tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);

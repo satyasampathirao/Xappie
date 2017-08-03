@@ -27,7 +27,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:text="@string/united_states"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sp"
+            android:textSize="@dimen/_15sp"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:text="@string/select_city"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sp"
+            android:textSize="@dimen/_15sp"
             android:layout_height="wrap_content" />
 
 

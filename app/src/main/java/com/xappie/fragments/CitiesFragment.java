@@ -102,7 +102,7 @@ public class CitiesFragment extends Fragment {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_cities.setTypeface(mTypefaceOpenSansBold);
+        tv_cities.setTypeface(mTypefaceOpenSansRegular);
         tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);

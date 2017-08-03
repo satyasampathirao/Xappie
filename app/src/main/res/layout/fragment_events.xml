@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:text="@string/all_events"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_15sp" />
+                android:textSize="@dimen/_13sp" />
 
             <TextView
                 android:id="@+id/tv_add_new_event"
@@ -41,7 +41,7 @@
                 android:gravity="center"
                 android:text="@string/add_new_event"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_15sp" />
+                android:textSize="@dimen/_13sp" />
 
             <TextView
                 android:id="@+id/tv_my_events"
@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="@string/my_events"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_15sp" />
+                android:textSize="@dimen/_13sp" />
 
         </LinearLayout>
     </LinearLayout>

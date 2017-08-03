@@ -83,7 +83,7 @@ public class LoginActivity extends BaseActivity {
         tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
         tv_or_sign_social.setTypeface(Utility.getOpenSansRegular(this));
         tv_log_cancel.setTypeface(Utility.getOpenSansRegular(this));
-        tv_log_login.setTypeface(Utility.getOpenSansRegular(this));
+        tv_log_login.setTypeface(Utility.getOpenSansBold(this));
         tv_log_sign_up.setTypeface(Utility.getOpenSansRegular(this));
         edt_email.setTypeface(Utility.getOpenSansRegular(this));
         edt_password.setTypeface(Utility.getOpenSansRegular(this));

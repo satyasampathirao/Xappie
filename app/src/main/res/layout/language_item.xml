@@ -13,6 +13,7 @@
         android:paddingEnd="@dimen/_12dp"
         android:paddingStart="@dimen/_12dp"
         android:text="@string/app_name"
+        android:textSize="@dimen/_12sp"
         android:textColor="@android:color/black" />
 
     <View

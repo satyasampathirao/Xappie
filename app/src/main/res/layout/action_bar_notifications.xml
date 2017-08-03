@@ -23,10 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_10dp"
             android:text="@string/arrow_back_icon"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_25sp" />
+            android:textSize="@dimen/_22sp" />
 
         <TextView
             android:id="@+id/tv_notification_menu_icon"
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:text="@string/menu_icon"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_20sp" />
+            android:textSize="@dimen/_18sp" />
 
         <TextView
             android:id="@+id/tv_notification"
@@ -60,12 +60,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_5dp"
             android:layout_toLeftOf="@+id/tv_settings"
             android:gravity="center"
             android:text="@string/settings_icon"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_21sp" />
+            android:textSize="@dimen/_18sp" />
 
         <TextView
             android:id="@+id/tv_settings"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_8dp"
+            android:layout_marginEnd="@dimen/_10dp"
             android:gravity="center"
             android:text="@string/settings"
             android:textColor="@color/white"

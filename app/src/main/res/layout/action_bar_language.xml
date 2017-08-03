@@ -23,10 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginStart="@dimen/_10dp"
             android:text="@string/arrow_back_icon"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_25sp" />
+            android:textSize="@dimen/_22sp" />
 
         <TextView
             android:id="@+id/tv_languages_menu_icon"
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:text="@string/menu_icon"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_20sp" />
+            android:textSize="@dimen/_18sp" />
 
         <TextView
             android:id="@+id/tv_languages"

@@ -105,7 +105,7 @@ public class EntertainmentFragment extends Fragment {
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.entertainment).toUpperCase());
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.entertainment));
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);

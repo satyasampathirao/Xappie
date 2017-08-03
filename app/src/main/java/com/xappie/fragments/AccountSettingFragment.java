@@ -117,7 +117,7 @@ public class AccountSettingFragment extends Fragment {
         tv_account_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_account_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_account_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_account_settings.setTypeface(mTypefaceOpenSansBold);
+        tv_account_settings.setTypeface(mTypefaceOpenSansRegular);
         tv_email_id.setTypeface(mTypefaceOpenSansRegular);
         tv_ravi_email_id.setTypeface(mTypefaceOpenSansRegular);
         tv_old_password.setTypeface(mTypefaceOpenSansRegular);

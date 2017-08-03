@@ -12,6 +12,6 @@
         android:paddingStart="@dimen/_10dp"
         android:text="@string/app_name"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/_16sp" />
+        android:textSize="@dimen/_13sp" />
 
 </LinearLayout>

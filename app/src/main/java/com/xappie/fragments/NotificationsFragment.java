@@ -95,7 +95,7 @@ public class NotificationsFragment extends Fragment {
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_settings_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-        tv_notification.setTypeface(mTypefaceOpenSansBold);
+        tv_notification.setTypeface(mTypefaceOpenSansRegular);
         tv_settings.setTypeface(mTypefaceOpenSansRegular);
 
         notification_list_item.setAdapter(new NotificationListAdapter(mParent, getSampleData()));

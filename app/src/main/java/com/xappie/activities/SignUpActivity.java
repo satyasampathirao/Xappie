@@ -81,7 +81,7 @@ public class SignUpActivity extends BaseActivity {
     private void initUI() {
         btn_check_sign_up.setTypeface(Utility.getMaterialIconsRegular(this));
         tv_sign_up_cancel.setTypeface(Utility.getOpenSansRegular(this));
-        tv_sign_up_signup.setTypeface(Utility.getOpenSansRegular(this));
+        tv_sign_up_signup.setTypeface(Utility.getOpenSansBold(this));
         tv_sign_up_login.setTypeface(Utility.getOpenSansRegular(this));
         edt_sign_up_email.setTypeface(Utility.getOpenSansRegular(this));
         edt_sign_up_mobile.setTypeface(Utility.getOpenSansRegular(this));

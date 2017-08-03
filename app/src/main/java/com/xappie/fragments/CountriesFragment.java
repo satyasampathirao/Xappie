@@ -100,7 +100,7 @@ public class CountriesFragment extends Fragment {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_countries.setTypeface(mTypefaceOpenSansBold);
+        tv_countries.setTypeface(mTypefaceOpenSansRegular);
         tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);

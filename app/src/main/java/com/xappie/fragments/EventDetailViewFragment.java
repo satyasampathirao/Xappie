@@ -51,6 +51,12 @@ public class EventDetailViewFragment extends Fragment {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
+    @BindView(R.id.tv_all_events)
+    TextView tv_all_events;
+    @BindView(R.id.tv_add_new_event)
+    TextView tv_add_new_event;
+    @BindView(R.id.tv_my_events)
+    TextView tv_my_events;
     @BindView(R.id.tv_event_name)
     TextView tv_event_name;
     @BindView(R.id.tv_date_time)
@@ -149,6 +155,10 @@ public class EventDetailViewFragment extends Fragment {
         btn_who_is_going.setTypeface(mTypefaceOpenSansRegular);
         btn_may_be.setTypeface(mTypefaceOpenSansRegular);
         btn_i_am_going.setTypeface(mTypefaceOpenSansRegular);
+
+        tv_my_events.setTypeface(mTypefaceOpenSansRegular);
+        tv_add_new_event.setTypeface(mTypefaceOpenSansRegular);
+        tv_all_events.setTypeface(mTypefaceOpenSansRegular);
     }
 
     /*This method is used to navigate event detail view*/
