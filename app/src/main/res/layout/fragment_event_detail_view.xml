@@ -13,48 +13,6 @@
             android:id="@+id/tool_bar_gallery"
             layout="@layout/gallery_toolbar" />
 
-
-    <LinearLayout
-        android:id="@+id/ll_languages"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_43dp"
-        android:layout_weight="100"
-        android:background="@color/twenty_percent_black"
-        android:gravity="center_horizontal"
-        android:paddingEnd="@dimen/_10dp"
-        android:paddingStart="@dimen/_10dp">
-
-        <TextView
-            android:id="@+id/tv_all_events"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:gravity="center"
-            android:text="@string/all_events"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_13sp" />
-
-        <TextView
-            android:id="@+id/tv_add_new_event"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="40"
-            android:gravity="center"
-            android:text="@string/add_new_event"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_13sp" />
-
-        <TextView
-            android:id="@+id/tv_my_events"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:gravity="center"
-            android:text="@string/my_events"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_13sp" />
-
-    </LinearLayout>
     </LinearLayout>
 
     <android.support.v4.widget.NestedScrollView

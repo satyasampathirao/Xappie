@@ -29,6 +29,7 @@ import com.xappie.fragments.EventsFragment;
 import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
+import com.xappie.fragments.JobsFragment;
 import com.xappie.fragments.LanguageFragment;
 import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
@@ -145,6 +146,7 @@ public class DashBoardActivity extends BaseActivity {
                         break;
                     case R.id.jobs:
                         drawerLayout.closeDrawers();
+                        Utility.navigateDashBoardFragment(new JobsFragment(),JobsFragment.TAG,null,DashBoardActivity.this);
                         break;
                     case R.id.account_settings:
                         drawerLayout.closeDrawers();
@@ -319,6 +321,9 @@ public class DashBoardActivity extends BaseActivity {
                             Utility.navigateDashBoardFragment(new ClassifiedsFragment(), ClassifiedsFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 8:
+                            Utility.navigateDashBoardFragment(new JobsFragment(),JobsFragment.TAG,null,DashBoardActivity.this);
+                            break;
+                        case 9:
                             break;
 
                     }

@@ -1,0 +1,303 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/add_new_event_gray"
+    android:orientation="vertical"
+    android:padding="@dimen/_5dp">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/edt_job_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/job_title"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+
+        <EditText
+            android:id="@+id/edt_no_of_positions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/_no_of_positions"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+        <EditText
+            android:id="@+id/edt_job_role"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/job_role"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+        <EditText
+            android:id="@+id/edt_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/_company_name"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:background="@drawable/white_corners"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+                android:id="@+id/edt_company_logo"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:background="@drawable/white_corners"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/company_logo"
+                android:imeOptions="actionNext"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingStart="@dimen/_10dp"
+                android:textSize="@dimen/_15sp" />
+
+            <Button
+                android:id="@+id/btn_upload"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:background="@color/light_gray"
+                android:text="@string/upload"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/edt_website"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/_website"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+        <EditText
+            android:id="@+id/edt_eligibility"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/_eligibility"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+        <EditText
+            android:id="@+id/edt_experience"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/_experience"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+        <EditText
+            android:id="@+id/edt_job_location"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/white_corners"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:ellipsize="end"
+            android:hint="@string/_job_location"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+        <EditText
+            android:id="@+id/edt_job_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_20dp"
+            android:background="@drawable/white_corners"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:hint="@string/job_description"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:minHeight="@dimen/_100dp"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:paddingTop="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_mention_publish_date"
+            android:layout_marginStart="@dimen/_30dp"
+            android:text="@string/mention_publish_date"
+            android:layout_marginTop="@dimen/_5dp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_job_category"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:background="@drawable/white_corners"
+            android:drawableEnd="@drawable/drop_down_arrow"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/job_category"
+            android:paddingEnd="@dimen/_10dp"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp"
+            android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginStart="@dimen/_20dp"
+            android:id="@+id/tv_resume_required"
+            android:textSize="@dimen/_14sp"
+            android:text="@string/resume_required"/>
+
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/radio_group_resume"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sp"
+                android:id="@+id/radio_yes_send"
+                android:text="@string/yes_send_resume"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_11sp"
+                android:checked="true"
+                android:id="@+id/radio_no_send"
+                android:text="@string/no_send_directly"/>
+
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:gravity="center"
+                android:background="@drawable/red_corners_dark"
+                android:text="@string/submit"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sp" />
+
+
+
+        </RadioGroup>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>

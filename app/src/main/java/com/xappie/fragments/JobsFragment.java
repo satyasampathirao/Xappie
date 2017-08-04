@@ -1,7 +1,8 @@
 package com.xappie.fragments;
 
 
-import android.graphics.Paint;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,32 +12,33 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Shankar on 7/28/2017.
+ * A simple {@link Fragment} subclass.
  */
-public class EventDetailViewFragment extends Fragment {
+public class JobsFragment extends Fragment {
 
-    public static final String TAG = EventDetailViewFragment.class.getSimpleName();
+    public static final String TAG = JobsFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    /**
-     * Event Detail
-     */
+    private LinearLayout layout_tabs;
+
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
     @BindView(R.id.tv_notification_menu_icon)
@@ -51,39 +53,12 @@ public class EventDetailViewFragment extends Fragment {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
-    @BindView(R.id.tv_event_name)
-    TextView tv_event_name;
-    @BindView(R.id.tv_date_time)
-    TextView tv_date_time;
-    @BindView(R.id.tv_dress_code)
-    TextView tv_dress_code;
-    @BindView(R.id.tv_dress_code_value)
-    TextView tv_dress_code_value;
-    @BindView(R.id.tv_restrictions)
-    TextView tv_restrictions;
-    @BindView(R.id.tv_address)
-    TextView tv_address;
-
-    @BindView(R.id.tv_event_tag_line_text_comes_here)
-    TextView tv_event_tag_line_text_comes_here;
-    @BindView(R.id.tv_total_cost)
-    TextView tv_total_cost;
-    @BindView(R.id.tv_details)
-    TextView tv_details;
-    @BindView(R.id.tv_a_weekly_desi)
-    TextView tv_a_weekly_desi;
-
-
-    @BindView(R.id.btn_i_am_going)
-    Button btn_i_am_going;
-    @BindView(R.id.btn_may_be)
-    Button btn_may_be;
-    @BindView(R.id.btn_who_is_going)
-    Button btn_who_is_going;
-
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
-    private Typeface mTypefaceOpenSansBold;
+
+    public JobsFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,17 +69,28 @@ public class EventDetailViewFragment extends Fragment {
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         if (appBarLayout != null) {
             mParams.setBehavior(null);
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_event_detail_view, container, false);
+
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_jobs, container, false);
+        layout_tabs = (LinearLayout) rootView.findViewById(R.id.layout_tabs);
         ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    @OnClick({R.id.tv_notification_arrow_back_icon,
+            R.id.tv_notification_menu_icon})
+    void backToTheHome() {
+        mParent.onBackPressed();
     }
 
     @Override
@@ -115,52 +101,80 @@ public class EventDetailViewFragment extends Fragment {
 
     private void initUI() {
         setTypeFace();
+        setDataToHomeTabs();
     }
 
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
-        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.events));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.bay_area_jobs));
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_event_name.setTypeface(mTypefaceOpenSansBold);
-        tv_date_time.setTypeface(mTypefaceOpenSansBold);
-        tv_dress_code.setPaintFlags(tv_dress_code.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv_dress_code.setTypeface(mTypefaceOpenSansRegular);
-        tv_dress_code_value.setTypeface(mTypefaceOpenSansBold);
-        tv_restrictions.setTypeface(mTypefaceOpenSansBold);
-        tv_address.setTypeface(mTypefaceOpenSansBold);
+        Utility.navigateAllJobsFragment(new FindJobsListFragment(),FindJobsListFragment.TAG,null,mParent);
 
-        tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
-        tv_total_cost.setTypeface(mTypefaceOpenSansRegular);
-        tv_details.setTypeface(mTypefaceOpenSansRegular);
-        tv_a_weekly_desi.setTypeface(mTypefaceOpenSansRegular);
-
-        btn_who_is_going.setTypeface(mTypefaceOpenSansRegular);
-        btn_may_be.setTypeface(mTypefaceOpenSansRegular);
-        btn_i_am_going.setTypeface(mTypefaceOpenSansRegular);
     }
 
-    /*This method is used to navigate event detail view*/
-    @OnClick(R.id.btn_who_is_going)
-    void whoIsGoing() {
-        Utility.navigateDashBoardFragment(new EventsGoingMaybeGoingFragment(), EventsGoingMaybeGoingFragment.TAG, null, mParent);
+    private int selected_position = 0;
+
+    private void setDataToHomeTabs() {
+        layout_tabs.removeAllViews();
+        for (int i = 0; i < getTabNames().size(); i++) {
+            @SuppressLint("InflateParams")
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.textview_layout, null);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            tv_title.setText(getTabNames().get(i));
+            if (i == selected_position) {
+                tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            } else {
+                tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+            }
+            tv_title.setId(i);
+            tv_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = view.getId();
+                    selected_position = pos;
+                    switch (selected_position) {
+                        case 0:
+                            Utility.navigateAllJobsFragment(new FindJobsListFragment(),FindJobsListFragment.TAG,null,mParent);
+                            break;
+                        case 1:
+                            Utility.navigateAllJobsFragment(new PostJobFragment(),PostJobFragment.TAG,null,mParent);
+                            break;
+                        case 2:
+                            Utility.navigateAllJobsFragment(new AllMyJobsFragment(),AllMyJobsFragment.TAG,null,mParent);
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
+                            Utility.navigateAllJobsFragment(new JobsSearchFragment(),JobsSearchFragment.TAG,null,mParent);
+                            break;
+                    }
+                }
+            });
+            layout_tabs.addView(ll);
+        }
     }
 
-    @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_notification_menu_icon})
-    void backToTheHome() {
-        mParent.onBackPressed();
+    private ArrayList<String> getTabNames() {
+        ArrayList<String> mTabNames = new ArrayList<>();
+        mTabNames.add(Utility.getResourcesString(mParent, R.string.find_jobs).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(mParent, R.string.post_job).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(mParent, R.string.my_posts).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(mParent, R.string.jobs_applied).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(mParent, R.string.jobs_search).toUpperCase());
+
+        return mTabNames;
     }
 
     @OnClick(R.id.tv_notifications_icon)
@@ -180,3 +194,4 @@ public class EventDetailViewFragment extends Fragment {
     }
 
 }
+
