@@ -15,7 +15,8 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/card_pager"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_220dp" />
+                android:layout_height="@dimen/_210dp"
+                android:background="@android:color/white" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -137,7 +138,7 @@
                     android:layout_alignParentStart="true"
                     android:text="@string/top_stories"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sp" />
+                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/tv_top_stories_more"
@@ -159,7 +160,7 @@
                 <LinearLayout
                     android:id="@+id/ll_languages_layout_top_stories"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_height="@dimen/_40dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
@@ -188,7 +189,7 @@
                     android:layout_alignParentStart="true"
                     android:text="@string/entertainment"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sp" />
+                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/tv_entertainment_more"
@@ -210,7 +211,7 @@
                 <LinearLayout
                     android:id="@+id/ll_languages_layout_entertainment"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_height="@dimen/_40dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
@@ -239,7 +240,7 @@
                     android:layout_alignParentStart="true"
                     android:text="@string/discussions"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sp" />
+                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/tv_discussions_more"
@@ -261,7 +262,7 @@
                 <LinearLayout
                     android:id="@+id/ll_languages_layout_discussions"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_height="@dimen/_40dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
@@ -290,7 +291,7 @@
                     android:layout_alignParentStart="true"
                     android:text="@string/events"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sp" />
+                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/tv_events_more"
@@ -312,7 +313,7 @@
                 <LinearLayout
                     android:id="@+id/ll_languages_layout_events"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_height="@dimen/_40dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
@@ -341,7 +342,7 @@
                     android:layout_alignParentStart="true"
                     android:text="@string/classifieds"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sp" />
+                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/tv_classifieds_more"
@@ -363,7 +364,7 @@
                 <LinearLayout
                     android:id="@+id/ll_languages_layout_classifieds"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_height="@dimen/_40dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
@@ -398,7 +399,7 @@
                     android:layout_alignParentStart="true"
                     android:text="@string/jobs"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_13sp" />
+                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/tv_jobs_more"
@@ -420,7 +421,7 @@
                 <LinearLayout
                     android:id="@+id/ll_languages_layout_jobs"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50dp"
+                    android:layout_height="@dimen/_40dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>

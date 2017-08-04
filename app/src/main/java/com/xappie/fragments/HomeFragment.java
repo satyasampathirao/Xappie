@@ -458,28 +458,28 @@ public class HomeFragment extends Fragment {
 
         tv_ads.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_top_stories.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_top_stories.setTypeface(Utility.getOpenSansRegular(mParent));
         tv_top_stories.setText(tv_top_stories.getText().toString().toUpperCase());
         tv_top_stories_more.setTypeface(Utility.getOpenSansBold(mParent));
 
 
-        tv_entertainment.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_entertainment.setTypeface(Utility.getOpenSansRegular(mParent));
         tv_entertainment.setText(tv_entertainment.getText().toString().toUpperCase());
         tv_entertainment_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_discussions.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_discussions.setTypeface(Utility.getOpenSansRegular(mParent));
         tv_discussions.setText(tv_discussions.getText().toString().toUpperCase());
         tv_discussions_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_events.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_events.setTypeface(Utility.getOpenSansRegular(mParent));
         tv_events.setText(tv_events.getText().toString().toUpperCase());
         tv_events_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_classifieds.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_classifieds.setTypeface(Utility.getOpenSansRegular(mParent));
         tv_classifieds.setText(tv_classifieds.getText().toString().toUpperCase());
         tv_classifieds_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_jobs.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_jobs.setTypeface(Utility.getOpenSansRegular(mParent));
         tv_jobs.setText(tv_jobs.getText().toString().toUpperCase());
         tv_jobs_more.setTypeface(Utility.getOpenSansBold(mParent));
     }

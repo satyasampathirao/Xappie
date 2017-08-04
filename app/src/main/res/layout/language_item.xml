@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="50dp"
+    android:layout_height="@dimen/_40dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_language_name"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_40dp"
+        android:layout_height="@dimen/_30dp"
         android:gravity="center"
         android:minHeight="@dimen/_40dp"
         android:paddingEnd="@dimen/_12dp"
         android:paddingStart="@dimen/_12dp"
         android:text="@string/app_name"
-        android:textSize="@dimen/_12sp"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_12sp" />
 
     <View
         android:id="@+id/view"
