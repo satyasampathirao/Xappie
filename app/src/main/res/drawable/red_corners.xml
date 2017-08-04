@@ -4,8 +4,8 @@
     <corners android:radius="@dimen/_8dp" />
     <solid android:color="@color/view_profile_bg" />
     <padding
-        android:bottom="@dimen/_5dp"
-        android:left="@dimen/_5dp"
-        android:right="@dimen/_5dp"
-        android:top="@dimen/_5dp" />
+        android:bottom="@dimen/_3dp"
+        android:left="@dimen/_3dp"
+        android:right="@dimen/_3dp"
+        android:top="@dimen/_3dp" />
 </shape>

@@ -18,9 +18,9 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
             android:background="@drawable/top_bg"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:visibility="visible">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -109,7 +109,7 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_200dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/nav_bg_red"

@@ -41,5 +41,6 @@
     <color name="event_who_is_going_bg">#b9373f</color>
     <color name="event_im_going_bg">#8a4152</color>
     <color name="event_who_is_going_text_bg">#c75f66</color>
+    <color name="side_menu_bg">#c4373c</color>
 
 </resources>
