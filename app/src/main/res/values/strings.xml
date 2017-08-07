@@ -207,5 +207,13 @@
     <string name="resume_required">Resume Required *</string>
     <string name="yes_send_resume">Yes, send resumes To me directly</string>
     <string name="no_send_directly">No, send directly to email given in job description</string>
+    <string name="submit_resume">Submit Resume</string>
+    <string name="upload_resume">Upload Resume</string>
+    <string name="Cover_Letter">Cover Letter</string>
+    <string name="apply">Apply</string>
+    <string name="apply_job">Apply Job</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typecasting industry</string>
+    <string name="hired">Hired</string>
+    <string name="not_hired">Not Hired</string>
 
 </resources>

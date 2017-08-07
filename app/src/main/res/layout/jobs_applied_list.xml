@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5dp"
+    android:background="@color/add_new_event_gray"
+    android:padding="@dimen/_5dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80dp"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rl_image_layout"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true">
+
+            <ImageView
+                android:id="@+id/img_job_company_logo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/police_image" />
+
+            <ImageView
+                android:id="@+id/img_status_icon"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/green_right" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/rl_image_layout"
+            android:layout_toRightOf="@+id/rl_image_layout"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_job_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:gravity="start|left"
+                android:text="@string/lorem_ipsum"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/_13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_company_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:layout_weight="1"
+                    android:alpha="0.8"
+                    android:text="@string/company_name"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_10sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_positions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15dp"
+                        android:alpha="0.8"
+                        android:text="@string/positions"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_10sp" />
+
+                    <TextView
+                        android:id="@+id/tv_positions_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_25dp"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_15dp"
+                        android:alpha="0.8"
+                        android:text="15"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_10sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_button_hired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hired" />
+
+            <RadioButton
+                android:id="@+id/radio_button_not_hired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_hired" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25dp"
+            android:layout_marginStart="@dimen/_5dp"
+            android:background="@color/text_upload_color"
+            android:text="@string/update"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</RelativeLayout>

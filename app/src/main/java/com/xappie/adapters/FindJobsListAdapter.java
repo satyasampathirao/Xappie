@@ -12,6 +12,7 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.EventDetailViewFragment;
 import com.xappie.fragments.FindJobsListFragment;
+import com.xappie.fragments.JobsViewFragment;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.JobsModel;
 import com.xappie.utils.Utility;
@@ -82,7 +83,7 @@ public class FindJobsListAdapter extends BaseAdapter
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                           Utility.navigateAllJobsFragment(new JobsViewFragment(),JobsViewFragment.TAG,null,mDashBoardActivity);
             }
         });
 

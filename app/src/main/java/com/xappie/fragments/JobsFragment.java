@@ -154,7 +154,7 @@ public class JobsFragment extends Fragment {
                             Utility.navigateAllJobsFragment(new AllMyJobsFragment(),AllMyJobsFragment.TAG,null,mParent);
                             break;
                         case 3:
-
+                               Utility.navigateAllJobsFragment(new JobsAppliedFragment(),JobsAppliedFragment.TAG,null,mParent);
                             break;
                         case 4:
                             Utility.navigateAllJobsFragment(new JobsSearchFragment(),JobsSearchFragment.TAG,null,mParent);
