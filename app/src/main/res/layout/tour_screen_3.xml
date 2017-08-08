@@ -13,32 +13,41 @@
         android:layout_marginEnd="@dimen/_40dp"
         android:layout_marginStart="@dimen/_40dp"
         android:minHeight="@dimen/_200dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/top_bg" />
+        android:contentDescription="@string/menu"
+        android:scaleType="fitCenter"
+        android:src="@drawable/menu_intro" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/welcome_to_xappie"
+        android:text="@string/menu"
+        android:id="@+id/tv_menu"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_18sp"
+        android:textSize="@dimen/_16sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5dp"
+        android:layout_marginStart="@dimen/_35dp"
+        android:layout_marginEnd="@dimen/_35dp"
         android:gravity="center"
-        android:text="@string/ready_to_get_started"
+        android:id="@+id/tv_menu_section"
+        android:text="@string/the_menu_section"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp" />
+        android:textSize="@dimen/_15sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/swipe_through_to_start_your_tour"
+        android:id="@+id/tv_menu_jobs"
+        android:layout_marginTop="@dimen/_2dp"
+        android:layout_marginStart="@dimen/_35dp"
+        android:layout_marginEnd="@dimen/_35dp"
+        android:text="@string/this_is_also"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp" />
+        android:textSize="@dimen/_15sp" />
 </LinearLayout>

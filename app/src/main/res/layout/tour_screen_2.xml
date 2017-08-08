@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,37 +15,107 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_30dp"
-        android:layout_marginBottom="@dimen/_30dp"
+        android:layout_marginTop="@dimen/_25dp"
+        android:layout_marginBottom="@dimen/_10dp"
         android:layout_marginEnd="@dimen/_40dp"
         android:layout_marginStart="@dimen/_40dp"
         android:minHeight="@dimen/_200dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/top_bg" />
+        android:contentDescription="@string/xappie_tour"
+        android:scaleType="fitCenter"
+        android:src="@drawable/allu_arjun" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="center"
+        android:contentDescription="@string/location"
+       android:src="@drawable/location_intro" />
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tv_location"
         android:gravity="center"
-        android:text="@string/welcome_to_xappie"
+        android:text="@string/location"
+        android:textAllCaps="true"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_18sp"
+        android:textSize="@dimen/_16sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5dp"
+        android:layout_marginTop="@dimen/_3dp"
         android:gravity="center"
-        android:text="@string/ready_to_get_started"
+        android:id="@+id/tv_location_set"
+        android:text="@string/this_is_where"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp" />
+        android:textSize="@dimen/_13sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_5dp"
+        android:contentDescription="@string/notification"
+        android:scaleType="center"
+        android:src="@drawable/notification_intro" />
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/swipe_through_to_start_your_tour"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:text="@string/notification"
+        android:id="@+id/tv_notification"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp" />
+        android:textSize="@dimen/_16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3dp"
+        android:gravity="center"
+        android:id="@+id/tv_notification_set"
+        android:text="@string/place_to_set"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_13sp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_5dp"
+        android:contentDescription="@string/preferences"
+        android:scaleType="center"
+        android:src="@drawable/language_intro" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="@string/preferences"
+        android:textAllCaps="true"
+        android:id="@+id/tv_preference"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3dp"
+        android:gravity="center"
+        android:id="@+id/tv_preference_set"
+        android:text="@string/set_your_language"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_13sp" />
+
+
 </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>

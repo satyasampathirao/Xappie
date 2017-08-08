@@ -215,5 +215,12 @@
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typecasting industry</string>
     <string name="hired">Hired</string>
     <string name="not_hired">Not Hired</string>
+    <string name="this_is_where">This is where you can set your location</string>
+    <string name="place_to_set">Place to set or View your Notifications</string>
+    <string name="preferences">Preferences</string>
+    <string name="set_your_language">Set your language preferences here</string>
+    <string name="menu">MENU</string>
+    <string name="the_menu_section"><![CDATA[The Menu section is where you can check out all your entertainment news, galleries, videos & participate in discussions.]]></string>
+    <string name="this_is_also"><![CDATA[This is also a place where you can see classifieds & search for job in your city]]></string>
 
 </resources>

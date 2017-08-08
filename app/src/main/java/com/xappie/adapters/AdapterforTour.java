@@ -81,10 +81,30 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
                 break;
             case 1:
                 mView = mLayoutInflater.inflate(R.layout.tour_screen_2, null);
+                TextView tv_location = (TextView)mView.findViewById(R.id.tv_location);
+                TextView tv_location_set = (TextView) mView.findViewById(R.id.tv_location_set);
+                TextView tv_notification = (TextView) mView.findViewById(R.id.tv_notification);
+                TextView tv_notification_set = (TextView) mView.findViewById(R.id.tv_notification_set);
+                TextView tv_preference = (TextView) mView.findViewById(R.id.tv_preference);
+                TextView tv_preference_set = (TextView) mView.findViewById(R.id.tv_preference_set);
+
+                tv_location.setTypeface(Utility.getOpenSansBold(mContext));
+                tv_location_set.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_notification.setTypeface(Utility.getOpenSansBold(mContext));
+                tv_notification_set.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_preference.setTypeface(Utility.getOpenSansBold(mContext));
+                tv_preference_set.setTypeface(Utility.getOpenSansRegular(mContext));
+
                 ((ViewPager) collection).addView(mView, 0);
                 break;
             case 2:
                 mView = mLayoutInflater.inflate(R.layout.tour_screen_3, null);
+                TextView tv_menu = (TextView) mView.findViewById(R.id.tv_menu);
+                 TextView tv_menu_section = (TextView) mView.findViewById(R.id.tv_menu_section);
+                TextView tv_menu_jobs = (TextView) mView.findViewById(R.id.tv_menu_jobs);
+                tv_menu.setTypeface(Utility.getOpenSansBold(mContext));
+                tv_menu_jobs.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_menu_section.setTypeface(Utility.getOpenSansRegular(mContext));
                 ((ViewPager) collection).addView(mView, 0);
 
                 break;
