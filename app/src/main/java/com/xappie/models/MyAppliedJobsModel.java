@@ -13,6 +13,7 @@ public class MyAppliedJobsModel  {
     private String location;
     private String category;
     private String isHired;
+    private static boolean mHiredLayout;
 
 
     public int getId() {
@@ -77,6 +78,13 @@ public class MyAppliedJobsModel  {
 
     public void setIsHired(String isHired) {
         this.isHired = isHired;
+    }
+    public static boolean ismHiredLayout() {
+        return mHiredLayout;
+    }
+
+    public void setmHiredLayout(boolean mHiredLayout) {
+        this.mHiredLayout = mHiredLayout;
     }
 
 

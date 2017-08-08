@@ -68,8 +68,8 @@ public class JobsAppliedAdapter extends BaseAdapter {
             mJobAppliedAdapterHolder.txt_job_name = (TextView) convertView.findViewById(R.id.txt_job_name);
             mJobAppliedAdapterHolder.tv_company_name = (TextView) convertView.findViewById(R.id.tv_company_name);
             mJobAppliedAdapterHolder.tv_positions = (TextView) convertView.findViewById(R.id.tv_positions);
-            mJobAppliedAdapterHolder.tv_positions_number = (TextView) convertView.findViewById(R.id.tv_positions_number);
             mJobAppliedAdapterHolder.img_status_icon = (ImageView) convertView.findViewById(R.id.img_status_icon);
+            mJobAppliedAdapterHolder.tv_positions_number = (TextView) convertView.findViewById(R.id.tv_positions_number);
             mJobAppliedAdapterHolder.img_job_company_logo = (ImageView) convertView.findViewById(R.id.img_job_company_logo);
             mJobAppliedAdapterHolder.rl_relative_layout = (RelativeLayout) convertView.findViewById(R.id.rl_relative_layout);
 
@@ -80,10 +80,11 @@ public class JobsAppliedAdapter extends BaseAdapter {
 
 
             mJobAppliedAdapterHolder.btn_update.setTypeface(mOpenSansBoldTypeface);
-            mJobAppliedAdapterHolder.txt_job_name.setTypeface(mOpenSansRegularTypeface);
+            mJobAppliedAdapterHolder.txt_job_name.setTypeface(mOpenSansBoldTypeface);
             mJobAppliedAdapterHolder.tv_company_name.setTypeface(mOpenSansRegularTypeface);
-            mJobAppliedAdapterHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
             mJobAppliedAdapterHolder.tv_positions_number.setTypeface(mOpenSansRegularTypeface);
+            mJobAppliedAdapterHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
+
             convertView.setTag(mJobAppliedAdapterHolder);
         }
         else {
@@ -94,7 +95,16 @@ public class JobsAppliedAdapter extends BaseAdapter {
 
         mJobAppliedAdapterHolder.txt_job_name.setText("Lorem ipsum is simply dummy text of the printing and typesetting industry");
        mJobAppliedAdapterHolder.tv_positions.setText(Utility.getResourcesString(mDashBoardActivity, R.string.positions).toUpperCase());
+        mJobAppliedAdapterHolder.tv_positions_number.setText(" 4 ");
            mJobAppliedAdapterHolder.tv_company_name.setText("IBM");
+
+        if (MyAppliedJobsModel.ismHiredLayout()) {
+            mJobAppliedAdapterHolder.ll_layout.setVisibility(View.VISIBLE);
+            mJobAppliedAdapterHolder.rl_relative_layout.setVisibility(View.GONE);
+        } else {
+            mJobAppliedAdapterHolder.ll_layout.setVisibility(View.GONE);
+            mJobAppliedAdapterHolder.rl_relative_layout.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }

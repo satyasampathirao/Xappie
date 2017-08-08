@@ -10,6 +10,7 @@ public class JobsModel
     private int id;
     private String title;
     private String positions;
+    private String positions_nbr;
     private String posted_by;
 
     public String getUrl() {
@@ -36,12 +37,20 @@ public class JobsModel
         this.title = title;
     }
 
-    public String getTime() {
+    public String getPositions() {
         return positions;
     }
 
-    public void setTime(String positions) {
+    public void setPositions(String positions) {
         this.positions = positions;
+    }
+
+    public String getPositions_nbr() {
+        return positions_nbr;
+    }
+
+    public void setPositions_nbr(String positions_nbr) {
+        this.positions_nbr = positions_nbr;
     }
 
     public String getPosted_by() {

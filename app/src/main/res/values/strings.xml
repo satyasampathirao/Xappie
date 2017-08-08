@@ -185,7 +185,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="positions">POSITIONS : 4</string>
+    <string name="positions">POSITIONS : </string>
     <string name="ibm">IBM</string>
     <string name="bay_area_jobs">Bay Area Jobs</string>
     <string name="select_job_category">Select Job Category</string>
@@ -222,5 +222,6 @@
     <string name="menu">MENU</string>
     <string name="the_menu_section"><![CDATA[The Menu section is where you can check out all your entertainment news, galleries, videos & participate in discussions.]]></string>
     <string name="this_is_also"><![CDATA[This is also a place where you can see classifieds & search for job in your city]]></string>
+    <string name="_4">4</string>
 
 </resources>

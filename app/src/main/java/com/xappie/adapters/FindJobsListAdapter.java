@@ -64,10 +64,12 @@ public class FindJobsListAdapter extends BaseAdapter
             mClassifiedsListHolder.img_logo = (ImageView) convertView.findViewById(R.id.img_logo);
             mClassifiedsListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_positions);
+            mClassifiedsListHolder.tv_positions_nbr = (TextView) convertView.findViewById(R.id.tv_positions_nbr);
             mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_company_name);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
             mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
 
             convertView.setTag(mClassifiedsListHolder);
@@ -79,6 +81,7 @@ public class FindJobsListAdapter extends BaseAdapter
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText("Lorem ipsum is simply dummy text of the printing and typesetting industry");
         mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.positions).toUpperCase());
+        mClassifiedsListHolder.tv_positions_nbr.setText(" 4 ");
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +98,7 @@ public class FindJobsListAdapter extends BaseAdapter
         TextView tv_title;
         TextView tv_time;
         TextView tv_location;
+        TextView tv_positions_nbr;
         ImageView img_logo;
     }
 }
