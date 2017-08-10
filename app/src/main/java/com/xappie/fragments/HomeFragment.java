@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -245,6 +246,13 @@ public class HomeFragment extends Fragment {
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
 
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new ClassifiedsListFragment(),ClassifiedsListFragment.TAG,null,mParent);
+                }
+            });
             linearLayout.addView(ll);
 
             if (i == 2)
@@ -265,12 +273,14 @@ public class HomeFragment extends Fragment {
             View view = (View) ll.findViewById(R.id.view);
             tv_language_name.setText(getEventsData().get(i));
             tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+
             if (i == 0) {
                 view.setVisibility(View.VISIBLE);
                 tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
             } else {
                 view.setVisibility(View.GONE);
             }
+
             ll_languages_layout_jobs.addView(ll);
         }
 
@@ -287,6 +297,13 @@ public class HomeFragment extends Fragment {
 
             tv_time.setText(getNewsModels().get(i).getTime());
             tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new JobsViewFragment(),JobsViewFragment.TAG,null,mParent);
+                }
+            });
 
             ll_jobs.addView(ll);
         }
@@ -327,6 +344,13 @@ public class HomeFragment extends Fragment {
             tv_time.setText(getNewsModels().get(i).getTime());
             tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
 
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new EventDetailViewFragment(),EventDetailViewFragment.TAG,null,mParent);
+                }
+            });
+
             ll_events.addView(ll);
         }
 
@@ -366,6 +390,13 @@ public class HomeFragment extends Fragment {
             tv_time.setText(getNewsModels().get(i).getTime());
             tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
 
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
             ll_discussions.addView(ll);
         }
     }
@@ -404,6 +435,13 @@ public class HomeFragment extends Fragment {
             tv_time.setText(getNewsModels().get(i).getTime());
             tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
 
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(),GalleryDetailViewFragment.TAG,null,mParent);
+                }
+            });
+
             ll_entertainment.addView(ll);
         }
     }
@@ -441,6 +479,13 @@ public class HomeFragment extends Fragment {
 
             tv_time.setText(getNewsModels().get(i).getTime());
             tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(),GalleryDetailViewFragment.TAG,null,mParent);
+                }
+            });
 
             ll_top_stories.addView(ll);
         }
@@ -493,6 +538,12 @@ public class HomeFragment extends Fragment {
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
             tv_title.setText(getGallerySizes().get(i).getTitle());
             img_gallery_image.setImageDrawable(Utility.getDrawable(mParent, getGallerySizes().get(i).getId()));
+            img_gallery_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new GalleryImageViewFragment(),GalleryImageViewFragment.TAG,null,mParent);
+                }
+            });
             layout_gallery.addView(ll);
         }
     }
@@ -506,6 +557,12 @@ public class HomeFragment extends Fragment {
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
             tv_title.setText(getVideosSizes().get(i).getTitle());
             img_video_image.setImageDrawable(Utility.getDrawable(mParent, getVideosSizes().get(i).getId()));
+            img_video_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
             layout_videos.addView(ll);
         }
     }
@@ -593,4 +650,53 @@ public class HomeFragment extends Fragment {
         }
         return newsModels;
     }
+
+    @OnClick (R.id.tv_gallery_more)
+    public void navigateToGallery()
+    {
+        Utility.navigateDashBoardFragment(new GalleryFragment(),GalleryFragment.TAG,null,mParent);
+    }
+
+    @OnClick(R.id.tv_videos_more)
+    public void navigateToVideos()
+    {
+        Utility.navigateDashBoardFragment(new VideosFragment(),VideosFragment.TAG,null,mParent);
+    }
+
+    @OnClick(R.id.tv_top_stories_more)
+    public void navigateToTopStories()
+    {
+        Utility.navigateDashBoardFragment(new TopStoriesFragment(),TopStoriesFragment.TAG,null,mParent);
+    }
+
+    @OnClick(R.id.tv_entertainment_more)
+    public void navigateToEntertainment()
+    {
+        Utility.navigateDashBoardFragment(new EntertainmentFragment(),EntertainmentFragment.TAG,null,mParent);
+    }
+
+    @OnClick(R.id.tv_discussions_more)
+    public void navigateToDiscussions()
+    {
+        Utility.navigateDashBoardFragment(new DiscussionsFragment(),DiscussionsFragment.TAG,null,mParent);
+    }
+
+    @OnClick(R.id.tv_events_more)
+    public void navigateToEvents()
+    {
+        Utility.navigateDashBoardFragment(new EventsFragment(),EventsFragment.TAG,null,mParent);
+    }
+
+    @OnClick(R.id.tv_classifieds_more)
+    public void navigateToClassifieds()
+    {
+        Utility.navigateDashBoardFragment(new ClassifiedsFragment(),ClassifiedsFragment.TAG,null,mParent);
+    }
+
+    @OnClick(R.id.tv_jobs_more)
+    public void navigateToJobs()
+    {
+        Utility.navigateDashBoardFragment(new JobsFragment(),JobsFragment.TAG,null,mParent);
+    }
+
 }

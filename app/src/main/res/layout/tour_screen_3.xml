@@ -37,7 +37,7 @@
         android:id="@+id/tv_menu_section"
         android:text="@string/the_menu_section"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_15sp" />
+        android:textSize="@dimen/_13sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -49,5 +49,5 @@
         android:layout_marginEnd="@dimen/_35dp"
         android:text="@string/this_is_also"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_15sp" />
+        android:textSize="@dimen/_13sp" />
 </LinearLayout>

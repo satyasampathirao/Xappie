@@ -1,5 +1,6 @@
 package com.xappie.adapters;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.fragments.HomeFragment;
 import com.xappie.models.CitiesListModel;
 import com.xappie.models.LanguagesListModel;
 import com.xappie.utils.Utility;
@@ -75,6 +77,8 @@ public class CityListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
+                Intent dashBoardIntent = new Intent(mDashBoardActivity, DashBoardActivity.class);
+                mDashBoardActivity.startActivity(dashBoardIntent);
             }
         });
 

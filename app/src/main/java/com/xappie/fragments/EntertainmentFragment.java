@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -186,6 +187,12 @@ public class EntertainmentFragment extends Fragment {
     public void navigateLocation()
     {
         Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    }
+
+    @OnItemClick(R.id.list_view)
+    void navigateData() {
+        Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null,
+                mParent);
     }
 
 }

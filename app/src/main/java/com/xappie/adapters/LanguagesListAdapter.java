@@ -1,5 +1,6 @@
 package com.xappie.adapters;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +11,10 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.models.LanguagesListModel;
-import com.xappie.models.NotificationsListModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
 
-/**
- * Created by Ravi on 31-Jul-17.
- */
 
 public class LanguagesListAdapter extends BaseAdapter {
 
@@ -52,7 +49,7 @@ public class LanguagesListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
 
-        LanguagesListAdapter.LanguagesListHolder mLanguagesListHolder = null;
+        LanguagesListAdapter.LanguagesListHolder mLanguagesListHolder;
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.custom_language_item,
                     null);
@@ -74,6 +71,8 @@ public class LanguagesListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
+                Intent dashBoardIntent = new Intent(mDashBoardActivity, DashBoardActivity.class);
+                mDashBoardActivity.startActivity(dashBoardIntent);
             }
         });
 
