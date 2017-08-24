@@ -33,6 +33,12 @@
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activities.CountriesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.StatesActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity

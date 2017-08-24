@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.CountriesListAdapter;
-import com.xappie.models.CountriesListModel;
+import com.xappie.models.CountriesModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -85,16 +85,19 @@ public class CountriesFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         return rootView;
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
+
     private void initUI() {
 
         setTypeFace();
 
     }
+
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
@@ -107,36 +110,32 @@ public class CountriesFragment extends Fragment {
         tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_select_country.setTypeface(mTypefaceOpenSansRegular);
 
-        country_list_item.setAdapter(new CountriesListAdapter(mParent,getSampleData()));
+        country_list_item.setAdapter(new CountriesListAdapter(mParent, getSampleData()));
     }
-    private ArrayList<CountriesListModel> getSampleData() {
 
-        ArrayList<CountriesListModel> countriesListModels = new ArrayList<>();
+    private ArrayList<CountriesModel> getSampleData() {
 
+        ArrayList<CountriesModel> countriesListModels = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
-            CountriesListModel countriesListModel =  new CountriesListModel();
-           countriesListModel.setId(R.drawable.video_hint);
-            countriesListModel.setTitle("INDIA");
-            countriesListModels.add(countriesListModel);
-
+            CountriesModel countriesModel = new CountriesModel();
+            countriesModel.setCountry_name("INDIA");
+            countriesListModels.add(countriesModel);
         }
         return countriesListModels;
     }
 
-    @OnClick({R.id.tv_countries_arrow_back_icon,R.id.tv_countries_menu_icon})
-    public void navigateToBack()
-    {
+    @OnClick({R.id.tv_countries_arrow_back_icon, R.id.tv_countries_menu_icon})
+    public void navigateToBack() {
         mParent.onBackPressed();
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateToNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateToNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateToLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateToLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
 }

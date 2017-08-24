@@ -1,6 +1,7 @@
 package com.xappie.activities;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -122,6 +123,7 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
     void onItemClick(int position) {
         Utility.setSharedPrefStringData(LanguageActivity.this, Constants.SELECTED_LANGUAGE, mLanguageListModel.getLanguageModels().get(position).getName());
         Utility.setSharedPrefStringData(LanguageActivity.this, Constants.SELECTED_LANGUAGE_ID, mLanguageListModel.getLanguageModels().get(position).getId());
-
+        Intent intent = new Intent(LanguageActivity.this, CountriesActivity.class);
+        startActivity(intent);
     }
 }

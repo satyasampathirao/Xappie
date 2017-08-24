@@ -17,9 +17,9 @@ public class APIConstants {
 
     public static String BASE_URL = "http://test.xappie.com/api/";
     public static String GET_LANGUAGES = BASE_URL + "get_languages";
-    public static String get_countries = BASE_URL + "get_countries";
-    public static String get_states = BASE_URL + "get_states";
-    public static String get_cities = BASE_URL + "get_cities";
+    public static String GET_COUNTRIES = BASE_URL + "get_countries";
+    public static String GET_STATES = BASE_URL + "get_states";
+    public static String GET_CITIES = BASE_URL + "get_cities";
 
 
 }

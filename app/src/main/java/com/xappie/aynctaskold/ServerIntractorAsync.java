@@ -37,11 +37,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
         switch (mRequestType) {
             case GET:
                 Utility.showLog("Request URL ", mUrl);
-                if (mUrl.contains(APIConstants.GET_LANGUAGES)) {
-                    mResponse = Utility.httpGetRequestToServer(Utility.getURL(mUrl, mParams));
-                } else {
-                    mResponse = Utility.GETHeader(mUrl, mContext);
-                }
+                mResponse = Utility.httpGetRequestToServer(Utility.getURL(mUrl, mParams));
                 if (mResponse != null) {
 
                     Utility.showLog("mResponse  ", mResponse);

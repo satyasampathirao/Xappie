@@ -1,35 +1,19 @@
 package com.xappie.models;
 
+import java.util.ArrayList;
+
 /**
- * Created by Ravi on 31-Jul-17.
+ * Created by Shankar on 8/24/2017.
  */
 
-public class CountriesListModel {
-    private String url;
-    private int id;
-    private String title;
+public class CountriesListModel extends Model {
+    private ArrayList<CountriesModel> countriesModels;
 
-    public String getUrl() {
-        return url;
+    public ArrayList<CountriesModel> getCountriesModels() {
+        return countriesModels;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCountriesModels(ArrayList<CountriesModel> countriesModels) {
+        this.countriesModels = countriesModels;
     }
 }

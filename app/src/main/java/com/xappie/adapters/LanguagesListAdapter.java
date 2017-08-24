@@ -1,7 +1,6 @@
 package com.xappie.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.xappie.R;
-import com.xappie.activities.DashBoardActivity;
 import com.xappie.models.LanguageModel;
 import com.xappie.utils.Utility;
 
@@ -65,15 +63,6 @@ public class LanguagesListAdapter extends BaseAdapter {
 
         LanguageModel languagesListModel = languagesListModels.get(position);
         mLanguagesListHolder.tv_title.setText(languagesListModel.getName_native());
-
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent dashBoardIntent = new Intent(context, DashBoardActivity.class);
-                context.startActivity(dashBoardIntent);
-            }
-        });
 
         return convertView;
     }
