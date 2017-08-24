@@ -54,11 +54,13 @@ public class AppTourActivity extends Activity {
 
     @OnClick(R.id.tv_close_icon)
     void navigateToHomeActivity() {
-        Utility.setSharedPrefBooleanData(this, Constants.IS_TOUR_COMPLETED, true);
+        //Utility.setSharedPrefBooleanData(this, Constants.IS_TOUR_COMPLETED, true);
         Intent intent = new Intent(AppTourActivity.this,
-                DashBoardActivity.class);
+                LanguageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         AppTourActivity.this.startActivity(intent);
         AppTourActivity.this.finish();
+
+
     }
 }

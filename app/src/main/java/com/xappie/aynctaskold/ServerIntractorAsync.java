@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 
 import com.xappie.R;
-import com.xappie.aynctask.IAsyncCaller;
 import com.xappie.models.Model;
 import com.xappie.parser.Parser;
 import com.xappie.utils.APIConstants;
@@ -33,14 +32,20 @@ public class ServerIntractorAsync extends BaseAsynkTask {
     public Integer doInBackground(Void... params) {
         if (!Utility.isNetworkAvailable(mContext)) {
             return 0;
-
         }
+
         switch (mRequestType) {
-            case POST:
-                Utility.showLog("API CALL :", "REST URL PARAMS : " + mParams);
-                Utility.showLog("API CALL :", "REST URL  : " + mUrl);
-                // mResponse = Utility.httpJsonRequest(mUrl, mParams, mContext);
-                Utility.showLog("API CALL :", "RESPONSE : " + mResponse);
+            case GET:
+                Utility.showLog("Request URL ", mUrl);
+                if (mUrl.contains(APIConstants.GET_LANGUAGES)) {
+                    mResponse = Utility.httpGetRequestToServer(Utility.getURL(mUrl, mParams));
+                } else {
+                    mResponse = Utility.GETHeader(mUrl, mContext);
+                }
+                if (mResponse != null) {
+
+                    Utility.showLog("mResponse  ", mResponse);
+                }
                 return parseResposnse(mResponse);
             default:
                 return -1;
@@ -89,7 +94,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
 
     private int getResponse(String response) {
         try {
-            model = parser.parse(response);
+            model = parser.parse(response, mContext);
             return 1;
         } catch (Exception e) {
             e.printStackTrace();

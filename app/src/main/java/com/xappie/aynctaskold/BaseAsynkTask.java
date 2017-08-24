@@ -5,7 +5,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 
-import com.xappie.aynctask.IAsyncCaller;
 import com.xappie.customviews.CustomProgressDialog;
 import com.xappie.parser.Parser;
 import com.xappie.utils.APIConstants;

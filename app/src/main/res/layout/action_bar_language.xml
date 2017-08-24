@@ -50,9 +50,10 @@
             android:gravity="center"
             android:longClickable="false"
             android:maxLines="1"
+            android:padding="@dimen/_5dp"
             android:text="@string/languages"
             android:textColor="@color/color_white"
             android:textSize="@dimen/_18sp"
-            android:textStyle="bold"  />
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+            android:textStyle="bold" />
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

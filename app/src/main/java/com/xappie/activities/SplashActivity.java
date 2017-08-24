@@ -12,7 +12,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Utility.getSharedPrefBooleanData(this, Constants.IS_TOUR_COMPLETED)) {
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SELECTED_LANGUAGE))) {
             Intent intent = new Intent(this, DashBoardActivity.class);
             startActivity(intent);
         } else {

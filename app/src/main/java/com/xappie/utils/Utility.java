@@ -1,5 +1,6 @@
 package com.xappie.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -35,6 +37,22 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.xappie.R;
 import com.xappie.fragments.AllEventsListFragment;
 import com.xappie.fragments.FindJobsListFragment;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Shankar on 6/29/2017.
@@ -320,7 +338,7 @@ public class Utility {
 
 
     public static void navigateAllJobsFragment(Fragment fragment,
-                                                 String tag, Bundle bundle, FragmentActivity fragmentActivity) {
+                                               String tag, Bundle bundle, FragmentActivity fragmentActivity) {
         FragmentManager fragmentManager = fragmentActivity
                 .getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
@@ -427,4 +445,124 @@ public class Utility {
                             }
                         }).create();
     }
+
+     /*
+     *
+	 *
+	 * These methods are to make async tasks concurrent, and run on parallel on
+	 * android 3+
+	 */
+
+    public static <P, T extends AsyncTask<P, ?, ?>> void execute(T task) {
+        execute(task, (P[]) null);
+    }
+
+    @SafeVarargs
+    @SuppressLint("NewApi")
+    public static <P, T extends AsyncTask<P, ?, ?>> void execute(T task,
+                                                                 P... params) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params);
+        } else {
+            task.execute(params);
+        }
+    }
+
+    public static String httpGetRequestToServer(String url) {
+        InputStream inputStream = null;
+        String result = "";
+        String hashKeyStr = "";
+        try {
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpConnectionParams.setConnectionTimeout(httpclient.getParams(),
+                    CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpclient.getParams(),
+                    CONNECTION_TIMEOUT);
+            URI uri = new URI(url.replace(" ", "%20"));
+            HttpGet request = new HttpGet(uri);
+            HttpResponse httpResponse = httpclient.execute(request);
+            int statusCode = httpResponse.getStatusLine().getStatusCode();
+            if (statusCode == 204) {
+                result = null;
+            }
+
+            if (statusCode == 200) {
+                // receive response as inputStream
+                inputStream = httpResponse.getEntity().getContent();
+                // convert inputstream to string
+                if (inputStream != null) {
+                    result = convertInputStreamToString(inputStream);
+                } else {
+                    result = "Did not work!";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream)
+            throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+    }
+
+    public static String getURL(String url,
+                                HashMap<String, String> paramMap) {
+        StringBuilder sb = new StringBuilder().append(url + "?");
+        boolean first = true;
+        if (paramMap != null && paramMap.size() > 0) {
+            for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+                if (first) {
+                    sb.append(entry.getKey()).append("=")
+                            .append(entry.getValue());
+                    first = false;
+                } else {
+                    sb.append("&").append(entry.getKey()).append("=")
+                            .append(entry.getValue());
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String GETHeader(String url, Context mContext) {
+
+        InputStream inputStream = null;
+        String result = "";
+        try {
+            final HttpParams httpParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpParams,
+                    CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpParams,
+                    CONNECTION_TIMEOUT);
+
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient(httpParams);
+            HttpGet httpGet = new HttpGet(url);
+            HttpResponse httpResponse = httpclient.execute(httpGet);
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+            // convert inputstream to string
+            if (inputStream != null) {
+                result = convertInputStreamToString(inputStream);
+            } else {
+                result = "Did not work!";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

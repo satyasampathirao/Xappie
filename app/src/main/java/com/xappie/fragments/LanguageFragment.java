@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.LanguagesListAdapter;
-import com.xappie.models.LanguagesListModel;
+import com.xappie.models.LanguageModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -43,7 +43,6 @@ public class LanguageFragment extends Fragment {
     ListView language_list_item;
 
     private Typeface mTypefaceOpenSansRegular;
-    private Typeface mTypefaceOpenSansBold;
     private Typeface mTypefaceFontAwesomeWebFont;
 
     private DashBoardActivity mParent;
@@ -84,36 +83,36 @@ public class LanguageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
+
     private void initUI() {
         setTypeFace();
     }
+
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
-         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_languages.setTypeface(mTypefaceOpenSansRegular);
         tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        language_list_item.setAdapter(new LanguagesListAdapter(mParent,getSampleData()));
+        language_list_item.setAdapter(new LanguagesListAdapter(mParent, getSampleData()));
     }
 
-    private ArrayList<LanguagesListModel> getSampleData() {
-        ArrayList<LanguagesListModel> languagesListModels = new ArrayList<>();
+    private ArrayList<LanguageModel> getSampleData() {
+        ArrayList<LanguageModel> languagesListModels = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            LanguagesListModel languagesListModel = new LanguagesListModel();
-            languagesListModel.setTitle("HINDI");
-            languagesListModels.add(languagesListModel);
+            LanguageModel languageModel = new LanguageModel();
+            languageModel.setName_native("HINDI");
+            languagesListModels.add(languageModel);
         }
         return languagesListModels;
     }
 
 
-    @OnClick({R.id.tv_languages_arrow_back_icon,R.id.tv_languages_menu_icon})
-    public void navigateBack()
-    {
+    @OnClick({R.id.tv_languages_arrow_back_icon, R.id.tv_languages_menu_icon})
+    public void navigateBack() {
         mParent.onBackPressed();
     }
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.AppTourActivity;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LanguageActivity;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -81,7 +82,7 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
                 break;
             case 1:
                 mView = mLayoutInflater.inflate(R.layout.tour_screen_2, null);
-                TextView tv_location = (TextView)mView.findViewById(R.id.tv_location);
+                TextView tv_location = (TextView) mView.findViewById(R.id.tv_location);
                 TextView tv_location_set = (TextView) mView.findViewById(R.id.tv_location_set);
                 TextView tv_notification = (TextView) mView.findViewById(R.id.tv_notification);
                 TextView tv_notification_set = (TextView) mView.findViewById(R.id.tv_notification_set);
@@ -100,7 +101,7 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
             case 2:
                 mView = mLayoutInflater.inflate(R.layout.tour_screen_3, null);
                 TextView tv_menu = (TextView) mView.findViewById(R.id.tv_menu);
-                 TextView tv_menu_section = (TextView) mView.findViewById(R.id.tv_menu_section);
+                TextView tv_menu_section = (TextView) mView.findViewById(R.id.tv_menu_section);
                 TextView tv_menu_jobs = (TextView) mView.findViewById(R.id.tv_menu_jobs);
                 tv_menu.setTypeface(Utility.getOpenSansBold(mContext));
                 tv_menu_jobs.setTypeface(Utility.getOpenSansRegular(mContext));
@@ -141,9 +142,8 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
     }
 
     private void navigateToHomeActivity() {
-        Utility.setSharedPrefBooleanData(mContext, Constants.IS_TOUR_COMPLETED, true);
         Intent intent = new Intent(mContext,
-                DashBoardActivity.class);
+                LanguageActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mContext.startActivity(intent);
         ((Activity) mContext).finish();
