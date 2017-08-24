@@ -236,5 +236,6 @@
     <string name="select_state">Select State</string>
     <string name="states">States</string>
     <string name="no_states_found">No States Found</string>
+    <string name="no_cities_found">No Cities Found</string>
 
 </resources>

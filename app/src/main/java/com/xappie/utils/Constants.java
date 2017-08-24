@@ -20,4 +20,8 @@ public class Constants {
 
     public static final String SELECTED_COUNTRY_ID = "SELECTED_COUNTRY_ID";
     public static final String SELECTED_COUNTRY_NAME = "SELECTED_COUNTRY_NAME";
+    public static final String SELECTED_STATE_ID = "SELECTED_STATE_ID";
+    public static final String SELECTED_STATE_NAME = "SELECTED_STATE_NAME";
+    public static final String SELECTED_CITY_ID = "SELECTED_CITY_ID";
+    public static final String SELECTED_CITY_NAME = "SELECTED_CITY_NAME";
 }

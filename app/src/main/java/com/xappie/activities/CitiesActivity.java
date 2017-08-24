@@ -29,8 +29,8 @@ import butterknife.OnItemClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StatesActivity extends BaseActivity implements IAsyncCaller {
-    public static final String TAG = StatesActivity.class.getSimpleName();
+public class CitiesActivity extends BaseActivity implements IAsyncCaller {
+    public static final String TAG = CitiesActivity.class.getSimpleName();
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
@@ -51,19 +51,25 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
     TextView tv_arrow_right_icon;
     @BindView(R.id.tv_city_name)
     TextView tv_city_name;
+    @BindView(R.id.tv_state_name)
+    TextView tv_state_name;
+    @BindView(R.id.tv_arrow_right_icon_two)
+    TextView tv_arrow_right_icon_two;
     @BindView(R.id.city_list_view)
     ListView city_list_view;
 
     private StatesListModel mStatesListModel;
     private Intent intent;
-    private String mSelectedCountryId;
     private String mSelectedCountryName;
+    private String mSelectedCountryId;
+    private String mSelectedStateName;
+    private String mSelectedStateId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
-        setContentView(R.layout.fragment_states);
+        setContentView(R.layout.fragment_cities);
         ButterKnife.bind(this);
         initUI();
     }
@@ -73,8 +79,9 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
      */
     private void initUI() {
         intent = getIntent();
-        mSelectedCountryId = intent.getStringExtra(Constants.SELECTED_COUNTRY_ID);
         mSelectedCountryName = intent.getStringExtra(Constants.SELECTED_COUNTRY_NAME);
+        mSelectedStateName = intent.getStringExtra(Constants.SELECTED_STATE_NAME);
+        mSelectedStateId = intent.getStringExtra(Constants.SELECTED_STATE_ID);
         setTypeFace();
     }
 
@@ -83,35 +90,38 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(this);
 
         tv_cities.setTypeface(mTypefaceOpenSansRegular);
-        tv_cities.setText(Utility.getResourcesString(this, R.string.states));
+        tv_cities.setText(Utility.getResourcesString(this, R.string.cities));
         tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_arrow_right_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_arrow_right_icon_two.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_city_name.setTypeface(mTypefaceOpenSansRegular);
         tv_country_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_state_name.setTypeface(mTypefaceOpenSansRegular);
         tv_country_name.setText(mSelectedCountryName);
+        tv_state_name.setText(mSelectedStateName);
 
-        tv_city_name.setText(Utility.getResourcesString(this, R.string.select_state));
+        tv_city_name.setText(Utility.getResourcesString(this, R.string.select_city));
 
         tv_notification_icon.setVisibility(View.GONE);
         tv_language_icon.setVisibility(View.GONE);
 
-        getStatesList();
+        getCitiesList();
     }
 
     /**
-     * This method is used to get the States list from the server
+     * This method is used to get the Cities list from the server
      */
-    private void getStatesList() {
+    private void getCitiesList() {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             StatesParser statesParser = new StatesParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     this, Utility.getResourcesString(this, R.string.please_wait), true,
-                    APIConstants.GET_STATES + "/" + mSelectedCountryId, linkedHashMap,
+                    APIConstants.GET_CITIES + "/" + mSelectedStateId, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, statesParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
@@ -129,9 +139,9 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
             if (model instanceof StatesListModel) {
                 mStatesListModel = (StatesListModel) model;
                 if (mStatesListModel.getStateModels().size() == 0) {
-                    Utility.showToastMessage(StatesActivity.this, Utility.getResourcesString(StatesActivity.this, R.string.no_states_found));
+                    Utility.showToastMessage(CitiesActivity.this, Utility.getResourcesString(CitiesActivity.this, R.string.no_states_found));
                 } else {
-                    city_list_view.setAdapter(new StatesListAdapter(StatesActivity.this, mStatesListModel.getStateModels()));
+                    city_list_view.setAdapter(new StatesListAdapter(CitiesActivity.this, mStatesListModel.getStateModels()));
                 }
             }
         }
@@ -147,11 +157,15 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
      */
     @OnItemClick(R.id.city_list_view)
     void onItemClick(int position) {
-        Intent intent = new Intent(StatesActivity.this, CitiesActivity.class);
-        intent.putExtra(Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
-        intent.putExtra(Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
-        intent.putExtra(Constants.SELECTED_STATE_ID, mStatesListModel.getStateModels().get(position).getId());
-        intent.putExtra(Constants.SELECTED_STATE_NAME, mStatesListModel.getStateModels().get(position).getName());
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_STATE_ID, mSelectedStateId);
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_STATE_NAME, mSelectedStateName);
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_CITY_ID, mStatesListModel.getStateModels().get(position).getId());
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_ID, mStatesListModel.getStateModels().get(position).getName());
+
+        Intent intent = new Intent(CitiesActivity.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

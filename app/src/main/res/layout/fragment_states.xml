@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_country_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_bg"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tool_bar_countries"
+            layout="@layout/action_bar_cities" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_43dp"
+            android:background="@color/twenty_percent_black"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_country_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/united_states"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sp" />
+
+            <TextView
+                android:id="@+id/tv_arrow_right_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/arrow_right"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:id="@+id/tv_city_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/select_city"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/city_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_country_list"
+        android:background="@color/white" />
+
+
+</RelativeLayout>
