@@ -20,6 +20,6 @@ public class APIConstants {
     public static String GET_COUNTRIES = BASE_URL + "get_countries";
     public static String GET_STATES = BASE_URL + "get_states";
     public static String GET_CITIES = BASE_URL + "get_cities";
-
+    public static String GET_VIDEOS = BASE_URL + "get_videos";
 
 }

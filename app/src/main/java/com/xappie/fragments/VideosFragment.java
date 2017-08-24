@@ -18,10 +18,18 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.VideosGridAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ActressModel;
+import com.xappie.models.LanguageListModel;
+import com.xappie.models.Model;
+import com.xappie.parser.LanguageParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +38,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 26/07/2017
  */
-public class VideosFragment extends Fragment {
+public class VideosFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = VideosFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -66,6 +74,7 @@ public class VideosFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private LanguageListModel mLanguageListModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,8 +123,26 @@ public class VideosFragment extends Fragment {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        setLanguages();
+        getLanguagesData();
         setGridViewData();
+    }
+
+    /**
+     * This method is used to get the Languages data from the server
+     */
+    private void getLanguagesData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            LanguageParser lookUpEventTypeParser = new LanguageParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_LANGUAGES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, lookUpEventTypeParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*This method is used to set the grid view data*/
@@ -145,29 +172,28 @@ public class VideosFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
     /*This method is used to set the languages*/
     private void setLanguages() {
         ll_languages.removeAllViews();
-        for (int i = 0; i < getLanguagesData().size(); i++) {
+        for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
             View view = (View) ll.findViewById(R.id.view);
-            tv_language_name.setText(getLanguagesData().get(i));
+            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName_native());
             tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
             tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
             if (i == 0) {
@@ -181,13 +207,42 @@ public class VideosFragment extends Fragment {
         }
     }
 
-    private ArrayList<String> getLanguagesData() {
-        ArrayList<String> mLanguagesData = new ArrayList<>();
-        mLanguagesData.add("HINDI");
-        mLanguagesData.add("ENGLISH");
-        mLanguagesData.add("TELUGU");
-        mLanguagesData.add("TAMIL");
-        return mLanguagesData;
+    /**
+     * After complete the service call back will be coming in this method
+     * It returns the respective model
+     */
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof LanguageListModel) {
+                mLanguageListModel = (LanguageListModel) model;
+                if (mLanguageListModel.getLanguageModels().size() > 0) {
+                    setLanguages();
+                    getVideosData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
+                }
+            }
+        }
     }
 
+    /**
+     * This method is used to get data of the videos
+     */
+    private void getVideosData(String id, String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("language", id);
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            LanguageParser lookUpEventTypeParser = new LanguageParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_VIDEOS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, lookUpEventTypeParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
