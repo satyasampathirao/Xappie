@@ -2,11 +2,15 @@ package com.xappie.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +42,11 @@ import com.xappie.fragments.FindJobsListFragment;
 
 public class Utility {
 
+
+    public static final int NO_INTERNET_CONNECTION = 1;
+    private static final int NO_GPS_ACCESS = 2;
+
+    private static final int CONNECTION_TIMEOUT = 25000;
 
     /**
      * TO CHECK IS IT BELOW MARSHMALLOW OR NOT
@@ -366,5 +375,56 @@ public class Utility {
             ImageLoader.getInstance().displayImage(ImageUrl, ivImageView, options);
         }
 
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        try {
+            ConnectivityManager connMgr = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                    .getState() == NetworkInfo.State.CONNECTED
+                    || connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                    .getState() == NetworkInfo.State.CONNECTING) {
+                return true;
+            } else return connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+                    .getState() == NetworkInfo.State.CONNECTED
+                    || connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+                    .getState() == NetworkInfo.State.CONNECTING;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static android.app.AlertDialog showSettingDialog(final Context context,
+                                                            String msg, String title, final int id) {
+        return new android.app.AlertDialog.Builder(context)
+                // .setMobile_icon_code(android.R.attr.alertDialogIcon)
+                .setMessage(msg)
+                .setTitle(title)
+                .setPositiveButton(R.string.alert_dialog_ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                            }
+                        })
+                .setNegativeButton(R.string.alert_dialog_setting,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                switch (id) {
+                                    case Utility.NO_INTERNET_CONNECTION:
+                                        context.startActivity(new Intent(
+                                                android.provider.Settings.ACTION_SETTINGS));
+                                        break;
+                                    case Utility.NO_GPS_ACCESS:
+                                        context.startActivity(new Intent(
+                                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }).create();
     }
 }

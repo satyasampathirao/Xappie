@@ -13,4 +13,5 @@ public class Constants {
     public static final String IS_TOUR_COMPLETED = "IS_TOUR_COMPLETED";
 
     public static final String IS_LOGIN_COMPLETED = "IS_LOGIN_COMPLETED";
+    public static final String TOKEN = "TOKEN";
 }
