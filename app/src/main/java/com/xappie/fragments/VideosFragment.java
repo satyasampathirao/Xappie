@@ -3,7 +3,6 @@ package com.xappie.fragments;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,9 @@ import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ActressModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.Model;
+import com.xappie.models.VideosListModel;
 import com.xappie.parser.LanguageParser;
+import com.xappie.parser.VideosParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -45,6 +46,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
+    private View rootView;
 
     /**
      * Gallery Toolbar
@@ -75,6 +77,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
     private LanguageListModel mLanguageListModel;
+    private VideosListModel mVideosListModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,19 +96,18 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_videos, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_videos, container, false);
         ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         initUI();
+        return rootView;
     }
 
     private void initUI() {
         setTypeFace();
+        getLanguagesData();
     }
 
     private void setTypeFace() {
@@ -122,9 +124,6 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-
-        getLanguagesData();
-        setGridViewData();
     }
 
     /**
@@ -134,11 +133,11 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            LanguageParser lookUpEventTypeParser = new LanguageParser();
+            LanguageParser languageParser = new LanguageParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_LANGUAGES, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.GET, this, lookUpEventTypeParser);
+                    APIConstants.REQUEST_TYPE.GET, this, languageParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,19 +146,8 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
 
     /*This method is used to set the grid view data*/
     private void setGridViewData() {
-        VideosGridAdapter videosGridAdapter = new VideosGridAdapter(mParent, getActressData());
+        VideosGridAdapter videosGridAdapter = new VideosGridAdapter(mParent, mVideosListModel.getVideosModels());
         grid_view.setAdapter(videosGridAdapter);
-    }
-
-    private ArrayList<ActressModel> getActressData() {
-        ArrayList<ActressModel> actressModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            ActressModel actressModel = new ActressModel();
-            actressModel.setId(R.drawable.video_hint);
-            actressModel.setTitle("Kajal");
-            actressModels.add(actressModel);
-        }
-        return actressModels;
     }
 
     /**
@@ -220,6 +208,11 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
                     setLanguages();
                     getVideosData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
                 }
+            } else if (model instanceof VideosListModel) {
+                mVideosListModel = (VideosListModel) model;
+                if (mVideosListModel.getVideosModels().size() > 0) {
+                    setGridViewData();
+                }
             }
         }
     }
@@ -235,11 +228,11 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            LanguageParser lookUpEventTypeParser = new LanguageParser();
+            VideosParser videosParser = new VideosParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_VIDEOS, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.GET, this, lookUpEventTypeParser);
+                    APIConstants.REQUEST_TYPE.GET, this, videosParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();

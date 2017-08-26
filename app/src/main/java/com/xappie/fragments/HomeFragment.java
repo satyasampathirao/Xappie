@@ -250,7 +250,7 @@ public class HomeFragment extends Fragment {
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new ClassifiedsListFragment(),ClassifiedsListFragment.TAG,null,mParent);
+                    Utility.navigateDashBoardFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
                 }
             });
             linearLayout.addView(ll);
@@ -301,7 +301,7 @@ public class HomeFragment extends Fragment {
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new JobsViewFragment(),JobsViewFragment.TAG,null,mParent);
+                    Utility.navigateDashBoardFragment(new JobsViewFragment(), JobsViewFragment.TAG, null, mParent);
                 }
             });
 
@@ -347,7 +347,7 @@ public class HomeFragment extends Fragment {
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new EventDetailViewFragment(),EventDetailViewFragment.TAG,null,mParent);
+                    Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null, mParent);
                 }
             });
 
@@ -438,7 +438,7 @@ public class HomeFragment extends Fragment {
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(),GalleryDetailViewFragment.TAG,null,mParent);
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
                 }
             });
 
@@ -483,7 +483,7 @@ public class HomeFragment extends Fragment {
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(),GalleryDetailViewFragment.TAG,null,mParent);
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
                 }
             });
 
@@ -541,7 +541,7 @@ public class HomeFragment extends Fragment {
             img_gallery_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryImageViewFragment(),GalleryImageViewFragment.TAG,null,mParent);
+                    Utility.navigateDashBoardFragment(new GalleryImageViewFragment(), GalleryImageViewFragment.TAG, null, mParent);
                 }
             });
             layout_gallery.addView(ll);
@@ -556,7 +556,7 @@ public class HomeFragment extends Fragment {
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
             tv_title.setText(getVideosSizes().get(i).getTitle());
-            img_video_image.setImageDrawable(Utility.getDrawable(mParent, getVideosSizes().get(i).getId()));
+            //img_video_image.setImageDrawable(Utility.getDrawable(mParent, getVideosSizes().get(i).getId()));
             img_video_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -594,7 +594,6 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < 5; i++) {
             VideosModel videosModel = new VideosModel();
             videosModel.setTitle("Pawan Kalyan's katamarayudu 50days collections in AP & TG");
-            videosModel.setId(R.drawable.video_hint);
             videosModels.add(videosModel);
         }
         return videosModels;
@@ -651,52 +650,44 @@ public class HomeFragment extends Fragment {
         return newsModels;
     }
 
-    @OnClick (R.id.tv_gallery_more)
-    public void navigateToGallery()
-    {
-        Utility.navigateDashBoardFragment(new GalleryFragment(),GalleryFragment.TAG,null,mParent);
+    @OnClick(R.id.tv_gallery_more)
+    public void navigateToGallery() {
+        Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.tv_videos_more)
-    public void navigateToVideos()
-    {
-        Utility.navigateDashBoardFragment(new VideosFragment(),VideosFragment.TAG,null,mParent);
+    public void navigateToVideos() {
+        Utility.navigateDashBoardFragment(new VideosFragment(), VideosFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.tv_top_stories_more)
-    public void navigateToTopStories()
-    {
-        Utility.navigateDashBoardFragment(new TopStoriesFragment(),TopStoriesFragment.TAG,null,mParent);
+    public void navigateToTopStories() {
+        Utility.navigateDashBoardFragment(new TopStoriesFragment(), TopStoriesFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.tv_entertainment_more)
-    public void navigateToEntertainment()
-    {
-        Utility.navigateDashBoardFragment(new EntertainmentFragment(),EntertainmentFragment.TAG,null,mParent);
+    public void navigateToEntertainment() {
+        Utility.navigateDashBoardFragment(new EntertainmentFragment(), EntertainmentFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.tv_discussions_more)
-    public void navigateToDiscussions()
-    {
-        Utility.navigateDashBoardFragment(new DiscussionsFragment(),DiscussionsFragment.TAG,null,mParent);
+    public void navigateToDiscussions() {
+        Utility.navigateDashBoardFragment(new DiscussionsFragment(), DiscussionsFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.tv_events_more)
-    public void navigateToEvents()
-    {
-        Utility.navigateDashBoardFragment(new EventsFragment(),EventsFragment.TAG,null,mParent);
+    public void navigateToEvents() {
+        Utility.navigateDashBoardFragment(new EventsFragment(), EventsFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.tv_classifieds_more)
-    public void navigateToClassifieds()
-    {
-        Utility.navigateDashBoardFragment(new ClassifiedsFragment(),ClassifiedsFragment.TAG,null,mParent);
+    public void navigateToClassifieds() {
+        Utility.navigateDashBoardFragment(new ClassifiedsFragment(), ClassifiedsFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.tv_jobs_more)
-    public void navigateToJobs()
-    {
-        Utility.navigateDashBoardFragment(new JobsFragment(),JobsFragment.TAG,null,mParent);
+    public void navigateToJobs() {
+        Utility.navigateDashBoardFragment(new JobsFragment(), JobsFragment.TAG, null, mParent);
     }
 
 }

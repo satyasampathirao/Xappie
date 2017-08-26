@@ -5,16 +5,19 @@ package com.xappie.models;
  */
 
 public class VideosModel {
-    private String image_url;
+    private String id;
     private String title;
-    private int id;
+    private String language;
+    private String thumb_nail;
+    private String status;
+    private String url;
 
-    public String getImage_url() {
-        return image_url;
+    public String getId() {
+        return id;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -25,11 +28,35 @@ public class VideosModel {
         this.title = title;
     }
 
-    public int getId() {
-        return id;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getThumb_nail() {
+        return thumb_nail;
+    }
+
+    public void setThumb_nail(String thumb_nail) {
+        this.thumb_nail = thumb_nail;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.models.ActressModel;
+import com.xappie.models.VideosModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -23,19 +24,19 @@ public class VideosGridAdapter extends BaseAdapter {
 
     private DashBoardActivity mDashBoardActivity;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<ActressModel> actressModels;
+    private ArrayList<VideosModel> videosModels;
     private Typeface mOpenSansBoldTypeface;
 
-    public VideosGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ActressModel> actressModels) {
+    public VideosGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<VideosModel> videosModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
-        this.actressModels = actressModels;
+        this.videosModels = videosModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
     }
 
     @Override
     public int getCount() {
-        return actressModels.size();
+        return videosModels.size();
     }
 
     @Override
@@ -66,8 +67,11 @@ public class VideosGridAdapter extends BaseAdapter {
             mVideosGridHolder = (VideosGridAdapter.VideosGridHolder) convertView.getTag();
         }
 
-        ActressModel actressModel = actressModels.get(position);
-        mVideosGridHolder.tv_title.setText(actressModel.getTitle());
+        VideosModel videosModel = videosModels.get(position);
+        mVideosGridHolder.tv_title.setText(videosModel.getTitle());
+        if (!Utility.isValueNullOrEmpty(videosModel.getThumb_nail()))
+            Utility.universalImageLoaderPicLoading(mVideosGridHolder.img_video_image,
+                    videosModel.getThumb_nail(), null, R.drawable.xappie_place_holder);
 
         return convertView;
     }
