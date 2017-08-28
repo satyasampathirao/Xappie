@@ -27,4 +27,6 @@ public class Constants {
     public static final String SELECTED_STATE_NAME = "SELECTED_STATE_NAME";
     public static final String SELECTED_CITY_ID = "SELECTED_CITY_ID";
     public static final String SELECTED_CITY_NAME = "SELECTED_CITY_NAME";
+
+    public static final String pattern = "((http(s)?:\\/\\/)?)(www\\.)?((youtube\\.com\\/)|(youtu.be\\/))[\\S]+";
 }

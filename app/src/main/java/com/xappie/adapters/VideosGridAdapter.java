@@ -1,5 +1,6 @@
 package com.xappie.adapters;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.VideoViewActivity;
 import com.xappie.models.VideosModel;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -66,11 +69,30 @@ public class VideosGridAdapter extends BaseAdapter {
             mVideosGridHolder = (VideosGridAdapter.VideosGridHolder) convertView.getTag();
         }
 
-        VideosModel videosModel = videosModels.get(position);
+        final VideosModel videosModel = videosModels.get(position);
         mVideosGridHolder.tv_title.setText(videosModel.getTitle());
         if (!Utility.isValueNullOrEmpty(videosModel.getThumb_nail()))
             Utility.universalImageLoaderPicLoading(mVideosGridHolder.img_video_image,
                     "http://" + videosModel.getThumb_nail(), null, R.drawable.xappie_place_holder);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mDashBoardActivity, VideoViewActivity.class);
+                String mVideoId = (videosModel.getUrl() != null && videosModel.getUrl().matches(Constants.pattern))
+                        ? videosModel.getUrl().substring(videosModel.getUrl().length() - 11,
+                        videosModel.getUrl().length())
+                        : "";
+
+                if (!mVideoId.isEmpty()) {
+                    intent.putExtra("videoId", mVideoId);
+                    mDashBoardActivity.startActivity(intent);
+                } else {
+                    Utility.showToastMessage(mDashBoardActivity, "Url Not Valid");
+                }
+            }
+        });
+
 
         return convertView;
     }
