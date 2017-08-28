@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.models.ActressModel;
 import com.xappie.models.VideosModel;
 import com.xappie.utils.Utility;
 
@@ -71,7 +70,7 @@ public class VideosGridAdapter extends BaseAdapter {
         mVideosGridHolder.tv_title.setText(videosModel.getTitle());
         if (!Utility.isValueNullOrEmpty(videosModel.getThumb_nail()))
             Utility.universalImageLoaderPicLoading(mVideosGridHolder.img_video_image,
-                    videosModel.getThumb_nail(), null, R.drawable.xappie_place_holder);
+                    "http://" + videosModel.getThumb_nail(), null, R.drawable.xappie_place_holder);
 
         return convertView;
     }

@@ -19,8 +19,8 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.VideosGridAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.ActressModel;
 import com.xappie.models.LanguageListModel;
+import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
 import com.xappie.models.VideosListModel;
 import com.xappie.parser.LanguageParser;
@@ -29,7 +29,6 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -78,6 +77,8 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceFontAwesomeWebFont;
     private LanguageListModel mLanguageListModel;
     private VideosListModel mVideosListModel;
+
+    private LanguageModel languageModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -180,17 +181,30 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
         for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
-            View view = (View) ll.findViewById(R.id.view);
+            View view = ll.findViewById(R.id.view);
             tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName_native());
             tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
             tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
+
+            tv_language_name.setId(i);
+            tv_language_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    languageModel = mLanguageListModel.getLanguageModels().get(pos);
+                    setLanguages();
+                    getVideosData(languageModel.getId(), "" + 1);
+                }
+            });
+
+            if (languageModel != null && mLanguageListModel.getLanguageModels().get(i).getId() == languageModel.getId()) {
                 view.setVisibility(View.VISIBLE);
                 tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
                 view.setBackgroundColor(Utility.getColor(mParent, R.color.white));
             } else {
                 view.setVisibility(View.GONE);
             }
+
             ll_languages.addView(ll);
         }
     }
@@ -205,6 +219,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
+                    languageModel = mLanguageListModel.getLanguageModels().get(0);
                     setLanguages();
                     getVideosData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
                 }
