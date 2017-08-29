@@ -35,6 +35,9 @@
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_8dp"
+        android:layout_marginStart="@dimen/_5dp"
+        android:layout_marginEnd="@dimen/_5dp"
         android:numColumns="2" />
 
 </LinearLayout>

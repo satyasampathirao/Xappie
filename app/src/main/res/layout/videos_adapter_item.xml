@@ -12,8 +12,8 @@
         <ImageView
             android:id="@+id/img_video_image"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_125dp"
-            android:scaleType="centerCrop"
+            android:layout_height="@dimen/_170dp"
+            android:scaleType="fitXY"
             android:src="@drawable/xappie_place_holder" />
 
         <ImageView
