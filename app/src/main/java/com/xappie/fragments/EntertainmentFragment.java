@@ -3,7 +3,6 @@ package com.xappie.fragments;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -105,12 +104,6 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
         ButterKnife.bind(this, rootView);
         initUI();
         return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initUI();
     }
 
     private void initUI() {
