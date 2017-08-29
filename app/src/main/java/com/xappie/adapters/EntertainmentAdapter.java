@@ -13,7 +13,12 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.utils.Utility;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Shankar on 26/07/2017
@@ -73,8 +78,31 @@ public class EntertainmentAdapter extends BaseAdapter {
 
         EntertainmentModel entertainmentModel = entertainmentModels.get(position);
         mEntertainmentHolder.tv_title.setText(entertainmentModel.getTitle());
-        mEntertainmentHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string._1day));
-        mEntertainmentHolder.tv_posted_by.setText("Time of India");
+
+        if (!Utility.isValueNullOrEmpty(entertainmentModel.getRecordedDate())) {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            PrettyTime prettyTime = new PrettyTime();
+            Date date;
+            String outputDateStr = "";
+            try {
+                date = inputFormat.parse(entertainmentModel.getRecordedDate());
+                outputDateStr = prettyTime.format(date);
+                mEntertainmentHolder.tv_time.setText(outputDateStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (!Utility.isValueNullOrEmpty(entertainmentModel.getProfile_image()))
+            Utility.universalImageLoaderPicLoading(mEntertainmentHolder.img_logo,
+                    "http://" + entertainmentModel.getProfile_image(), null, R.drawable.xappie_place_holder);
+
+        if (!Utility.isValueNullOrEmpty(entertainmentModel.getRecordedBy())) {
+            mEntertainmentHolder.tv_posted_by.setText(entertainmentModel.getRecordedBy());
+            mEntertainmentHolder.tv_posted_by.setVisibility(View.VISIBLE);
+        } else {
+            mEntertainmentHolder.tv_posted_by.setVisibility(View.GONE);
+        }
 
         return convertView;
     }

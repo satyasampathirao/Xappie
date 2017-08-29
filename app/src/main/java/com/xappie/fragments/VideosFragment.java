@@ -145,7 +145,9 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
         }
     }
 
-    /*This method is used to set the grid view data*/
+    /**
+     * This method is used to set the grid view data
+     */
     private void setGridViewData() {
         VideosGridAdapter videosGridAdapter = new VideosGridAdapter(mParent, mVideosListModel.getVideosModels());
         grid_view.setAdapter(videosGridAdapter);
@@ -242,7 +244,6 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
             linkedHashMap.put("language", id);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
-            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             VideosParser videosParser = new VideosParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,

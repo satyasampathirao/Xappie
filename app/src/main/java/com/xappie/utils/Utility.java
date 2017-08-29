@@ -64,7 +64,7 @@ public class Utility {
     public static final int NO_INTERNET_CONNECTION = 1;
     private static final int NO_GPS_ACCESS = 2;
 
-    private static final int CONNECTION_TIMEOUT = 25000;
+    private static final int CONNECTION_TIMEOUT = 30000;
 
     /**
      * TO CHECK IS IT BELOW MARSHMALLOW OR NOT

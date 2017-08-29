@@ -71,7 +71,7 @@ public class AllEventsListFragment extends Fragment {
         ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
             EntertainmentModel entertainmentModel = new EntertainmentModel();
-            entertainmentModel.setId(R.drawable.video_hint);
+            //entertainmentModel.setId(R.drawable.video_hint);
             entertainmentModel.setTitle("Rarandoi");
             entertainmentModels.add(entertainmentModel);
         }
