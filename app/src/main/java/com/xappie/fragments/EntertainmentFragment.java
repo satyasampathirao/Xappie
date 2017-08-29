@@ -47,6 +47,7 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
+    private View rootView;
 
     /**
      * Gallery Toolbar
@@ -97,8 +98,12 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_entertainment, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_entertainment, container, false);
         ButterKnife.bind(this, rootView);
+        initUI();
         return rootView;
     }
 

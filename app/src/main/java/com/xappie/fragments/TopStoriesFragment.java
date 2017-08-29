@@ -1,6 +1,5 @@
 package com.xappie.fragments;
 
-
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,10 +17,19 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.EntertainmentAdapter;
-import com.xappie.models.EntertainmentModel;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.EntertainmentListModel;
+import com.xappie.models.LanguageListModel;
+import com.xappie.models.LanguageModel;
+import com.xappie.models.Model;
+import com.xappie.parser.EntertainmentParser;
+import com.xappie.parser.LanguageParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,13 +39,14 @@ import butterknife.OnItemClick;
 /**
  * Created by Shankar 26/07/2017
  */
-public class TopStoriesFragment extends Fragment {
+public class TopStoriesFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = TopStoriesFragment.class.getSimpleName();
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
+    private View rootView;
 
     /**
      * Gallery Toolbar
@@ -68,6 +76,10 @@ public class TopStoriesFragment extends Fragment {
     @BindView(R.id.list_view)
     ListView list_view;
 
+    private LanguageListModel mLanguageListModel;
+    private EntertainmentListModel mEntertainmentListModel;
+    private LanguageModel languageModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +97,10 @@ public class TopStoriesFragment extends Fragment {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_entertainment, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_entertainment, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -98,6 +113,7 @@ public class TopStoriesFragment extends Fragment {
 
     private void initUI() {
         setTypeFace();
+        getLanguagesData();
     }
 
     private void setTypeFace() {
@@ -114,26 +130,34 @@ public class TopStoriesFragment extends Fragment {
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-
-        setLanguages();
-        setGridViewData();
     }
 
-    /*This method is used to set the lsit view data*/
-    private void setGridViewData() {
-        EntertainmentAdapter entertainmentAdapter = new EntertainmentAdapter(mParent, getEntertainData());
-        list_view.setAdapter(entertainmentAdapter);
-    }
-
-    private ArrayList<EntertainmentModel> getEntertainData() {
-        ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            EntertainmentModel entertainmentModel = new EntertainmentModel();
-            //entertainmentModel.setId(R.drawable.video_hint);
-            entertainmentModel.setTitle("Rarandoi");
-            entertainmentModels.add(entertainmentModel);
+    /**
+     * This method is used to get the Languages data from the server
+     */
+    private void getLanguagesData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            LanguageParser languageParser = new LanguageParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_LANGUAGES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, languageParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return entertainmentModels;
+    }
+
+
+    /**
+     * This method is used to set the grid view data
+     */
+    private void setGridViewData() {
+        EntertainmentAdapter entertainmentAdapter = new
+                EntertainmentAdapter(mParent, mEntertainmentListModel.getEntertainmentModels());
+        list_view.setAdapter(entertainmentAdapter);
     }
 
     /**
@@ -146,55 +170,105 @@ public class TopStoriesFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
-    }
-    @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
-    }
-    @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
 
-    /*This method is used to set the languages*/
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
+    }
+
+    @OnClick(R.id.tv_location_icon)
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
+    }
+
+    /**
+     * This method is used to set the languages
+     */
     private void setLanguages() {
         ll_languages.removeAllViews();
-        for (int i = 0; i < getLanguagesData().size(); i++) {
+        for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
-            View view = (View) ll.findViewById(R.id.view);
-            tv_language_name.setText(getLanguagesData().get(i));
+            View view = ll.findViewById(R.id.view);
+            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName_native());
             tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
             tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
+
+            tv_language_name.setId(i);
+            tv_language_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    languageModel = mLanguageListModel.getLanguageModels().get(pos);
+                    setLanguages();
+                    getEntertainmentData(languageModel.getId(), "" + 1);
+                }
+            });
+
+            if (languageModel != null && mLanguageListModel.getLanguageModels().get(i).getId() == languageModel.getId()) {
                 view.setVisibility(View.VISIBLE);
                 tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
                 view.setBackgroundColor(Utility.getColor(mParent, R.color.white));
             } else {
                 view.setVisibility(View.GONE);
             }
+
             ll_languages.addView(ll);
         }
     }
 
-    private ArrayList<String> getLanguagesData() {
-        ArrayList<String> mLanguagesData = new ArrayList<>();
-        mLanguagesData.add("HINDI");
-        mLanguagesData.add("ENGLISH");
-        mLanguagesData.add("TELUGU");
-        mLanguagesData.add("TAMIL");
-        return mLanguagesData;
-    }
 
     @OnItemClick(R.id.list_view)
     void navigateData() {
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null,
                 mParent);
+    }
+
+    /**
+     * After complete the service call back will be coming in this method
+     * It returns the respective model
+     */
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof LanguageListModel) {
+                mLanguageListModel = (LanguageListModel) model;
+                if (mLanguageListModel.getLanguageModels().size() > 0) {
+                    languageModel = mLanguageListModel.getLanguageModels().get(0);
+                    setLanguages();
+                    getEntertainmentData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
+                }
+            } else if (model instanceof EntertainmentListModel) {
+                mEntertainmentListModel = (EntertainmentListModel) model;
+                if (mEntertainmentListModel.getEntertainmentModels().size() > 0) {
+                    setGridViewData();
+                }
+            }
+        }
+    }
+
+    /**
+     * This method is used to get data of the top stories
+     */
+    private void getEntertainmentData(String id, String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("language", id);
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_STORIES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
