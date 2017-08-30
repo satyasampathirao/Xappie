@@ -13,11 +13,12 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/img_banner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/_200dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/illiyana" />
+                android:src="@drawable/xappie_place_holder" />
 
             <TextView
                 android:id="@+id/tv_header_title"

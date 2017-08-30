@@ -23,5 +23,6 @@ public class APIConstants {
     public static String GET_VIDEOS = BASE_URL + "get_videos";
     public static String GET_STORIES = BASE_URL + "get_stories";
     public static String GET_ENTERTAINMENTS = BASE_URL + "get_entertainments";
+    public static String GET_NEWS_DETAILS = BASE_URL + "get_news_details/";
 
 }

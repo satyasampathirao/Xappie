@@ -18,10 +18,17 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.Model;
 import com.xappie.models.RelatedTopicsModel;
+import com.xappie.parser.EntertainmentParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +37,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 26/07/2017
  */
-public class GalleryDetailViewFragment extends Fragment {
+public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller{
 
     public static final String TAG = GalleryDetailViewFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -54,6 +61,9 @@ public class GalleryDetailViewFragment extends Fragment {
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+
+    @BindView(R.id.img_banner)
+    ImageView img_banner;
 
     @BindView(R.id.tv_header_title)
     TextView tv_header_title;
@@ -83,6 +93,7 @@ public class GalleryDetailViewFragment extends Fragment {
     private Typeface mTypefaceFontAwesomeWebFont;
     private Typeface mTypefaceMaterialIcons;
 
+    private String mSelectedId = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +102,10 @@ public class GalleryDetailViewFragment extends Fragment {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        Bundle bundle = getArguments();
+        if (bundle.containsKey(Constants.SELECTED_DETAIL_VIEW_ID)) {
+            mSelectedId = bundle.getString(Constants.SELECTED_DETAIL_VIEW_ID);
+        }
     }
 
     @Override
@@ -174,6 +189,25 @@ public class GalleryDetailViewFragment extends Fragment {
         tv_more.setTypeface(mTypefaceMaterialIcons);
 
         setRelatedTopics(getRelatedTopicsData());
+        getDetailViewData();
+    }
+
+    /**
+     * This method is used to get the detail view data
+     */
+    private void getDetailViewData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_NEWS_DETAILS + mSelectedId, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -186,19 +220,18 @@ public class GalleryDetailViewFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
 
@@ -251,5 +284,10 @@ public class GalleryDetailViewFragment extends Fragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onComplete(Model model) {
+
     }
 }

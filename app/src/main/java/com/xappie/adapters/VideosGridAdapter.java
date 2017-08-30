@@ -73,7 +73,7 @@ public class VideosGridAdapter extends BaseAdapter {
         mVideosGridHolder.tv_title.setText(videosModel.getTitle());
         if (!Utility.isValueNullOrEmpty(videosModel.getThumb_nail()))
             Utility.universalImageLoaderPicLoading(mVideosGridHolder.img_video_image,
-                    "http://" + videosModel.getThumb_nail(), null, R.drawable.xappie_place_holder);
+                    videosModel.getThumb_nail(), null, R.drawable.xappie_place_holder);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

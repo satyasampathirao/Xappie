@@ -95,7 +95,7 @@ public class EntertainmentAdapter extends BaseAdapter {
 
         if (!Utility.isValueNullOrEmpty(entertainmentModel.getProfile_image()))
             Utility.universalImageLoaderPicLoading(mEntertainmentHolder.img_logo,
-                    "http://" + entertainmentModel.getProfile_image(), null, R.drawable.xappie_place_holder);
+                    entertainmentModel.getProfile_image(), null, R.drawable.xappie_place_holder);
 
         if (!Utility.isValueNullOrEmpty(entertainmentModel.getRecordedBy())) {
             mEntertainmentHolder.tv_posted_by.setText(entertainmentModel.getRecordedBy());
