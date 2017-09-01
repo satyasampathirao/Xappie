@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.xappie.R;
@@ -72,6 +73,8 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     @BindView(R.id.img_banner)
     ImageView img_banner;
 
+    @BindView(R.id.scroll)
+    ScrollView scroll;
     @BindView(R.id.tv_header_title)
     TextView tv_header_title;
     @BindView(R.id.tv_written_by)
@@ -105,7 +108,6 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     private Typeface mTypefaceMaterialIcons;
 
     private String mSelectedId = "";
-    private String mSelectedFrom = "";
     private ArrayList<EntertainmentModel> entertainmentModels;
     private EntertainmentTopStoriesDetailModel entertainmentTopStoriesDetailModel;
 
@@ -119,7 +121,6 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         Bundle bundle = getArguments();
         if (bundle.containsKey(Constants.SELECTED_DETAIL_VIEW_ID)) {
             mSelectedId = bundle.getString(Constants.SELECTED_DETAIL_VIEW_ID);
-            mSelectedFrom = bundle.getString(Constants.SELECTED_DETAIL_VIEW_FROM);
             entertainmentModels = (ArrayList<EntertainmentModel>) bundle.getSerializable(Constants.SELECTED_MORE_TOPICS_LIST);
         }
     }
@@ -202,8 +203,17 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     /**
      * This method is used for back from the fragment
      */
+    @OnClick(R.id.ll_next_layout)
+    void navigateNextLayout() {
+        mSelectedId = entertainmentTopStoriesDetailModel.getmNextDetailModel().getId();
+        getDetailViewData();
+    }
+
+    /**
+     * This method is used for back from the fragment
+     */
     @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_notification_menu_icon})
+            R.id.tv_notification_menu_icon, R.id.tv_more})
     void backToTheHome() {
         mParent.onBackPressed();
     }
@@ -260,6 +270,16 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
                             "", null, R.drawable.xappie_place_holder);
                 }
 
+                ll.setId(j);
+                ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = v.getId();
+                        mSelectedId = entertainmentModels.get(pos).getId();
+                        getDetailViewData();
+                    }
+                });
+
                 ll.setLayoutParams(lp2);
                 linearLayout.addView(ll);
 
@@ -286,6 +306,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
      * This method is used to set the data
      */
     private void setData() {
+        scroll.fullScroll(ScrollView.FOCUS_UP);
         tv_header_title.setText(Utility.capitalizeFirstLetter(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getTitle()));
         tv_description.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getDescription());
         if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy())) {
