@@ -74,6 +74,10 @@ public class VideosGridAdapter extends BaseAdapter {
         if (!Utility.isValueNullOrEmpty(videosModel.getThumb_nail()))
             Utility.universalImageLoaderPicLoading(mVideosGridHolder.img_video_image,
                     videosModel.getThumb_nail(), null, R.drawable.xappie_place_holder);
+        else {
+            Utility.universalImageLoaderPicLoading(mVideosGridHolder.img_video_image,
+                    "", null, R.drawable.xappie_place_holder);
+        }
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -93,9 +93,13 @@ public class EntertainmentAdapter extends BaseAdapter {
             }
         }
 
-        if (!Utility.isValueNullOrEmpty(entertainmentModel.getProfile_image()))
+        if (!Utility.isValueNullOrEmpty(entertainmentModel.getProfile_image())) {
             Utility.universalImageLoaderPicLoading(mEntertainmentHolder.img_logo,
                     entertainmentModel.getProfile_image(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(mEntertainmentHolder.img_logo,
+                    "", null, R.drawable.xappie_place_holder);
+        }
 
         if (!Utility.isValueNullOrEmpty(entertainmentModel.getRecordedBy())) {
             mEntertainmentHolder.tv_posted_by.setText(entertainmentModel.getRecordedBy());
