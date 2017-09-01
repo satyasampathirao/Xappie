@@ -1,10 +1,12 @@
 package com.xappie.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Shankar on 7/26/2017.
  */
 
-public class EntertainmentModel {
+public class EntertainmentModel implements Serializable {
 
     private String id;
     private String title;

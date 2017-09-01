@@ -30,6 +30,7 @@ public class Constants {
 
     public static final String SELECTED_DETAIL_VIEW_ID = "SELECTED_DETAIL_VIEW_ID";
     public static final String SELECTED_DETAIL_VIEW_FROM = "SELECTED_DETAIL_VIEW_FROM";
+    public static final String SELECTED_MORE_TOPICS_LIST = "SELECTED_MORE_TOPICS_LIST";
 
     public static final String pattern = "((http(s)?:\\/\\/)?)(www\\.)?((youtube\\.com\\/)|(youtu.be\\/))[\\S]+";
 }

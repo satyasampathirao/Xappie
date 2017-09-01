@@ -20,6 +20,7 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.EntertainmentModel;
 import com.xappie.models.EntertainmentTopStoriesDetailModel;
 import com.xappie.models.Model;
 import com.xappie.models.RelatedTopicsModel;
@@ -105,6 +106,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
 
     private String mSelectedId = "";
     private String mSelectedFrom = "";
+    private ArrayList<EntertainmentModel> entertainmentModels;
     private EntertainmentTopStoriesDetailModel entertainmentTopStoriesDetailModel;
 
     @Override
@@ -118,6 +120,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         if (bundle.containsKey(Constants.SELECTED_DETAIL_VIEW_ID)) {
             mSelectedId = bundle.getString(Constants.SELECTED_DETAIL_VIEW_ID);
             mSelectedFrom = bundle.getString(Constants.SELECTED_DETAIL_VIEW_FROM);
+            entertainmentModels = (ArrayList<EntertainmentModel>) bundle.getSerializable(Constants.SELECTED_MORE_TOPICS_LIST);
         }
     }
 
@@ -175,8 +178,6 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
 
         tv_more_topics.setTypeface(mTypefaceMaterialIcons);
         tv_more.setTypeface(mTypefaceMaterialIcons);
-
-        setRelatedTopics(getRelatedTopicsData());
         getDetailViewData();
     }
 
@@ -222,21 +223,10 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
-
-    private ArrayList<RelatedTopicsModel> getRelatedTopicsData() {
-        ArrayList<RelatedTopicsModel> relatedTopicsModels = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            RelatedTopicsModel relatedTopicsModel = new RelatedTopicsModel();
-            relatedTopicsModel.setId(R.drawable.video_hint);
-            relatedTopicsModel.setTitle("Prabhas bahubali 2 second week posters");
-            relatedTopicsModels.add(relatedTopicsModel);
-        }
-        return relatedTopicsModels;
-    }
-
-
-    /*Set Related Data*/
-    private void setRelatedTopics(ArrayList<RelatedTopicsModel> relatedTopicsModels) {
+    /**
+     * Set Related Data
+     */
+    private void setRelatedTopics() {
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 8f);
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 4f);
         lp2.setMargins(15, 15, 15, 15);
@@ -246,8 +236,8 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         int rowCount = 0;
         LinearLayout linearLayout = null;
 
-        if (relatedTopicsModels != null && relatedTopicsModels.size() > 0) {
-            for (int j = 0; j < relatedTopicsModels.size(); j++) {
+        if (entertainmentModels != null && entertainmentModels.size() > 0) {
+            for (int j = 0; j < entertainmentModels.size(); j++) {
 
                 if (rowCount == 0) {
                     linearLayout = new LinearLayout(mParent);
@@ -259,14 +249,22 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
                 TextView tv_related_title = (TextView) ll.findViewById(R.id.tv_related_title);
                 ImageView img_topic = (ImageView) ll.findViewById(R.id.img_topic);
 
-                tv_related_title.setText(relatedTopicsModels.get(j).getTitle());
+                tv_related_title.setText(entertainmentModels.get(j).getTitle());
                 tv_related_title.setTypeface(Utility.getOpenSansRegular(mParent));
+
+                if (!Utility.isValueNullOrEmpty(entertainmentModels.get(j).getProfile_image())) {
+                    Utility.universalImageLoaderPicLoading(img_topic,
+                            entertainmentModels.get(j).getProfile_image(), null, R.drawable.xappie_place_holder);
+                } else {
+                    Utility.universalImageLoaderPicLoading(img_topic,
+                            "", null, R.drawable.xappie_place_holder);
+                }
 
                 ll.setLayoutParams(lp2);
                 linearLayout.addView(ll);
 
                 rowCount += 1;
-                if (rowCount == 2 || j == relatedTopicsModels.size() - 1) {
+                if (rowCount == 2 || j == entertainmentModels.size() - 1) {
                     ll_related_topics.addView(linearLayout);
                     rowCount = 0;
                 }
@@ -322,5 +320,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
             ll_next_layout.setVisibility(View.VISIBLE);
         } else
             ll_next_layout.setVisibility(View.GONE);
+
+        setRelatedTopics();
     }
 }
