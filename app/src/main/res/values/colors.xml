@@ -43,5 +43,6 @@
     <color name="event_who_is_going_text_bg">#c75f66</color>
     <color name="side_menu_bg">#c4373c</color>
     <color name="published_color">#FF69B4</color>
+    <color name="mostly_black">#171717</color>
 
 </resources>
