@@ -188,9 +188,9 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
             View view = ll.findViewById(R.id.view);
-            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName_native());
+            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName_native().toUpperCase());
             tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_language_name.setTypeface(Utility.getOpenSansRegular(mParent));
 
             tv_language_name.setId(i);
             tv_language_name.setOnClickListener(new View.OnClickListener() {
@@ -217,8 +217,11 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
 
 
     @OnItemClick(R.id.list_view)
-    void navigateData() {
-        Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null,
+    void navigateData(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mEntertainmentListModel.getEntertainmentModels().get(position).getId());
+        bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
+        Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
                 mParent);
     }
 

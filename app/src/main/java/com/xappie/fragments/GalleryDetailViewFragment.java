@@ -104,6 +104,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     private Typeface mTypefaceMaterialIcons;
 
     private String mSelectedId = "";
+    private String mSelectedFrom = "";
     private EntertainmentTopStoriesDetailModel entertainmentTopStoriesDetailModel;
 
     @Override
@@ -116,6 +117,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         Bundle bundle = getArguments();
         if (bundle.containsKey(Constants.SELECTED_DETAIL_VIEW_ID)) {
             mSelectedId = bundle.getString(Constants.SELECTED_DETAIL_VIEW_ID);
+            mSelectedFrom = bundle.getString(Constants.SELECTED_DETAIL_VIEW_FROM);
         }
     }
 
