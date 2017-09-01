@@ -20,14 +20,20 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.EntertainmentTopStoriesDetailModel;
 import com.xappie.models.Model;
 import com.xappie.models.RelatedTopicsModel;
-import com.xappie.parser.EntertainmentParser;
+import com.xappie.parser.EntertainmentTopStoriesDetailParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -37,7 +43,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 26/07/2017
  */
-public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller{
+public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = GalleryDetailViewFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -69,12 +75,16 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller{
     TextView tv_header_title;
     @BindView(R.id.tv_written_by)
     TextView tv_written_by;
+    @BindView(R.id.view_dot)
+    View view_dot;
     @BindView(R.id.tv_time)
     TextView tv_time;
     @BindView(R.id.tv_description)
     TextView tv_description;
 
 
+    @BindView(R.id.ll_next_layout)
+    LinearLayout ll_next_layout;
     @BindView(R.id.tv_next_news)
     TextView tv_next_news;
     @BindView(R.id.tv_next_news_header_title)
@@ -94,6 +104,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller{
     private Typeface mTypefaceMaterialIcons;
 
     private String mSelectedId = "";
+    private EntertainmentTopStoriesDetailModel entertainmentTopStoriesDetailModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,40 +159,15 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller{
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_header_title.setText("Allu arjun, Pooja Hedga are the saving grace of this tacky song");
+
         tv_header_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_written_by.setTypeface(mTypefaceOpenSansRegular);
         tv_time.setTypeface(mTypefaceOpenSansRegular);
-        tv_description.setText("Allu arjun, Pooja Hedga are the saving grace of this tacky song " +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song " +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song " +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song" +
-                "Allu arjun, Pooja Hedga are the saving grace of this tacky song");
+
         tv_description.setTypeface(mTypefaceOpenSansRegular);
         tv_next_news.setTypeface(mTypefaceOpenSansRegular);
-        tv_next_news_header_title.setText("Arjun is back with Kurukshetra movie. For more gossips, film reviews, mania, life things, series");
+
         tv_next_news_header_title.setTypeface(Utility.getOpenSansBold(mParent));
         tv_next_icon.setTypeface(mTypefaceMaterialIcons);
 
@@ -199,11 +185,11 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller{
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            EntertainmentTopStoriesDetailParser mEntertainmentTopStoriesDetailParser = new EntertainmentTopStoriesDetailParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_NEWS_DETAILS + mSelectedId, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+                    APIConstants.REQUEST_TYPE.GET, this, mEntertainmentTopStoriesDetailParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
@@ -288,6 +274,51 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller{
 
     @Override
     public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof EntertainmentTopStoriesDetailModel) {
+                entertainmentTopStoriesDetailModel = (EntertainmentTopStoriesDetailModel) model;
+                setData();
+            }
+        }
+    }
 
+    /**
+     * This method is used to set the data
+     */
+    private void setData() {
+        tv_header_title.setText(Utility.capitalizeFirstLetter(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getTitle()));
+        tv_description.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getDescription());
+        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy())) {
+            tv_written_by.setText(Utility.capitalizeFirstLetter(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy()));
+            tv_written_by.setVisibility(View.VISIBLE);
+            view_dot.setVisibility(View.VISIBLE);
+        } else {
+            tv_written_by.setVisibility(View.GONE);
+            view_dot.setVisibility(View.GONE);
+        }
+
+        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedDate())) {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            PrettyTime prettyTime = new PrettyTime();
+            Date date;
+            String outputDateStr = "";
+            try {
+                date = inputFormat.parse(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedDate());
+                outputDateStr = prettyTime.format(date);
+                tv_time.setText(outputDateStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image()))
+            Utility.universalImageLoaderPicLoading(img_banner,
+                    "http://test.xappie.com/" + entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image().substring(1),
+                    null, R.drawable.xappie_place_holder);
+
+        if (entertainmentTopStoriesDetailModel.getmNextDetailModel() != null) {
+            tv_next_news_header_title.setText(Utility.capitalizeFirstLetter(entertainmentTopStoriesDetailModel.getmNextDetailModel().getTitle()));
+            ll_next_layout.setVisibility(View.VISIBLE);
+        } else
+            ll_next_layout.setVisibility(View.GONE);
     }
 }

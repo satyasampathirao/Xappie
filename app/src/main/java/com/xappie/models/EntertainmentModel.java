@@ -12,6 +12,7 @@ public class EntertainmentModel {
     private String description;
     private String language;
     private String profile_image;
+    private String banner_image;
     private String status;
     private String news_status;
     private String recordedBy;
@@ -95,5 +96,13 @@ public class EntertainmentModel {
 
     public void setRecordedDate(String recordedDate) {
         this.recordedDate = recordedDate;
+    }
+
+    public String getBanner_image() {
+        return banner_image;
+    }
+
+    public void setBanner_image(String banner_image) {
+        this.banner_image = banner_image;
     }
 }
