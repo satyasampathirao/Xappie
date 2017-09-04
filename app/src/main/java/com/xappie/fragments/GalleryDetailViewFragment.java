@@ -331,9 +331,9 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
                 e.printStackTrace();
             }
         }
-        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image()))
+        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getProfile_image()))
             Utility.universalImageLoaderPicLoading(img_banner,
-                    "http://test.xappie.com/" + entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image().substring(1),
+                    entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getProfile_image(),
                     null, R.drawable.xappie_place_holder);
 
         if (entertainmentTopStoriesDetailModel.getmNextDetailModel() != null) {
