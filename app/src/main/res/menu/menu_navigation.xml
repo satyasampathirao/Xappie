@@ -29,6 +29,9 @@
             android:id="@+id/jobs"
             android:title="@string/jobs" />
         <item
+            android:id="@+id/preferences"
+            android:title="@string/preferences" />
+        <item
             android:id="@+id/account_settings"
             android:title="@string/account_settings" />
         <item

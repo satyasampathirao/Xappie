@@ -73,6 +73,7 @@
     <string name="location_icon">&#xf041;</string>
     <string name="notifications_icon">&#xf0f3;</string>
     <string name="language_icon">&#xf1ab;</string>
+    <string name="customization_icon">&#xf013;</string>
     <string name="hello">Hello!</string>
     <string name="sign_in_to_xappie">Sign In To Xappie</string>
     <string name="joined">Joined on JUN 2017</string>
@@ -100,7 +101,8 @@
 
     <!-- Notification Screen Items -->
 
-    <string name="notification">Notifications</string>
+    <string name="notification">Notification</string>
+    <string name="notifications">Notifications</string>
     <string name="settings">Settings</string>
     <string name="settings_icon">&#xE8B8;</string>
     <string name="text_with_bullet">\u2022</string>
@@ -171,6 +173,7 @@
     <string name="a_weekly_desi">A Weekly Desi Party of Excusily , Luxury  &amp; Debauchery....Bollywood Style</string>
 
     <string name="languages"> Languages </string>
+    <string name="language">Language</string>
     <string name="countries"> Countries </string>
     <string name="select_countries">Select Country</string>
     <string name="united_states">United States</string>
@@ -237,5 +240,6 @@
     <string name="states">States</string>
     <string name="no_states_found">No States Found</string>
     <string name="no_cities_found">No Cities Found</string>
+    <string name="customization">Customization</string>
 
 </resources>

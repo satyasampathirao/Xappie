@@ -1,7 +1,10 @@
 package com.xappie.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenuView;
@@ -15,6 +18,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -146,7 +152,11 @@ public class DashBoardActivity extends BaseActivity {
                         break;
                     case R.id.jobs:
                         drawerLayout.closeDrawers();
-                        Utility.navigateDashBoardFragment(new JobsFragment(),JobsFragment.TAG,null,DashBoardActivity.this);
+                        Utility.navigateDashBoardFragment(new JobsFragment(), JobsFragment.TAG, null, DashBoardActivity.this);
+                        break;
+                    case R.id.preferences:
+                        drawerLayout.closeDrawers();
+                        showDialogForPreferences();
                         break;
                     case R.id.account_settings:
                         drawerLayout.closeDrawers();
@@ -195,7 +205,7 @@ public class DashBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                Utility.navigateDashBoardFragment(new MyProfileFragment(),MyProfileFragment.TAG,null,DashBoardActivity.this);
+                Utility.navigateDashBoardFragment(new MyProfileFragment(), MyProfileFragment.TAG, null, DashBoardActivity.this);
             }
         });
 
@@ -239,6 +249,33 @@ public class DashBoardActivity extends BaseActivity {
     }
 
     /**
+     * This method is used to show the Preferences dialog
+     */
+    private void showDialogForPreferences() {
+        final Dialog mDialog = new Dialog(this);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog.setContentView(R.layout.home_custmization_dialog);
+        mDialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(Color.TRANSPARENT));
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setCancelable(true);
+
+        TextView tv_location_icon = (TextView) mDialog.findViewById(R.id.tv_location_icon);
+        tv_location_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+
+        TextView tv_notification_menu_icon = (TextView) mDialog.findViewById(R.id.tv_notification_menu_icon);
+        tv_notification_menu_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+
+        TextView tv_language_icon = (TextView) mDialog.findViewById(R.id.tv_language_icon);
+        tv_language_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+
+        TextView tv_customization_icon = (TextView) mDialog.findViewById(R.id.tv_customization_icon);
+        tv_customization_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+
+        mDialog.show();
+    }
+
+    /**
      * This method is used to logout from the application
      */
     private void logout() {
@@ -255,7 +292,7 @@ public class DashBoardActivity extends BaseActivity {
     @OnClick(R.id.tv_location_icon)
     void navigateLocation() {
 
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,DashBoardActivity.this);
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, DashBoardActivity.this);
     }
 
     /**
@@ -271,7 +308,7 @@ public class DashBoardActivity extends BaseActivity {
      */
     @OnClick(R.id.tv_language_icon)
     void navigateLanguage() {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,DashBoardActivity.this);
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, DashBoardActivity.this);
 
     }
 
@@ -321,7 +358,7 @@ public class DashBoardActivity extends BaseActivity {
                             Utility.navigateDashBoardFragment(new ClassifiedsFragment(), ClassifiedsFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 8:
-                            Utility.navigateDashBoardFragment(new JobsFragment(),JobsFragment.TAG,null,DashBoardActivity.this);
+                            Utility.navigateDashBoardFragment(new JobsFragment(), JobsFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 9:
                             break;
