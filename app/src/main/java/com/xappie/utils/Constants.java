@@ -32,6 +32,7 @@ public class Constants {
     public static final String SELECTED_DETAIL_VIEW_FROM = "SELECTED_DETAIL_VIEW_FROM";
     public static final String SELECTED_MORE_TOPICS_LIST = "SELECTED_MORE_TOPICS_LIST";
     public static final String HOME_PAGE_CONTENTS = "HOME_PAGE_CONTENTS";
+    public static final String HOME_PAGE_CONTENTS_DATA = "discussions,entertainment,stories,videos";
 
     public static final String pattern = "((http(s)?:\\/\\/)?)(www\\.)?((youtube\\.com\\/)|(youtu.be\\/))[\\S]+";
 }

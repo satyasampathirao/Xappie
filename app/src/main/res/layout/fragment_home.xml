@@ -18,85 +18,99 @@
                 android:layout_height="@dimen/_210dp"
                 android:background="@android:color/white" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/ll_gallery_total_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:padding="@dimen/_8dp">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_gallery"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/gallery_caps"
-                    android:textColor="@color/title_color"
-                    android:textSize="@dimen/_13sp" />
+                    android:background="@android:color/white"
+                    android:padding="@dimen/_8dp">
 
-                <TextView
-                    android:id="@+id/tv_gallery_more"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/gallery_caps"
+                        android:textColor="@color/title_color"
+                        android:textSize="@dimen/_13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_gallery_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/more_caps"
+                        android:textColor="@color/more_color"
+                        android:textSize="@dimen/_11sp" />
+                </RelativeLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/more_caps"
-                    android:textColor="@color/more_color"
-                    android:textSize="@dimen/_11sp" />
-            </RelativeLayout>
+                    android:paddingEnd="@dimen/_10dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:scrollbars="none">
 
-            <HorizontalScrollView
+                    <LinearLayout
+                        android:id="@+id/layout_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_videos_total_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
-                android:scrollbars="none">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/layout_gallery"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
+                    android:background="@android:color/white"
+                    android:padding="@dimen/_8dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:padding="@dimen/_8dp">
+                    <TextView
+                        android:id="@+id/tv_videos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/videos_caps"
+                        android:textColor="@color/title_color"
+                        android:textSize="@dimen/_13sp" />
 
-                <TextView
-                    android:id="@+id/tv_videos"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_videos_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/more_caps"
+                        android:textColor="@color/more_color"
+                        android:textSize="@dimen/_11sp" />
+                </RelativeLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/videos_caps"
-                    android:textColor="@color/title_color"
-                    android:textSize="@dimen/_13sp" />
+                    android:paddingEnd="@dimen/_10dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:scrollbars="none">
 
-                <TextView
-                    android:id="@+id/tv_videos_more"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="@string/more_caps"
-                    android:textColor="@color/more_color"
-                    android:textSize="@dimen/_11sp" />
-            </RelativeLayout>
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:id="@+id/layout_videos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
+                    <LinearLayout
+                        android:id="@+id/layout_videos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_ads"
@@ -124,7 +138,9 @@
             </HorizontalScrollView>
 
             <!-- Top Stories layout-->
+
             <RelativeLayout
+                android:id="@+id/rl_top_stories_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -151,6 +167,7 @@
             </RelativeLayout>
 
             <HorizontalScrollView
+                android:id="@+id/hs_top_stories"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_10dp"
@@ -174,8 +191,8 @@
                 android:orientation="vertical" />
 
             <!-- Entertainment layout-->
-
             <RelativeLayout
+                android:id="@+id/rl_entertainment_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -202,6 +219,7 @@
             </RelativeLayout>
 
             <HorizontalScrollView
+                android:id="@+id/hs_entertainment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_10dp"
@@ -227,6 +245,7 @@
             <!-- Discussions layout-->
 
             <RelativeLayout
+                android:id="@+id/rl_discussions_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -253,6 +272,7 @@
             </RelativeLayout>
 
             <HorizontalScrollView
+                android:id="@+id/hs_discussions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_10dp"
@@ -278,6 +298,7 @@
             <!-- Events layout-->
 
             <RelativeLayout
+                android:id="@+id/rl_events_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -304,6 +325,7 @@
             </RelativeLayout>
 
             <HorizontalScrollView
+                android:id="@+id/hs_events"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_10dp"
@@ -329,6 +351,7 @@
             <!-- Classifieds layout-->
 
             <RelativeLayout
+                android:id="@+id/rl_classifieds_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -355,6 +378,7 @@
             </RelativeLayout>
 
             <HorizontalScrollView
+                android:id="@+id/hs_classifieds"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_10dp"
@@ -370,6 +394,7 @@
             </HorizontalScrollView>
 
             <HorizontalScrollView
+                android:id="@+id/hs_classifieds_inner_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none">
@@ -386,6 +411,7 @@
             <!-- Jobs layout-->
 
             <RelativeLayout
+                android:id="@+id/rl_jobs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
@@ -412,6 +438,7 @@
             </RelativeLayout>
 
             <HorizontalScrollView
+                android:id="@+id/hs_jobs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_10dp"

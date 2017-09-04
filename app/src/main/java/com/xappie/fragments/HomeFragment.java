@@ -1,8 +1,8 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,14 +20,31 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.VideoViewActivity;
 import com.xappie.adapters.HomeViewPagerAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.AdsModel;
+import com.xappie.models.EntertainmentModel;
 import com.xappie.models.GalleryModel;
+import com.xappie.models.HomePageContentModel;
+import com.xappie.models.LanguageListModel;
+import com.xappie.models.Model;
 import com.xappie.models.NewsModel;
 import com.xappie.models.VideosModel;
+import com.xappie.parser.HomePageContentParser;
+import com.xappie.parser.LanguageParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +53,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -51,6 +69,8 @@ public class HomeFragment extends Fragment {
     /**
      * Gallery View Ids
      */
+    @BindView(R.id.ll_gallery_total_layout)
+    LinearLayout ll_gallery_total_layout;
     @BindView(R.id.layout_gallery)
     LinearLayout layout_gallery;
 
@@ -62,6 +82,8 @@ public class HomeFragment extends Fragment {
     /**
      * Videos View Ids
      */
+    @BindView(R.id.ll_videos_total_layout)
+    LinearLayout ll_videos_total_layout;
     @BindView(R.id.layout_videos)
     LinearLayout layout_videos;
 
@@ -85,6 +107,11 @@ public class HomeFragment extends Fragment {
      * Tops stories View Ids
      */
 
+    @BindView(R.id.rl_top_stories_heading)
+    RelativeLayout rl_top_stories_heading;
+    @BindView(R.id.hs_top_stories)
+    HorizontalScrollView hs_top_stories;
+
     @BindView(R.id.tv_top_stories)
     TextView tv_top_stories;
 
@@ -100,6 +127,11 @@ public class HomeFragment extends Fragment {
     /**
      * Entertainment View Ids
      */
+
+    @BindView(R.id.rl_entertainment_heading)
+    RelativeLayout rl_entertainment_heading;
+    @BindView(R.id.hs_entertainment)
+    HorizontalScrollView hs_entertainment;
 
     @BindView(R.id.tv_entertainment)
     TextView tv_entertainment;
@@ -117,6 +149,11 @@ public class HomeFragment extends Fragment {
      * Discussions View Ids
      */
 
+    @BindView(R.id.rl_discussions_heading)
+    RelativeLayout rl_discussions_heading;
+    @BindView(R.id.hs_discussions)
+    HorizontalScrollView hs_discussions;
+
     @BindView(R.id.tv_discussions)
     TextView tv_discussions;
 
@@ -131,6 +168,11 @@ public class HomeFragment extends Fragment {
     /**
      * Events View Ids
      */
+
+    @BindView(R.id.rl_events_heading)
+    RelativeLayout rl_events_heading;
+    @BindView(R.id.hs_events)
+    HorizontalScrollView hs_events;
 
     @BindView(R.id.tv_events)
     TextView tv_events;
@@ -147,6 +189,13 @@ public class HomeFragment extends Fragment {
      * Classifieds View Ids
      */
 
+    @BindView(R.id.rl_classifieds_heading)
+    RelativeLayout rl_classifieds_heading;
+    @BindView(R.id.hs_classifieds_inner_layout)
+    HorizontalScrollView hs_classifieds_inner_layout;
+    @BindView(R.id.hs_classifieds)
+    HorizontalScrollView hs_classifieds;
+
     @BindView(R.id.tv_classifieds)
     TextView tv_classifieds;
 
@@ -162,6 +211,11 @@ public class HomeFragment extends Fragment {
      * Jobs View Ids
      */
 
+    @BindView(R.id.rl_jobs)
+    RelativeLayout rl_jobs;
+    @BindView(R.id.hs_jobs)
+    HorizontalScrollView hs_jobs;
+
     @BindView(R.id.tv_jobs)
     TextView tv_jobs;
 
@@ -172,6 +226,9 @@ public class HomeFragment extends Fragment {
     LinearLayout ll_languages_layout_jobs;
     @BindView(R.id.ll_jobs)
     LinearLayout ll_jobs;
+
+    private LanguageListModel mLanguageListModel;
+    private HomePageContentModel mHomePageContentModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -208,15 +265,47 @@ public class HomeFragment extends Fragment {
         mList.add("");
         card_pager.setAdapter(new HomeViewPagerAdapter(mParent, mList));
         setTypeface();
-        setGalleryData();
-        setVideosData();
+        getLanguagesData();
         setAdsData();
-        setTopStoriesData();
-        setEntertainmentData();
-        setDiscussionsData();
-        setEventsData();
-        setClassifiedsData();
-        setJobsData();
+    }
+
+    /**
+     * This method is used to get the Languages data from the server
+     */
+    private void getLanguagesData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            LanguageParser languageParser = new LanguageParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_LANGUAGES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, languageParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to get data of the home page
+     */
+    private void getHomePageData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
+            linkedHashMap.put(Constants.PAGE_NO, "1");
+            linkedHashMap.put("modules", Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS));
+            HomePageContentParser videosParser = new HomePageContentParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_HOME_CONTENT, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, videosParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setClassifiedsData() {
@@ -402,96 +491,6 @@ public class HomeFragment extends Fragment {
     }
 
     /**
-     * Sets Entertainment data
-     */
-    private void setEntertainmentData() {
-        ll_languages_layout_entertainment.removeAllViews();
-        for (int i = 0; i < getLanguagesData().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
-            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
-            View view = (View) ll.findViewById(R.id.view);
-            tv_language_name.setText(getLanguagesData().get(i));
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
-                view.setVisibility(View.VISIBLE);
-                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
-            } else {
-                view.setVisibility(View.GONE);
-            }
-            ll_languages_layout_entertainment.addView(ll);
-        }
-
-
-        ll_entertainment.removeAllViews();
-        for (int i = 0; i < getNewsModels().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
-            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
-            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
-
-            tv_title.setText(getNewsModels().get(i).getTitle());
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
-
-            tv_time.setText(getNewsModels().get(i).getTime());
-            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
-
-            ll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
-                }
-            });
-
-            ll_entertainment.addView(ll);
-        }
-    }
-
-    /**
-     * Sets Top Stories data
-     */
-    private void setTopStoriesData() {
-        ll_languages_layout_top_stories.removeAllViews();
-        for (int i = 0; i < getLanguagesData().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
-            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
-            View view = (View) ll.findViewById(R.id.view);
-            tv_language_name.setText(getLanguagesData().get(i));
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
-                view.setVisibility(View.VISIBLE);
-                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
-            } else {
-                view.setVisibility(View.GONE);
-            }
-            ll_languages_layout_top_stories.addView(ll);
-        }
-
-
-        ll_top_stories.removeAllViews();
-        for (int i = 0; i < getNewsModels().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
-            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
-            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
-
-            tv_title.setText(getNewsModels().get(i).getTitle());
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
-
-            tv_time.setText(getNewsModels().get(i).getTime());
-            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
-
-            ll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
-                }
-            });
-
-            ll_top_stories.addView(ll);
-        }
-    }
-
-    /**
      * This method is used to set font
      */
     private void setTypeface() {
@@ -548,25 +547,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void setVideosData() {
-        layout_videos.removeAllViews();
-        for (int i = 0; i < getVideosSizes().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_item, null);
-            ImageView img_video_image = (ImageView) ll.findViewById(R.id.img_video_image);
-            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
-            tv_title.setText(getVideosSizes().get(i).getTitle());
-            //img_video_image.setImageDrawable(Utility.getDrawable(mParent, getVideosSizes().get(i).getId()));
-            img_video_image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-            layout_videos.addView(ll);
-        }
-    }
-
     private void setAdsData() {
         layout_ads.removeAllViews();
         for (int i = 0; i < getAdsSizes().size(); i++) {
@@ -589,16 +569,6 @@ public class HomeFragment extends Fragment {
         return galleryModels;
     }
 
-    private ArrayList<VideosModel> getVideosSizes() {
-        ArrayList<VideosModel> videosModels = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            VideosModel videosModel = new VideosModel();
-            videosModel.setTitle("Pawan Kalyan's katamarayudu 50days collections in AP & TG");
-            videosModels.add(videosModel);
-        }
-        return videosModels;
-    }
-
     private ArrayList<AdsModel> getAdsSizes() {
         ArrayList<AdsModel> adsModels = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -607,15 +577,6 @@ public class HomeFragment extends Fragment {
             adsModels.add(adsModel);
         }
         return adsModels;
-    }
-
-    private ArrayList<String> getLanguagesData() {
-        ArrayList<String> mLanguagesData = new ArrayList<>();
-        mLanguagesData.add("HINDI");
-        mLanguagesData.add("ENGLISH");
-        mLanguagesData.add("TELUGU");
-        mLanguagesData.add("TAMIL");
-        return mLanguagesData;
     }
 
     private ArrayList<String> getDiscussionsData() {
@@ -688,6 +649,249 @@ public class HomeFragment extends Fragment {
     @OnClick(R.id.tv_jobs_more)
     public void navigateToJobs() {
         Utility.navigateDashBoardFragment(new JobsFragment(), JobsFragment.TAG, null, mParent);
+    }
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof LanguageListModel) {
+                mLanguageListModel = (LanguageListModel) model;
+                if (mLanguageListModel.getLanguageModels().size() > 0) {
+                    getHomePageData();
+                }
+            } else if (model instanceof HomePageContentModel) {
+                mHomePageContentModel = (HomePageContentModel) model;
+                setDataToTheScreen();
+            }
+        }
+    }
+
+    /**
+     * This method is used to set the data to the screen
+     */
+    private void setDataToTheScreen() {
+        /*if (mHomePageContentModel.getVideosModels() != null &&
+                mHomePageContentModel.getVideosModels().size() > 0) {
+            ll_gallery_total_layout.setVisibility(View.VISIBLE);
+        } else {
+            ll_gallery_total_layout.setVisibility(View.GONE);
+        }*/
+        ll_gallery_total_layout.setVisibility(View.GONE);
+
+        rl_discussions_heading.setVisibility(View.GONE);
+        hs_discussions.setVisibility(View.GONE);
+
+        rl_events_heading.setVisibility(View.GONE);
+        hs_events.setVisibility(View.GONE);
+
+        rl_classifieds_heading.setVisibility(View.GONE);
+        hs_classifieds_inner_layout.setVisibility(View.GONE);
+        hs_classifieds.setVisibility(View.GONE);
+
+        rl_jobs.setVisibility(View.GONE);
+        hs_jobs.setVisibility(View.GONE);
+
+        if (mHomePageContentModel.getVideosModels() != null &&
+                mHomePageContentModel.getVideosModels().size() > 0) {
+            ll_videos_total_layout.setVisibility(View.VISIBLE);
+            setVideosData(mHomePageContentModel.getVideosModels());
+        } else {
+            ll_videos_total_layout.setVisibility(View.GONE);
+        }
+        if (mHomePageContentModel.getTopStoriesModels() != null &&
+                mHomePageContentModel.getTopStoriesModels().size() > 0) {
+            rl_top_stories_heading.setVisibility(View.VISIBLE);
+            hs_top_stories.setVisibility(View.VISIBLE);
+            ll_top_stories.setVisibility(View.VISIBLE);
+            setTopStoriesData(mHomePageContentModel.getTopStoriesModels());
+        } else {
+            rl_top_stories_heading.setVisibility(View.GONE);
+            hs_top_stories.setVisibility(View.GONE);
+            ll_top_stories.setVisibility(View.GONE);
+        }
+        if (mHomePageContentModel.getEntertainmentModels() != null &&
+                mHomePageContentModel.getEntertainmentModels().size() > 0) {
+            rl_entertainment_heading.setVisibility(View.VISIBLE);
+            hs_entertainment.setVisibility(View.VISIBLE);
+            ll_entertainment.setVisibility(View.VISIBLE);
+            setEntertainmentData(mHomePageContentModel.getTopStoriesModels());
+        } else {
+            rl_entertainment_heading.setVisibility(View.GONE);
+            hs_entertainment.setVisibility(View.GONE);
+            ll_entertainment.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * This method is used to set the data of the top stories
+     */
+    private void setTopStoriesData(ArrayList<EntertainmentModel> topStoriesModels) {
+        ll_languages_layout_top_stories.removeAllViews();
+        for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = ll.findViewById(R.id.view);
+            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName());
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages_layout_top_stories.addView(ll);
+        }
+
+        ll_top_stories.removeAllViews();
+        for (int i = 0; i < topStoriesModels.size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+            tv_title.setText(topStoriesModels.get(i).getTitle());
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
+                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                PrettyTime prettyTime = new PrettyTime();
+                Date date;
+                String outputDateStr = "";
+                try {
+                    date = inputFormat.parse(topStoriesModels.get(i).getRecordedDate());
+                    outputDateStr = prettyTime.format(date);
+                    tv_time.setText(outputDateStr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getProfile_image())) {
+                Utility.universalImageLoaderPicLoading(img_news_item,
+                        topStoriesModels.get(i).getProfile_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(img_news_item,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
+                }
+            });
+
+            ll_top_stories.addView(ll);
+        }
+    }
+
+    /**
+     * Sets Entertainment data
+     */
+    private void setEntertainmentData(ArrayList<EntertainmentModel> topStoriesModels) {
+        ll_languages_layout_entertainment.removeAllViews();
+        for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName());
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            if (i == 0) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+            ll_languages_layout_entertainment.addView(ll);
+        }
+
+        ll_entertainment.removeAllViews();
+        for (int i = 0; i < mHomePageContentModel.getEntertainmentModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+            tv_title.setText(mHomePageContentModel.getEntertainmentModels().get(i).getTitle());
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
+                SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                PrettyTime prettyTime = new PrettyTime();
+                Date date;
+                String outputDateStr = "";
+                try {
+                    date = inputFormat.parse(topStoriesModels.get(i).getRecordedDate());
+                    outputDateStr = prettyTime.format(date);
+                    tv_time.setText(outputDateStr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getProfile_image())) {
+                Utility.universalImageLoaderPicLoading(img_news_item,
+                        topStoriesModels.get(i).getProfile_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(img_news_item,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
+                }
+            });
+
+            ll_entertainment.addView(ll);
+        }
+    }
+
+    /**
+     * This method is used to set the data of the videos
+     */
+    private void setVideosData(final ArrayList<VideosModel> videosData) {
+        layout_videos.removeAllViews();
+        for (int i = 0; i < videosData.size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_item, null);
+            ImageView img_video_image = (ImageView) ll.findViewById(R.id.img_video_image);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+            tv_title.setText(videosData.get(i).getTitle());
+            if (!Utility.isValueNullOrEmpty(videosData.get(i).getThumb_nail()))
+                Utility.universalImageLoaderPicLoading(img_video_image,
+                        videosData.get(i).getThumb_nail(), null, R.drawable.xappie_place_holder);
+            else {
+                Utility.universalImageLoaderPicLoading(img_video_image,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+
+            img_video_image.setId(i);
+            img_video_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = view.getId();
+                    VideosModel videosModel = videosData.get(position);
+                    Intent intent = new Intent(mParent, VideoViewActivity.class);
+                    String mVideoId = (videosModel.getUrl() != null && videosModel.getUrl().matches(Constants.pattern))
+                            ? videosModel.getUrl().substring(videosModel.getUrl().length() - 11,
+                            videosModel.getUrl().length())
+                            : "";
+
+                    if (!mVideoId.isEmpty()) {
+                        intent.putExtra("videoId", mVideoId);
+                        mParent.startActivity(intent);
+                    } else {
+                        Utility.showToastMessage(mParent, "Url Not Valid");
+                    }
+                }
+            });
+            layout_videos.addView(ll);
+        }
     }
 
 }

@@ -135,7 +135,7 @@ public class HomePageCustomizationFragment extends Fragment {
     private void getHomePageContents() {
         String s = Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS);
         if (Utility.isValueNullOrEmpty(s)) {
-            Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS, "discussions,entertainment,stories,videos");
+            Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS, Constants.HOME_PAGE_CONTENTS_DATA);
         }
         String mSharedPreferenceString = Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS);
         String[] namesAfterSplit = mSharedPreferenceString.split(",");
