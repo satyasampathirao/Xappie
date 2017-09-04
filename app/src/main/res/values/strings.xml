@@ -241,5 +241,7 @@
     <string name="no_states_found">No States Found</string>
     <string name="no_cities_found">No Cities Found</string>
     <string name="customization">Customization</string>
+    <string name="home_page">Homepage</string>
+    <string name="home_message">Select the topics you would like to view on your homepage. You can update these options any time.</string>
 
 </resources>

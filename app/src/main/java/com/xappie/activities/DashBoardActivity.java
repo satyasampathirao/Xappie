@@ -35,6 +35,7 @@ import com.xappie.fragments.EventsFragment;
 import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
+import com.xappie.fragments.HomePageCustomizationFragment;
 import com.xappie.fragments.JobsFragment;
 import com.xappie.fragments.LanguageFragment;
 import com.xappie.fragments.MyProfileFragment;
@@ -262,15 +263,38 @@ public class DashBoardActivity extends BaseActivity {
 
         TextView tv_location_icon = (TextView) mDialog.findViewById(R.id.tv_location_icon);
         tv_location_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+        TextView tv_location = (TextView) mDialog.findViewById(R.id.tv_location);
+        tv_location.setTypeface(Utility.getOpenSansRegular(this));
 
         TextView tv_notification_menu_icon = (TextView) mDialog.findViewById(R.id.tv_notification_menu_icon);
         tv_notification_menu_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+        TextView tv_notification = (TextView) mDialog.findViewById(R.id.tv_notification);
+        tv_notification.setTypeface(Utility.getOpenSansRegular(this));
 
         TextView tv_language_icon = (TextView) mDialog.findViewById(R.id.tv_language_icon);
         tv_language_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+        TextView tv_language = (TextView) mDialog.findViewById(R.id.tv_language);
+        tv_language.setTypeface(Utility.getOpenSansRegular(this));
 
         TextView tv_customization_icon = (TextView) mDialog.findViewById(R.id.tv_customization_icon);
         tv_customization_icon.setTypeface(Utility.getFontAwesomeWebFont(this));
+        TextView tv_customization = (TextView) mDialog.findViewById(R.id.tv_customization);
+        tv_customization.setTypeface(Utility.getOpenSansRegular(this));
+
+        tv_customization_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new HomePageCustomizationFragment(), HomePageCustomizationFragment.TAG, null, DashBoardActivity.this);
+            }
+        });
+        tv_customization.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new HomePageCustomizationFragment(), HomePageCustomizationFragment.TAG, null, DashBoardActivity.this);
+            }
+        });
 
         mDialog.show();
     }

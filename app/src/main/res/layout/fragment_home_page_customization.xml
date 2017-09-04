@@ -1,0 +1,324 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/tool_bar_home_customization"
+        layout="@layout/action_bar_home_customization" />
+
+    <ScrollView
+        android:id="@+id/scroll_view_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar_home_customization">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_home_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_gray"
+                android:gravity="center"
+                android:paddingBottom="@dimen/_10dp"
+                android:paddingEnd="@dimen/_5dp"
+                android:paddingStart="@dimen/_5dp"
+                android:paddingTop="@dimen/_10dp"
+                android:text="@string/home_message" />
+
+            <LinearLayout
+                android:id="@+id/linear_discussions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_discussions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/discussions"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_discussion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_discussion"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/linear_entertainment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_entertainment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/entertainment"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_entertainment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_entertainment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/linear_top_stories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_top_stories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/top_stories"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_top_stories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_top_stories"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/linear_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_text_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/gallery"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/linear_videos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_videos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/videos"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_videos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_videos"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/linear_events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_events"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/events"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_events"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_events"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/linear_classifieds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_classifieds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/classifieds"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_classifieds"
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_classifieds"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/linear_jobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_jobs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_weight="1"
+                    android:text="@string/jobs"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_jobs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_weight="1"
+                    android:theme="@style/SCBSwitch" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_jobs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@color/light_gray" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
