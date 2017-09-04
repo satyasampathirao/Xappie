@@ -37,6 +37,8 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.xappie.R;
 import com.xappie.fragments.AllEventsListFragment;
 import com.xappie.fragments.FindJobsListFragment;
+import com.xappie.models.EntertainmentListModel;
+import com.xappie.models.EntertainmentModel;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -51,6 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -568,6 +571,48 @@ public class Utility {
     public static String capitalizeFirstLetter(String s) {
         if (s.length() == 0) return s;
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+    }
+
+    /**
+     * This method is used to get data from the more topics with some conditions
+     */
+    public static ArrayList<EntertainmentModel> getMoreTopicsList(int position, ArrayList<EntertainmentModel> entertainmentModelsList) {
+        ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
+        if (position == 0) {
+            for (int i = 1; i < entertainmentModelsList.size(); i++) {
+                entertainmentModels.add(entertainmentModelsList.get(i));
+                if (entertainmentModels.size() == 4)
+                    break;
+            }
+        } else if (position == 1) {
+            for (int i = 0; i < entertainmentModelsList.size(); i++) {
+                if (i != 1)
+                    entertainmentModels.add(entertainmentModelsList.get(i));
+                if (entertainmentModels.size() == 4)
+                    break;
+            }
+        } else if (position == 2) {
+            for (int i = 0; i < entertainmentModelsList.size(); i++) {
+                if (i != 2)
+                    entertainmentModels.add(entertainmentModelsList.get(i));
+                if (entertainmentModels.size() == 4)
+                    break;
+            }
+        } else if (position == 3) {
+            for (int i = 0; i < entertainmentModelsList.size(); i++) {
+                if (i != 3)
+                    entertainmentModels.add(entertainmentModelsList.get(i));
+                if (entertainmentModels.size() == 4)
+                    break;
+            }
+        } else {
+            for (int i = 0; i < entertainmentModelsList.size(); i++) {
+                entertainmentModels.add(entertainmentModelsList.get(i));
+                if (entertainmentModels.size() == 4)
+                    break;
+            }
+        }
+        return entertainmentModels;
     }
 
 }

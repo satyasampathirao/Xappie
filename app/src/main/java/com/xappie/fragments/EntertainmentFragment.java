@@ -221,51 +221,9 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mEntertainmentListModel.getEntertainmentModels().get(position).getId());
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
-        bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, getMoreTopicsList(position));
+        bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, Utility.getMoreTopicsList(position, mEntertainmentListModel.getEntertainmentModels()));
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
                 mParent);
-    }
-
-    /**
-     * This method is used to get data from the more topics with some conditions
-     */
-    private ArrayList<EntertainmentModel> getMoreTopicsList(int position) {
-        ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
-        if (position == 0) {
-            for (int i = 1; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
-                entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
-                if (entertainmentModels.size() == 4)
-                    break;
-            }
-        } else if (position == 1) {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
-                if (i != 1)
-                    entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
-                if (entertainmentModels.size() == 4)
-                    break;
-            }
-        } else if (position == 2) {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
-                if (i != 2)
-                    entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
-                if (entertainmentModels.size() == 4)
-                    break;
-            }
-        } else if (position == 3) {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
-                if (i != 3)
-                    entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
-                if (entertainmentModels.size() == 4)
-                    break;
-            }
-        } else {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
-                entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
-                if (entertainmentModels.size() == 4)
-                    break;
-            }
-        }
-        return entertainmentModels;
     }
 
     /**

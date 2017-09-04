@@ -775,10 +775,16 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
 
+            ll.setId(i);
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mHomePageContentModel.getTopStoriesModels().get(view.getId()).getId());
+                    bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
+                    bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, Utility.getMoreTopicsList(view.getId(), mHomePageContentModel.getTopStoriesModels()));
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
+                            mParent);
                 }
             });
 
@@ -839,10 +845,16 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
 
+            ll.setId(i);
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, mParent);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mHomePageContentModel.getEntertainmentModels().get(view.getId()).getId());
+                    bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
+                    bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, Utility.getMoreTopicsList(view.getId(), mHomePageContentModel.getEntertainmentModels()));
+                    Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
+                            mParent);
                 }
             });
 
