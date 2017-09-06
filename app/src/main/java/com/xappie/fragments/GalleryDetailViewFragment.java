@@ -106,6 +106,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
     private Typeface mTypefaceMaterialIcons;
+    private Typeface mTypefaceOpenSansBold;
 
     private String mSelectedId = "";
     private ArrayList<EntertainmentModel> entertainmentModels;
@@ -155,6 +156,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
         mTypefaceMaterialIcons = Utility.getMaterialIconsRegular(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -166,7 +168,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
 
-        tv_header_title.setTypeface(mTypefaceOpenSansRegular);
+        tv_header_title.setTypeface(mTypefaceOpenSansBold);
 
         tv_written_by.setTypeface(mTypefaceOpenSansRegular);
         tv_time.setTypeface(mTypefaceOpenSansRegular);
