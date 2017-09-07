@@ -309,10 +309,10 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
      */
     private void setData() {
         scroll.fullScroll(ScrollView.FOCUS_UP);
-        tv_header_title.setText(Utility.capitalizeFirstLetter(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getTitle()));
+        tv_header_title.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getTitle());
         tv_description.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getDescription());
         if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy())) {
-            tv_written_by.setText(Utility.capitalizeFirstLetter(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy()));
+            tv_written_by.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy());
             tv_written_by.setVisibility(View.VISIBLE);
             view_dot.setVisibility(View.VISIBLE);
         } else {
@@ -339,7 +339,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
                     null, R.drawable.xappie_place_holder);
 
         if (entertainmentTopStoriesDetailModel.getmNextDetailModel() != null) {
-            tv_next_news_header_title.setText(Utility.capitalizeFirstLetter(entertainmentTopStoriesDetailModel.getmNextDetailModel().getTitle()));
+            tv_next_news_header_title.setText(entertainmentTopStoriesDetailModel.getmNextDetailModel().getTitle());
             ll_next_layout.setVisibility(View.VISIBLE);
         } else
             ll_next_layout.setVisibility(View.GONE);
