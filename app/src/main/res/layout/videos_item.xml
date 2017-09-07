@@ -11,9 +11,8 @@
 
         <ImageView
             android:id="@+id/img_video_image"
-            android:layout_width="@dimen/_150dp"
+            android:layout_width="@dimen/_155dp"
             android:layout_height="@dimen/_85dp"
-            android:paddingEnd="@dimen/_10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/video_hint" />
 
@@ -28,11 +27,12 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="@dimen/_150dp"
+        android:layout_width="@dimen/_155dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
+        android:textColor="@color/color_black"
         android:text="@string/app_name"
-        android:textSize="@dimen/_9sp" />
+        android:textSize="@dimen/_11sp" />
 
 </LinearLayout>
