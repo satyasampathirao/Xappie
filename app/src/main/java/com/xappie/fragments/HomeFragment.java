@@ -24,6 +24,7 @@ import com.xappie.activities.VideoViewActivity;
 import com.xappie.adapters.HomeViewPagerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.interfaces.IHomeCustomization;
 import com.xappie.models.AdsModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.GalleryModel;
@@ -53,7 +54,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements IAsyncCaller {
+public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomization {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -230,6 +231,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
     private LanguageListModel mLanguageListModel;
     private HomePageContentModel mHomePageContentModel;
 
+    private static IHomeCustomization iHomeCustomization;
+
+    public static IHomeCustomization getInstance() {
+        return iHomeCustomization;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -238,6 +245,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        iHomeCustomization = this;
     }
 
 
@@ -906,4 +914,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    @Override
+    public void updateData() {
+
+    }
 }

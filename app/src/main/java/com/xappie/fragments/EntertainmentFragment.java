@@ -219,9 +219,11 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
     @OnItemClick(R.id.list_view)
     void navigateData(int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mEntertainmentListModel.getEntertainmentModels().get(position).getId());
+        bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID,
+                mEntertainmentListModel.getEntertainmentModels().get(position).getId());
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
-        bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, Utility.getMoreTopicsList(position, mEntertainmentListModel.getEntertainmentModels()));
+        bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST,
+                Utility.getMoreTopicsList(position, mEntertainmentListModel.getEntertainmentModels()));
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
                 mParent);
     }
