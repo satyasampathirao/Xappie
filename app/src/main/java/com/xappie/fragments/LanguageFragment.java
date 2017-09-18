@@ -1,6 +1,8 @@
 package com.xappie.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,21 +17,32 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.activities.CountriesActivity;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LanguageActivity;
 import com.xappie.adapters.LanguagesListAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
+import com.xappie.models.Model;
+import com.xappie.parser.LanguageParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LanguageFragment extends Fragment {
+public class LanguageFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = LanguageFragment.class.getSimpleName();
 
@@ -42,8 +55,11 @@ public class LanguageFragment extends Fragment {
     @BindView(R.id.language_list_item)
     ListView language_list_item;
 
+
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private LanguageListModel mLanguageListModel;
+
 
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
@@ -97,18 +113,48 @@ public class LanguageFragment extends Fragment {
         tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        language_list_item.setAdapter(new LanguagesListAdapter(mParent, getSampleData()));
+        getLanguagesData();
     }
 
-    private ArrayList<LanguageModel> getSampleData() {
-        ArrayList<LanguageModel> languagesListModels = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            LanguageModel languageModel = new LanguageModel();
-            languageModel.setName_native("HINDI");
-            languagesListModels.add(languageModel);
+    private void getLanguagesData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            LanguageParser lookUpEventTypeParser = new LanguageParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_LANGUAGES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, lookUpEventTypeParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return languagesListModels;
+
     }
+
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof LanguageListModel) {
+                mLanguageListModel = (LanguageListModel) model;
+                language_list_item.setAdapter(new LanguagesListAdapter(mParent, mLanguageListModel.getLanguageModels()));
+            }
+        }
+    }
+
+    /**
+     * This method is used to select preferred language
+     */
+    @OnItemClick(R.id.language_list_item)
+    void onItemClick(int position) {
+        Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE, mLanguageListModel.getLanguageModels().get(position).getName());
+        Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID, mLanguageListModel.getLanguageModels().get(position).getId());
+        Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
+        startActivity(dashBoardIntent);
+    }
+
+
 
 
     @OnClick({R.id.tv_languages_arrow_back_icon, R.id.tv_languages_menu_icon})
