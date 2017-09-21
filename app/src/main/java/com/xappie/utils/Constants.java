@@ -14,6 +14,8 @@ public class Constants {
     public static final String IS_LOGIN_COMPLETED = "IS_LOGIN_COMPLETED";
     public static final String TOKEN = "TOKEN";
     public static final String API_KEY = "api_key";
+    public static final String AUTH_TYPE = "auth_type";
+    public static final String XAPPIE = "xappie";
     public static final String PAGE_NO = "page_no";
     public static final String PAGE_SIZE = "page_size";
     public static final String PAGE_SIZE_VALUE = "20";
@@ -33,6 +35,8 @@ public class Constants {
     public static final String SELECTED_MORE_TOPICS_LIST = "SELECTED_MORE_TOPICS_LIST";
     public static final String HOME_PAGE_CONTENTS = "HOME_PAGE_CONTENTS";
     public static final String HOME_PAGE_CONTENTS_DATA = "discussions,entertainment,stories,videos";
+
+    public static final String LOGIN_SESSION_ID = "LOGIN_SESSION_ID";
 
     public static final String pattern = "((http(s)?:\\/\\/)?)(www\\.)?((youtube\\.com\\/)|(youtu.be\\/))[\\S]+";
 }

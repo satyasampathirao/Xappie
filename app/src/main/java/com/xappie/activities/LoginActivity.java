@@ -11,14 +11,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.Model;
+import com.xappie.parser.LanguageParser;
+import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
+
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements IAsyncCaller {
     @BindView(R.id.btn_check)
     Button btn_check;
 
@@ -33,9 +40,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.relative_login)
     RelativeLayout rl_login_email;
     @BindView(R.id.et_email)
-    EditText edt_email;
+    EditText et_email;
     @BindView(R.id.et_password)
-    EditText edt_password;
+    EditText et_password;
     @BindView(R.id.tv_log_show)
     TextView tv_log_show;
     @BindView(R.id.tv_trouble_getting)
@@ -85,8 +92,9 @@ public class LoginActivity extends BaseActivity {
         tv_log_cancel.setTypeface(Utility.getOpenSansRegular(this));
         tv_log_login.setTypeface(Utility.getOpenSansBold(this));
         tv_log_sign_up.setTypeface(Utility.getOpenSansRegular(this));
-        edt_email.setTypeface(Utility.getOpenSansRegular(this));
-        edt_password.setTypeface(Utility.getOpenSansRegular(this));
+
+        et_email.setTypeface(Utility.getOpenSansRegular(this));
+        et_password.setTypeface(Utility.getOpenSansRegular(this));
     }
 
     @OnClick(R.id.tv_log_sign_up)
@@ -96,11 +104,42 @@ public class LoginActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btn_check)
-    public void navigateLogin() {
+    public void navigateLogin() {/*
         Utility.setSharedPrefBooleanData(LoginActivity.this, Constants.IS_LOGIN_COMPLETED, true);
         finish();
         Intent signUpIntent = new Intent(this, DashBoardActivity.class);
-        startActivity(signUpIntent);
+        startActivity(signUpIntent);*/
+        if (isValidFields()) {
+            LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+            paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            paramMap.put(Constants.AUTH_TYPE, Constants.XAPPIE);
+            paramMap.put("username", et_email.getText().toString());
+            paramMap.put("password", et_password.getText().toString());
+            LanguageParser mLoginParser = new LanguageParser();
+            ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                    R.string.please_wait), true,
+                    APIConstants.LOGIN, paramMap,
+                    APIConstants.REQUEST_TYPE.POST, this, mLoginParser);
+            Utility.execute(serverIntractorAsync);
+
+            Utility.showLog("USER NAME", "" + et_email.getText().toString());
+            Utility.showLog("PASSWORD ", "" + et_password.getText().toString());
+        }
+
+    }
+
+    private boolean isValidFields() {
+        boolean isValid = true;
+        if (Utility.isValueNullOrEmpty(et_email.getText().toString())) {
+            Utility.setSnackBar(this, et_email, "Please enter username");
+            et_email.requestFocus();
+            isValid = false;
+        } else if (et_password.getText().toString().length() < 4) {
+            Utility.setSnackBar(this, et_password, "Please enter password");
+            et_password.requestFocus();
+            isValid = false;
+        }
+        return isValid;
     }
 
     @OnClick(R.id.tv_trouble_getting)
@@ -108,10 +147,14 @@ public class LoginActivity extends BaseActivity {
         Intent forgotPasswordIntent = new Intent(this, ForgotPasswordActivity.class);
         startActivity(forgotPasswordIntent);
     }
+
     @OnClick(R.id.tv_log_cancel)
-    public void navigateCancel()
-    {
+    public void navigateCancel() {
         this.onBackPressed();
     }
 
+    @Override
+    public void onComplete(Model model) {
+
+    }
 }

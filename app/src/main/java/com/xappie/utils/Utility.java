@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -23,6 +24,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -40,10 +42,16 @@ import com.xappie.fragments.FindJobsListFragment;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -55,6 +63,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -613,6 +622,88 @@ public class Utility {
             }
         }
         return entertainmentModels;
+    }
+
+    public static void setSnackBar(AppCompatActivity parent, View mView, String message) {
+        SnackBar snackBar = new SnackBar();
+        snackBar.view(mView)
+                .customActionFont(getFontAwesomeWebFont(parent))
+                .customTitleFont(getFontAwesomeWebFont(parent))
+                .text(message, "OK", 2)
+                .textColors(Color.WHITE, getColor(parent, R.color.black))
+                .backgroundColor(getColor(parent, R.color.error_alert))
+                .duration(SnackBar.SnackBarDuration.LONG)
+                .show();
+    }
+
+
+    public static List<NameValuePair> getParams(HashMap<String, String> paramMap) {
+        if (paramMap == null) {
+            return null;
+        }
+        List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
+        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+            paramsList.add(new BasicNameValuePair(entry.getKey(), entry
+                    .getValue()));
+        }
+        return paramsList;
+    }
+
+
+    public static String httpLoginCookiesPostRequest(String URL, Object paramsList, Context mContext) {
+        String userAgent = "(Android; Mobile) Chrome";
+        int TIME_OUT = 30000;
+        String data = null;
+        HttpPost httppost = new HttpPost(URL);
+        final HttpParams httpParams = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
+        HttpConnectionParams.setSoTimeout(httpParams, TIME_OUT);
+
+        DefaultHttpClient httpclient = new DefaultHttpClient(httpParams);
+        httppost.setHeader("User-Agent", userAgent);
+
+        httppost.setParams(httpParams);
+
+        InputStream is = null;
+        try {
+            if (paramsList != null)
+                httppost.setEntity(new UrlEncodedFormEntity(
+                        (List<? extends NameValuePair>) paramsList));
+            // httppost.setEntity(gettingResponse(paramsList));
+            HttpResponse response = httpclient.execute(httppost);
+            HttpEntity httpEntity = response.getEntity();
+
+            List<Cookie> cookies = httpclient.getCookieStore().getCookies();
+            if (cookies.isEmpty()) {
+
+            } else {
+                for (int i = 0; i < cookies.size(); i++) {
+                    Utility.setSharedPrefStringData(mContext, Constants.LOGIN_SESSION_ID, cookies.get(i).getValue());
+                }
+            }
+
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 204) {
+                data = null;
+            }
+
+            if (statusCode == 200) {
+                is = httpEntity.getContent();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(is, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    if (line.length() > 0)
+                        sb.append(line + "\n");
+                }
+                data = sb.toString();
+                is.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
 }
