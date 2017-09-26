@@ -107,6 +107,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller {
             paramMap.put(Constants.AUTH_TYPE, Constants.XAPPIE);
             paramMap.put("email", et_sign_up_email.getText().toString());
             paramMap.put("password", et_sign_up_password.getText().toString());
+            paramMap.put("mobile", et_sign_up_mobile.getText().toString());
             SignUpSuccessParser mSignUpSuccessParser = new SignUpSuccessParser();
             ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
                     R.string.please_wait), true,
@@ -133,6 +134,10 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller {
             Utility.setSnackBar(this, et_sign_up_email, "Please enter email");
             et_sign_up_email.requestFocus();
             isValid = false;
+        } else if (!et_sign_up_email.getText().toString().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z]+)*(\\.[A-Za-z]{2,4})$")) {
+            Utility.setSnackBar(this, et_sign_up_email, "Please enter valid email");
+            et_sign_up_email.requestFocus();
+            isValid = false;
         } else if (et_sign_up_password.getText().toString().length() < 4) {
             Utility.setSnackBar(this, et_sign_up_password, "Please enter password");
             et_sign_up_password.requestFocus();
@@ -152,6 +157,10 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller {
                 mSignupSuccessModel = (SignupSuccessModel) model;
                 if (mSignupSuccessModel.isStatus()) {
                     Intent signUpOtpIntent = new Intent(this, SignUpOtpActivity.class);
+                    signUpOtpIntent.putExtra(Constants.SIGN_UP_MAIL_ID, et_sign_up_email.getText().toString());
+                    signUpOtpIntent.putExtra(Constants.SIGN_UP_PASSWORD, et_sign_up_password.getText().toString());
+                    signUpOtpIntent.putExtra(Constants.SIGN_UP_MOBILE, et_sign_up_mobile.getText().toString());
+                    signUpOtpIntent.putExtra(Constants.SIGN_UP_UUID, mSignupSuccessModel.getUuid());
                     startActivity(signUpOtpIntent);
                 } else {
                     Utility.showToastMessage(SignUpActivity.this, mSignupSuccessModel.getMessage());

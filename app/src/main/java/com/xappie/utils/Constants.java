@@ -39,4 +39,9 @@ public class Constants {
     public static final String LOGIN_SESSION_ID = "LOGIN_SESSION_ID";
 
     public static final String pattern = "((http(s)?:\\/\\/)?)(www\\.)?((youtube\\.com\\/)|(youtu.be\\/))[\\S]+";
+
+    public static final String SIGN_UP_MAIL_ID = "SIGN_UP_MAIL_ID";
+    public static final String SIGN_UP_PASSWORD = "SIGN_UP_PASSWORD";
+    public static final String SIGN_UP_MOBILE = "SIGN_UP_MOBILE";
+    public static final String SIGN_UP_UUID = "SIGN_UP_UUID";
 }
