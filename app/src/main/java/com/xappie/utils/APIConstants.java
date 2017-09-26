@@ -26,6 +26,7 @@ public class APIConstants {
     public static String GET_NEWS_DETAILS = BASE_URL + "get_news_details/";
     public static String GET_HOME_CONTENT = BASE_URL + "get_home_content";
     public static String LOGIN = BASE_URL + "login";
-    public static String REGISTER_URL = BASE_URL + "login";
+    public static String SIGN_UP = BASE_URL + "sign_up";
+    public static String SIGN_UP_VERIFY = BASE_URL + "sign_up_verify";
 
 }

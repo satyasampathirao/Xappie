@@ -48,7 +48,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                 Utility.showLog("Request URL ", mUrl);
                 Utility.showLog("Request mParams != null getParams  ", ""
                         + Utility.getParams(mParams));
-                if (mUrl.contains(APIConstants.LOGIN) || mUrl.contains(APIConstants.REGISTER_URL)) {
+                if (mUrl.contains(APIConstants.LOGIN) || mUrl.contains(APIConstants.SIGN_UP)) {
                     mResponse = Utility.httpLoginCookiesPostRequest(mUrl,
                             Utility.getParams(mParams), mContext);
                 }

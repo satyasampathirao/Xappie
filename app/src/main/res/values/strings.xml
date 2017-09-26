@@ -81,8 +81,8 @@
 
     <!-- sign up Screen Items -->
 
-    <string name="moble_option">Mobile (optional)</string>
-    <string name="checkbox_text">I hereby certify that i am 18 years of age.</string>
+    <string name="mobile_option">Mobile (optional)</string>
+    <string name="checkbox_text">I hereby certify that I am 18 years of age.</string>
     <string name="enter_one_time">Enter One Time Password (OTP) sent to your Email ID ravikiran.koya@gmail.com or change Email ID</string>
     <string name="otp">OTP</string>
     <string name="first_name">First Name</string>
