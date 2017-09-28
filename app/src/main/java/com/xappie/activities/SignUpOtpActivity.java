@@ -203,6 +203,12 @@ public class SignUpOtpActivity extends BaseActivity implements IAsyncCaller {
                 if (mSignupSuccessOTPModel.isStatus()) {
                     Utility.setSharedPrefBooleanData(SignUpOtpActivity.this, Constants.IS_LOGIN_COMPLETED, true);
                     finish();
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_FIRST_NAME, et_sign_in_first_name.getText().toString());
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_LAST_NAME, et_sign_in_first_name.getText().toString());
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_MAIL_ID, mMailId);
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_CURRENT_DATE, Utility.getDate());
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_UUID, mUUID);
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.TOKEN, "");
                     Intent signUpIntent = new Intent(this, DashBoardActivity.class);
                     startActivity(signUpIntent);
                 } else {

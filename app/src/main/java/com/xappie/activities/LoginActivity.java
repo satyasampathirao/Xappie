@@ -13,8 +13,10 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.LoginModel;
 import com.xappie.models.Model;
 import com.xappie.parser.LanguageParser;
+import com.xappie.parser.LoginParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -71,6 +73,8 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
     ImageButton im_twitter;
 
 
+    private LoginModel mLoginModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,9 +117,9 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
             LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
             paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             paramMap.put(Constants.AUTH_TYPE, Constants.XAPPIE);
-            paramMap.put("username", et_email.getText().toString());
+            paramMap.put("email", et_email.getText().toString());
             paramMap.put("password", et_password.getText().toString());
-            LanguageParser mLoginParser = new LanguageParser();
+            LoginParser mLoginParser = new LoginParser();
             ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
                     R.string.please_wait), true,
                     APIConstants.LOGIN, paramMap,
@@ -155,6 +159,25 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
 
     @Override
     public void onComplete(Model model) {
-
+        if (model != null) {
+            if (model instanceof LoginModel) {
+                mLoginModel = (LoginModel) model;
+                if (mLoginModel.isStatus()) {
+                    Utility.showToastMessage(LoginActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
+                    Utility.setSharedPrefBooleanData(LoginActivity.this, Constants.IS_LOGIN_COMPLETED, true);
+                    finish();
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_FIRST_NAME, mLoginModel.getFirst_name());
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_LAST_NAME, mLoginModel.getLast_name());
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_MAIL_ID, mLoginModel.getEmail());
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_UUID, mLoginModel.getUuid());
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.TOKEN, mLoginModel.getCi_session());
+                    Intent signUpIntent = new Intent(this, DashBoardActivity.class);
+                    startActivity(signUpIntent);
+                    //Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_CURRENT_DATE, Utility.getDate());
+                } else {
+                    Utility.showToastMessage(LoginActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
+                }
+            }
+        }
     }
 }

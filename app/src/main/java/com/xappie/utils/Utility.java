@@ -61,7 +61,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -706,4 +708,13 @@ public class Utility {
         return data;
     }
 
+    /**
+     * This method is used to get the current date
+     */
+    public static String getDate() {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
+    }
 }

@@ -185,7 +185,8 @@ public class DashBoardActivity extends BaseActivity {
             tv_sign_in_to_xappie.setVisibility(View.GONE);
             tv_joined.setVisibility(View.VISIBLE);
             txt_view_profile.setVisibility(View.VISIBLE);
-            txt_hello.setText("Ravi Kiran");
+            txt_hello.setText(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_FIRST_NAME)
+                    + " " + Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_LAST_NAME));
 
         } else {
             img_user_image.setImageDrawable(Utility.getDrawable(this, R.drawable.avatar_image));

@@ -44,4 +44,7 @@ public class Constants {
     public static final String SIGN_UP_PASSWORD = "SIGN_UP_PASSWORD";
     public static final String SIGN_UP_MOBILE = "SIGN_UP_MOBILE";
     public static final String SIGN_UP_UUID = "SIGN_UP_UUID";
+    public static final String SIGN_UP_FIRST_NAME = "SIGN_UP_FIRST_NAME";
+    public static final String SIGN_UP_LAST_NAME = "SIGN_UP_LAST_NAME";
+    public static final String SIGN_UP_CURRENT_DATE = "SIGN_UP_CURRENT_DATE";
 }
