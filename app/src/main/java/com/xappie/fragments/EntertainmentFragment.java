@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,7 +42,7 @@ import butterknife.OnItemClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EntertainmentFragment extends Fragment implements IAsyncCaller {
+public class EntertainmentFragment extends Fragment implements IAsyncCaller,  AbsListView.OnScrollListener {
 
     public static final String TAG = EntertainmentFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -49,6 +50,10 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
     private View rootView;
+
+    private int aaTotalCount, aaVisibleCount, aaFirstVisibleItem;
+    private int mPageNumber = 1;
+    private boolean endScroll = false;
 
     /**
      * Gallery Toolbar
@@ -111,6 +116,7 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
     private void initUI() {
         setTypeFace();
         getLanguagesData();
+        getAllContent("" + 1);
     }
 
     private void setTypeFace() {
@@ -272,4 +278,61 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    private void getAllContent(String pageNo) {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("page_no", pageNo);
+        paramMap.put("flag", "1");
+        paramMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        EntertainmentParser mFindJobParser = new EntertainmentParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(getActivity(), Utility.getResourcesString(getActivity(),
+                R.string.please_wait), true,
+                APIConstants.GET_ENTERTAINMENTS, paramMap,
+                APIConstants.REQUEST_TYPE.GET, this, mFindJobParser);
+        Utility.execute(serverIntractorAsync);
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+        if (scrollState == SCROLL_STATE_IDLE) {
+            isScrollCompleted();
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+        aaTotalCount = totalItemCount;
+        aaVisibleCount = visibleItemCount;
+        aaFirstVisibleItem = firstVisibleItem;
+
+    }
+
+    private void isScrollCompleted() {
+        if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
+            if (Utility.isNetworkAvailable(getActivity())) {
+                mPageNumber = mPageNumber + 1;
+                getAllContent("" + mPageNumber);
+                Utility.showLog("mPageNumber", "mPageNumber : " + mPageNumber);
+            } else {
+                Utility.showSettingDialog(
+                        getActivity(),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_msg),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_title),
+                        Utility.NO_INTERNET_CONNECTION).show();
+            }
+        } else {
+            if (list_view.getAdapter() != null) {
+                if (list_view.getLastVisiblePosition() == list_view.getAdapter().getCount() - 1 &&
+                        list_view.getChildAt(list_view.getChildCount() - 1).getBottom() <= list_view.getHeight()) {
+                    Utility.showToastMessage(getActivity(), Utility.getResourcesString(getActivity(),
+                            R.string.no_more_data_to_display));
+                }
+            }
+        }
+    }
 }
