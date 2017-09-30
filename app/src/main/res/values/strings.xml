@@ -244,5 +244,6 @@
     <string name="home_page">Homepage</string>
     <string name="home_message">Select the topics you would like to view on your homepage. You can update these options any time.</string>
     <string name="no_more_data_to_display">No more data to display</string>
+    <string name="no_data_found">No Data Found</string>
 
 </resources>

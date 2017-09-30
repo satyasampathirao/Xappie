@@ -42,7 +42,7 @@ import butterknife.OnItemClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EntertainmentFragment extends Fragment implements IAsyncCaller,  AbsListView.OnScrollListener {
+public class EntertainmentFragment extends Fragment implements IAsyncCaller, AbsListView.OnScrollListener {
 
     public static final String TAG = EntertainmentFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -81,11 +81,15 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
     LinearLayout ll_languages;
     @BindView(R.id.list_view)
     ListView list_view;
+    @BindView(R.id.tv_no_data_found)
+    TextView tv_no_data_found;
 
 
     private LanguageListModel mLanguageListModel;
-    private EntertainmentListModel mEntertainmentListModel;
+    private ArrayList<EntertainmentModel> entertainmentModels;
     private LanguageModel languageModel;
+    private String mCurrentLanguage;
+    private EntertainmentAdapter entertainmentAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +120,6 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
     private void initUI() {
         setTypeFace();
         getLanguagesData();
-        getAllContent("" + 1);
     }
 
     private void setTypeFace() {
@@ -139,9 +142,10 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
      * This method is used to set the grid view data
      */
     private void setGridViewData() {
-        EntertainmentAdapter entertainmentAdapter = new
-                EntertainmentAdapter(mParent, mEntertainmentListModel.getEntertainmentModels());
+        entertainmentAdapter = new
+                EntertainmentAdapter(mParent, entertainmentModels);
         list_view.setAdapter(entertainmentAdapter);
+        list_view.setOnScrollListener(this);
     }
 
     /**
@@ -163,8 +167,12 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
                 public void onClick(View v) {
                     int pos = v.getId();
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
+                    entertainmentModels = null;
+                    entertainmentAdapter = null;
                     setLanguages();
-                    getEntertainmentData(languageModel.getId(), "" + 1);
+                    endScroll = false;
+                    mCurrentLanguage = languageModel.getId();
+                    getEntertainmentData("" + 1);
                 }
             });
 
@@ -226,10 +234,10 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
     void navigateData(int position) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID,
-                mEntertainmentListModel.getEntertainmentModels().get(position).getId());
+                entertainmentModels.get(position).getId());
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
         bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST,
-                Utility.getMoreTopicsList(position, mEntertainmentListModel.getEntertainmentModels()));
+                Utility.getMoreTopicsList(position, entertainmentModels));
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
                 mParent);
     }
@@ -246,12 +254,39 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
                     languageModel = mLanguageListModel.getLanguageModels().get(0);
                     setLanguages();
-                    getEntertainmentData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
+                    mCurrentLanguage = mLanguageListModel.getLanguageModels().get(0).getId();
+                    getEntertainmentData("" + 1);
                 }
             } else if (model instanceof EntertainmentListModel) {
-                mEntertainmentListModel = (EntertainmentListModel) model;
-                if (mEntertainmentListModel.getEntertainmentModels().size() > 0) {
-                    setGridViewData();
+                EntertainmentListModel mEntertainmentListModel = (EntertainmentListModel) model;
+                if (entertainmentModels == null) {
+                    if (mEntertainmentListModel.getEntertainmentModels() == null) {
+                        tv_no_data_found.setVisibility(View.VISIBLE);
+                        list_view.setVisibility(View.GONE);
+                    } else {
+                        tv_no_data_found.setVisibility(View.GONE);
+                        list_view.setVisibility(View.VISIBLE);
+                        if (entertainmentModels == null) {
+                            entertainmentModels = new ArrayList<>();
+                        }
+                        entertainmentModels.addAll(mEntertainmentListModel.getEntertainmentModels());
+                        if (entertainmentAdapter == null) {
+                            setGridViewData();
+                        }
+                    }
+                } else {
+                    list_view.setVisibility(View.VISIBLE);
+                    tv_no_data_found.setVisibility(View.GONE);
+                    if (mEntertainmentListModel.getEntertainmentModels() != null && mEntertainmentListModel.getEntertainmentModels().size() > 0) {
+                        entertainmentModels.addAll(mEntertainmentListModel.getEntertainmentModels());
+                        if (entertainmentAdapter == null) {
+                            setGridViewData();
+                        } else {
+                            entertainmentAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        endScroll = true;
+                    }
                 }
             }
         }
@@ -260,11 +295,11 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
     /**
      * This method is used to get data of the Entertainments
      */
-    private void getEntertainmentData(String id, String pageNo) {
+    private void getEntertainmentData(String pageNo) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            linkedHashMap.put("language", id);
+            linkedHashMap.put("language", mCurrentLanguage);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             EntertainmentParser entertainmentParser = new EntertainmentParser();
@@ -276,22 +311,6 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void getAllContent(String pageNo) {
-        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
-        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-        paramMap.put("page_no", pageNo);
-        paramMap.put("flag", "1");
-        paramMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
-        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-        EntertainmentParser mFindJobParser = new EntertainmentParser();
-        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(getActivity(), Utility.getResourcesString(getActivity(),
-                R.string.please_wait), true,
-                APIConstants.GET_ENTERTAINMENTS, paramMap,
-                APIConstants.REQUEST_TYPE.GET, this, mFindJobParser);
-        Utility.execute(serverIntractorAsync);
     }
 
     @Override
@@ -314,7 +333,7 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller,  Ab
         if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
             if (Utility.isNetworkAvailable(getActivity())) {
                 mPageNumber = mPageNumber + 1;
-                getAllContent("" + mPageNumber);
+                getEntertainmentData("" + mPageNumber);
                 Utility.showLog("mPageNumber", "mPageNumber : " + mPageNumber);
             } else {
                 Utility.showSettingDialog(
