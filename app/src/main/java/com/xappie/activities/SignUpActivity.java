@@ -2,6 +2,7 @@ package com.xappie.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -9,6 +10,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -25,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SignUpActivity extends BaseActivity implements IAsyncCaller {
+public class SignUpActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
 
     @BindView(R.id.btn_check)
     Button btn_check;
@@ -68,6 +75,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller {
     ImageButton im_twitter;
 
     private SignupSuccessModel mSignupSuccessModel;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +102,26 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller {
         tv_and.setTypeface(Utility.getOpenSansRegular(this));
         tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
         tv_or_sign_social.setTypeface(Utility.getOpenSansRegular(this));
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        if (mGoogleApiClient == null)
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(this);
+        mGoogleApiClient.disconnect();
+    }
+
 
     /**
      * This method is call the service with validations checks
@@ -150,6 +177,12 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller {
         return isValid;
     }
 
+    @OnClick(R.id.imageButton_google)
+    void googleSignUp() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
+    }
+
     @Override
     public void onComplete(Model model) {
         if (model != null) {
@@ -167,5 +200,56 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller {
                 }
             }
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            int statusCode = result.getStatus().getStatusCode();
+            Utility.showLog("statusCode : ", "statusCode " + statusCode);
+            handleSignInResult(result);
+        }
+    }
+
+    /**
+     * This method is used to handle the intent
+     */
+    private void handleSignInResult(GoogleSignInResult result) {
+        Utility.showLog("TAG", "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
+            saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName());
+        } else {
+            Utility.showLog("Logging error", "Logging error");
+        }
+    }
+
+    /**
+     * This method is used to save the details in the sever db
+     */
+    private void saveDetailsInDb(String id, String email, String displayName) {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put(Constants.AUTH_TYPE, "google");
+        paramMap.put(Constants.FIRST_NAME, displayName);
+        paramMap.put(Constants.LAST_NAME, "");
+        paramMap.put(Constants.EMAIL, email);
+        paramMap.put(Constants.AUTH_TOKEN, id);
+        paramMap.put(Constants.GENDER, "");
+        paramMap.put(Constants.MOBILE, "");
+        SignUpSuccessParser mSignUpSuccessParser = new SignUpSuccessParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                R.string.please_wait), true,
+                APIConstants.SIGN_UP, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mSignUpSuccessParser);
+        Utility.execute(serverIntractorAsync);
     }
 }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "625444608776",
+    "firebase_url": "https://androidxappie-178211.firebaseio.com",
+    "project_id": "androidxappie-178211",
+    "storage_bucket": "androidxappie-178211.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625444608776:android:33e17d44444f0ce2",
+        "android_client_info": {
+          "package_name": "com.xappie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625444608776-uauqtc1g43fe3krmm56heiro8msjao1i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlEvQvLxUPXNCPspOgv4CaXNCFRkURPho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -47,4 +47,13 @@ public class Constants {
     public static final String SIGN_UP_FIRST_NAME = "SIGN_UP_FIRST_NAME";
     public static final String SIGN_UP_LAST_NAME = "SIGN_UP_LAST_NAME";
     public static final String SIGN_UP_CURRENT_DATE = "SIGN_UP_CURRENT_DATE";
+
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String EMAIL = "email";
+    public static final String AUTH_TOKEN = "auth_token";
+    public static final String GENDER = "gender";
+    public static final String MOBILE = "mobile";
+
+    public static final int RC_SIGN_IN = 9001;
 }
