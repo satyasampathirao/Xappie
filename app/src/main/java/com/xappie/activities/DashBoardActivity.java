@@ -304,7 +304,11 @@ public class DashBoardActivity extends BaseActivity {
      * This method is used to logout from the application
      */
     private void logout() {
-        navigateToDashBoard();
+        Utility.setSharedPrefBooleanData(this, Constants.IS_LOGIN_COMPLETED, false);
+        finish();
+        Intent intent = new Intent(DashBoardActivity.this, DashBoardActivity.class);
+        startActivity(intent);
+
     }
 
     private void navigateToDashBoard() {
