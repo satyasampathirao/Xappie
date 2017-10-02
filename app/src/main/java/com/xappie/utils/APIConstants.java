@@ -29,5 +29,6 @@ public class APIConstants {
     public static String SIGN_UP = BASE_URL + "sign_up";
     public static String SIGN_UP_VERIFY = BASE_URL + "sign_up_verify";
     public static String GET_GALLERY = BASE_URL + "get_gallery";
+    public static String FORGOT_PASSWORD = BASE_URL + "forgot_password";
 
 }

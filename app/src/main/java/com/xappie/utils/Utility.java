@@ -708,6 +708,55 @@ public class Utility {
         return data;
     }
 
+    public static String httpPostRequestToServerWithHeaderCookies(String URL, Object paramsList, Context mContext) {
+        String userAgent = "(Android; Mobile) Chrome";
+        int TIME_OUT = 30000;
+        String data = null;
+        HttpPost httppost = new HttpPost(URL);
+        final HttpParams httpParams = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, TIME_OUT);
+        HttpConnectionParams.setSoTimeout(httpParams, TIME_OUT);
+
+        DefaultHttpClient httpclient = new DefaultHttpClient(httpParams);
+        httppost.setHeader("User-Agent", userAgent);
+        Utility.showLog("ci_session", "ci_session: " + Utility.getSharedPrefStringData(mContext, Constants.LOGIN_SESSION_ID));
+        httppost.setHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mContext, Constants.LOGIN_SESSION_ID) + ";");
+        httppost.setParams(httpParams);
+
+        InputStream is = null;
+        try {
+            if (paramsList != null)
+                httppost.setEntity(new UrlEncodedFormEntity(
+                        (List<? extends NameValuePair>) paramsList));
+            // httppost.setEntity(gettingResponse(paramsList));
+            HttpResponse response = httpclient.execute(httppost);
+            HttpEntity httpEntity = response.getEntity();
+
+            int statusCode = response.getStatusLine().getStatusCode();
+            Utility.showLog("Response code", "" + statusCode);
+            if (statusCode == 204) {
+                data = null;
+            }
+
+            if (statusCode == 200) {
+                is = httpEntity.getContent();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(is, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    if (line.length() > 0)
+                        sb.append(line + "\n");
+                }
+                data = sb.toString();
+                is.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     /**
      * This method is used to get the current date
      */
