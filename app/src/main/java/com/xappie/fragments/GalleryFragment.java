@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
@@ -21,6 +23,7 @@ import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
+import com.xappie.parser.EntertainmentParser;
 import com.xappie.parser.LanguageParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -74,6 +77,13 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
      */
     @BindView(R.id.ll_languages)
     LinearLayout ll_languages;
+
+    @BindView(R.id.rl_header_layout)
+    RelativeLayout rl_header_layout;
+    @BindView(R.id.img_gallery_image)
+    ImageView img_gallery_image;
+    @BindView(R.id.tv_app_name)
+    TextView tv_app_name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -215,8 +225,31 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                     languageModel = mLanguageListModel.getLanguageModels().get(0);
                     setLanguages();
                     mCurrentLanguage = mLanguageListModel.getLanguageModels().get(0).getId();
+                    getGalleryData();
                 }
             }
+        }
+    }
+
+    /**
+     * Get the Gallery data
+     */
+    private void getGalleryData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("language", mCurrentLanguage);
+            linkedHashMap.put("type", "gallery");
+            linkedHashMap.put(Constants.PAGE_NO, "1");
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_GALLERY, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
