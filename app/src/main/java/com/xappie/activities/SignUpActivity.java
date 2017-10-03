@@ -10,6 +10,17 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -26,6 +37,10 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Collections;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -33,6 +48,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SignUpActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
+
+    private CallbackManager callbackManager;
+    private String mFaceBookUniqueId = "";
 
     @BindView(R.id.btn_check)
     Button btn_check;
@@ -82,6 +100,8 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_sign_up);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         ButterKnife.bind(this);
         initUI();
     }
@@ -112,8 +132,69 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                     .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build();
+
+
     }
 
+
+    /**
+     * This method is call facebook
+     */
+    @OnClick(R.id.imageButton_facebook)
+    void callFacebook() {
+        setUpFacebookLogin(true);
+    }
+
+    private void setUpFacebookLogin(boolean isLogin) {
+        LoginManager.getInstance().logInWithReadPermissions(this,
+                Collections.singletonList("email"));
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                try {
+                                    String name = "";
+                                    String email = "";
+                                    if (object.has("name"))
+                                        name = object.getString("name");
+                                    if (object.has("email"))
+                                        email = object.getString("email");
+                                    mFaceBookUniqueId = object.getString("id");
+
+                                    String token = loginResult.getAccessToken().getToken();
+                                    Utility.showLog("name", "name" + name);
+                                    Utility.showLog("token", "token" + token);
+                                    saveDetailsInDb(mFaceBookUniqueId, email, name);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                if (error instanceof FacebookAuthorizationException) {
+                    if (AccessToken.getCurrentAccessToken() != null) {
+                        LoginManager.getInstance().logOut();
+                    }
+                }
+            }
+        });
+    }
 
     @Override
     public void onDestroy() {
