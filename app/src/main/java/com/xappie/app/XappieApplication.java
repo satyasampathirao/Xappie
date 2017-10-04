@@ -22,8 +22,8 @@ import io.fabric.sdk.android.Fabric;
 public class XappieApplication extends MultiDexApplication {
 
     private static XappieApplication instance;
-    private static final String TWITTER_KEY = "tzQuQr3k729QsPKIa1NS6Rq1C";
-    private static final String TWITTER_SECRET = "GvAPWdZs0a5S6wUWlChfbIkvKF2CHNItv63e5ynfFkUMvncSiW";
+    private static final String TWITTER_KEY = "hUXcPocxvhNKULzPsXH7npqYM";
+    private static final String TWITTER_SECRET = "fy89ShuBq1FPseHdtIGwgFNOFrdZJwr1mRiUslcLnqNgmQb9m2";
 
     @Override
     public void onCreate() {
