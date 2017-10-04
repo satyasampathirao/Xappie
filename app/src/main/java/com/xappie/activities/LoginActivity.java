@@ -35,6 +35,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+import com.twitter.sdk.android.core.models.User;
+import com.twitter.sdk.android.core.services.AccountService;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -57,6 +65,7 @@ import java.util.LinkedHashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
     @BindView(R.id.btn_check)
@@ -108,6 +117,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
     private String mFaceBookUniqueId = "";
     private LoginModel mLoginModel;
     private GoogleApiClient mGoogleApiClient;
+    public TwitterAuthClient mTwitterAuthClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +185,41 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         setUpFacebookLogin(true);
     }
 
+    /**
+     * This method calls the twitter
+     */
+    @OnClick(R.id.imageButton_twitter)
+    void twitterSignUp() {
+        mTwitterAuthClient = new TwitterAuthClient();
+        mTwitterAuthClient.authorize(this, new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                final String accessToken = result.data.getAuthToken().toString();
+                AccountService service = TwitterCore.getInstance().getApiClient().getAccountService();
+                Call<User> user = service.verifyCredentials(false, false, true);
+                user.enqueue(new Callback<User>() {
+                    @Override
+                    public void success(Result<User> userResult) {
+                        String userId = String.valueOf(userResult.data.id);
+                        String name = userResult.data.name;
+                        String email = userResult.data.email;
+                        saveDetailsInDb(userId, email, name, "twitter");
+                    }
+
+                    @Override
+                    public void failure(TwitterException exc) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+
+            }
+        });
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -186,6 +231,9 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         }
         if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+        if (mTwitterAuthClient != null) {
+            mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
         }
     }
 

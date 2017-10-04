@@ -115,8 +115,6 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     private SignupSuccessModel mSignupSuccessModel;
     private SignupLoginSuccessModel mSignupLoginSuccessModel;
     private GoogleApiClient mGoogleApiClient;
-    private String str_twitterId;
-    private String mTwitterUniqueId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
