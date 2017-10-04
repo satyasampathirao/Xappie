@@ -23,38 +23,51 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ForgotPasswordActivity extends BaseActivity implements IAsyncCaller {
-    @BindView(R.id.relativeLayout_forgot_password)
-    RelativeLayout rl_forgot_password;
-    @BindView(R.id.tv_forgot_password)
-    TextView tv_forgot_password;
-    @BindView(R.id.tv_we_will_send)
-    TextView tv_we_will_send;
-    @BindView(R.id.et_sign_up_email)
-    EditText edt_sign_up_email;
+public class ResetPasswordActivity extends BaseActivity implements IAsyncCaller {
+
+    @BindView(R.id.relativeLayout_reset_password)
+    RelativeLayout relativeLayout_reset_password;
+
+    @BindView(R.id.tv_reset_password)
+    TextView tv_reset_password;
+
+    @BindView(R.id.et_otp)
+    EditText et_otp;
+    @BindView(R.id.et_new_password)
+    EditText et_new_password;
+    @BindView(R.id.et_confirm_password)
+    EditText et_confirm_password;
+
     @BindView(R.id.b_forgot_cancel)
     Button btn_forgot_cancel;
-    @BindView(R.id.b_forgot_reset_password)
-    Button btn_forgot_reset_password;
+    @BindView(R.id.btn_submit)
+    Button btn_submit;
 
     private SignupLoginSuccessModel mSignupLoginSuccessModel;
+    private String mEmail = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
-        setContentView(R.layout.activity_forgot_password);
+        setContentView(R.layout.activity_reset_password);
         ButterKnife.bind(this);
         initUI();
     }
 
     private void initUI() {
-        tv_forgot_password.setTypeface(Utility.getOpenSansBold(this));
-        tv_we_will_send.setTypeface(Utility.getOpenSansRegular(this));
-        edt_sign_up_email.setTypeface(Utility.getOpenSansRegular(this));
+        tv_reset_password.setTypeface(Utility.getOpenSansBold(this));
+        et_otp.setTypeface(Utility.getOpenSansRegular(this));
+        et_new_password.setTypeface(Utility.getOpenSansRegular(this));
+        et_confirm_password.setTypeface(Utility.getOpenSansRegular(this));
+
         btn_forgot_cancel.setTypeface(Utility.getOpenSansRegular(this));
-        btn_forgot_reset_password.setTypeface(Utility.getOpenSansRegular(this));
+        btn_submit.setTypeface(Utility.getOpenSansRegular(this));
+
+        if (getIntent().hasExtra(Constants.EMAIL)) {
+            mEmail = getIntent().getStringExtra(Constants.EMAIL);
+        }
     }
 
     /**
@@ -69,16 +82,18 @@ public class ForgotPasswordActivity extends BaseActivity implements IAsyncCaller
     /**
      * This method is used to hit the server
      */
-    @OnClick(R.id.b_forgot_reset_password)
+    @OnClick(R.id.btn_submit)
     public void navigateResetPassword() {
         if (isValidFields()) {
             LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
             paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            paramMap.put("email", edt_sign_up_email.getText().toString());
+            paramMap.put("email", mEmail);
+            paramMap.put("otp", et_otp.getText().toString());
+            paramMap.put("password", et_new_password.getText().toString());
             SignUpLoginSuccessParser mSignUpLoginSuccessParser = new SignUpLoginSuccessParser();
             ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
                     R.string.please_wait), true,
-                    APIConstants.FORGOT_PASSWORD, paramMap,
+                    APIConstants.RESET_PASSWORD, paramMap,
                     APIConstants.REQUEST_TYPE.POST, this, mSignUpLoginSuccessParser);
             Utility.execute(serverIntractorAsync);
         }
@@ -86,13 +101,21 @@ public class ForgotPasswordActivity extends BaseActivity implements IAsyncCaller
 
     private boolean isValidFields() {
         boolean isValid = true;
-        if (Utility.isValueNullOrEmpty(edt_sign_up_email.getText().toString())) {
-            Utility.setSnackBar(this, edt_sign_up_email, "Please enter email");
-            edt_sign_up_email.requestFocus();
+        if (Utility.isValueNullOrEmpty(et_otp.getText().toString())) {
+            Utility.setSnackBar(this, et_otp, "Please enter otp");
+            et_otp.requestFocus();
             isValid = false;
-        } else if (!edt_sign_up_email.getText().toString().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z]+)*(\\.[A-Za-z]{2,4})$")) {
-            Utility.setSnackBar(this, edt_sign_up_email, "Please enter valid email");
-            edt_sign_up_email.requestFocus();
+        } else if (Utility.isValueNullOrEmpty(et_new_password.getText().toString())) {
+            Utility.setSnackBar(this, et_otp, "Please enter new password");
+            et_otp.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(et_confirm_password.getText().toString())) {
+            Utility.setSnackBar(this, et_otp, "Please enter confirm password");
+            et_otp.requestFocus();
+            isValid = false;
+        } else if (!et_new_password.getText().toString().equalsIgnoreCase(et_confirm_password.getText().toString())) {
+            Utility.setSnackBar(this, et_otp, "Passwords doesn't match");
+            et_otp.requestFocus();
             isValid = false;
         }
         return isValid;
@@ -104,13 +127,10 @@ public class ForgotPasswordActivity extends BaseActivity implements IAsyncCaller
             if (model instanceof SignupLoginSuccessModel) {
                 mSignupLoginSuccessModel = (SignupLoginSuccessModel) model;
                 if (mSignupLoginSuccessModel.isStatus()) {
-                    Utility.showToastMessage(ForgotPasswordActivity.this, mSignupLoginSuccessModel.getMessage());
+                    Utility.showToastMessage(ResetPasswordActivity.this, mSignupLoginSuccessModel.getMessage());
                     finish();
-                    Intent signUpOtpIntent = new Intent(this, ResetPasswordActivity.class);
-                    signUpOtpIntent.putExtra(Constants.EMAIL, edt_sign_up_email.getText().toString());
-                    startActivity(signUpOtpIntent);
                 } else {
-                    Utility.showToastMessage(ForgotPasswordActivity.this, mSignupLoginSuccessModel.getMessage());
+                    Utility.showToastMessage(ResetPasswordActivity.this, mSignupLoginSuccessModel.getMessage());
                 }
             }
         }
