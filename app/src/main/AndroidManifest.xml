@@ -79,7 +79,13 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ResetPasswordActivity"></activity>
+        <activity
+            android:name=".activities.ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="47b062286c74d2f60a9c9986a9768b137e948708" />
     </application>
 
 </manifest>

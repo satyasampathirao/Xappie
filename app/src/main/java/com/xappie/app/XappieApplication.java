@@ -3,12 +3,17 @@ package com.xappie.app;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Shankar on 2/7/2017.
@@ -17,14 +22,16 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 public class XappieApplication extends MultiDexApplication {
 
     private static XappieApplication instance;
-
+    private static final String TWITTER_KEY = "tzQuQr3k729QsPKIa1NS6Rq1C";
+    private static final String TWITTER_SECRET = "GvAPWdZs0a5S6wUWlChfbIkvKF2CHNItv63e5ynfFkUMvncSiW";
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
         initImageLoader(getApplicationContext());
-
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig), new Crashlytics());
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
     }

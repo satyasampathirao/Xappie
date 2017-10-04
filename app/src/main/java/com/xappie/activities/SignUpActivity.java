@@ -33,6 +33,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+import com.twitter.sdk.android.core.models.User;
+import com.twitter.sdk.android.core.services.AccountService;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -61,6 +69,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
 
     private CallbackManager callbackManager;
     private String mFaceBookUniqueId = "";
+    public TwitterAuthClient mTwitterAuthClient;
 
     @BindView(R.id.btn_check)
     Button btn_check;
@@ -105,6 +114,8 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     private SignupSuccessModel mSignupSuccessModel;
     private SignupLoginSuccessModel mSignupLoginSuccessModel;
     private GoogleApiClient mGoogleApiClient;
+    private String str_twitterId;
+    private String mTwitterUniqueId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -293,6 +304,44 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
     }
 
+    /**
+     * This method calls the twitter
+     */
+    @OnClick(R.id.imageButton_twitter)
+    void twitterSignUp() {
+        mTwitterAuthClient = new TwitterAuthClient();
+        mTwitterAuthClient.authorize(this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> twitterSessionResult) {
+                showDashBoardWithTwitterLogin(twitterSessionResult);
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void showDashBoardWithTwitterLogin(Result<TwitterSession> result) {
+        AccountService ac = Twitter.getApiClient(result.data).getAccountService();
+        ac.verifyCredentials(true, false, new Callback<User>() {
+            @Override
+            public void success(Result<User> userResult) {
+                User profile = userResult.data;
+                String userName = profile.name;
+                String userEmail = profile.email;
+                str_twitterId = String.valueOf(profile.id);
+                mTwitterUniqueId = str_twitterId;
+            }
+
+            @Override
+            public void failure(TwitterException e) {
+
+            }
+        });
+    }
+
     @Override
     public void onComplete(Model model) {
         if (model != null) {
@@ -335,6 +384,9 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         }
         if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+        if (mTwitterAuthClient != null) {
+            mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
         }
     }
 
