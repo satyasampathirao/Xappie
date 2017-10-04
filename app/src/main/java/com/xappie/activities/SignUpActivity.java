@@ -33,9 +33,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
@@ -64,6 +64,7 @@ import java.util.LinkedHashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class SignUpActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
 
@@ -310,33 +311,30 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     @OnClick(R.id.imageButton_twitter)
     void twitterSignUp() {
         mTwitterAuthClient = new TwitterAuthClient();
-        mTwitterAuthClient.authorize(this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+        mTwitterAuthClient.authorize(this, new Callback<TwitterSession>() {
             @Override
-            public void success(Result<TwitterSession> twitterSessionResult) {
-                showDashBoardWithTwitterLogin(twitterSessionResult);
+            public void success(Result<TwitterSession> result) {
+                final String accessToken = result.data.getAuthToken().toString();
+                AccountService service = TwitterCore.getInstance().getApiClient().getAccountService();
+                Call<User> user = service.verifyCredentials(false, false, true);
+                user.enqueue(new Callback<User>() {
+                    @Override
+                    public void success(Result<User> userResult) {
+                        String userId = String.valueOf(userResult.data.id);
+                        String name = userResult.data.name;
+                        String email = userResult.data.email;
+                        saveDetailsInDb(userId, email, name, "twitter");
+                    }
+
+                    @Override
+                    public void failure(TwitterException exc) {
+
+                    }
+                });
             }
 
             @Override
-            public void failure(TwitterException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void showDashBoardWithTwitterLogin(Result<TwitterSession> result) {
-        AccountService ac = Twitter.getApiClient(result.data).getAccountService();
-        ac.verifyCredentials(true, false, new Callback<User>() {
-            @Override
-            public void success(Result<User> userResult) {
-                User profile = userResult.data;
-                String userName = profile.name;
-                String userEmail = profile.email;
-                str_twitterId = String.valueOf(profile.id);
-                mTwitterUniqueId = str_twitterId;
-            }
-
-            @Override
-            public void failure(TwitterException e) {
+            public void failure(TwitterException exception) {
 
             }
         });
