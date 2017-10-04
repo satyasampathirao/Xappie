@@ -103,7 +103,7 @@
                     android:textSize="@dimen/_20sp" />
 
                 <TextView
-                    android:id="@+id/tv_log_show"
+                    android:id="@+id/tv_show"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/tv_trouble_getting"
@@ -214,7 +214,7 @@
                     android:layout_height="@dimen/_80dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginBottom="@dimen/_15dp"
+                    android:layout_marginBottom="@dimen/_10dp"
                     android:layout_marginStart="@dimen/_35dp"
                     android:background="@drawable/social_facebook"
                     android:contentDescription="@string/facebook" />
@@ -226,19 +226,18 @@
                     android:layout_height="@dimen/_80dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="@dimen/_15dp"
+                    android:layout_marginBottom="@dimen/_10dp"
                     android:layout_marginEnd="35dp"
                     android:background="@drawable/social_google"
                     android:contentDescription="@string/google" />
 
                 <ImageButton
                     android:id="@+id/imageButton_twitter"
-                    style="?borderlessButtonStyle"
                     android:layout_width="@dimen/_80dp"
                     android:layout_height="@dimen/_80dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/_15dp"
+                    android:layout_marginBottom="@dimen/_10dp"
                     android:background="@drawable/social_twitter"
                     android:contentDescription="@string/twitter" />
             </RelativeLayout>

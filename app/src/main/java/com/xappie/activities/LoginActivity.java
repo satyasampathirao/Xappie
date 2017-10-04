@@ -1,7 +1,15 @@
 package com.xappie.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.BuildConfig;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,24 +18,47 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.LoggingBehavior;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.LoginModel;
 import com.xappie.models.Model;
-import com.xappie.parser.LanguageParser;
 import com.xappie.parser.LoginParser;
+import com.xappie.parser.SignUpLoginSuccessParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity implements IAsyncCaller {
+public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
     @BindView(R.id.btn_check)
     Button btn_check;
 
@@ -45,8 +76,8 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
     EditText et_email;
     @BindView(R.id.et_password)
     EditText et_password;
-    @BindView(R.id.tv_log_show)
-    TextView tv_log_show;
+    @BindView(R.id.tv_show)
+    TextView tv_show;
     @BindView(R.id.tv_trouble_getting)
     TextView tv_trouble_getting;
     @BindView(R.id.linear_login_privacy)
@@ -73,7 +104,10 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
     ImageButton im_twitter;
 
 
+    private CallbackManager callbackManager;
+    private String mFaceBookUniqueId = "";
     private LoginModel mLoginModel;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +120,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
 
     private void initUI() {
         btn_check.setTypeface(Utility.getMaterialIconsRegular(this));
-        tv_log_show.setTypeface(Utility.getOpenSansRegular(this));
+        tv_show.setTypeface(Utility.getOpenSansRegular(this));
         tv_trouble_getting.setTypeface(Utility.getOpenSansRegular(this));
         tv_by_logging_agree.setTypeface(Utility.getOpenSansRegular(this));
         tv_t_c.setTypeface(Utility.getOpenSansRegular(this));
@@ -99,12 +133,177 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
 
         et_email.setTypeface(Utility.getOpenSansRegular(this));
         et_password.setTypeface(Utility.getOpenSansRegular(this));
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        if (mGoogleApiClient == null)
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+        try {
+            PackageInfo info = this.getPackageManager().getPackageInfo(
+                    "com.xappie",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String s = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+                Utility.showLog("Key Hash", "" + s);
+                Log.d("KeyHash:", s);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        if (BuildConfig.DEBUG) {
+            FacebookSdk.setIsDebugEnabled(true);
+            FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+        }
     }
+
+    /**
+     * This method is call facebook
+     */
+    @OnClick(R.id.imageButton_facebook)
+    void callFacebook() {
+        setUpFacebookLogin(true);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            int statusCode = result.getStatus().getStatusCode();
+            Utility.showLog("statusCode : ", "statusCode " + statusCode);
+            handleSignInResult(result);
+        }
+        if (callbackManager != null) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    /**
+     * This method is used to handle the intent
+     */
+    private void handleSignInResult(GoogleSignInResult result) {
+        Utility.showLog("TAG", "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
+            saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName(), "google");
+        } else {
+            Utility.showLog("Logging error", "Logging error");
+        }
+    }
+
+    private void setUpFacebookLogin(boolean isLogin) {
+        LoginManager.getInstance().logInWithReadPermissions(this,
+                Collections.singletonList("email"));
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                try {
+                                    String name = "";
+                                    String email = "";
+                                    if (object.has("name"))
+                                        name = object.getString("name");
+                                    if (object.has("email"))
+                                        email = object.getString("email");
+                                    mFaceBookUniqueId = object.getString("id");
+
+                                    String token = loginResult.getAccessToken().getToken();
+                                    Utility.showLog("name", "name" + name);
+                                    Utility.showLog("token", "token" + token);
+                                    saveDetailsInDb(mFaceBookUniqueId, email, name, "facebook");
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                if (error instanceof FacebookAuthorizationException) {
+                    if (AccessToken.getCurrentAccessToken() != null) {
+                        LoginManager.getInstance().logOut();
+                    }
+                }
+            }
+        });
+    }
+
+
+    /**
+     * This method is login with social intigation
+     */
+    private void saveDetailsInDb(String id, String email, String displayName, String type) {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put(Constants.AUTH_TYPE, type);
+        paramMap.put("email", email);
+        paramMap.put(Constants.AUTH_TOKEN, id);
+        paramMap.put("password", "");
+        LoginParser mLoginParser = new LoginParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                R.string.please_wait), true,
+                APIConstants.LOGIN, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mLoginParser);
+        Utility.execute(serverIntractorAsync);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mGoogleApiClient.stopAutoManage(this);
+        mGoogleApiClient.disconnect();
+    }
+
 
     @OnClick(R.id.tv_log_sign_up)
     public void navigateSignUp() {
         Intent signUpIntent = new Intent(this, SignUpActivity.class);
         startActivity(signUpIntent);
+    }
+
+    @OnClick(R.id.tv_show)
+    public void showAndHidePassword() {
+        if (tv_show.getText().toString().equalsIgnoreCase("Show")) {
+            tv_show.setText("Hide");
+            et_password.setTransformationMethod(null);
+        } else {
+            tv_show.setText("Show");
+            et_password.setTransformationMethod(new PasswordTransformationMethod());
+        }
+    }
+
+
+    @OnClick(R.id.imageButton_google)
+    void googleSignUp() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
     }
 
     @OnClick(R.id.btn_check)
@@ -179,5 +378,10 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller {
                 }
             }
         }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
