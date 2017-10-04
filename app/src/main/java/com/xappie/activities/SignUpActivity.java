@@ -1,8 +1,14 @@
 package com.xappie.activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.BuildConfig;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,7 +24,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
+import com.facebook.LoggingBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -31,7 +37,9 @@ import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.Model;
+import com.xappie.models.SignupLoginSuccessModel;
 import com.xappie.models.SignupSuccessModel;
+import com.xappie.parser.SignUpLoginSuccessParser;
 import com.xappie.parser.SignUpSuccessParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -40,6 +48,8 @@ import com.xappie.utils.Utility;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 
@@ -93,6 +103,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     ImageButton im_twitter;
 
     private SignupSuccessModel mSignupSuccessModel;
+    private SignupLoginSuccessModel mSignupLoginSuccessModel;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -100,8 +111,6 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_sign_up);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
         ButterKnife.bind(this);
         initUI();
     }
@@ -133,7 +142,27 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build();
 
+        try {
+            PackageInfo info = this.getPackageManager().getPackageInfo(
+                    "com.xappie",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String s = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+                Utility.showLog("Key Hash", "" + s);
+                Log.d("KeyHash:", s);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
 
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        if (BuildConfig.DEBUG) {
+            FacebookSdk.setIsDebugEnabled(true);
+            FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+        }
     }
 
 
@@ -168,7 +197,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                                     String token = loginResult.getAccessToken().getToken();
                                     Utility.showLog("name", "name" + name);
                                     Utility.showLog("token", "token" + token);
-                                    saveDetailsInDb(mFaceBookUniqueId, email, name);
+                                    saveDetailsInDb(mFaceBookUniqueId, email, name, "facebook");
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -279,6 +308,14 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                 } else {
                     Utility.showToastMessage(SignUpActivity.this, mSignupSuccessModel.getMessage());
                 }
+            } else if (model instanceof SignupLoginSuccessModel) {
+                mSignupLoginSuccessModel = (SignupLoginSuccessModel) model;
+                if (mSignupLoginSuccessModel.isStatus()) {
+                    Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                    startActivity(signUpOtpIntent);
+                } else {
+                    Utility.showToastMessage(SignUpActivity.this, mSignupLoginSuccessModel.getMessage());
+                }
             }
         }
     }
@@ -296,6 +333,9 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
             Utility.showLog("statusCode : ", "statusCode " + statusCode);
             handleSignInResult(result);
         }
+        if (callbackManager != null) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     /**
@@ -307,7 +347,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
-            saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName());
+            saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName(), "google");
         } else {
             Utility.showLog("Logging error", "Logging error");
         }
@@ -316,21 +356,21 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     /**
      * This method is used to save the details in the sever db
      */
-    private void saveDetailsInDb(String id, String email, String displayName) {
+    private void saveDetailsInDb(String id, String email, String displayName, String type) {
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-        paramMap.put(Constants.AUTH_TYPE, "google");
+        paramMap.put(Constants.AUTH_TYPE, type);
         paramMap.put(Constants.FIRST_NAME, displayName);
         paramMap.put(Constants.LAST_NAME, "");
         paramMap.put(Constants.EMAIL, email);
         paramMap.put(Constants.AUTH_TOKEN, id);
         paramMap.put(Constants.GENDER, "");
         paramMap.put(Constants.MOBILE, "");
-        SignUpSuccessParser mSignUpSuccessParser = new SignUpSuccessParser();
+        SignUpLoginSuccessParser mSignUpLoginSuccessParser = new SignUpLoginSuccessParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
                 R.string.please_wait), true,
                 APIConstants.SIGN_UP, paramMap,
-                APIConstants.REQUEST_TYPE.POST, this, mSignUpSuccessParser);
+                APIConstants.REQUEST_TYPE.POST, this, mSignUpLoginSuccessParser);
         Utility.execute(serverIntractorAsync);
     }
 }

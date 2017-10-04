@@ -3,6 +3,8 @@ package com.xappie.app;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -22,6 +24,9 @@ public class XappieApplication extends MultiDexApplication {
         super.onCreate();
         instance = this;
         initImageLoader(getApplicationContext());
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     /**
