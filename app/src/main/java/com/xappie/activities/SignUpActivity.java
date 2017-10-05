@@ -356,6 +356,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
             } else if (model instanceof SignupLoginSuccessModel) {
                 mSignupLoginSuccessModel = (SignupLoginSuccessModel) model;
                 if (mSignupLoginSuccessModel.isStatus()) {
+                    Utility.showToastMessage(SignUpActivity.this, mSignupLoginSuccessModel.getMessage());
                     Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
                     startActivity(signUpOtpIntent);
                 } else {

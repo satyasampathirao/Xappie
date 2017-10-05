@@ -54,6 +54,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                 } else if (mUrl.contains(APIConstants.FORGOT_PASSWORD)
                         || mUrl.contains(APIConstants.RESET_PASSWORD)
                         || mUrl.contains(APIConstants.UPDATE_PASSWORD)
+                        || mUrl.contains(APIConstants.UPDATE_PROFILE)
                         ) {
                     mResponse = Utility.httpPostRequestToServerWithHeaderCookies(mUrl,
                             Utility.getParams(mParams), mContext);

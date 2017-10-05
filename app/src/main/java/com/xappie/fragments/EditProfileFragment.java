@@ -13,12 +13,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LoginActivity;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.Model;
+import com.xappie.models.SignupLoginSuccessModel;
+import com.xappie.parser.SignUpLoginSuccessParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
+
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +36,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 21/07/2017
  */
-public class EditProfileFragment extends Fragment {
+public class EditProfileFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = EditProfileFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -50,25 +59,26 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.tv_edit_profile_full_name)
     TextView tv_edit_profile_full_name;
     @BindView(R.id.edit_text_full_name)
-    EditText edt_text_full_name;
+    EditText edit_text_full_name;
     @BindView(R.id.tv_edit_profile_display_name)
     TextView tv_edit_profile_display_name;
     @BindView(R.id.edit_text_display_name)
-    EditText edt_text_display_name;
+    EditText edit_text_display_name;
     @BindView(R.id.tv_edit_profile_email)
     TextView tv_edit_profile_email;
-    @BindView(R.id.edit_text_email)
-    EditText edt_text_email;
+    @BindView(R.id.tv_email)
+    TextView tv_email;
     @BindView(R.id.tv_edit_profile_mobile)
     TextView tv_edit_profile_mobile;
     @BindView(R.id.edit_text_mobile)
-    EditText edt_text_mobile;
-    @BindView(R.id.b_update)
+    EditText edit_text_mobile;
+    @BindView(R.id.btn_update)
     Button btn_update;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
-    private Typeface mTypefaceOpenSansBold;
+
+    private SignupLoginSuccessModel mSignupLoginSuccessModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,10 +115,10 @@ public class EditProfileFragment extends Fragment {
 
         setTypeFace();
     }
+
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
-        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_edit_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -117,42 +127,91 @@ public class EditProfileFragment extends Fragment {
         tv_edit_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_edit_profile.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_full_name.setTypeface(mTypefaceOpenSansRegular);
-        edt_text_full_name.setTypeface(mTypefaceOpenSansRegular);
+        edit_text_full_name.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_display_name.setTypeface(mTypefaceOpenSansRegular);
-        edt_text_display_name.setTypeface(mTypefaceOpenSansRegular);
+        edit_text_display_name.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_email.setTypeface(mTypefaceOpenSansRegular);
-        edt_text_email.setTypeface(mTypefaceOpenSansRegular);
+        tv_email.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_mobile.setTypeface(mTypefaceOpenSansRegular);
-        edt_text_mobile.setTypeface(mTypefaceOpenSansRegular);
+        edit_text_mobile.setTypeface(mTypefaceOpenSansRegular);
         btn_update.setTypeface(mTypefaceOpenSansRegular);
+
+        tv_email.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_MAIL_ID));
+        edit_text_full_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME));
+        edit_text_mobile.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_MOBILE));
+        //edit_text_display_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME));
     }
 
 
-    @OnClick(R.id.b_update)
-    public void navigateMyProfile()
-    {
-        Utility.navigateDashBoardFragment(new MyProfileFragment(),MyProfileFragment.TAG,null,mParent);
+    @OnClick(R.id.btn_update)
+    public void navigateMyProfile() {
+        if (isValidFields()) {
+            LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+            paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            paramMap.put("first_name", edit_text_full_name.getText().toString());
+            paramMap.put("last_name", "");
+            paramMap.put("email", tv_email.getText().toString());
+            paramMap.put("mobile", edit_text_mobile.getText().toString());
+            SignUpLoginSuccessParser mSignUpLoginSuccessParser = new SignUpLoginSuccessParser();
+            ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                    R.string.please_wait), true,
+                    APIConstants.UPDATE_PROFILE, paramMap,
+                    APIConstants.REQUEST_TYPE.POST, this, mSignUpLoginSuccessParser);
+            Utility.execute(serverIntractorAsync);
+        }
     }
 
-    @OnClick({R.id.tv_edit_arrow_back_icon,R.id.tv_edit_menu_icon})
-    public void navigateBackMyProfile()
-    {
-       mParent.onBackPressed();
+    private boolean isValidFields() {
+        boolean isValid = true;
+        if (Utility.isValueNullOrEmpty(edit_text_full_name.getText().toString())) {
+            Utility.setSnackBar(mParent, edit_text_full_name, "Please enter full name");
+            edit_text_full_name.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edit_text_mobile.getText().toString())) {
+            Utility.setSnackBar(mParent, edit_text_mobile, "Please enter mobile number");
+            edit_text_mobile.requestFocus();
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    @OnClick({R.id.tv_edit_arrow_back_icon, R.id.tv_edit_menu_icon})
+    public void navigateBackMyProfile() {
+        mParent.onBackPressed();
     }
 
     @OnClick(R.id.tv_edit_notifications_icon)
-    public void navigateNotifications()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotifications() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_edit_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_edit_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
+    }
+
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof SignupLoginSuccessModel) {
+                mSignupLoginSuccessModel = (SignupLoginSuccessModel) model;
+                if (mSignupLoginSuccessModel.isStatus()) {
+                    Utility.showToastMessage(mParent, mSignupLoginSuccessModel.getMessage());
+                    Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME, edit_text_full_name.getText().toString());
+                    if (!Utility.isValueNullOrEmpty(edit_text_mobile.getText().toString())) {
+                        Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_MOBILE, edit_text_mobile.getText().toString());
+                    }
+                    mParent.onBackPressed();
+                } else {
+                    Utility.showToastMessage(mParent, mSignupLoginSuccessModel.getMessage());
+                }
+            }
+        }
     }
 }

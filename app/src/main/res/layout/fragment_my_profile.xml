@@ -192,7 +192,7 @@
             android:layout_alignStart="@+id/tv_full_name"
             android:layout_below="@id/view_email"
             android:layout_marginTop="@dimen/_10dp"
-            android:text="@string/moble"
+            android:text="@string/mobile"
             android:textSize="@dimen/_14sp" />
 
         <TextView

@@ -2,15 +2,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/action_bar_edit_profile"
-        android:id="@+id/tool_bar_edit_profile"/>
+    <include
+        android:id="@+id/tool_bar_edit_profile"
+        layout="@layout/action_bar_edit_profile" />
 
 
     <LinearLayout
         android:id="@+id/linear_edit_profile"
         android:layout_width="match_parent"
-        android:layout_below="@+id/tool_bar_edit_profile"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar_edit_profile"
         android:orientation="vertical">
 
         <TextView
@@ -30,7 +31,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:background="@drawable/edit_text_bg_rectangle"
             android:cursorVisible="false"
-            android:hint="@string/ravi_kiran"
+            android:hint="@string/full_name"
             android:inputType="text"
             android:paddingLeft="@dimen/_20dp"
             android:textSize="@dimen/_15sp" />
@@ -53,7 +54,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:background="@drawable/edit_text_bg_rectangle"
             android:cursorVisible="false"
-            android:hint="@string/ravi_k"
+            android:hint="@string/display_name"
             android:inputType="text"
             android:paddingLeft="@dimen/_20dp"
             android:textSize="@dimen/_15sp" />
@@ -67,17 +68,17 @@
             android:text="@string/email"
             android:textSize="@dimen/_14sp" />
 
-        <EditText
-            android:id="@+id/edit_text_email"
+        <TextView
+            android:id="@+id/tv_email"
             android:layout_width="@dimen/_320dp"
             android:layout_height="@dimen/_45dp"
             android:layout_marginStart="@dimen/_18dp"
             android:layout_marginTop="@dimen/_10dp"
             android:background="@drawable/edit_text_bg_rectangle"
-            android:cursorVisible="false"
+            android:gravity="center_vertical"
             android:hint="@string/ravi_email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="@dimen/_20dp"
+            android:paddingEnd="@dimen/_20dp"
+            android:paddingStart="@dimen/_20dp"
             android:textSize="@dimen/_15sp" />
 
         <TextView
@@ -86,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
-            android:text="@string/moble"
+            android:text="@string/mobile"
             android:textSize="@dimen/_14sp" />
 
         <EditText
@@ -97,13 +98,13 @@
             android:layout_marginTop="@dimen/_10dp"
             android:background="@drawable/edit_text_bg_rectangle"
             android:cursorVisible="false"
-            android:hint="@string/ravi_mobile_no"
+            android:hint="@string/mobile"
             android:inputType="number"
             android:paddingLeft="@dimen/_20dp"
             android:textSize="@dimen/_15sp" />
 
         <Button
-            android:id="@+id/b_update"
+            android:id="@+id/btn_update"
             android:layout_width="@dimen/_320dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20dp"

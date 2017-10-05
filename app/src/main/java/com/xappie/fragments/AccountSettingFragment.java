@@ -182,7 +182,7 @@ public class AccountSettingFragment extends Fragment implements IAsyncCaller {
     private boolean isValidFields() {
         boolean isValid = true;
         if (Utility.isValueNullOrEmpty(edit_text_old_password.getText().toString())) {
-            Utility.setSnackBar(mParent, edit_text_old_password, "Please enter otp");
+            Utility.setSnackBar(mParent, edit_text_old_password, "Please enter old password");
             edit_text_old_password.requestFocus();
             isValid = false;
         } else if (Utility.isValueNullOrEmpty(edit_new_password.getText().toString())) {
