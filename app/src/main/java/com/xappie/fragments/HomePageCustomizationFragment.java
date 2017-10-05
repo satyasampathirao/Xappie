@@ -181,6 +181,7 @@ public class HomePageCustomizationFragment extends Fragment {
      * This is the universal method for the preferences
      */
     private void changePreferenceSettings(String name, boolean isChecked) {
+        Utility.showLog("" + name, "" + isChecked);
         String mSharedPreferenceString = Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS);
         String[] namesAfterSplit = mSharedPreferenceString.split(",");
         ArrayList<String> namesAfterArrayList = new ArrayList<>(Arrays.asList(namesAfterSplit));
@@ -209,6 +210,8 @@ public class HomePageCustomizationFragment extends Fragment {
             }
             Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS, finalString);
         }
+
+        HomeFragment.getInstance().updateData();
     }
 
 }

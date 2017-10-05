@@ -916,6 +916,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
     @Override
     public void updateData() {
-
+        getHomePageData();
     }
 }
