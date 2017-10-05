@@ -26,12 +26,11 @@
             android:textSize="@dimen/_14sp" />
 
         <TextView
-            android:id="@+id/tv_ravi_email_id"
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_18dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:hint="@string/ravi_email"
             android:textColor="@color/colorPrimary"
             android:paddingLeft="@dimen/_20dp"
             android:textSize="@dimen/_15sp" />
@@ -104,7 +103,7 @@
             android:textSize="@dimen/_15sp" />
 
         <Button
-            android:id="@+id/b_account_update"
+            android:id="@+id/btn_update"
             android:layout_width="@dimen/_320dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20dp"

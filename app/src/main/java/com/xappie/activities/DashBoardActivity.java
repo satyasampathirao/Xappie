@@ -113,8 +113,10 @@ public class DashBoardActivity extends BaseActivity {
         if (Utility.getSharedPrefBooleanData(this, Constants.IS_LOGIN_COMPLETED)) {
             Menu nav_Menu = navigationView.getMenu();
             nav_Menu.findItem(R.id.logout).setVisible(true);
+            nav_Menu.findItem(R.id.account_settings).setVisible(true);
         } else {
             Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.account_settings).setVisible(false);
             nav_Menu.findItem(R.id.logout).setVisible(false);
         }
 

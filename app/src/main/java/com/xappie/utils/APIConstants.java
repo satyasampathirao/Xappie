@@ -31,5 +31,6 @@ public class APIConstants {
     public static String GET_GALLERY = BASE_URL + "get_gallery";
     public static String FORGOT_PASSWORD = BASE_URL + "forgot_password";
     public static String RESET_PASSWORD = BASE_URL + "reset_password";
+    public static String UPDATE_PASSWORD = BASE_URL + "update_password";
 
 }
