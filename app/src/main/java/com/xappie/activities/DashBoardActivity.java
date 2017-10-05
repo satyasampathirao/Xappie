@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -109,6 +110,13 @@ public class DashBoardActivity extends BaseActivity {
         horizontalDecoration.setDrawable(horizontalDivider);
         navMenuView.addItemDecoration(horizontalDecoration);
 
+        if (Utility.getSharedPrefBooleanData(this, Constants.IS_LOGIN_COMPLETED)) {
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.logout).setVisible(true);
+        } else {
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.logout).setVisible(false);
+        }
 
        /* navMenuView.addItemDecoration(new DividerItemDecoration(DashBoardActivity.this, DividerItemDecoration.VERTICAL));
         Drawable horizontalDivider = ContextCompat.getDrawable(getActivity(), R.drawable.horizontal_divider);
