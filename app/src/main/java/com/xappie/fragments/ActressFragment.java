@@ -17,17 +17,14 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.ActressGridAdapter;
-import com.xappie.adapters.EntertainmentAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.ActressListModel;
-import com.xappie.models.ActressModel;
-import com.xappie.models.EntertainmentListModel;
-import com.xappie.models.EntertainmentModel;
+import com.xappie.models.ActressActorsListModel;
+import com.xappie.models.GalleryItemModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
-import com.xappie.parser.EntertainmentParser;
+import com.xappie.parser.ActressActorParser;
 import com.xappie.parser.LanguageParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -82,13 +79,13 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_no_data_found)
     TextView tv_no_data_found;
 
-    private String mStringTitle = "Actor";
-    private String mForGallery = "actors";
+    private String mStringTitle = "Actress";
+    private String mForGallery = "actress";
     private ActressGridAdapter actressGridAdapter;
     private LanguageListModel mLanguageListModel;
     private LanguageModel languageModel;
     private String mCurrentLanguage;
-    private ArrayList<ActressModel> actressModels;
+    private ArrayList<GalleryItemModel> actressModels;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -222,11 +219,11 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
             linkedHashMap.put("type", mForGallery);
             linkedHashMap.put(Constants.PAGE_NO, "1");
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
-            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            ActressActorParser actressActorParser = new ActressActorParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_GALLERY, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+                    APIConstants.REQUEST_TYPE.GET, this, actressActorParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,10 +270,10 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                     mCurrentLanguage = mLanguageListModel.getLanguageModels().get(0).getId();
                     getGalleryData();
                 }
-            } else if (model instanceof ActressListModel) {
-                ActressListModel mActressListModel = (ActressListModel) model;
+            } else if (model instanceof ActressActorsListModel) {
+                ActressActorsListModel mActressActorsListModel = (ActressActorsListModel) model;
                 if (actressModels == null) {
-                    if (mActressListModel.getActressModels() == null) {
+                    if (mActressActorsListModel.getGalleryItemModels() == null) {
                         tv_no_data_found.setVisibility(View.VISIBLE);
                         grid_view.setVisibility(View.GONE);
                     } else {
@@ -285,7 +282,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                         if (actressModels == null) {
                             actressModels = new ArrayList<>();
                         }
-                        actressModels.addAll(mActressListModel.getActressModels());
+                        actressModels.addAll(mActressActorsListModel.getGalleryItemModels());
                         if (actressGridAdapter == null) {
                             setGridViewData();
                         }
@@ -293,8 +290,8 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                 } else {
                     grid_view.setVisibility(View.VISIBLE);
                     tv_no_data_found.setVisibility(View.GONE);
-                    if (mActressListModel.getActressModels() != null && mActressListModel.getActressModels().size() > 0) {
-                        actressModels.addAll(mActressListModel.getActressModels());
+                    if (mActressActorsListModel.getGalleryItemModels() != null && mActressActorsListModel.getGalleryItemModels().size() > 0) {
+                        actressModels.addAll(mActressActorsListModel.getGalleryItemModels());
                         if (actressGridAdapter == null) {
                             setGridViewData();
                         } else {

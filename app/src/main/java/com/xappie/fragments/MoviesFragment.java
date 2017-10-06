@@ -19,6 +19,7 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.ActressGridAdapter;
 import com.xappie.models.ActressModel;
+import com.xappie.models.GalleryItemModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -122,11 +123,11 @@ public class MoviesFragment extends Fragment {
         grid_view.setAdapter(actressGridAdapter);
     }
 
-    private ArrayList<ActressModel> getActressData() {
-        ArrayList<ActressModel> actressModels = new ArrayList<>();
+    private ArrayList<GalleryItemModel> getActressData() {
+        ArrayList<GalleryItemModel> actressModels = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
-            ActressModel actressModel = new ActressModel();
-            actressModel.setId(R.drawable.video_hint);
+            GalleryItemModel actressModel = new GalleryItemModel();
+           // actressModel.setId(R.drawable.video_hint);
             actressModel.setTitle("Rarandoi");
             actressModels.add(actressModel);
         }

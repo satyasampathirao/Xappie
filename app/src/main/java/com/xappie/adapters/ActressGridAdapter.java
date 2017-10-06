@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.models.ActressModel;
+import com.xappie.models.GalleryItemModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class ActressGridAdapter extends BaseAdapter {
 
     private DashBoardActivity mDashBoardActivity;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<ActressModel> actressModels;
+    private ArrayList<GalleryItemModel> actressModels;
     private Typeface mOpenSansBoldTypeface;
 
-    public ActressGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ActressModel> actressModels) {
+    public ActressGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<GalleryItemModel> actressModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
         this.actressModels = actressModels;
@@ -65,8 +66,16 @@ public class ActressGridAdapter extends BaseAdapter {
             mActressGridHolder = (ActressGridAdapter.ActressGridHolder) convertView.getTag();
         }
 
-        ActressModel actressModel = actressModels.get(position);
+        GalleryItemModel actressModel = actressModels.get(position);
         mActressGridHolder.tv_related_title.setText(actressModel.getTitle());
+
+        if (!Utility.isValueNullOrEmpty(actressModel.getBanner_image())) {
+            Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
+                    actressModel.getBanner_image(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
+                    "", null, R.drawable.xappie_place_holder);
+        }
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
