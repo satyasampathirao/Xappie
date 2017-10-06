@@ -536,7 +536,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         tv_jobs_more.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
-    private void setGalleryData() {
+   /* private void setGalleryData() {
         layout_gallery.removeAllViews();
         for (int i = 0; i < getGallerySizes().size(); i++) {
             RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.gallery_item, null);
@@ -553,7 +553,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             });
             layout_gallery.addView(ll);
         }
-    }
+    }*/
 
     private void setAdsData() {
         layout_ads.removeAllViews();
@@ -565,7 +565,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         }
     }
 
-    private ArrayList<GalleryModel> getGallerySizes() {
+   /* private ArrayList<GalleryModel> getGallerySizes() {
         ArrayList<GalleryModel> galleryModels = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -575,7 +575,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             galleryModels.add(galleryModel);
         }
         return galleryModels;
-    }
+    }*/
 
     private ArrayList<AdsModel> getAdsSizes() {
         ArrayList<AdsModel> adsModels = new ArrayList<>();

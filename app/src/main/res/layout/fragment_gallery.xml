@@ -44,21 +44,22 @@
                 android:id="@+id/img_gallery_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/xappie_place_holder" />
 
             <TextView
-                android:id="@+id/tv_app_name"
+                android:id="@+id/tv_gallery_first_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_toolbar"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
         </RelativeLayout>
     </LinearLayout>
 

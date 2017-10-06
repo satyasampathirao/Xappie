@@ -1,35 +1,46 @@
 package com.xappie.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by Shankar on 7/21/2017.
  */
 
-public class GalleryModel {
-    private String image_url;
-    private String title;
-    private int id;
+public class GalleryModel extends Model {
+    private ArrayList<GalleryItemModel> moviesGalleryList;
+    private ArrayList<GalleryItemModel> actorsGalleryList;
+    private ArrayList<GalleryItemModel> actressGalleryList;
+    private ArrayList<GalleryItemModel> eventsGalleryList;
 
-    public String getImage_url() {
-        return image_url;
+    public ArrayList<GalleryItemModel> getMoviesGalleryList() {
+        return moviesGalleryList;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setMoviesGalleryList(ArrayList<GalleryItemModel> moviesGalleryList) {
+        this.moviesGalleryList = moviesGalleryList;
     }
 
-    public String getTitle() {
-        return title;
+    public ArrayList<GalleryItemModel> getActorsGalleryList() {
+        return actorsGalleryList;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setActorsGalleryList(ArrayList<GalleryItemModel> actorsGalleryList) {
+        this.actorsGalleryList = actorsGalleryList;
     }
 
-    public int getId() {
-        return id;
+    public ArrayList<GalleryItemModel> getActressGalleryList() {
+        return actressGalleryList;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setActressGalleryList(ArrayList<GalleryItemModel> actressGalleryList) {
+        this.actressGalleryList = actressGalleryList;
+    }
+
+    public ArrayList<GalleryItemModel> getEventsGalleryList() {
+        return eventsGalleryList;
+    }
+
+    public void setEventsGalleryList(ArrayList<GalleryItemModel> eventsGalleryList) {
+        this.eventsGalleryList = eventsGalleryList;
     }
 }

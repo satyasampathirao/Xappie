@@ -3,7 +3,6 @@ package com.xappie.fragments;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -20,16 +19,16 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.GalleryModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
-import com.xappie.parser.EntertainmentParser;
+import com.xappie.parser.GalleryParser;
 import com.xappie.parser.LanguageParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -70,6 +69,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
     private LanguageModel languageModel;
     private LanguageListModel mLanguageListModel;
+    private GalleryModel mGalleryModel;
     private String mCurrentLanguage;
 
     /**
@@ -82,8 +82,8 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     RelativeLayout rl_header_layout;
     @BindView(R.id.img_gallery_image)
     ImageView img_gallery_image;
-    @BindView(R.id.tv_app_name)
-    TextView tv_app_name;
+    @BindView(R.id.tv_gallery_first_item)
+    TextView tv_gallery_first_item;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -227,8 +227,29 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                     mCurrentLanguage = mLanguageListModel.getLanguageModels().get(0).getId();
                     getGalleryData();
                 }
+            } else if (model instanceof GalleryModel) {
+                mGalleryModel = (GalleryModel) model;
+                if (mGalleryModel != null && mGalleryModel.getMoviesGalleryList().size() > 0) {
+                    setGalleryData();
+                }
             }
         }
+    }
+
+    /**
+     * This method is used to set the gallery data
+     */
+    private void setGalleryData() {
+
+        if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(0).getProfile_image())) {
+            Utility.universalImageLoaderPicLoading(img_gallery_image,
+                    mGalleryModel.getMoviesGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(img_gallery_image,
+                    "", null, R.drawable.xappie_place_holder);
+        }
+        tv_gallery_first_item.setText(mGalleryModel.getMoviesGalleryList().get(0).getTitle());
+        tv_gallery_first_item.setTypeface(Utility.getOpenSansRegular(mParent));
     }
 
     /**
@@ -241,11 +262,11 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             linkedHashMap.put("language", mCurrentLanguage);
             linkedHashMap.put(Constants.PAGE_NO, "1");
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
-            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            GalleryParser galleryParser = new GalleryParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_GALLERY, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+                    APIConstants.REQUEST_TYPE.GET, this, galleryParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
