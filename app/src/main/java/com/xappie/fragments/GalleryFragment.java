@@ -193,6 +193,76 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.actress_txt_topic_5)
     TextView actress_txt_topic_5;
 
+    @BindView(R.id.ll_actors_item_1)
+    LinearLayout ll_actors_item_1;
+    @BindView(R.id.actors_img_topic_1)
+    ImageView actors_img_topic_1;
+    @BindView(R.id.actors_txt_topic_1)
+    TextView actors_txt_topic_1;
+
+    @BindView(R.id.ll_actors_item_2)
+    LinearLayout ll_actors_item_2;
+    @BindView(R.id.actors_img_topic_2)
+    ImageView actors_img_topic_2;
+    @BindView(R.id.actors_txt_topic_2)
+    TextView actors_txt_topic_2;
+
+    @BindView(R.id.ll_actors_item_3)
+    LinearLayout ll_actors_item_3;
+    @BindView(R.id.actors_img_topic_3)
+    ImageView actors_img_topic_3;
+    @BindView(R.id.actors_txt_topic_3)
+    TextView actors_txt_topic_3;
+
+    @BindView(R.id.ll_actors_item_4)
+    LinearLayout ll_actors_item_4;
+    @BindView(R.id.actors_img_topic_4)
+    ImageView actors_img_topic_4;
+    @BindView(R.id.actors_txt_topic_4)
+    TextView actors_txt_topic_4;
+
+    @BindView(R.id.ll_actors_item_5)
+    LinearLayout ll_actors_item_5;
+    @BindView(R.id.actors_img_topic_5)
+    ImageView actors_img_topic_5;
+    @BindView(R.id.actors_txt_topic_5)
+    TextView actors_txt_topic_5;
+
+    @BindView(R.id.ll_events_item_1)
+    LinearLayout ll_events_item_1;
+    @BindView(R.id.events_img_topic_1)
+    ImageView events_img_topic_1;
+    @BindView(R.id.events_txt_topic_1)
+    TextView events_txt_topic_1;
+
+    @BindView(R.id.ll_events_item_2)
+    LinearLayout ll_events_item_2;
+    @BindView(R.id.events_img_topic_2)
+    ImageView events_img_topic_2;
+    @BindView(R.id.events_txt_topic_2)
+    TextView events_txt_topic_2;
+
+    @BindView(R.id.ll_events_item_3)
+    LinearLayout ll_events_item_3;
+    @BindView(R.id.events_img_topic_3)
+    ImageView events_img_topic_3;
+    @BindView(R.id.events_txt_topic_3)
+    TextView events_txt_topic_3;
+
+    @BindView(R.id.ll_events_item_4)
+    LinearLayout ll_events_item_4;
+    @BindView(R.id.events_img_topic_4)
+    ImageView events_img_topic_4;
+    @BindView(R.id.events_txt_topic_4)
+    TextView events_txt_topic_4;
+
+    @BindView(R.id.ll_events_item_5)
+    LinearLayout ll_events_item_5;
+    @BindView(R.id.events_img_topic_5)
+    ImageView events_img_topic_5;
+    @BindView(R.id.events_txt_topic_5)
+    TextView events_txt_topic_5;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -467,6 +537,8 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
 
         setActressData();
+        setActorsData();
+        setEventsData();
     }
 
     /**
@@ -536,6 +608,140 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+
+    /**
+     * This method is used to set the actors data
+     */
+    private void setActorsData() {
+        if (mGalleryModel.getActorsGalleryList().size() >= 1) {
+            ll_actors_item_1.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(0).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_1,
+                        mGalleryModel.getActorsGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_1,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actors_txt_topic_1.setText(mGalleryModel.getActorsGalleryList().get(0).getTitle());
+            actors_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getActorsGalleryList().size() >= 2) {
+            ll_actors_item_2.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(1).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_2,
+                        mGalleryModel.getActorsGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_2,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actors_txt_topic_2.setText(mGalleryModel.getActorsGalleryList().get(1).getTitle());
+            actors_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getActorsGalleryList().size() >= 3) {
+            ll_actors_item_3.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(2).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_3,
+                        mGalleryModel.getActorsGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_3,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actors_txt_topic_3.setText(mGalleryModel.getActorsGalleryList().get(2).getTitle());
+            actors_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getActorsGalleryList().size() >= 4) {
+            ll_actors_item_4.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(3).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_4,
+                        mGalleryModel.getActorsGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_4,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actors_txt_topic_4.setText(mGalleryModel.getActorsGalleryList().get(3).getTitle());
+            actors_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+        }
+
+        if (mGalleryModel.getActorsGalleryList().size() >= 5) {
+            ll_actors_item_5.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(4).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_5,
+                        mGalleryModel.getActorsGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actors_img_topic_5,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actors_txt_topic_5.setText(mGalleryModel.getActorsGalleryList().get(4).getTitle());
+            actors_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
+        }
+    }
+
+    /**
+     * This method is used to set the events data
+     */
+    private void setEventsData() {
+        if (mGalleryModel.getEventsGalleryList().size() >= 1) {
+            ll_events_item_1.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(0).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(events_img_topic_1,
+                        mGalleryModel.getEventsGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(events_img_topic_1,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            events_txt_topic_1.setText(mGalleryModel.getEventsGalleryList().get(0).getTitle());
+            events_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getEventsGalleryList().size() >= 2) {
+            ll_events_item_2.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(1).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(events_img_topic_2,
+                        mGalleryModel.getEventsGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(events_img_topic_2,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            events_txt_topic_2.setText(mGalleryModel.getEventsGalleryList().get(1).getTitle());
+            events_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getEventsGalleryList().size() >= 3) {
+            ll_events_item_3.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(2).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(events_img_topic_3,
+                        mGalleryModel.getEventsGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(events_img_topic_3,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            events_txt_topic_3.setText(mGalleryModel.getEventsGalleryList().get(2).getTitle());
+            events_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getEventsGalleryList().size() >= 4) {
+            ll_events_item_4.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(3).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(events_img_topic_4,
+                        mGalleryModel.getEventsGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(events_img_topic_4,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            events_txt_topic_4.setText(mGalleryModel.getEventsGalleryList().get(3).getTitle());
+            events_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+        }
+
+        if (mGalleryModel.getEventsGalleryList().size() >= 5) {
+            ll_events_item_5.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(4).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(events_img_topic_5,
+                        mGalleryModel.getEventsGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(events_img_topic_5,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            events_txt_topic_5.setText(mGalleryModel.getEventsGalleryList().get(4).getTitle());
+            events_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
+        }
+    }
     /**
      * Get the Gallery data
      */
