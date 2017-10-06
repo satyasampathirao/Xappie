@@ -307,6 +307,54 @@ public class DashBoardActivity extends BaseActivity {
             }
         });
 
+        tv_location_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,DashBoardActivity.this);
+            }
+        });
+
+        tv_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,DashBoardActivity.this);
+            }
+        });
+
+        tv_notification_menu_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,DashBoardActivity.this);
+            }
+        });
+
+        tv_notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,DashBoardActivity.this);
+            }
+        });
+
+        tv_language_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,DashBoardActivity.this);
+            }
+        });
+
+        tv_language.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,DashBoardActivity.this);
+            }
+        });
+
         mDialog.show();
     }
 
