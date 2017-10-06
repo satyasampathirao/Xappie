@@ -146,11 +146,52 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.gallery_txt_topic_7)
     TextView gallery_txt_topic_7;
 
-
     @BindView(R.id.tv_ads)
     TextView tv_ads;
     @BindView(R.id.layout_ads)
     LinearLayout layout_ads;
+
+    @BindView(R.id.tv_actress)
+    TextView tv_actress;
+    @BindView(R.id.tv_actors)
+    TextView tv_actors;
+    @BindView(R.id.tv_events)
+    TextView tv_events;
+
+    @BindView(R.id.ll_actress_item_1)
+    LinearLayout ll_actress_item_1;
+    @BindView(R.id.actress_img_topic_1)
+    ImageView actress_img_topic_1;
+    @BindView(R.id.actress_txt_topic_1)
+    TextView actress_txt_topic_1;
+
+    @BindView(R.id.ll_actress_item_2)
+    LinearLayout ll_actress_item_2;
+    @BindView(R.id.actress_img_topic_2)
+    ImageView actress_img_topic_2;
+    @BindView(R.id.actress_txt_topic_2)
+    TextView actress_txt_topic_2;
+
+    @BindView(R.id.ll_actress_item_3)
+    LinearLayout ll_actress_item_3;
+    @BindView(R.id.actress_img_topic_3)
+    ImageView actress_img_topic_3;
+    @BindView(R.id.actress_txt_topic_3)
+    TextView actress_txt_topic_3;
+
+    @BindView(R.id.ll_actress_item_4)
+    LinearLayout ll_actress_item_4;
+    @BindView(R.id.actress_img_topic_4)
+    ImageView actress_img_topic_4;
+    @BindView(R.id.actress_txt_topic_4)
+    TextView actress_txt_topic_4;
+
+    @BindView(R.id.ll_actress_item_5)
+    LinearLayout ll_actress_item_5;
+    @BindView(R.id.actress_img_topic_5)
+    ImageView actress_img_topic_5;
+    @BindView(R.id.actress_txt_topic_5)
+    TextView actress_txt_topic_5;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -255,6 +296,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_ads.setTypeface(mTypefaceOpenSansRegular);
+        tv_actress.setTypeface(mTypefaceOpenSansRegular);
+        tv_actors.setTypeface(mTypefaceOpenSansRegular);
+        tv_events.setTypeface(mTypefaceOpenSansRegular);
     }
 
     /**
@@ -420,6 +464,75 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             gallery_txt_topic_7.setText(mGalleryModel.getMoviesGalleryList().get(8).getTitle());
             gallery_txt_topic_7.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+
+        setActressData();
+    }
+
+    /**
+     * This method is used to set the actress data
+     */
+    private void setActressData() {
+        if (mGalleryModel.getActressGalleryList().size() >= 1) {
+            ll_actress_item_1.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(0).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_1,
+                        mGalleryModel.getActressGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_1,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actress_txt_topic_1.setText(mGalleryModel.getActressGalleryList().get(0).getTitle());
+            actress_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getActressGalleryList().size() >= 2) {
+            ll_actress_item_2.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(1).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_2,
+                        mGalleryModel.getActressGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_2,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actress_txt_topic_2.setText(mGalleryModel.getActressGalleryList().get(1).getTitle());
+            actress_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getActressGalleryList().size() >= 3) {
+            ll_actress_item_3.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(2).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_3,
+                        mGalleryModel.getActressGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_3,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actress_txt_topic_3.setText(mGalleryModel.getActressGalleryList().get(2).getTitle());
+            actress_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getActressGalleryList().size() >= 4) {
+            ll_actress_item_4.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(3).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_4,
+                        mGalleryModel.getActressGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_4,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actress_txt_topic_4.setText(mGalleryModel.getActressGalleryList().get(3).getTitle());
+            actress_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+        }
+
+        if (mGalleryModel.getActressGalleryList().size() >= 5) {
+            ll_actress_item_5.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(4).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_5,
+                        mGalleryModel.getActressGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(actress_img_topic_5,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            actress_txt_topic_5.setText(mGalleryModel.getActressGalleryList().get(4).getTitle());
+            actress_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
         }
     }
 
