@@ -19,6 +19,7 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.AdsModel;
 import com.xappie.models.GalleryModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
@@ -29,6 +30,7 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -85,6 +87,71 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_gallery_first_item)
     TextView tv_gallery_first_item;
 
+    @BindView(R.id.rl_header_layout_2)
+    RelativeLayout rl_header_layout_2;
+    @BindView(R.id.img_gallery_image_2)
+    ImageView img_gallery_image_2;
+    @BindView(R.id.tv_gallery_first_item_2)
+    TextView tv_gallery_first_item_2;
+
+    /**
+     * Gallery Individual item
+     */
+    @BindView(R.id.ll_gallery_item_1)
+    LinearLayout ll_gallery_item_1;
+    @BindView(R.id.gallery_img_topic_1)
+    ImageView gallery_img_topic_1;
+    @BindView(R.id.gallery_txt_topic_1)
+    TextView gallery_txt_topic_1;
+
+    @BindView(R.id.ll_gallery_item_2)
+    LinearLayout ll_gallery_item_2;
+    @BindView(R.id.gallery_img_topic_2)
+    ImageView gallery_img_topic_2;
+    @BindView(R.id.gallery_txt_topic_2)
+    TextView gallery_txt_topic_2;
+
+    @BindView(R.id.ll_gallery_item_3)
+    LinearLayout ll_gallery_item_3;
+    @BindView(R.id.gallery_img_topic_3)
+    ImageView gallery_img_topic_3;
+    @BindView(R.id.gallery_txt_topic_3)
+    TextView gallery_txt_topic_3;
+
+    @BindView(R.id.ll_gallery_item_4)
+    LinearLayout ll_gallery_item_4;
+    @BindView(R.id.gallery_img_topic_4)
+    ImageView gallery_img_topic_4;
+    @BindView(R.id.gallery_txt_topic_4)
+    TextView gallery_txt_topic_4;
+
+    @BindView(R.id.ll_gallery_item_5)
+    LinearLayout ll_gallery_item_5;
+    @BindView(R.id.gallery_img_topic_5)
+    ImageView gallery_img_topic_5;
+    @BindView(R.id.gallery_txt_topic_5)
+    TextView gallery_txt_topic_5;
+
+    @BindView(R.id.ll_gallery_item_6)
+    LinearLayout ll_gallery_item_6;
+    @BindView(R.id.gallery_img_topic_6)
+    ImageView gallery_img_topic_6;
+    @BindView(R.id.gallery_txt_topic_6)
+    TextView gallery_txt_topic_6;
+
+    @BindView(R.id.ll_gallery_item_7)
+    LinearLayout ll_gallery_item_7;
+    @BindView(R.id.gallery_img_topic_7)
+    ImageView gallery_img_topic_7;
+    @BindView(R.id.gallery_txt_topic_7)
+    TextView gallery_txt_topic_7;
+
+
+    @BindView(R.id.tv_ads)
+    TextView tv_ads;
+    @BindView(R.id.layout_ads)
+    LinearLayout layout_ads;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +181,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     private void initUI() {
         setTypeFace();
         getLanguagesData();
+        setAdsData();
     }
 
     /**
@@ -185,6 +253,8 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+
+        tv_ads.setTypeface(mTypefaceOpenSansRegular);
     }
 
     /**
@@ -241,7 +311,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
      */
     private void setGalleryData() {
 
-        if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(0).getProfile_image())) {
+        if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(0).getBanner_image())) {
             Utility.universalImageLoaderPicLoading(img_gallery_image,
                     mGalleryModel.getMoviesGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
         } else {
@@ -250,6 +320,107 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         tv_gallery_first_item.setText(mGalleryModel.getMoviesGalleryList().get(0).getTitle());
         tv_gallery_first_item.setTypeface(Utility.getOpenSansRegular(mParent));
+
+        if (mGalleryModel.getMoviesGalleryList().size() >= 2) {
+            ll_gallery_item_1.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(1).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_1,
+                        mGalleryModel.getMoviesGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_1,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_1.setText(mGalleryModel.getMoviesGalleryList().get(1).getTitle());
+            gallery_txt_topic_1.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+        if (mGalleryModel.getMoviesGalleryList().size() >= 3) {
+            ll_gallery_item_2.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(2).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_2,
+                        mGalleryModel.getMoviesGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_2,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_2.setText(mGalleryModel.getMoviesGalleryList().get(2).getTitle());
+            gallery_txt_topic_2.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+        if (mGalleryModel.getMoviesGalleryList().size() >= 4) {
+            ll_gallery_item_3.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(3).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_3,
+                        mGalleryModel.getMoviesGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_3,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_3.setText(mGalleryModel.getMoviesGalleryList().get(3).getTitle());
+            gallery_txt_topic_3.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+        if (mGalleryModel.getMoviesGalleryList().size() >= 5) {
+            ll_gallery_item_4.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(4).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_4,
+                        mGalleryModel.getMoviesGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_4,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_4.setText(mGalleryModel.getMoviesGalleryList().get(4).getTitle());
+            gallery_txt_topic_4.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+
+        if (mGalleryModel.getMoviesGalleryList().size() >= 6) {
+            rl_header_layout_2.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(5).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(img_gallery_image_2,
+                        mGalleryModel.getMoviesGalleryList().get(5).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(img_gallery_image_2,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            tv_gallery_first_item_2.setText(mGalleryModel.getMoviesGalleryList().get(5).getTitle());
+            tv_gallery_first_item_2.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+
+        if (mGalleryModel.getMoviesGalleryList().size() >= 7) {
+            ll_gallery_item_5.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(6).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_5,
+                        mGalleryModel.getMoviesGalleryList().get(6).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_5,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_5.setText(mGalleryModel.getMoviesGalleryList().get(6).getTitle());
+            gallery_txt_topic_5.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+
+        if (mGalleryModel.getMoviesGalleryList().size() >= 8) {
+            ll_gallery_item_6.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(7).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_6,
+                        mGalleryModel.getMoviesGalleryList().get(7).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_6,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_6.setText(mGalleryModel.getMoviesGalleryList().get(7).getTitle());
+            gallery_txt_topic_6.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
+
+        if (mGalleryModel.getMoviesGalleryList().size() >= 9) {
+            ll_gallery_item_7.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(8).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_7,
+                        mGalleryModel.getMoviesGalleryList().get(8).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_7,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_7.setText(mGalleryModel.getMoviesGalleryList().get(8).getTitle());
+            gallery_txt_topic_7.setTypeface(Utility.getOpenSansRegular(mParent));
+        }
     }
 
     /**
@@ -271,5 +442,28 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * This method is used set the ads data
+     */
+    private void setAdsData() {
+        layout_ads.removeAllViews();
+        for (int i = 0; i < getAdsSizes().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
+            ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
+            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getId()));
+            layout_ads.addView(ll);
+        }
+    }
+
+    private ArrayList<AdsModel> getAdsSizes() {
+        ArrayList<AdsModel> adsModels = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            AdsModel adsModel = new AdsModel();
+            adsModel.setId(R.drawable.ads);
+            adsModels.add(adsModel);
+        }
+        return adsModels;
     }
 }
