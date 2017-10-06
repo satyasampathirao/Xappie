@@ -239,7 +239,6 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", mCurrentLanguage);
-            linkedHashMap.put("type", "gallery");
             linkedHashMap.put(Constants.PAGE_NO, "1");
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             EntertainmentParser entertainmentParser = new EntertainmentParser();

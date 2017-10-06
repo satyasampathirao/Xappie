@@ -148,6 +148,8 @@ public class HomePageCustomizationFragment extends Fragment {
                 switch_button_top_stories.setChecked(true);
             } else if (namesAfterSplit[i].equalsIgnoreCase("videos")) {
                 switch_button_videos.setChecked(true);
+            } else if (namesAfterSplit[i].equalsIgnoreCase("gallery")) {
+                switch_button_videos.setChecked(true);
             }
         }
     }
@@ -164,7 +166,7 @@ public class HomePageCustomizationFragment extends Fragment {
 
     @OnCheckedChanged(R.id.switch_button_entertainment)
     void entertainmentPreferenceChange(boolean isChecked) {
-        changePreferenceSettings("entertainment", isChecked);
+        changePreferenceSettings("entertainments", isChecked);
     }
 
     @OnCheckedChanged(R.id.switch_button_top_stories)
@@ -175,6 +177,11 @@ public class HomePageCustomizationFragment extends Fragment {
     @OnCheckedChanged(R.id.switch_button_discussion)
     void discussionsPreferenceChange(boolean isChecked) {
         changePreferenceSettings("discussions", isChecked);
+    }
+
+    @OnCheckedChanged(R.id.switch_button_gallery)
+    void gallerysPreferenceChange(boolean isChecked) {
+        changePreferenceSettings("gallery", isChecked);
     }
 
     /**
