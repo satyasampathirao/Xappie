@@ -79,8 +79,8 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_no_data_found)
     TextView tv_no_data_found;
 
-    private String mStringTitle = "Actress";
-    private String mForGallery = "actress";
+    private String mStringTitle = "";
+    private String mForGallery = "";
     private ActressGridAdapter actressGridAdapter;
     private LanguageListModel mLanguageListModel;
     private LanguageModel languageModel;
@@ -94,10 +94,10 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
-       /* if (getArguments().containsKey(Constants.TITLE)) {
+        if (getArguments() != null && getArguments().containsKey(Constants.TITLE)) {
             mStringTitle = getArguments().getString(Constants.TITLE);
             mForGallery = getArguments().getString(Constants.FOR_GALLERY);
-        }*/
+        }
     }
 
     @Override

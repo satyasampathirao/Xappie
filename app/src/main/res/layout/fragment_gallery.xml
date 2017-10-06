@@ -349,7 +349,7 @@
                     android:visibility="visible">
 
                     <ImageView
-                        android:id="@+id/gallery_img_topic_8"
+                        android:id="@+id/gallery_more"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_125dp"
                         android:src="@drawable/more" />

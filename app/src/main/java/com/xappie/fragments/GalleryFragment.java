@@ -395,6 +395,36 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
+    @OnClick(R.id.gallery_more)
+    public void navigateGalleryMore() {
+        //Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
+    }
+
+    @OnClick(R.id.actress_more)
+    public void navigateActressMore() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "Actress");
+        bundle.putString(Constants.FOR_GALLERY, "actress");
+        Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
+    }
+
+    @OnClick(R.id.actors_more)
+    public void navigateActorsMore() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "Actors");
+        bundle.putString(Constants.FOR_GALLERY, "actors");
+        Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
+    }
+
+
+    @OnClick(R.id.events_more)
+    public void navigateEventsMore() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "Events");
+        bundle.putString(Constants.FOR_GALLERY, "events");
+        Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
+    }
+
 
     /**
      * After complete the service call back will be coming in this method
@@ -742,6 +772,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             events_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
         }
     }
+
     /**
      * Get the Gallery data
      */
