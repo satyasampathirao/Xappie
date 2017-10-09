@@ -162,7 +162,7 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
         Utility.setSharedPrefStringData(this, Constants.SELECTED_STATE_ID, mSelectedStateId);
         Utility.setSharedPrefStringData(this, Constants.SELECTED_STATE_NAME, mSelectedStateName);
         Utility.setSharedPrefStringData(this, Constants.SELECTED_CITY_ID, mStatesListModel.getStateModels().get(position).getId());
-        Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_ID, mStatesListModel.getStateModels().get(position).getName());
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_CITY_NAME, mStatesListModel.getStateModels().get(position).getName());
 
         String s = Utility.getSharedPrefStringData(this, Constants.HOME_PAGE_CONTENTS);
         if (Utility.isValueNullOrEmpty(s)) {

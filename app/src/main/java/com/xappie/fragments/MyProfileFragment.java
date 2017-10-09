@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
@@ -46,7 +46,7 @@ public class MyProfileFragment extends Fragment {
     TextView tv_my_notifications_icon;
     @BindView(R.id.tv_my_location_icon)
     TextView tv_my_location_icon;
-   @BindView(R.id.tv_ravi_profile_name)
+    @BindView(R.id.tv_ravi_profile_name)
     TextView tv_ravi_profile_name;
     @BindView(R.id.tv_ravi_hyd)
     TextView tv_ravi_hyd;
@@ -108,6 +108,7 @@ public class MyProfileFragment extends Fragment {
         setTypeFace();
 
     }
+
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
@@ -131,33 +132,46 @@ public class MyProfileFragment extends Fragment {
         tv_ravi_mobile_nbr.setTypeface(mTypefaceOpenSansRegular);
         btn_edit_profile.setTypeface(mTypefaceOpenSansRegular);
 
+        setBeforeData();
+
     }
 
-        @OnClick(R.id.b_edit_profile)
-    public void navigateEditProfile()
-    {
-        Utility.navigateDashBoardFragment(new EditProfileFragment(),EditProfileFragment.TAG,null,mParent);
+    /**
+     * This method is used to set the before data
+     */
+    private void setBeforeData() {
+        tv_ravi_profile_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME));
+        tv_profile_full_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME) +
+                " " + Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_LAST_NAME));
+        tv_profile_display_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_DISPLAY_NAME));
+        tv_ravi_email.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_MAIL_ID));
+        tv_ravi_mobile_nbr.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_MOBILE));
+        tv_ravi_hyd.setText(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_NAME) + "," +
+                Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_NAME));
+    }
+
+    @OnClick(R.id.b_edit_profile)
+    public void navigateEditProfile() {
+        Utility.navigateDashBoardFragment(new EditProfileFragment(), EditProfileFragment.TAG, null, mParent);
     }
 
     @OnClick({R.id.tv_my_arrow_back_icon, R.id.tv_my_menu_icon})
-    public void navigateBack()
-    {
-       mParent.onBackPressed();
+    public void navigateBack() {
+        mParent.onBackPressed();
     }
 
     @OnClick(R.id.tv_my_notifications_icon)
-    public void navigateToNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateToNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_my_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_my_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 }

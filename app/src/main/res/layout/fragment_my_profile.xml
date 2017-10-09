@@ -1,36 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/action_bar_my_profile"
-        android:id="@+id/tool_bar_my_profile"/>
+    <include
+        android:id="@+id/tool_bar_my_profile"
+        layout="@layout/action_bar_my_profile" />
 
     <RelativeLayout
         android:id="@+id/relative_my_profile"
         android:layout_width="match_parent"
-        android:layout_below="@+id/tool_bar_my_profile"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar_my_profile">
 
         <ImageView
             android:id="@+id/img_ravi_image"
             android:layout_width="@dimen/_60dp"
+            android:layout_height="@dimen/_60dp"
             android:layout_marginStart="@dimen/_10dp"
             android:layout_marginTop="@dimen/_5dp"
-            android:layout_height="@dimen/_60dp"
             android:src="@drawable/avatar_image" />
-
-
 
         <TextView
             android:id="@+id/tv_ravi_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_toRightOf="@+id/img_ravi_image"
             android:layout_marginTop="@dimen/_15dp"
-            android:text="@string/ravi_kiran"
+            android:layout_toRightOf="@+id/img_ravi_image"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/_18sp" />
 
@@ -41,7 +37,6 @@
             android:layout_alignStart="@+id/tv_ravi_profile_name"
             android:layout_below="@+id/tv_ravi_profile_name"
             android:layout_marginTop="@dimen/_5dp"
-            android:text="@string/hyderabad"
             android:textSize="@dimen/_16sp" />
 
     </RelativeLayout>
@@ -84,7 +79,6 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_toRightOf="@+id/tv_name_dot"
             android:maxLines="1"
-            android:text="@string/ravi_kiran"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/_15sp" />
 
@@ -127,7 +121,6 @@
             android:layout_marginEnd="@dimen/_5dp"
             android:layout_toRightOf="@+id/tv_display_name_dot"
             android:maxLines="1"
-            android:text="@string/ravi_k"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/_15sp" />
 
@@ -172,7 +165,6 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_toRightOf="@+id/tv_email_dots"
             android:maxLines="1"
-            android:text="@string/ravi_email"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_15sp" />
 
@@ -216,7 +208,6 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_toRightOf="@+id/tv_mobile_dots"
             android:maxLines="1"
-            android:text="@string/ravi_mobile_no"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_15sp" />
 

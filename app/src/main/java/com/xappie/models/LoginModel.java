@@ -12,6 +12,7 @@ public class LoginModel extends Model {
     private String email;
     private String first_name;
     private String last_name;
+    private String display_name;
     private String photo;
     private String ci_session;
 
@@ -77,5 +78,13 @@ public class LoginModel extends Model {
 
     public void setCi_session(String ci_session) {
         this.ci_session = ci_session;
+    }
+
+    public String getDisplay_name() {
+        return display_name;
+    }
+
+    public void setDisplay_name(String display_name) {
+        this.display_name = display_name;
     }
 }

@@ -16,13 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
-import com.xappie.activities.CitiesActivity;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.CityListAdapter;
 import com.xappie.adapters.StatesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.CitiesListModel;
 import com.xappie.models.Model;
 import com.xappie.models.StatesListModel;
 import com.xappie.parser.StatesParser;
@@ -30,7 +27,6 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -114,15 +110,17 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView =  inflater.inflate(R.layout.fragment_cities, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_cities, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
+
     private void initUI() {
 
         setTypeFace();
@@ -183,21 +181,19 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
     }
 
 
-    @OnClick({R.id.tv_countries_arrow_back_icon,R.id.tv_countries_menu_icon})
-    public void navigateToBack()
-    {
+    @OnClick({R.id.tv_countries_arrow_back_icon, R.id.tv_countries_menu_icon})
+    public void navigateToBack() {
         mParent.onBackPressed();
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
 
     @OnItemClick(R.id.city_list_view)
@@ -207,7 +203,7 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID, mSelectedStateId);
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_STATE_NAME, mSelectedStateName);
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID, mStatesListModel.getStateModels().get(position).getId());
-        Utility.setSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID, mStatesListModel.getStateModels().get(position).getName());
+        Utility.setSharedPrefStringData(mParent, Constants.SELECTED_CITY_NAME, mStatesListModel.getStateModels().get(position).getName());
 
         String s = Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS);
         if (Utility.isValueNullOrEmpty(s)) {
