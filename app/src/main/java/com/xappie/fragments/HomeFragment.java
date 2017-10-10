@@ -26,15 +26,19 @@ import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.interfaces.IHomeCustomization;
 import com.xappie.models.AdsModel;
+import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
-import com.xappie.models.GalleryModel;
 import com.xappie.models.HomePageContentModel;
 import com.xappie.models.LanguageListModel;
+import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
 import com.xappie.models.NewsModel;
+import com.xappie.models.TopStoriesListModel;
 import com.xappie.models.VideosModel;
+import com.xappie.parser.EntertainmentParser;
 import com.xappie.parser.HomePageContentParser;
 import com.xappie.parser.LanguageParser;
+import com.xappie.parser.TopStoriesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -229,7 +233,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     LinearLayout ll_jobs;
 
     private LanguageListModel mLanguageListModel;
+    private LanguageModel languageModel;
     private HomePageContentModel mHomePageContentModel;
+    private TopStoriesListModel mTopStoriesListModel;
+    private EntertainmentListModel mEntertainmentListModel;
 
     private static IHomeCustomization iHomeCustomization;
 
@@ -665,11 +672,33 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
+                    for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID)
+                                .equalsIgnoreCase(mLanguageListModel.getLanguageModels().get(i).getId())) {
+                            languageModel = mLanguageListModel.getLanguageModels().get(i);
+                        }
+                    }
                     getHomePageData();
                 }
             } else if (model instanceof HomePageContentModel) {
                 mHomePageContentModel = (HomePageContentModel) model;
                 setDataToTheScreen();
+            } else if (model instanceof TopStoriesListModel) {
+                mTopStoriesListModel = (TopStoriesListModel) model;
+                if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
+                    if (mHomePageContentModel != null) {
+                        mHomePageContentModel.setTopStoriesModels(mTopStoriesListModel.getEntertainmentModels());
+                        setTopStoriesData(mHomePageContentModel.getTopStoriesModels());
+                    }
+                }
+            } else if (model instanceof EntertainmentListModel) {
+                mEntertainmentListModel = (EntertainmentListModel) model;
+                if (mEntertainmentListModel.getEntertainmentModels().size() > 0) {
+                    if (mHomePageContentModel != null) {
+                        mHomePageContentModel.setEntertainmentModels(mEntertainmentListModel.getEntertainmentModels());
+                        setEntertainmentData(mHomePageContentModel.getEntertainmentModels());
+                    }
+                }
             }
         }
     }
@@ -711,6 +740,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             rl_top_stories_heading.setVisibility(View.VISIBLE);
             hs_top_stories.setVisibility(View.VISIBLE);
             ll_top_stories.setVisibility(View.VISIBLE);
+            setTopStoriesLanguages();
             setTopStoriesData(mHomePageContentModel.getTopStoriesModels());
         } else {
             rl_top_stories_heading.setVisibility(View.GONE);
@@ -722,6 +752,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             rl_entertainment_heading.setVisibility(View.VISIBLE);
             hs_entertainment.setVisibility(View.VISIBLE);
             ll_entertainment.setVisibility(View.VISIBLE);
+            setEntertainmentLanguages();
             setEntertainmentData(mHomePageContentModel.getTopStoriesModels());
         } else {
             rl_entertainment_heading.setVisibility(View.GONE);
@@ -731,9 +762,9 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     }
 
     /**
-     * This method is used to set the data of the top stories
+     * This method is used to set the languages
      */
-    private void setTopStoriesData(ArrayList<EntertainmentModel> topStoriesModels) {
+    private void setTopStoriesLanguages() {
         ll_languages_layout_top_stories.removeAllViews();
         for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
@@ -741,15 +772,109 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             View view = ll.findViewById(R.id.view);
             tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName());
             tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
+
+            tv_language_name.setId(i);
+            tv_language_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    languageModel = mLanguageListModel.getLanguageModels().get(pos);
+                    setTopStoriesLanguages();
+                    getTopStoriesData(languageModel.getId(), "" + 1);
+                }
+            });
+
+            if (languageModel != null && mLanguageListModel.getLanguageModels().get(i).getId() == languageModel.getId()) {
                 view.setVisibility(View.VISIBLE);
                 tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
             } else {
                 view.setVisibility(View.GONE);
             }
+
             ll_languages_layout_top_stories.addView(ll);
         }
+    }
 
+    /**
+     * This method is used to set entertainment languages
+     */
+    private void setEntertainmentLanguages() {
+        ll_languages_layout_entertainment.removeAllViews();
+        for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = ll.findViewById(R.id.view);
+            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName());
+            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+
+            tv_language_name.setId(i);
+            tv_language_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    languageModel = mLanguageListModel.getLanguageModels().get(pos);
+                    setEntertainmentLanguages();
+                    getEntertainmentData(languageModel.getId(), "" + 1);
+                }
+            });
+
+            if (languageModel != null && mLanguageListModel.getLanguageModels().get(i).getId() == languageModel.getId()) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+
+            ll_languages_layout_entertainment.addView(ll);
+        }
+    }
+
+    /**
+     * This method is used to get data of the top stories
+     */
+    private void getTopStoriesData(String id, String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("language", id);
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            TopStoriesParser topStoriesParser = new TopStoriesParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_STORIES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, topStoriesParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to get data of the top stories
+     */
+    private void getEntertainmentData(String id, String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("language", id);
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_ENTERTAINMENTS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to set the data of the top stories
+     */
+    private void setTopStoriesData(ArrayList<EntertainmentModel> topStoriesModels) {
         ll_top_stories.removeAllViews();
         for (int i = 0; i < topStoriesModels.size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
@@ -804,22 +929,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
      * Sets Entertainment data
      */
     private void setEntertainmentData(ArrayList<EntertainmentModel> topStoriesModels) {
-        ll_languages_layout_entertainment.removeAllViews();
-        for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
-            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
-            View view = (View) ll.findViewById(R.id.view);
-            tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName());
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
-                view.setVisibility(View.VISIBLE);
-                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
-            } else {
-                view.setVisibility(View.GONE);
-            }
-            ll_languages_layout_entertainment.addView(ll);
-        }
-
         ll_entertainment.removeAllViews();
         for (int i = 0; i < mHomePageContentModel.getEntertainmentModels().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);

@@ -2,7 +2,6 @@ package com.xappie.fragments;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -19,13 +18,13 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.EntertainmentAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
-import com.xappie.parser.EntertainmentParser;
+import com.xappie.models.TopStoriesListModel;
 import com.xappie.parser.LanguageParser;
+import com.xappie.parser.TopStoriesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -79,7 +78,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
     ListView list_view;
 
     private LanguageListModel mLanguageListModel;
-    private EntertainmentListModel mEntertainmentListModel;
+    private TopStoriesListModel mTopStoriesListModel;
     private LanguageModel languageModel;
 
     @Override
@@ -153,7 +152,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
      */
     private void setGridViewData() {
         EntertainmentAdapter entertainmentAdapter = new
-                EntertainmentAdapter(mParent, mEntertainmentListModel.getEntertainmentModels());
+                EntertainmentAdapter(mParent, mTopStoriesListModel.getEntertainmentModels());
         list_view.setAdapter(entertainmentAdapter);
     }
 
@@ -201,7 +200,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
                     int pos = v.getId();
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
                     setLanguages();
-                    getEntertainmentData(languageModel.getId(), "" + 1);
+                    getTopStoriesData(languageModel.getId(), "" + 1);
                 }
             });
 
@@ -221,7 +220,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
     @OnItemClick(R.id.list_view)
     void navigateData(int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mEntertainmentListModel.getEntertainmentModels().get(position).getId());
+        bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mTopStoriesListModel.getEntertainmentModels().get(position).getId());
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
         bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, getMoreTopicsList(position));
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
@@ -234,35 +233,35 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
     private ArrayList<EntertainmentModel> getMoreTopicsList(int position) {
         ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
         if (position == 0) {
-            for (int i = 1; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
-                entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
+            for (int i = 1; i < mTopStoriesListModel.getEntertainmentModels().size(); i++) {
+                entertainmentModels.add(mTopStoriesListModel.getEntertainmentModels().get(i));
                 if (entertainmentModels.size() == 4)
                     break;
             }
         } else if (position == 1) {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
+            for (int i = 0; i < mTopStoriesListModel.getEntertainmentModels().size(); i++) {
                 if (i != 1)
-                    entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
+                    entertainmentModels.add(mTopStoriesListModel.getEntertainmentModels().get(i));
                 if (entertainmentModels.size() == 4)
                     break;
             }
         } else if (position == 2) {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
+            for (int i = 0; i < mTopStoriesListModel.getEntertainmentModels().size(); i++) {
                 if (i != 2)
-                    entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
+                    entertainmentModels.add(mTopStoriesListModel.getEntertainmentModels().get(i));
                 if (entertainmentModels.size() == 4)
                     break;
             }
         } else if (position == 3) {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
+            for (int i = 0; i < mTopStoriesListModel.getEntertainmentModels().size(); i++) {
                 if (i != 3)
-                    entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
+                    entertainmentModels.add(mTopStoriesListModel.getEntertainmentModels().get(i));
                 if (entertainmentModels.size() == 4)
                     break;
             }
         } else {
-            for (int i = 0; i < mEntertainmentListModel.getEntertainmentModels().size(); i++) {
-                entertainmentModels.add(mEntertainmentListModel.getEntertainmentModels().get(i));
+            for (int i = 0; i < mTopStoriesListModel.getEntertainmentModels().size(); i++) {
+                entertainmentModels.add(mTopStoriesListModel.getEntertainmentModels().get(i));
                 if (entertainmentModels.size() == 4)
                     break;
             }
@@ -282,11 +281,11 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
                     languageModel = mLanguageListModel.getLanguageModels().get(0);
                     setLanguages();
-                    getEntertainmentData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
+                    getTopStoriesData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
                 }
-            } else if (model instanceof EntertainmentListModel) {
-                mEntertainmentListModel = (EntertainmentListModel) model;
-                if (mEntertainmentListModel.getEntertainmentModels().size() > 0) {
+            } else if (model instanceof TopStoriesListModel) {
+                mTopStoriesListModel = (TopStoriesListModel) model;
+                if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
                     setGridViewData();
                 }
             }
@@ -296,18 +295,18 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
     /**
      * This method is used to get data of the top stories
      */
-    private void getEntertainmentData(String id, String pageNo) {
+    private void getTopStoriesData(String id, String pageNo) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", id);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
-            EntertainmentParser entertainmentParser = new EntertainmentParser();
+            TopStoriesParser topStoriesParser = new TopStoriesParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_STORIES, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.GET, this, entertainmentParser);
+                    APIConstants.REQUEST_TYPE.GET, this, topStoriesParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
