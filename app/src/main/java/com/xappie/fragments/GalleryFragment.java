@@ -461,7 +461,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     public void navigateMoviesMore(){
         Bundle bundle = new Bundle();
         bundle.putString(Constants.TITLE, "Movies");
-        bundle.putString(Constants.FOR_GALLERY, "movies");
+        bundle.putString(Constants.FOR_GALLERY, "movie");
         Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
     }
 
