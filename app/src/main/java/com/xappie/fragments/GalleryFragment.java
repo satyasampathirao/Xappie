@@ -160,6 +160,8 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     TextView tv_actors;
     @BindView(R.id.tv_events)
     TextView tv_events;
+    @BindView(R.id.tv_movies)
+    TextView tv_movies;
 
     @BindView(R.id.ll_actress_item_1)
     LinearLayout ll_actress_item_1;
@@ -230,6 +232,41 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     ImageView actors_img_topic_5;
     @BindView(R.id.actors_txt_topic_5)
     TextView actors_txt_topic_5;
+
+    @BindView(R.id.ll_movies_item_1)
+    LinearLayout ll_movies_item_1;
+    @BindView(R.id.movies_img_topic_1)
+    ImageView movies_img_topic_1;
+    @BindView(R.id.movies_txt_topic_1)
+    TextView movies_txt_topic_1;
+
+    @BindView(R.id.ll_movies_item_2)
+    LinearLayout ll_movies_item_2;
+    @BindView(R.id.movies_img_topic_2)
+    ImageView movies_img_topic_2;
+    @BindView(R.id.movies_txt_topic_2)
+    TextView movies_txt_topic_2;
+
+    @BindView(R.id.ll_movies_item_3)
+    LinearLayout ll_movies_item_3;
+    @BindView(R.id.movies_img_topic_3)
+    ImageView movies_img_topic_3;
+    @BindView(R.id.movies_txt_topic_3)
+    TextView movies_txt_topic_3;
+
+    @BindView(R.id.ll_movies_item_4)
+    LinearLayout ll_movies_item_4;
+    @BindView(R.id.movies_img_topic_4)
+    ImageView movies_img_topic_4;
+    @BindView(R.id.movies_txt_topic_4)
+    TextView movies_txt_topic_4;
+
+    @BindView(R.id.ll_movies_item_5)
+    LinearLayout ll_movies_item_5;
+    @BindView(R.id.movies_img_topic_5)
+    ImageView movies_img_topic_5;
+    @BindView(R.id.movies_txt_topic_5)
+    TextView movies_txt_topic_5;
 
     @BindView(R.id.ll_events_item_1)
     LinearLayout ll_events_item_1;
@@ -372,6 +409,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         tv_actress.setTypeface(mTypefaceOpenSansRegular);
         tv_actors.setTypeface(mTypefaceOpenSansRegular);
         tv_events.setTypeface(mTypefaceOpenSansRegular);
+        tv_movies.setTypeface(mTypefaceOpenSansRegular);
     }
 
     /**
@@ -419,6 +457,13 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
     }
 
+    @OnClick(R.id.movies_more)
+    public void navigateMoviesMore(){
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "Movies");
+        bundle.putString(Constants.FOR_GALLERY, "movies");
+        Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
+    }
 
     @OnClick(R.id.events_more)
     public void navigateEventsMore() {
@@ -455,6 +500,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                     setActressData();
                     setActorsData();
                     setEventsData();
+                    setMoviesData();
                 }
             }
         }
@@ -731,6 +777,73 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actors_txt_topic_5.setText(mGalleryModel.getActorsGalleryList().get(4).getTitle());
             actors_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
+        }
+    }
+
+    /**
+     * This method is used to set the movies data
+     */
+    private void setMoviesData() {
+        if (mGalleryModel.getMoviesGalleryList().size() >= 1) {
+            ll_movies_item_1.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(0).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_1,
+                        mGalleryModel.getMoviesGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_1,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            movies_txt_topic_1.setText(mGalleryModel.getMoviesGalleryList().get(0).getTitle());
+            movies_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getMoviesGalleryList().size() >= 2) {
+            ll_movies_item_2.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(1).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_2,
+                        mGalleryModel.getMoviesGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_2,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            movies_txt_topic_2.setText(mGalleryModel.getMoviesGalleryList().get(1).getTitle());
+            movies_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getMoviesGalleryList().size() >= 3) {
+            ll_movies_item_3.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(2).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_3,
+                        mGalleryModel.getMoviesGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_3,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            movies_txt_topic_3.setText(mGalleryModel.getMoviesGalleryList().get(2).getTitle());
+            movies_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+        }
+        if (mGalleryModel.getMoviesGalleryList().size() >= 4) {
+            ll_movies_item_4.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(3).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_4,
+                        mGalleryModel.getMoviesGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_4,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            movies_txt_topic_4.setText(mGalleryModel.getMoviesGalleryList().get(3).getTitle());
+            movies_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+        }
+
+        if (mGalleryModel.getMoviesGalleryList().size() >= 5) {
+            ll_movies_item_5.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(4).getBanner_image())) {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_5,
+                        mGalleryModel.getMoviesGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(movies_img_topic_5,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            movies_txt_topic_5.setText(mGalleryModel.getMoviesGalleryList().get(4).getTitle());
+            movies_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
         }
     }
 
