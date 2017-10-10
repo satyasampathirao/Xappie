@@ -180,8 +180,8 @@ public class HomePageCustomizationFragment extends Fragment {
     }
 
     @OnCheckedChanged(R.id.switch_button_gallery)
-    void gallerysPreferenceChange(boolean isChecked) {
-        changePreferenceSettings("gallery", isChecked);
+    void galleriesPreferenceChange(boolean isChecked) {
+        changePreferenceSettings("galleries", isChecked);
     }
 
     /**
