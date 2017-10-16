@@ -530,7 +530,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     /**
      * This method is used to navigate gallery detail view
      */
-    private void navigateGalleryDeatilView(String id) {
+    private void navigateGalleryDetailView(String id) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.GALLERY_ID, id);
         Utility.navigateDashBoardFragment(new GalleryImageViewFragment(), GalleryImageViewFragment.TAG, bundle, mParent);
@@ -553,7 +553,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         rl_header_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(0).getId());
+                navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(0).getId());
             }
         });
 
@@ -572,7 +572,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_gallery_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(1).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(1).getId());
                 }
             });
         }
@@ -591,7 +591,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_gallery_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(2).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(2).getId());
                 }
             });
         }
@@ -610,7 +610,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_gallery_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(3).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(3).getId());
                 }
             });
         }
@@ -629,7 +629,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_gallery_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(4).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(4).getId());
                 }
             });
         }
@@ -649,7 +649,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             rl_header_layout_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(5).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(5).getId());
                 }
             });
         }
@@ -669,7 +669,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_gallery_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(6).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(6).getId());
                 }
             });
         }
@@ -689,7 +689,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_gallery_item_6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(7).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(7).getId());
                 }
             });
         }
@@ -709,7 +709,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_gallery_item_7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryDeatilView(mGalleryLatestModel.getLatestGalleryList().get(8).getId());
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(8).getId());
                 }
             });
         }
@@ -731,6 +731,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actress_txt_topic_1.setText(mGalleryModel.getActressGalleryList().get(0).getTitle());
             actress_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+            ll_actress_item_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(0).getId());
+                }
+            });
         }
         if (mGalleryModel.getActressGalleryList().size() >= 2) {
             ll_actress_item_2.setVisibility(View.VISIBLE);
@@ -743,6 +749,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actress_txt_topic_2.setText(mGalleryModel.getActressGalleryList().get(1).getTitle());
             actress_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+            ll_actress_item_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(1).getId());
+                }
+            });
         }
         if (mGalleryModel.getActressGalleryList().size() >= 3) {
             ll_actress_item_3.setVisibility(View.VISIBLE);
@@ -755,6 +767,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actress_txt_topic_3.setText(mGalleryModel.getActressGalleryList().get(2).getTitle());
             actress_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+            ll_actress_item_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(2).getId());
+                }
+            });
         }
         if (mGalleryModel.getActressGalleryList().size() >= 4) {
             ll_actress_item_4.setVisibility(View.VISIBLE);
@@ -767,6 +785,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actress_txt_topic_4.setText(mGalleryModel.getActressGalleryList().get(3).getTitle());
             actress_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+            ll_actress_item_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(3).getId());
+                }
+            });
         }
 
         if (mGalleryModel.getActressGalleryList().size() >= 5) {
@@ -780,9 +804,24 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actress_txt_topic_5.setText(mGalleryModel.getActressGalleryList().get(4).getTitle());
             actress_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
+            ll_actress_item_5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(4).getId());
+                }
+            });
         }
     }
 
+
+    /**
+     * This method is used to navigate gallery detail view
+     */
+    private void navigateGalleryCategoryView(String id) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.GALLERY_ID, id);
+        Utility.navigateDashBoardFragment(new GalleryCategoryFragment(), GalleryCategoryFragment.TAG, bundle, mParent);
+    }
 
     /**
      * This method is used to set the actors data
@@ -799,6 +838,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actors_txt_topic_1.setText(mGalleryModel.getActorsGalleryList().get(0).getTitle());
             actors_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+            ll_actors_item_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(0).getId());
+                }
+            });
         }
         if (mGalleryModel.getActorsGalleryList().size() >= 2) {
             ll_actors_item_2.setVisibility(View.VISIBLE);
@@ -811,6 +856,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actors_txt_topic_2.setText(mGalleryModel.getActorsGalleryList().get(1).getTitle());
             actors_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+            ll_actors_item_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(1).getId());
+                }
+            });
         }
         if (mGalleryModel.getActorsGalleryList().size() >= 3) {
             ll_actors_item_3.setVisibility(View.VISIBLE);
@@ -823,6 +874,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actors_txt_topic_3.setText(mGalleryModel.getActorsGalleryList().get(2).getTitle());
             actors_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+            ll_actors_item_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(2).getId());
+                }
+            });
         }
         if (mGalleryModel.getActorsGalleryList().size() >= 4) {
             ll_actors_item_4.setVisibility(View.VISIBLE);
@@ -835,6 +892,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actors_txt_topic_4.setText(mGalleryModel.getActorsGalleryList().get(3).getTitle());
             actors_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+            ll_actors_item_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(3).getId());
+                }
+            });
         }
 
         if (mGalleryModel.getActorsGalleryList().size() >= 5) {
@@ -848,6 +911,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             actors_txt_topic_5.setText(mGalleryModel.getActorsGalleryList().get(4).getTitle());
             actors_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
+            ll_actors_item_5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(4).getId());
+                }
+            });
         }
     }
 
@@ -866,6 +935,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             movies_txt_topic_1.setText(mGalleryModel.getMoviesGalleryList().get(0).getTitle());
             movies_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+            ll_movies_item_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(0).getId());
+                }
+            });
         }
         if (mGalleryModel.getMoviesGalleryList().size() >= 2) {
             ll_movies_item_2.setVisibility(View.VISIBLE);
@@ -878,6 +953,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             movies_txt_topic_2.setText(mGalleryModel.getMoviesGalleryList().get(1).getTitle());
             movies_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+            ll_movies_item_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(1).getId());
+                }
+            });
         }
         if (mGalleryModel.getMoviesGalleryList().size() >= 3) {
             ll_movies_item_3.setVisibility(View.VISIBLE);
@@ -890,6 +971,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             movies_txt_topic_3.setText(mGalleryModel.getMoviesGalleryList().get(2).getTitle());
             movies_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+            ll_movies_item_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(2).getId());
+                }
+            });
         }
         if (mGalleryModel.getMoviesGalleryList().size() >= 4) {
             ll_movies_item_4.setVisibility(View.VISIBLE);
@@ -902,6 +989,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             movies_txt_topic_4.setText(mGalleryModel.getMoviesGalleryList().get(3).getTitle());
             movies_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+            ll_movies_item_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(3).getId());
+                }
+            });
         }
 
         if (mGalleryModel.getMoviesGalleryList().size() >= 5) {
@@ -915,6 +1008,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             movies_txt_topic_5.setText(mGalleryModel.getMoviesGalleryList().get(4).getTitle());
             movies_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
+            ll_movies_item_5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(4).getId());
+                }
+            });
         }
     }
 
@@ -933,6 +1032,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             events_txt_topic_1.setText(mGalleryModel.getEventsGalleryList().get(0).getTitle());
             events_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
+            ll_events_item_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(0).getId());
+                }
+            });
         }
         if (mGalleryModel.getEventsGalleryList().size() >= 2) {
             ll_events_item_2.setVisibility(View.VISIBLE);
@@ -945,6 +1050,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             events_txt_topic_2.setText(mGalleryModel.getEventsGalleryList().get(1).getTitle());
             events_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
+            ll_events_item_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(1).getId());
+                }
+            });
         }
         if (mGalleryModel.getEventsGalleryList().size() >= 3) {
             ll_events_item_3.setVisibility(View.VISIBLE);
@@ -957,6 +1068,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             events_txt_topic_3.setText(mGalleryModel.getEventsGalleryList().get(2).getTitle());
             events_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
+            ll_events_item_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(2).getId());
+                }
+            });
         }
         if (mGalleryModel.getEventsGalleryList().size() >= 4) {
             ll_events_item_4.setVisibility(View.VISIBLE);
@@ -969,6 +1086,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             events_txt_topic_4.setText(mGalleryModel.getEventsGalleryList().get(3).getTitle());
             events_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
+            ll_events_item_4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(3).getId());
+                }
+            });
         }
 
         if (mGalleryModel.getEventsGalleryList().size() >= 5) {
@@ -982,6 +1105,12 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             }
             events_txt_topic_5.setText(mGalleryModel.getEventsGalleryList().get(4).getTitle());
             events_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
+            ll_events_item_5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(4).getId());
+                }
+            });
         }
     }
 

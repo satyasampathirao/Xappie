@@ -12,7 +12,8 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.GalleryCategoryFragment;
-import com.xappie.models.GalleryItemModel;
+import com.xappie.fragments.GalleryImageViewFragment;
+import com.xappie.models.GalleryCategoryModel;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -22,23 +23,23 @@ import java.util.ArrayList;
  * Created by Shankar on 26/07/2017
  */
 
-public class ActressGridAdapter extends BaseAdapter {
+public class GalleryCategoryAdapter extends BaseAdapter {
 
-    private DashBoardActivity mDashBoardActivity;
+    private DashBoardActivity mParent;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<GalleryItemModel> actressModels;
+    private ArrayList<GalleryCategoryModel> galleryCategoryModels;
     private Typeface mOpenSansBoldTypeface;
 
-    public ActressGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<GalleryItemModel> actressModels) {
-        this.mDashBoardActivity = mDashBoardActivity;
-        mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
-        this.actressModels = actressModels;
-        mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
+    public GalleryCategoryAdapter(DashBoardActivity mParent, ArrayList<GalleryCategoryModel> galleryCategoryModels) {
+        this.mParent = mParent;
+        mLayoutInflater = LayoutInflater.from(mParent);
+        this.galleryCategoryModels = galleryCategoryModels;
+        mOpenSansBoldTypeface = Utility.getOpenSansBold(mParent);
     }
 
     @Override
     public int getCount() {
-        return actressModels.size();
+        return galleryCategoryModels.size();
     }
 
     @Override
@@ -53,11 +54,11 @@ public class ActressGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        ActressGridAdapter.ActressGridHolder mActressGridHolder = null;
+        GalleryCategoryAdapter.ActressGridHolder mActressGridHolder = null;
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.releated_topic_item,
                     null);
-            mActressGridHolder = new ActressGridAdapter.ActressGridHolder();
+            mActressGridHolder = new GalleryCategoryAdapter.ActressGridHolder();
             mActressGridHolder.img_topic = (ImageView) convertView.findViewById(R.id.img_topic);
             mActressGridHolder.tv_related_title = (TextView) convertView.findViewById(R.id.tv_related_title);
 
@@ -65,15 +66,15 @@ public class ActressGridAdapter extends BaseAdapter {
 
             convertView.setTag(mActressGridHolder);
         } else {
-            mActressGridHolder = (ActressGridAdapter.ActressGridHolder) convertView.getTag();
+            mActressGridHolder = (GalleryCategoryAdapter.ActressGridHolder) convertView.getTag();
         }
 
-        GalleryItemModel actressModel = actressModels.get(position);
-        mActressGridHolder.tv_related_title.setText(actressModel.getTitle());
+        GalleryCategoryModel galleryCategoryModel = galleryCategoryModels.get(position);
+        mActressGridHolder.tv_related_title.setText(galleryCategoryModel.getTitle());
 
-        if (!Utility.isValueNullOrEmpty(actressModel.getBanner_image())) {
+        if (!Utility.isValueNullOrEmpty(galleryCategoryModel.getBanner_image())) {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
-                    actressModel.getBanner_image(), null, R.drawable.xappie_place_holder);
+                    galleryCategoryModel.getBanner_image(), null, R.drawable.xappie_place_holder);
         } else {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
                     "", null, R.drawable.xappie_place_holder);
@@ -85,8 +86,8 @@ public class ActressGridAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int pos = v.getId();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.GALLERY_ID, actressModels.get(pos).getId());
-                Utility.navigateDashBoardFragment(new GalleryCategoryFragment(), GalleryCategoryFragment.TAG, bundle, mDashBoardActivity);
+                bundle.putString(Constants.GALLERY_ID, galleryCategoryModels.get(pos).getId());
+                Utility.navigateDashBoardFragment(new GalleryImageViewFragment(), GalleryImageViewFragment.TAG, bundle, mParent);
             }
         });
 
