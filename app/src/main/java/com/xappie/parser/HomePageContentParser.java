@@ -3,6 +3,7 @@ package com.xappie.parser;
 import android.content.Context;
 
 import com.xappie.models.EntertainmentModel;
+import com.xappie.models.GalleryItemModel;
 import com.xappie.models.HomePageContentModel;
 import com.xappie.models.Model;
 import com.xappie.models.VideosModel;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class HomePageContentParser implements Parser<Model> {
     @Override
     public Model parse(String s, Context context) {
-        HomePageContentModel mEntertainmentListModel = new HomePageContentModel();
+        HomePageContentModel homePageContentModel = new HomePageContentModel();
         try {
             JSONObject jsonObject = new JSONObject(s);
 
@@ -37,7 +38,7 @@ public class HomePageContentParser implements Parser<Model> {
                     videosModel.setUrl(videosJsonObject.optString("url"));
                     videosModels.add(videosModel);
                 }
-                mEntertainmentListModel.setVideosModels(videosModels);
+                homePageContentModel.setVideosModels(videosModels);
             }
 
             if (jsonObject.has("stories")) {
@@ -58,7 +59,7 @@ public class HomePageContentParser implements Parser<Model> {
                     entertainmentModel.setRecordedDate(storiesJsonObject.optString("recordedDate"));
                     storiesModels.add(entertainmentModel);
                 }
-                mEntertainmentListModel.setTopStoriesModels(storiesModels);
+                homePageContentModel.setTopStoriesModels(storiesModels);
             }
 
             if (jsonObject.has("entertainments")) {
@@ -79,13 +80,32 @@ public class HomePageContentParser implements Parser<Model> {
                     entertainmentModel.setRecordedDate(entertainmentsJsonObject.optString("recordedDate"));
                     entertainmentsModels.add(entertainmentModel);
                 }
-                mEntertainmentListModel.setEntertainmentModels(entertainmentsModels);
+                homePageContentModel.setEntertainmentModels(entertainmentsModels);
+            }
+            if (jsonObject.has("galleries")) {
+                JSONArray galleriesJsonArray = jsonObject.optJSONArray("galleries");
+                ArrayList<GalleryItemModel> galleryItemModels = new ArrayList<>();
+                for (int i = 0; i < galleriesJsonArray.length(); i++) {
+                    JSONObject galleriesJsonObject = galleriesJsonArray.optJSONObject(i);
+                    GalleryItemModel galleryItemModel = new GalleryItemModel();
+                    galleryItemModel.setId(galleriesJsonObject.optString("id"));
+                    galleryItemModel.setTitle(galleriesJsonObject.optString("title"));
+                    galleryItemModel.setCategory(galleriesJsonObject.optString("category"));
+                    galleryItemModel.setLanguage(galleriesJsonObject.optString("language"));
+                    galleryItemModel.setProfile_image(galleriesJsonObject.optString("profile_image"));
+                    galleryItemModel.setBanner_image(galleriesJsonObject.optString("banner_image"));
+                    galleryItemModel.setGallery_status(galleriesJsonObject.optString("gallery_status"));
+                    galleryItemModel.setRecordedBy(galleriesJsonObject.optString("recordedBy"));
+                    galleryItemModel.setRecordedDate(galleriesJsonObject.optString("recordedDate"));
+                    galleryItemModels.add(galleryItemModel);
+                }
+                homePageContentModel.setGalleryItemModels(galleryItemModels);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mEntertainmentListModel;
+        return homePageContentModel;
     }
 
 }

@@ -28,6 +28,7 @@ import com.xappie.interfaces.IHomeCustomization;
 import com.xappie.models.AdsModel;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.models.GalleryItemModel;
 import com.xappie.models.HomePageContentModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
@@ -543,25 +544,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         tv_jobs_more.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
-   /* private void setGalleryData() {
-        layout_gallery.removeAllViews();
-        for (int i = 0; i < getGallerySizes().size(); i++) {
-            RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.gallery_item, null);
-            ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
-            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
-            tv_title.setText(getGallerySizes().get(i).getTitle());
-            img_gallery_image.setImageDrawable(Utility.getDrawable(mParent, getGallerySizes().get(i).getId()));
-            img_gallery_image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryImageViewFragment(), GalleryImageViewFragment.TAG, null, mParent);
-                }
-            });
-            layout_gallery.addView(ll);
-        }
-    }*/
-
     private void setAdsData() {
         layout_ads.removeAllViews();
         for (int i = 0; i < getAdsSizes().size(); i++) {
@@ -758,6 +740,13 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             rl_entertainment_heading.setVisibility(View.GONE);
             hs_entertainment.setVisibility(View.GONE);
             ll_entertainment.setVisibility(View.GONE);
+        }
+        if (mHomePageContentModel.getGalleryItemModels() != null &&
+                mHomePageContentModel.getGalleryItemModels().size() > 0) {
+            ll_gallery_total_layout.setVisibility(View.VISIBLE);
+            setGalleryData(mHomePageContentModel.getGalleryItemModels());
+        } else {
+            ll_gallery_total_layout.setVisibility(View.GONE);
         }
     }
 
@@ -1020,6 +1009,36 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 }
             });
             layout_videos.addView(ll);
+        }
+    }
+
+    /**
+     * This method is used to set the gallery data
+     */
+    private void setGalleryData(final ArrayList<GalleryItemModel> galleryData) {
+        layout_gallery.removeAllViews();
+        for (int i = 0; i < galleryData.size(); i++) {
+            RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.gallery_item, null);
+            ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
+            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_title.setText(galleryData.get(i).getTitle());
+
+            if (!Utility.isValueNullOrEmpty(galleryData.get(i).getProfile_image()))
+                Utility.universalImageLoaderPicLoading(img_gallery_image,
+                        galleryData.get(i).getProfile_image(), null, R.drawable.xappie_place_holder);
+            else {
+                Utility.universalImageLoaderPicLoading(img_gallery_image,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+
+            img_gallery_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utility.navigateDashBoardFragment(new GalleryImageViewFragment(), GalleryImageViewFragment.TAG, null, mParent);
+                }
+            });
+            layout_gallery.addView(ll);
         }
     }
 

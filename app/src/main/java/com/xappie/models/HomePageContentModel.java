@@ -10,6 +10,7 @@ public class HomePageContentModel extends Model {
     private ArrayList<VideosModel> videosModels;
     private ArrayList<EntertainmentModel> entertainmentModels;
     private ArrayList<EntertainmentModel> topStoriesModels;
+    private ArrayList<GalleryItemModel> galleryItemModels;
 
     public ArrayList<VideosModel> getVideosModels() {
         return videosModels;
@@ -33,5 +34,13 @@ public class HomePageContentModel extends Model {
 
     public void setTopStoriesModels(ArrayList<EntertainmentModel> topStoriesModels) {
         this.topStoriesModels = topStoriesModels;
+    }
+
+    public ArrayList<GalleryItemModel> getGalleryItemModels() {
+        return galleryItemModels;
+    }
+
+    public void setGalleryItemModels(ArrayList<GalleryItemModel> galleryItemModels) {
+        this.galleryItemModels = galleryItemModels;
     }
 }
