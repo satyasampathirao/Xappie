@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.xappie.R;
+import com.xappie.models.GalleryImageViewModel;
+import com.xappie.utils.Utility;
+
+import java.util.ArrayList;
 
 /**
  * Created by Shankar on 7/26/2017.
@@ -18,10 +22,12 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
 
     private LayoutInflater inflater;
     private Context context;
+    private ArrayList<GalleryImageViewModel> galleryImageViewModels;
 
 
-    public GalleryDetailImageAdapter(Context context) {
+    public GalleryDetailImageAdapter(Context context, ArrayList<GalleryImageViewModel> galleryImageViewModels) {
         this.context = context;
+        this.galleryImageViewModels = galleryImageViewModels;
         inflater = LayoutInflater.from(context);
     }
 
@@ -32,7 +38,7 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 10;
+        return galleryImageViewModels.size();
     }
 
     @Override
@@ -42,6 +48,14 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
         assert imageLayout != null;
         final ImageView image_view = (ImageView) imageLayout
                 .findViewById(R.id.img_gallery_image);
+
+        if (!Utility.isValueNullOrEmpty(galleryImageViewModels.get(position).getImage()))
+            Utility.universalImageLoaderPicLoading(image_view,
+                    galleryImageViewModels.get(position).getImage(), null, R.drawable.xappie_place_holder);
+        else {
+            Utility.universalImageLoaderPicLoading(image_view,
+                    "", null, R.drawable.xappie_place_holder);
+        }
 
         view.addView(imageLayout, 0);
 

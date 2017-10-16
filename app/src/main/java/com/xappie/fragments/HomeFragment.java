@@ -1032,10 +1032,14 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                         "", null, R.drawable.xappie_place_holder);
             }
 
+            img_gallery_image.setId(i);
             img_gallery_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new GalleryImageViewFragment(), GalleryImageViewFragment.TAG, null, mParent);
+                    int pos = view.getId();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.GALLERY_ID, galleryData.get(pos).getId());
+                    Utility.navigateDashBoardFragment(new GalleryImageViewFragment(), GalleryImageViewFragment.TAG, bundle, mParent);
                 }
             });
             layout_gallery.addView(ll);
