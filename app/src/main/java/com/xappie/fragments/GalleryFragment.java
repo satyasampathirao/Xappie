@@ -559,9 +559,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryLatestModel.getLatestGalleryList().size() >= 2) {
             ll_gallery_item_1.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(1).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(1).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_1,
-                        mGalleryLatestModel.getLatestGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryLatestModel.getLatestGalleryList().get(1).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
@@ -578,9 +578,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryLatestModel.getLatestGalleryList().size() >= 3) {
             ll_gallery_item_2.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(2).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(2).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_2,
-                        mGalleryLatestModel.getLatestGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryLatestModel.getLatestGalleryList().get(2).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
@@ -597,9 +597,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryLatestModel.getLatestGalleryList().size() >= 4) {
             ll_gallery_item_3.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(3).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(3).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_3,
-                        mGalleryLatestModel.getLatestGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryLatestModel.getLatestGalleryList().get(3).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
@@ -616,9 +616,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryLatestModel.getLatestGalleryList().size() >= 5) {
             ll_gallery_item_4.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(4).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(4).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_4,
-                        mGalleryLatestModel.getLatestGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryLatestModel.getLatestGalleryList().get(4).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
@@ -656,9 +656,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryLatestModel.getLatestGalleryList().size() >= 7) {
             ll_gallery_item_5.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(6).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(6).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_5,
-                        mGalleryLatestModel.getLatestGalleryList().get(6).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryLatestModel.getLatestGalleryList().get(6).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
@@ -676,9 +676,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryLatestModel.getLatestGalleryList().size() >= 8) {
             ll_gallery_item_6.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(7).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(7).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_6,
-                        mGalleryLatestModel.getLatestGalleryList().get(7).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryLatestModel.getLatestGalleryList().get(7).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_6,
                         "", null, R.drawable.xappie_place_holder);
@@ -696,9 +696,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryLatestModel.getLatestGalleryList().size() >= 9) {
             ll_gallery_item_7.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(8).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(8).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_7,
-                        mGalleryLatestModel.getLatestGalleryList().get(8).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryLatestModel.getLatestGalleryList().get(8).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(gallery_img_topic_7,
                         "", null, R.drawable.xappie_place_holder);
@@ -722,9 +722,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     private void setActressData() {
         if (mGalleryModel.getActressGalleryList().size() >= 1) {
             ll_actress_item_1.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(0).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(0).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_1,
-                        mGalleryModel.getActressGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActressGalleryList().get(0).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
@@ -740,9 +740,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getActressGalleryList().size() >= 2) {
             ll_actress_item_2.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(1).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(1).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_2,
-                        mGalleryModel.getActressGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActressGalleryList().get(1).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
@@ -758,9 +758,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getActressGalleryList().size() >= 3) {
             ll_actress_item_3.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(2).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(2).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_3,
-                        mGalleryModel.getActressGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActressGalleryList().get(2).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
@@ -776,9 +776,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getActressGalleryList().size() >= 4) {
             ll_actress_item_4.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(3).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(3).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_4,
-                        mGalleryModel.getActressGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActressGalleryList().get(3).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
@@ -795,9 +795,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryModel.getActressGalleryList().size() >= 5) {
             ll_actress_item_5.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(4).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActressGalleryList().get(4).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_5,
-                        mGalleryModel.getActressGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActressGalleryList().get(4).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
@@ -829,9 +829,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     private void setActorsData() {
         if (mGalleryModel.getActorsGalleryList().size() >= 1) {
             ll_actors_item_1.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(0).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(0).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_1,
-                        mGalleryModel.getActorsGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActorsGalleryList().get(0).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
@@ -847,9 +847,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getActorsGalleryList().size() >= 2) {
             ll_actors_item_2.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(1).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(1).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_2,
-                        mGalleryModel.getActorsGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActorsGalleryList().get(1).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
@@ -865,9 +865,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getActorsGalleryList().size() >= 3) {
             ll_actors_item_3.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(2).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(2).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_3,
-                        mGalleryModel.getActorsGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActorsGalleryList().get(2).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
@@ -883,9 +883,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getActorsGalleryList().size() >= 4) {
             ll_actors_item_4.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(3).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(3).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_4,
-                        mGalleryModel.getActorsGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActorsGalleryList().get(3).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
@@ -902,9 +902,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryModel.getActorsGalleryList().size() >= 5) {
             ll_actors_item_5.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(4).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getActorsGalleryList().get(4).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_5,
-                        mGalleryModel.getActorsGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getActorsGalleryList().get(4).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
@@ -926,9 +926,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     private void setMoviesData() {
         if (mGalleryModel.getMoviesGalleryList().size() >= 1) {
             ll_movies_item_1.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(0).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(0).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_1,
-                        mGalleryModel.getMoviesGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getMoviesGalleryList().get(0).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
@@ -944,9 +944,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getMoviesGalleryList().size() >= 2) {
             ll_movies_item_2.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(1).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(1).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_2,
-                        mGalleryModel.getMoviesGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getMoviesGalleryList().get(1).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
@@ -962,9 +962,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getMoviesGalleryList().size() >= 3) {
             ll_movies_item_3.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(2).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(2).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_3,
-                        mGalleryModel.getMoviesGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getMoviesGalleryList().get(2).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
@@ -980,9 +980,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getMoviesGalleryList().size() >= 4) {
             ll_movies_item_4.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(3).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(3).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_4,
-                        mGalleryModel.getMoviesGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getMoviesGalleryList().get(3).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
@@ -999,9 +999,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryModel.getMoviesGalleryList().size() >= 5) {
             ll_movies_item_5.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(4).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getMoviesGalleryList().get(4).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_5,
-                        mGalleryModel.getMoviesGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getMoviesGalleryList().get(4).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
@@ -1023,9 +1023,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     private void setEventsData() {
         if (mGalleryModel.getEventsGalleryList().size() >= 1) {
             ll_events_item_1.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(0).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(0).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(events_img_topic_1,
-                        mGalleryModel.getEventsGalleryList().get(0).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getEventsGalleryList().get(0).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(events_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
@@ -1041,9 +1041,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getEventsGalleryList().size() >= 2) {
             ll_events_item_2.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(1).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(1).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(events_img_topic_2,
-                        mGalleryModel.getEventsGalleryList().get(1).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getEventsGalleryList().get(1).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(events_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
@@ -1059,9 +1059,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getEventsGalleryList().size() >= 3) {
             ll_events_item_3.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(2).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(2).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(events_img_topic_3,
-                        mGalleryModel.getEventsGalleryList().get(2).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getEventsGalleryList().get(2).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(events_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
@@ -1077,9 +1077,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         }
         if (mGalleryModel.getEventsGalleryList().size() >= 4) {
             ll_events_item_4.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(3).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(3).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(events_img_topic_4,
-                        mGalleryModel.getEventsGalleryList().get(3).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getEventsGalleryList().get(3).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(events_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
@@ -1096,9 +1096,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
         if (mGalleryModel.getEventsGalleryList().size() >= 5) {
             ll_events_item_5.setVisibility(View.VISIBLE);
-            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(4).getBanner_image())) {
+            if (!Utility.isValueNullOrEmpty(mGalleryModel.getEventsGalleryList().get(4).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(events_img_topic_5,
-                        mGalleryModel.getEventsGalleryList().get(4).getBanner_image(), null, R.drawable.xappie_place_holder);
+                        mGalleryModel.getEventsGalleryList().get(4).getProfile_image(), null, R.drawable.xappie_place_holder);
             } else {
                 Utility.universalImageLoaderPicLoading(events_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);

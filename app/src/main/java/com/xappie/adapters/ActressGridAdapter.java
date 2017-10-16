@@ -71,9 +71,9 @@ public class ActressGridAdapter extends BaseAdapter {
         GalleryItemModel actressModel = actressModels.get(position);
         mActressGridHolder.tv_related_title.setText(actressModel.getTitle());
 
-        if (!Utility.isValueNullOrEmpty(actressModel.getBanner_image())) {
+        if (!Utility.isValueNullOrEmpty(actressModel.getProfile_image())) {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
-                    actressModel.getBanner_image(), null, R.drawable.xappie_place_holder);
+                    actressModel.getProfile_image(), null, R.drawable.xappie_place_holder);
         } else {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
                     "", null, R.drawable.xappie_place_holder);

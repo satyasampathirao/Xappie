@@ -72,9 +72,9 @@ public class GalleryCategoryAdapter extends BaseAdapter {
         GalleryCategoryModel galleryCategoryModel = galleryCategoryModels.get(position);
         mActressGridHolder.tv_related_title.setText(galleryCategoryModel.getTitle());
 
-        if (!Utility.isValueNullOrEmpty(galleryCategoryModel.getBanner_image())) {
+        if (!Utility.isValueNullOrEmpty(galleryCategoryModel.getProfile_image())) {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
-                    galleryCategoryModel.getBanner_image(), null, R.drawable.xappie_place_holder);
+                    galleryCategoryModel.getProfile_image(), null, R.drawable.xappie_place_holder);
         } else {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
                     "", null, R.drawable.xappie_place_holder);
