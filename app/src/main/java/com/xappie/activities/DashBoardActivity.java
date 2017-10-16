@@ -147,8 +147,7 @@ public class DashBoardActivity extends BaseActivity {
                         break;
                     case R.id.gallery:
                         drawerLayout.closeDrawers();
-                        //Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
-                        Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, null, DashBoardActivity.this);
+                        Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
                         break;
                     case R.id.videos:
                         drawerLayout.closeDrawers();
@@ -311,7 +310,7 @@ public class DashBoardActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 mDialog.dismiss();
-                Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,DashBoardActivity.this);
+                Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, DashBoardActivity.this);
             }
         });
 
@@ -319,7 +318,7 @@ public class DashBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mDialog.dismiss();
-                Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,DashBoardActivity.this);
+                Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, DashBoardActivity.this);
             }
         });
 
@@ -327,7 +326,7 @@ public class DashBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mDialog.dismiss();
-                Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,DashBoardActivity.this);
+                Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, DashBoardActivity.this);
             }
         });
 
@@ -335,7 +334,7 @@ public class DashBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mDialog.dismiss();
-                Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,DashBoardActivity.this);
+                Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, DashBoardActivity.this);
             }
         });
 
@@ -343,7 +342,7 @@ public class DashBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mDialog.dismiss();
-                Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,DashBoardActivity.this);
+                Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, DashBoardActivity.this);
             }
         });
 
@@ -351,7 +350,7 @@ public class DashBoardActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mDialog.dismiss();
-                Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,DashBoardActivity.this);
+                Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, DashBoardActivity.this);
             }
         });
 
