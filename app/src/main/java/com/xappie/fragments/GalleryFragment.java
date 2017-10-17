@@ -734,7 +734,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actress_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(0).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(0).getCategory_id());
                 }
             });
         }
@@ -752,7 +752,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actress_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(1).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(1).getCategory_id());
                 }
             });
         }
@@ -770,7 +770,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actress_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(2).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(2).getCategory_id());
                 }
             });
         }
@@ -788,7 +788,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actress_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(3).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(3).getCategory_id());
                 }
             });
         }
@@ -807,7 +807,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actress_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(4).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActressGalleryList().get(4).getCategory_id());
                 }
             });
         }
@@ -841,7 +841,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actors_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(0).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(0).getCategory_id());
                 }
             });
         }
@@ -859,7 +859,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actors_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(1).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(1).getCategory_id());
                 }
             });
         }
@@ -877,7 +877,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actors_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(2).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(2).getCategory_id());
                 }
             });
         }
@@ -895,7 +895,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actors_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(3).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(3).getCategory_id());
                 }
             });
         }
@@ -914,7 +914,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_actors_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(4).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getActorsGalleryList().get(4).getCategory_id());
                 }
             });
         }
@@ -938,7 +938,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_movies_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(0).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(0).getCategory_id());
                 }
             });
         }
@@ -956,7 +956,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_movies_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(1).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(1).getCategory_id());
                 }
             });
         }
@@ -974,7 +974,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_movies_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(2).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(2).getCategory_id());
                 }
             });
         }
@@ -992,7 +992,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_movies_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(3).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(3).getCategory_id());
                 }
             });
         }
@@ -1011,7 +1011,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_movies_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(4).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getMoviesGalleryList().get(4).getCategory_id());
                 }
             });
         }
@@ -1035,7 +1035,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_events_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(0).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(0).getCategory_id());
                 }
             });
         }
@@ -1053,7 +1053,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_events_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(1).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(1).getCategory_id());
                 }
             });
         }
@@ -1071,7 +1071,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_events_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(2).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(2).getCategory_id());
                 }
             });
         }
@@ -1089,7 +1089,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_events_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(3).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(3).getCategory_id());
                 }
             });
         }
@@ -1108,7 +1108,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
             ll_events_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(4).getId());
+                    navigateGalleryCategoryView(mGalleryModel.getEventsGalleryList().get(4).getCategory_id());
                 }
             });
         }

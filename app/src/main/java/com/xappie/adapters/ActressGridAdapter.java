@@ -85,7 +85,7 @@ public class ActressGridAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int pos = v.getId();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.GALLERY_ID, actressModels.get(pos).getId());
+                bundle.putString(Constants.GALLERY_ID, actressModels.get(pos).getCategory_id());
                 Utility.navigateDashBoardFragment(new GalleryCategoryFragment(), GalleryCategoryFragment.TAG, bundle, mDashBoardActivity);
             }
         });

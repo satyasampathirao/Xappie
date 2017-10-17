@@ -18,6 +18,7 @@ public class GalleryItemModel {
     private String recordedDate;
     private String profile_image_resize;
     private String banner_image_resize;
+    private String category_id;
 
     public String getId() {
         return id;
@@ -113,5 +114,13 @@ public class GalleryItemModel {
 
     public void setBanner_image_resize(String banner_image_resize) {
         this.banner_image_resize = banner_image_resize;
+    }
+
+    public String getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
     }
 }
