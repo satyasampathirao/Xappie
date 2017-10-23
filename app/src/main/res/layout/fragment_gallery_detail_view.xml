@@ -17,8 +17,8 @@
                 android:id="@+id/img_banner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/_200dp"
-                android:scaleType="centerCrop"
+                android:minHeight="@dimen/_250dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/xappie_place_holder" />
 
             <TextView
