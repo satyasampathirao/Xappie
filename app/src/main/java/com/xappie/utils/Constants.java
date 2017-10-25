@@ -48,6 +48,7 @@ public class Constants {
     public static final String SIGN_UP_LAST_NAME = "SIGN_UP_LAST_NAME";
     public static final String SIGN_UP_DISPLAY_NAME = "SIGN_UP_DISPLAY_NAME";
     public static final String SIGN_UP_CURRENT_DATE = "SIGN_UP_CURRENT_DATE";
+    public static final String JOIN_DATE = "JOIN_DATE";
 
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";

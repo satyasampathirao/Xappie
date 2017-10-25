@@ -61,11 +61,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -765,5 +768,22 @@ public class Utility {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         String formattedDate = df.format(c.getTime());
         return formattedDate;
+    }
+
+    /**
+     * This method is used to get the current date
+     */
+    public static String getJoiningDate(String sDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM yyyy", Locale.getDefault());
+        Date date;
+        String outputDateStr = "";
+        try {
+            date = inputFormat.parse(sDate);
+            outputDateStr = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
     }
 }

@@ -14,6 +14,7 @@ public class LoginModel extends Model {
     private String last_name;
     private String display_name;
     private String photo;
+    private String joined_date;
     private String ci_session;
 
     public String getStatus() {
@@ -86,5 +87,13 @@ public class LoginModel extends Model {
 
     public void setDisplay_name(String display_name) {
         this.display_name = display_name;
+    }
+
+    public String getJoined_date() {
+        return joined_date;
+    }
+
+    public void setJoined_date(String joined_date) {
+        this.joined_date = joined_date;
     }
 }

@@ -194,6 +194,9 @@ public class DashBoardActivity extends BaseActivity {
             tv_sign_in_to_xappie.setVisibility(View.GONE);
             tv_joined.setVisibility(View.VISIBLE);
             txt_view_profile.setVisibility(View.VISIBLE);
+            tv_joined.setTextColor(Utility.getColor(DashBoardActivity.this, R.color.white));
+            tv_joined.setText(Utility.getResourcesString(DashBoardActivity.this, R.string.joined) + " " +
+                    Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.JOIN_DATE).toUpperCase());
             txt_hello.setText(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_FIRST_NAME)
                     + " " + Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_LAST_NAME));
 

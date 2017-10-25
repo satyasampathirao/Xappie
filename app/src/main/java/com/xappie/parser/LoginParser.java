@@ -28,6 +28,7 @@ public class LoginParser implements Parser<Model> {
                 mLoginModel.setLast_name(jsonObject.optString("last_name"));
                 mLoginModel.setDisplay_name(jsonObject.optString("display_name"));
                 mLoginModel.setPhoto(jsonObject.optString("photo"));
+                mLoginModel.setJoined_date(jsonObject.optString("joined_date"));
                 mLoginModel.setCi_session(jsonObject.optString("ci_session"));
             } else if (jsonObject.has("failed")) {
                 JSONObject jsonObject1 = jsonObject.optJSONObject("failed");

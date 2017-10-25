@@ -418,6 +418,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_DISPLAY_NAME, mLoginModel.getDisplay_name());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_MAIL_ID, mLoginModel.getEmail());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_UUID, mLoginModel.getUuid());
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.JOIN_DATE, Utility.getJoiningDate(mLoginModel.getJoined_date()));
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.TOKEN, mLoginModel.getCi_session());
                     Intent signUpIntent = new Intent(this, DashBoardActivity.class);
                     startActivity(signUpIntent);
