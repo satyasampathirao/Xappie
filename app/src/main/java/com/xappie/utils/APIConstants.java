@@ -36,5 +36,6 @@ public class APIConstants {
     public static String RESET_PASSWORD = BASE_URL + "reset_password";
     public static String UPDATE_PASSWORD = BASE_URL + "update_password";
     public static String UPDATE_PROFILE = BASE_URL + "update_profile";
+    public static String GET_HOME_BANNER = BASE_URL + "get_home_banner";
 
 }

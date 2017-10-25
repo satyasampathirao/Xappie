@@ -29,6 +29,7 @@ import com.xappie.models.AdsModel;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.GalleryItemModel;
+import com.xappie.models.HomePageBannerListModel;
 import com.xappie.models.HomePageContentModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
@@ -37,6 +38,7 @@ import com.xappie.models.NewsModel;
 import com.xappie.models.TopStoriesListModel;
 import com.xappie.models.VideosModel;
 import com.xappie.parser.EntertainmentParser;
+import com.xappie.parser.HomePageBannerParser;
 import com.xappie.parser.HomePageContentParser;
 import com.xappie.parser.LanguageParser;
 import com.xappie.parser.TopStoriesParser;
@@ -234,6 +236,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     LinearLayout ll_jobs;
 
     private LanguageListModel mLanguageListModel;
+    private HomePageBannerListModel mHomePageBannerListModel;
     private LanguageModel languageModel;
     private HomePageContentModel mHomePageContentModel;
     private TopStoriesListModel mTopStoriesListModel;
@@ -274,12 +277,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     }
 
     private void initUI() {
-        ArrayList<String> mList = new ArrayList<>();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        card_pager.setAdapter(new HomeViewPagerAdapter(mParent, mList));
         setTypeface();
         getLanguagesData();
         setAdsData();
@@ -318,6 +315,28 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_HOME_CONTENT, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, videosParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to get home banner data
+     */
+    private void getHomeBannerData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+            HomePageBannerParser homePageBannerParser = new HomePageBannerParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_HOME_BANNER, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, homePageBannerParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
@@ -660,8 +679,11 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                             languageModel = mLanguageListModel.getLanguageModels().get(i);
                         }
                     }
-                    getHomePageData();
+                    getHomeBannerData();
                 }
+            } else if (model instanceof HomePageBannerListModel) {
+                mHomePageBannerListModel = (HomePageBannerListModel) model;
+                setDataToBanner();
             } else if (model instanceof HomePageContentModel) {
                 mHomePageContentModel = (HomePageContentModel) model;
                 setDataToTheScreen();
@@ -683,6 +705,14 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 }
             }
         }
+    }
+
+    /**
+     * This method is used to set the data to the screen
+     */
+    private void setDataToBanner() {
+        getHomePageData();
+        card_pager.setAdapter(new HomeViewPagerAdapter(mParent, mHomePageBannerListModel.getHomePageBannerModels()));
     }
 
     /**

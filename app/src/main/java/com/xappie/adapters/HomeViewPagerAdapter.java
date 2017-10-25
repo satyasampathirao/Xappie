@@ -2,23 +2,18 @@ package com.xappie.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.models.HomePageBannerModel;
 import com.xappie.utils.Utility;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Shankar on 7/21/2017.
@@ -27,10 +22,10 @@ import java.util.Date;
 public class HomeViewPagerAdapter extends PagerAdapter {
 
     private LayoutInflater inflater;
-    private ArrayList<String> list;
+    private ArrayList<HomePageBannerModel> homePageBannerModels;
 
-    public HomeViewPagerAdapter(Context context, ArrayList<String> list) {
-        this.list = list;
+    public HomeViewPagerAdapter(Context context, ArrayList<HomePageBannerModel> homePageBannerModels) {
+        this.homePageBannerModels = homePageBannerModels;
         inflater = LayoutInflater.from(context);
     }
 
@@ -41,7 +36,7 @@ public class HomeViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return homePageBannerModels.size();
     }
 
     @SuppressLint("SetTextI18n")
@@ -49,10 +44,17 @@ public class HomeViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup view, int position) {
         View imageLayout = inflater.inflate(R.layout.home_pager_item, view, false);
 
-        String model = list.get(position);
+        HomePageBannerModel homePageBannerModel = homePageBannerModels.get(position);
 
         final ImageView img_home_banner = (ImageView) imageLayout.findViewById(R.id.img_home_banner);
-        Utility.universalImageLoaderPicLoading(img_home_banner, model, null, R.drawable.xappie_place_holder);
+
+        if (!Utility.isValueNullOrEmpty(homePageBannerModel.getBanner_image())) {
+            Utility.universalImageLoaderPicLoading(img_home_banner,
+                    homePageBannerModel.getBanner_image(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(img_home_banner,
+                    "", null, R.drawable.xappie_place_holder);
+        }
 
         view.addView(imageLayout, 0);
         return imageLayout;
