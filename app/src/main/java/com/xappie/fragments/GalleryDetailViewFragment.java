@@ -333,7 +333,11 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
                 e.printStackTrace();
             }
         }
-        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getProfile_image()))
+        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image()))
+            Utility.universalImageLoaderPicLoading(img_banner,
+                    entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image(),
+                    null, R.drawable.xappie_place_holder);
+        else if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getProfile_image()))
             Utility.universalImageLoaderPicLoading(img_banner,
                     entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getProfile_image(),
                     null, R.drawable.xappie_place_holder);

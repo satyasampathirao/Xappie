@@ -38,6 +38,7 @@ public class ActressActorParser implements Parser<Model> {
                     galleryItemModel.setGallery_status(actorsJsonObject.optString("gallery_status"));
                     galleryItemModel.setRecordedBy(actorsJsonObject.optString("recordedBy"));
                     galleryItemModel.setCategory_id(actorsJsonObject.optString("category_id"));
+                    galleryItemModel.setCategory_name(actorsJsonObject.optString("category_name"));
                     galleryItemModel.setRecordedDate(actorsJsonObject.optString("recordedDate"));
                     galleryItemModel.setProfile_image_resize(actorsJsonObject.optString("profile_image_resize"));
                     galleryItemModel.setBanner_image_resize(actorsJsonObject.optString("banner_image_resize"));
@@ -65,6 +66,7 @@ public class ActressActorParser implements Parser<Model> {
                     galleryItemModel.setGallery_status(actressJsonObject.optString("gallery_status"));
                     galleryItemModel.setRecordedBy(actressJsonObject.optString("recordedBy"));
                     galleryItemModel.setCategory_id(actressJsonObject.optString("category_id"));
+                    galleryItemModel.setCategory_name(actressJsonObject.optString("category_name"));
                     galleryItemModel.setRecordedDate(actressJsonObject.optString("recordedDate"));
                     galleryItemModel.setProfile_image_resize(actressJsonObject.optString("profile_image_resize"));
                     galleryItemModel.setBanner_image_resize(actressJsonObject.optString("banner_image_resize"));
@@ -92,6 +94,7 @@ public class ActressActorParser implements Parser<Model> {
                     galleryItemModel.setStatus(moviesJsonObject.optString("status"));
                     galleryItemModel.setGallery_status(moviesJsonObject.optString("gallery_status"));
                     galleryItemModel.setRecordedBy(moviesJsonObject.optString("recordedBy"));
+                    galleryItemModel.setCategory_name(moviesJsonObject.optString("category_name"));
                     galleryItemModel.setRecordedDate(moviesJsonObject.optString("recordedDate"));
                     galleryItemModel.setProfile_image_resize(moviesJsonObject.optString("profile_image_resize"));
                     galleryItemModel.setBanner_image_resize(moviesJsonObject.optString("banner_image_resize"));
@@ -118,6 +121,7 @@ public class ActressActorParser implements Parser<Model> {
                     galleryItemModel.setStatus(eventsJsonObject.optString("status"));
                     galleryItemModel.setGallery_status(eventsJsonObject.optString("gallery_status"));
                     galleryItemModel.setRecordedBy(eventsJsonObject.optString("recordedBy"));
+                    galleryItemModel.setCategory_name(eventsJsonObject.optString("category_name"));
                     galleryItemModel.setCategory_id(eventsJsonObject.optString("category_id"));
                     galleryItemModel.setRecordedDate(eventsJsonObject.optString("recordedDate"));
                     galleryItemModel.setProfile_image_resize(eventsJsonObject.optString("profile_image_resize"));

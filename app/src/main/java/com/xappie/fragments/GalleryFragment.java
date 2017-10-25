@@ -149,6 +149,13 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.gallery_txt_topic_7)
     TextView gallery_txt_topic_7;
 
+    @BindView(R.id.ll_gallery_item_8)
+    LinearLayout ll_gallery_item_8;
+    @BindView(R.id.gallery_img_topic_8)
+    ImageView gallery_img_topic_8;
+    @BindView(R.id.gallery_txt_topic_8)
+    TextView gallery_txt_topic_8;
+
     @BindView(R.id.tv_ads)
     TextView tv_ads;
     @BindView(R.id.layout_ads)
@@ -436,11 +443,6 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
-    @OnClick(R.id.gallery_more)
-    public void navigateGalleryMore() {
-        //Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
-    }
-
     @OnClick(R.id.actress_more)
     public void navigateActressMore() {
         Bundle bundle = new Bundle();
@@ -713,6 +715,25 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 }
             });
         }
+        if (mGalleryLatestModel.getLatestGalleryList().size() >= 10) {
+            ll_gallery_item_8.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(mGalleryLatestModel.getLatestGalleryList().get(9).getProfile_image())) {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_8,
+                        mGalleryLatestModel.getLatestGalleryList().get(9).getProfile_image(), null, R.drawable.xappie_place_holder);
+            } else {
+                Utility.universalImageLoaderPicLoading(gallery_img_topic_8,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            gallery_txt_topic_8.setText(mGalleryLatestModel.getLatestGalleryList().get(9).getTitle());
+            gallery_txt_topic_8.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            ll_gallery_item_8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navigateGalleryDetailView(mGalleryLatestModel.getLatestGalleryList().get(9).getId());
+                }
+            });
+        }
         getGalleryData();
     }
 
@@ -729,7 +750,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actress_txt_topic_1.setText(mGalleryModel.getActressGalleryList().get(0).getTitle());
+            actress_txt_topic_1.setText(mGalleryModel.getActressGalleryList().get(0).getCategory_name());
             actress_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -747,7 +768,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actress_txt_topic_2.setText(mGalleryModel.getActressGalleryList().get(1).getTitle());
+            actress_txt_topic_2.setText(mGalleryModel.getActressGalleryList().get(1).getCategory_name());
             actress_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -765,7 +786,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actress_txt_topic_3.setText(mGalleryModel.getActressGalleryList().get(2).getTitle());
+            actress_txt_topic_3.setText(mGalleryModel.getActressGalleryList().get(2).getCategory_name());
             actress_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -783,7 +804,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actress_txt_topic_4.setText(mGalleryModel.getActressGalleryList().get(3).getTitle());
+            actress_txt_topic_4.setText(mGalleryModel.getActressGalleryList().get(3).getCategory_name());
             actress_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -802,7 +823,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actress_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actress_txt_topic_5.setText(mGalleryModel.getActressGalleryList().get(4).getTitle());
+            actress_txt_topic_5.setText(mGalleryModel.getActressGalleryList().get(4).getCategory_name());
             actress_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -836,7 +857,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actors_txt_topic_1.setText(mGalleryModel.getActorsGalleryList().get(0).getTitle());
+            actors_txt_topic_1.setText(mGalleryModel.getActorsGalleryList().get(0).getCategory_name());
             actors_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -854,7 +875,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actors_txt_topic_2.setText(mGalleryModel.getActorsGalleryList().get(1).getTitle());
+            actors_txt_topic_2.setText(mGalleryModel.getActorsGalleryList().get(1).getCategory_name());
             actors_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -872,7 +893,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actors_txt_topic_3.setText(mGalleryModel.getActorsGalleryList().get(2).getTitle());
+            actors_txt_topic_3.setText(mGalleryModel.getActorsGalleryList().get(2).getCategory_name());
             actors_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -890,7 +911,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actors_txt_topic_4.setText(mGalleryModel.getActorsGalleryList().get(3).getTitle());
+            actors_txt_topic_4.setText(mGalleryModel.getActorsGalleryList().get(3).getCategory_name());
             actors_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -909,7 +930,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(actors_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
             }
-            actors_txt_topic_5.setText(mGalleryModel.getActorsGalleryList().get(4).getTitle());
+            actors_txt_topic_5.setText(mGalleryModel.getActorsGalleryList().get(4).getCategory_name());
             actors_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -933,7 +954,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
             }
-            movies_txt_topic_1.setText(mGalleryModel.getMoviesGalleryList().get(0).getTitle());
+            movies_txt_topic_1.setText(mGalleryModel.getMoviesGalleryList().get(0).getCategory_name());
             movies_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -951,7 +972,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
             }
-            movies_txt_topic_2.setText(mGalleryModel.getMoviesGalleryList().get(1).getTitle());
+            movies_txt_topic_2.setText(mGalleryModel.getMoviesGalleryList().get(1).getCategory_name());
             movies_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -969,7 +990,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
             }
-            movies_txt_topic_3.setText(mGalleryModel.getMoviesGalleryList().get(2).getTitle());
+            movies_txt_topic_3.setText(mGalleryModel.getMoviesGalleryList().get(2).getCategory_name());
             movies_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -987,7 +1008,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
             }
-            movies_txt_topic_4.setText(mGalleryModel.getMoviesGalleryList().get(3).getTitle());
+            movies_txt_topic_4.setText(mGalleryModel.getMoviesGalleryList().get(3).getCategory_name());
             movies_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1006,7 +1027,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(movies_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
             }
-            movies_txt_topic_5.setText(mGalleryModel.getMoviesGalleryList().get(4).getTitle());
+            movies_txt_topic_5.setText(mGalleryModel.getMoviesGalleryList().get(4).getCategory_name());
             movies_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1030,7 +1051,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(events_img_topic_1,
                         "", null, R.drawable.xappie_place_holder);
             }
-            events_txt_topic_1.setText(mGalleryModel.getEventsGalleryList().get(0).getTitle());
+            events_txt_topic_1.setText(mGalleryModel.getEventsGalleryList().get(0).getCategory_name());
             events_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1048,7 +1069,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(events_img_topic_2,
                         "", null, R.drawable.xappie_place_holder);
             }
-            events_txt_topic_2.setText(mGalleryModel.getEventsGalleryList().get(1).getTitle());
+            events_txt_topic_2.setText(mGalleryModel.getEventsGalleryList().get(1).getCategory_name());
             events_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1066,7 +1087,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(events_img_topic_3,
                         "", null, R.drawable.xappie_place_holder);
             }
-            events_txt_topic_3.setText(mGalleryModel.getEventsGalleryList().get(2).getTitle());
+            events_txt_topic_3.setText(mGalleryModel.getEventsGalleryList().get(2).getCategory_name());
             events_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1084,7 +1105,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(events_img_topic_4,
                         "", null, R.drawable.xappie_place_holder);
             }
-            events_txt_topic_4.setText(mGalleryModel.getEventsGalleryList().get(3).getTitle());
+            events_txt_topic_4.setText(mGalleryModel.getEventsGalleryList().get(3).getCategory_name());
             events_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1103,7 +1124,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                 Utility.universalImageLoaderPicLoading(events_img_topic_5,
                         "", null, R.drawable.xappie_place_holder);
             }
-            events_txt_topic_5.setText(mGalleryModel.getEventsGalleryList().get(4).getTitle());
+            events_txt_topic_5.setText(mGalleryModel.getEventsGalleryList().get(4).getCategory_name());
             events_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override

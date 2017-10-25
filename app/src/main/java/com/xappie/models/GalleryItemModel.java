@@ -9,6 +9,7 @@ public class GalleryItemModel {
     private String id;
     private String title;
     private String category;
+    private String category_name;
     private String language;
     private String profile_image;
     private String banner_image;
@@ -122,5 +123,13 @@ public class GalleryItemModel {
 
     public void setCategory_id(String category_id) {
         this.category_id = category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 }
