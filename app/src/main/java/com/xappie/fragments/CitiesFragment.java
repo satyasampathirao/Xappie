@@ -98,6 +98,7 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
             mSelectedCountryName = bundle.getString(Constants.SELECTED_COUNTRY_NAME);
             mSelectedStateName = bundle.getString(Constants.SELECTED_STATE_NAME);
             mSelectedStateId = bundle.getString(Constants.SELECTED_STATE_ID);
+            mSelectedCountryId = bundle.getString(Constants.SELECTED_COUNTRY_ID);
         }
     }
 
