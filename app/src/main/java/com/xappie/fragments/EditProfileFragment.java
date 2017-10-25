@@ -139,7 +139,12 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
         tv_email.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_MAIL_ID));
         edit_text_full_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME));
         edit_text_mobile.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_MOBILE));
-        //edit_text_display_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME));
+        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_DISPLAY_NAME))) {
+            edit_text_display_name.setText("");
+        } else {
+            edit_text_display_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_DISPLAY_NAME));
+        }
+
     }
 
 
@@ -150,6 +155,7 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
             paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             paramMap.put("first_name", edit_text_full_name.getText().toString());
             paramMap.put("last_name", "");
+            paramMap.put("display_name", edit_text_display_name.getText().toString());
             paramMap.put("email", tv_email.getText().toString());
             paramMap.put("mobile", edit_text_mobile.getText().toString());
             SignUpLoginSuccessParser mSignUpLoginSuccessParser = new SignUpLoginSuccessParser();
@@ -166,10 +172,6 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
         if (Utility.isValueNullOrEmpty(edit_text_full_name.getText().toString())) {
             Utility.setSnackBar(mParent, edit_text_full_name, "Please enter full name");
             edit_text_full_name.requestFocus();
-            isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edit_text_mobile.getText().toString())) {
-            Utility.setSnackBar(mParent, edit_text_mobile, "Please enter mobile number");
-            edit_text_mobile.requestFocus();
             isValid = false;
         }
         return isValid;
@@ -206,6 +208,9 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
                     Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME, edit_text_full_name.getText().toString());
                     if (!Utility.isValueNullOrEmpty(edit_text_mobile.getText().toString())) {
                         Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_MOBILE, edit_text_mobile.getText().toString());
+                    }
+                    if (!Utility.isValueNullOrEmpty(edit_text_display_name.getText().toString())) {
+                        Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_DISPLAY_NAME, edit_text_display_name.getText().toString());
                     }
                     mParent.onBackPressed();
                 } else {

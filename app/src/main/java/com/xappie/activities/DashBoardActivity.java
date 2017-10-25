@@ -197,8 +197,11 @@ public class DashBoardActivity extends BaseActivity {
             tv_joined.setTextColor(Utility.getColor(DashBoardActivity.this, R.color.white));
             tv_joined.setText(Utility.getResourcesString(DashBoardActivity.this, R.string.joined) + " " +
                     Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.JOIN_DATE).toUpperCase());
-            txt_hello.setText(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_FIRST_NAME)
-                    + " " + Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_LAST_NAME));
+            if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_DISPLAY_NAME))) {
+                txt_hello.setText(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_DISPLAY_NAME));
+            } else
+                txt_hello.setText(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_FIRST_NAME)
+                        + " " + Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_LAST_NAME));
 
         } else {
             img_user_image.setImageDrawable(Utility.getDrawable(this, R.drawable.avatar_image));

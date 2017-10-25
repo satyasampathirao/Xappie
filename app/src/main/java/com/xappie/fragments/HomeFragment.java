@@ -765,7 +765,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_entertainment.setVisibility(View.VISIBLE);
             ll_entertainment.setVisibility(View.VISIBLE);
             setEntertainmentLanguages();
-            setEntertainmentData(mHomePageContentModel.getTopStoriesModels());
+            setEntertainmentData(mHomePageContentModel.getEntertainmentModels());
         } else {
             rl_entertainment_heading.setVisibility(View.GONE);
             hs_entertainment.setVisibility(View.GONE);
