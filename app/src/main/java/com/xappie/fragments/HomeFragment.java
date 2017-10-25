@@ -309,6 +309,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
             linkedHashMap.put(Constants.PAGE_NO, "1");
+            linkedHashMap.put(Constants.PAGE_SIZE, "7");
             linkedHashMap.put("modules", Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS));
             HomePageContentParser videosParser = new HomePageContentParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(

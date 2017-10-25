@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.models.GalleryImageViewModel;
@@ -48,6 +49,8 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
         assert imageLayout != null;
         final ImageView image_view = (ImageView) imageLayout
                 .findViewById(R.id.img_gallery_image);
+        final TextView tv_title = (TextView) imageLayout
+                .findViewById(R.id.tv_title);
 
         if (!Utility.isValueNullOrEmpty(galleryImageViewModels.get(position).getImage()))
             Utility.universalImageLoaderPicLoading(image_view,
@@ -56,7 +59,8 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
             Utility.universalImageLoaderPicLoading(image_view,
                     "", null, R.drawable.xappie_place_holder);
         }
-
+        tv_title.setTypeface(Utility.getOpenSansRegular(context));
+        tv_title.setText(galleryImageViewModels.get(position).getDescription());
         view.addView(imageLayout, 0);
 
         return imageLayout;

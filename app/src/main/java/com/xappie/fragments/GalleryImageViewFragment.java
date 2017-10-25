@@ -61,7 +61,7 @@ public class GalleryImageViewFragment extends Fragment implements IAsyncCaller {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
-
+    private int mImagePos;
 
     private GalleryDetailImageAdapter galleryDetailImageAdapter;
     private String mGalleryId = "";
@@ -164,5 +164,23 @@ public class GalleryImageViewFragment extends Fragment implements IAsyncCaller {
     private void setGalleryData() {
         galleryDetailImageAdapter = new GalleryDetailImageAdapter(mParent, mGalleryImageViewListModel.getGalleryImageViewModels());
         gallery_images_view_pager.setAdapter(galleryDetailImageAdapter);
+        tv_page_no.setText((mImagePos + 1) + " of " + mGalleryImageViewListModel.getGalleryImageViewModels().size());
+        gallery_images_view_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                tv_page_no.setText((position + 1) + " of " + mGalleryImageViewListModel.getGalleryImageViewModels().size());
+                mImagePos = position;
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }
