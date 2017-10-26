@@ -142,13 +142,13 @@ public class HomePageCustomizationFragment extends Fragment {
         for (int i = 0; i < namesAfterSplit.length; i++) {
             if (namesAfterSplit[i].equalsIgnoreCase("discussions")) {
                 switch_button_discussion.setChecked(true);
-            } else if (namesAfterSplit[i].equalsIgnoreCase("entertainment")) {
+            } else if (namesAfterSplit[i].equalsIgnoreCase("entertainments")) {
                 switch_button_entertainment.setChecked(true);
             } else if (namesAfterSplit[i].equalsIgnoreCase("stories")) {
                 switch_button_top_stories.setChecked(true);
             } else if (namesAfterSplit[i].equalsIgnoreCase("videos")) {
                 switch_button_videos.setChecked(true);
-            } else if (namesAfterSplit[i].equalsIgnoreCase("gallery")) {
+            } else if (namesAfterSplit[i].equalsIgnoreCase("galleries")) {
                 switch_button_videos.setChecked(true);
             }
         }

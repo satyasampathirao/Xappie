@@ -381,6 +381,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
                     setLanguages();
                     mCurrentLanguage = languageModel.getId();
+                    getLatestGalleryData();
                 }
             });
 

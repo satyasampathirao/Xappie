@@ -858,7 +858,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", id);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
-            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_SEVEN);
             TopStoriesParser topStoriesParser = new TopStoriesParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
@@ -879,7 +879,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", id);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
-            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_SEVEN);
             EntertainmentParser entertainmentParser = new EntertainmentParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,

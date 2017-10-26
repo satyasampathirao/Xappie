@@ -19,6 +19,7 @@ public class Constants {
     public static final String PAGE_NO = "page_no";
     public static final String PAGE_SIZE = "page_size";
     public static final String PAGE_SIZE_VALUE = "20";
+    public static final String PAGE_SIZE_SEVEN = "7";
     public static final String API_KEY_VALUE = "599cec8071d45";
     public static final String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
     public static final String SELECTED_LANGUAGE_ID = "SELECTED_LANGUAGE_ID";
