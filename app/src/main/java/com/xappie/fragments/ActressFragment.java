@@ -21,6 +21,7 @@ import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ActressActorsListModel;
 import com.xappie.models.GalleryItemModel;
+import com.xappie.models.GallerySubModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
@@ -85,7 +86,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
     private LanguageListModel mLanguageListModel;
     private LanguageModel languageModel;
     private String mCurrentLanguage;
-    private ArrayList<GalleryItemModel> actressModels;
+    private ArrayList<GallerySubModel> actressModels;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -222,7 +223,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
             ActressActorParser actressActorParser = new ActressActorParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
-                    APIConstants.GET_GALLERY, linkedHashMap,
+                    APIConstants.GET_GALLERY_CATEGORIES, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, actressActorParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
@@ -273,7 +274,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
             } else if (model instanceof ActressActorsListModel) {
                 ActressActorsListModel mActressActorsListModel = (ActressActorsListModel) model;
                 if (actressModels == null) {
-                    if (mActressActorsListModel.getGalleryItemModels() == null) {
+                    if (mActressActorsListModel.getGallerySubModels() == null) {
                         tv_no_data_found.setVisibility(View.VISIBLE);
                         grid_view.setVisibility(View.GONE);
                     } else {
@@ -282,7 +283,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                         if (actressModels == null) {
                             actressModels = new ArrayList<>();
                         }
-                        actressModels.addAll(mActressActorsListModel.getGalleryItemModels());
+                        actressModels.addAll(mActressActorsListModel.getGallerySubModels());
                         if (actressGridAdapter == null) {
                             setGridViewData();
                         }
@@ -290,8 +291,8 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                 } else {
                     grid_view.setVisibility(View.VISIBLE);
                     tv_no_data_found.setVisibility(View.GONE);
-                    if (mActressActorsListModel.getGalleryItemModels() != null && mActressActorsListModel.getGalleryItemModels().size() > 0) {
-                        actressModels.addAll(mActressActorsListModel.getGalleryItemModels());
+                    if (mActressActorsListModel.getGallerySubModels() != null && mActressActorsListModel.getGallerySubModels().size() > 0) {
+                        actressModels.addAll(mActressActorsListModel.getGallerySubModels());
                         if (actressGridAdapter == null) {
                             setGridViewData();
                         } else {
