@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.activities.LoginActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.Model;
@@ -60,6 +59,10 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
     TextView tv_edit_profile_full_name;
     @BindView(R.id.edit_text_full_name)
     EditText edit_text_full_name;
+    @BindView(R.id.tv_edit_profile_last_name)
+    TextView tv_edit_profile_last_name;
+    @BindView(R.id.edit_text_last_name)
+    EditText edit_text_last_name;
     @BindView(R.id.tv_edit_profile_display_name)
     TextView tv_edit_profile_display_name;
     @BindView(R.id.edit_text_display_name)
@@ -144,6 +147,16 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
         } else {
             edit_text_display_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_DISPLAY_NAME));
         }
+        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME))) {
+            edit_text_full_name.setText("");
+        } else {
+            edit_text_full_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_DISPLAY_NAME));
+        }
+        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_LAST_NAME))) {
+            edit_text_last_name.setText("");
+        } else {
+            edit_text_last_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_LAST_NAME));
+        }
 
     }
 
@@ -154,7 +167,7 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
             LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
             paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             paramMap.put("first_name", edit_text_full_name.getText().toString());
-            paramMap.put("last_name", "");
+            paramMap.put("last_name", edit_text_last_name.getText().toString());
             paramMap.put("display_name", edit_text_display_name.getText().toString());
             paramMap.put("email", tv_email.getText().toString());
             paramMap.put("mobile", edit_text_mobile.getText().toString());
@@ -205,7 +218,13 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
                 mSignupLoginSuccessModel = (SignupLoginSuccessModel) model;
                 if (mSignupLoginSuccessModel.isStatus()) {
                     Utility.showToastMessage(mParent, mSignupLoginSuccessModel.getMessage());
-                    Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME, edit_text_full_name.getText().toString());
+
+                    if (!Utility.isValueNullOrEmpty(edit_text_full_name.getText().toString())) {
+                        Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME, edit_text_full_name.getText().toString());
+                    }
+                    if (!Utility.isValueNullOrEmpty(edit_text_last_name.getText().toString())) {
+                        Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_LAST_NAME, edit_text_last_name.getText().toString());
+                    }
                     if (!Utility.isValueNullOrEmpty(edit_text_mobile.getText().toString())) {
                         Utility.setSharedPrefStringData(mParent, Constants.SIGN_UP_MOBILE, edit_text_mobile.getText().toString());
                     }
