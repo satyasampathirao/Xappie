@@ -47,6 +47,7 @@
     <color name="customization_dialog_text_color">#9d001d</color>
 
     <color name="error_alert">#FB5151</color>
+    <color name="types_color">#B52838</color>
     <color name="black">@android:color/black</color>
 
 </resources>

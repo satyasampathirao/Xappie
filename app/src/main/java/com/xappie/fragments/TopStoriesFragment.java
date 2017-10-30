@@ -279,9 +279,14 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
-                    languageModel = mLanguageListModel.getLanguageModels().get(0);
+                    for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID)
+                                .equalsIgnoreCase(mLanguageListModel.getLanguageModels().get(i).getId())) {
+                            languageModel = mLanguageListModel.getLanguageModels().get(i);
+                        }
+                    }
                     setLanguages();
-                    getTopStoriesData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
+                    getTopStoriesData(languageModel.getId(), "" + 1);
                 }
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;

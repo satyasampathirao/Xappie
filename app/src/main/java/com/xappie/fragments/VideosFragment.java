@@ -22,8 +22,11 @@ import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
+import com.xappie.models.VideoTypeModel;
+import com.xappie.models.VideoTypesListModel;
 import com.xappie.models.VideosListModel;
 import com.xappie.parser.LanguageParser;
+import com.xappie.parser.VideoTypesParser;
 import com.xappie.parser.VideosParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -67,6 +70,8 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     /**
      * Gallery Actress setup
      */
+    @BindView(R.id.ll_video_types)
+    LinearLayout ll_video_types;
     @BindView(R.id.ll_languages)
     LinearLayout ll_languages;
     @BindView(R.id.grid_view)
@@ -77,8 +82,10 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceFontAwesomeWebFont;
     private LanguageListModel mLanguageListModel;
     private VideosListModel mVideosListModel;
+    private VideoTypesListModel mVideoTypesListModel;
 
     private LanguageModel languageModel;
+    private VideoTypeModel videoTypeModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -177,7 +184,9 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
         Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
-    /*This method is used to set the languages*/
+    /**
+     * This method is used to set the languages
+     */
     private void setLanguages() {
         ll_languages.removeAllViews();
         for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
@@ -195,7 +204,8 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
                     int pos = v.getId();
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
                     setLanguages();
-                    getVideosData(languageModel.getId(), "" + 1);
+                    videoTypeModel = null;
+                    getVideoTypes();
                 }
             });
 
@@ -212,6 +222,41 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     }
 
     /**
+     * This method is used to set the video types
+     */
+    private void setVideoTypes() {
+        ll_video_types.removeAllViews();
+        for (int i = 0; i < mVideoTypesListModel.getVideoTypeModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_type_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_type);
+            tv_type.setText(mVideoTypesListModel.getVideoTypeModels().get(i).getName());
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            tv_type.setId(i);
+            tv_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    videoTypeModel = mVideoTypesListModel.getVideoTypeModels().get(pos);
+                    setVideoTypes();
+                    getVideosData(languageModel.getId(), "" + 1, videoTypeModel.getId());
+                }
+            });
+
+            if (videoTypeModel != null && mVideoTypesListModel.getVideoTypeModels().get(i).getId() == videoTypeModel.getId()) {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+                tv_type.setBackground(Utility.getDrawable(mParent, R.drawable.bg_color_rect));
+            } else {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.types_color));
+                tv_type.setBackground(null);
+            }
+
+            ll_video_types.addView(ll);
+        }
+    }
+
+    /**
      * After complete the service call back will be coming in this method
      * It returns the respective model
      */
@@ -221,9 +266,22 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
-                    languageModel = mLanguageListModel.getLanguageModels().get(0);
+                    for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID)
+                                .equalsIgnoreCase(mLanguageListModel.getLanguageModels().get(i).getId())) {
+                            languageModel = mLanguageListModel.getLanguageModels().get(i);
+                        }
+                    }
                     setLanguages();
-                    getVideosData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
+                    getVideoTypes();
+                    //getVideosData(mLanguageListModel.getLanguageModels().get(0).getId(), "" + 1);
+                }
+            } else if (model instanceof VideoTypesListModel) {
+                mVideoTypesListModel = (VideoTypesListModel) model;
+                if (mVideoTypesListModel.getVideoTypeModels().size() > 0) {
+                    videoTypeModel = mVideoTypesListModel.getVideoTypeModels().get(0);
+                    getVideosData(languageModel.getId(), "" + 1, videoTypeModel.getId());
+                    setVideoTypes();
                 }
             } else if (model instanceof VideosListModel) {
                 mVideosListModel = (VideosListModel) model;
@@ -237,11 +295,12 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     /**
      * This method is used to get data of the videos
      */
-    private void getVideosData(String id, String pageNo) {
+    private void getVideosData(String id, String pageNo, String type) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", id);
+            linkedHashMap.put("type", type);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             VideosParser videosParser = new VideosParser();
@@ -249,6 +308,24 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_VIDEOS, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, videosParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to get data of the videos
+     */
+    private void getVideoTypes() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            VideoTypesParser videoTypesParser = new VideoTypesParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_VIDEO_CATEGORIES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, videoTypesParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();

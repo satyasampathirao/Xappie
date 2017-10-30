@@ -88,7 +88,6 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
     private LanguageListModel mLanguageListModel;
     private ArrayList<EntertainmentModel> entertainmentModels;
     private LanguageModel languageModel;
-    private String mCurrentLanguage;
     private EntertainmentAdapter entertainmentAdapter;
 
     @Override
@@ -171,7 +170,6 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
                     entertainmentAdapter = null;
                     setLanguages();
                     endScroll = false;
-                    mCurrentLanguage = languageModel.getId();
                     getEntertainmentData("" + 1);
                 }
             });
@@ -252,9 +250,13 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
-                    languageModel = mLanguageListModel.getLanguageModels().get(0);
+                    for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID)
+                                .equalsIgnoreCase(mLanguageListModel.getLanguageModels().get(i).getId())) {
+                            languageModel = mLanguageListModel.getLanguageModels().get(i);
+                        }
+                    }
                     setLanguages();
-                    mCurrentLanguage = mLanguageListModel.getLanguageModels().get(0).getId();
                     getEntertainmentData("" + 1);
                 }
             } else if (model instanceof EntertainmentListModel) {
@@ -299,7 +301,7 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            linkedHashMap.put("language", mCurrentLanguage);
+            linkedHashMap.put("language", languageModel.getId());
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             EntertainmentParser entertainmentParser = new EntertainmentParser();

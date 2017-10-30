@@ -38,5 +38,6 @@ public class APIConstants {
     public static String UPDATE_PROFILE = BASE_URL + "update_profile";
     public static String GET_HOME_BANNER = BASE_URL + "get_home_banner";
     public static String GET_GALLERY_CATEGORIES = BASE_URL + "get_gallery_categories";
+    public static String GET_VIDEO_CATEGORIES = BASE_URL + "get_video_categories";
 
 }
