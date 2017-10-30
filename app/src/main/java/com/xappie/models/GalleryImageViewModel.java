@@ -6,6 +6,7 @@ package com.xappie.models;
 
 public class GalleryImageViewModel extends Model {
 
+    private String title;
     private String id;
     private String gallery;
     private String image;
@@ -68,5 +69,13 @@ public class GalleryImageViewModel extends Model {
 
     public void setRecordedDate(String recordedDate) {
         this.recordedDate = recordedDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

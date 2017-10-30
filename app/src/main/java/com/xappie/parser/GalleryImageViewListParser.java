@@ -26,6 +26,7 @@ public class GalleryImageViewListParser implements Parser<Model> {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject actorsJsonObject = jsonArray.optJSONObject(i);
                 GalleryImageViewModel galleryImageViewModel = new GalleryImageViewModel();
+                galleryImageViewModel.setTitle(jsonObject.optString("title"));
                 galleryImageViewModel.setId(actorsJsonObject.optString("id"));
                 galleryImageViewModel.setGallery(actorsJsonObject.optString("gallery"));
                 galleryImageViewModel.setImage(actorsJsonObject.optString("image"));

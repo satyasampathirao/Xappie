@@ -51,6 +51,10 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
                 .findViewById(R.id.img_gallery_image);
         final TextView tv_title = (TextView) imageLayout
                 .findViewById(R.id.tv_title);
+        final TextView tv_description = (TextView) imageLayout
+                .findViewById(R.id.tv_description);
+        final TextView tv_source = (TextView) imageLayout
+                .findViewById(R.id.tv_source);
 
         if (!Utility.isValueNullOrEmpty(galleryImageViewModels.get(position).getImage()))
             Utility.universalImageLoaderPicLoading(image_view,
@@ -60,7 +64,9 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
                     "", null, R.drawable.xappie_place_holder);
         }
         tv_title.setTypeface(Utility.getOpenSansRegular(context));
-        tv_title.setText(galleryImageViewModels.get(position).getDescription());
+        tv_title.setText(galleryImageViewModels.get(position).getTitle());
+        tv_description.setText(galleryImageViewModels.get(position).getDescription());
+        tv_source.setText(galleryImageViewModels.get(position).getSource());
         view.addView(imageLayout, 0);
 
         return imageLayout;
