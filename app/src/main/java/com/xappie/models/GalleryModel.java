@@ -7,40 +7,40 @@ import java.util.ArrayList;
  */
 
 public class GalleryModel extends Model {
-    private ArrayList<GalleryItemModel> moviesGalleryList;
-    private ArrayList<GalleryItemModel> actorsGalleryList;
-    private ArrayList<GalleryItemModel> actressGalleryList;
-    private ArrayList<GalleryItemModel> eventsGalleryList;
+    private ArrayList<GallerySubModel> moviesGalleryList;
+    private ArrayList<GallerySubModel> actorsGalleryList;
+    private ArrayList<GallerySubModel> actressGalleryList;
+    private ArrayList<GallerySubModel> eventsGalleryList;
 
-    public ArrayList<GalleryItemModel> getMoviesGalleryList() {
+    public ArrayList<GallerySubModel> getMoviesGalleryList() {
         return moviesGalleryList;
     }
 
-    public void setMoviesGalleryList(ArrayList<GalleryItemModel> moviesGalleryList) {
+    public void setMoviesGalleryList(ArrayList<GallerySubModel> moviesGalleryList) {
         this.moviesGalleryList = moviesGalleryList;
     }
 
-    public ArrayList<GalleryItemModel> getActorsGalleryList() {
+    public ArrayList<GallerySubModel> getActorsGalleryList() {
         return actorsGalleryList;
     }
 
-    public void setActorsGalleryList(ArrayList<GalleryItemModel> actorsGalleryList) {
+    public void setActorsGalleryList(ArrayList<GallerySubModel> actorsGalleryList) {
         this.actorsGalleryList = actorsGalleryList;
     }
 
-    public ArrayList<GalleryItemModel> getActressGalleryList() {
+    public ArrayList<GallerySubModel> getActressGalleryList() {
         return actressGalleryList;
     }
 
-    public void setActressGalleryList(ArrayList<GalleryItemModel> actressGalleryList) {
+    public void setActressGalleryList(ArrayList<GallerySubModel> actressGalleryList) {
         this.actressGalleryList = actressGalleryList;
     }
 
-    public ArrayList<GalleryItemModel> getEventsGalleryList() {
+    public ArrayList<GallerySubModel> getEventsGalleryList() {
         return eventsGalleryList;
     }
 
-    public void setEventsGalleryList(ArrayList<GalleryItemModel> eventsGalleryList) {
+    public void setEventsGalleryList(ArrayList<GallerySubModel> eventsGalleryList) {
         this.eventsGalleryList = eventsGalleryList;
     }
 }

@@ -2,8 +2,8 @@ package com.xappie.parser;
 
 import android.content.Context;
 
-import com.xappie.models.GalleryItemModel;
 import com.xappie.models.GalleryModel;
+import com.xappie.models.GallerySubModel;
 import com.xappie.models.Model;
 
 import org.json.JSONArray;
@@ -24,24 +24,14 @@ public class GalleryParser implements Parser<Model> {
 
             if (jsonObject.has("Actors")) {
                 JSONArray actorsJsonArray = jsonObject.optJSONArray("Actors");
-                ArrayList<GalleryItemModel> actorsGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> actorsGalleryModels = new ArrayList<>();
                 for (int i = 0; i < actorsJsonArray.length(); i++) {
                     JSONObject actorsJsonObject = actorsJsonArray.optJSONObject(i);
-                    GalleryItemModel galleryItemModel = new GalleryItemModel();
+                    GallerySubModel galleryItemModel = new GallerySubModel();
                     galleryItemModel.setId(actorsJsonObject.optString("id"));
-                    galleryItemModel.setTitle(actorsJsonObject.optString("title"));
-                    galleryItemModel.setCategory(actorsJsonObject.optString("category"));
-                    galleryItemModel.setLanguage(actorsJsonObject.optString("language"));
-                    galleryItemModel.setProfile_image(actorsJsonObject.optString("profile_image"));
-                    galleryItemModel.setBanner_image(actorsJsonObject.optString("banner_image"));
-                    galleryItemModel.setStatus(actorsJsonObject.optString("status"));
-                    galleryItemModel.setGallery_status(actorsJsonObject.optString("gallery_status"));
-                    galleryItemModel.setRecordedBy(actorsJsonObject.optString("recordedBy"));
-                    galleryItemModel.setRecordedDate(actorsJsonObject.optString("recordedDate"));
-                    galleryItemModel.setCategory_id(actorsJsonObject.optString("category_id"));
-                    galleryItemModel.setCategory_name(actorsJsonObject.optString("category_name"));
-                    galleryItemModel.setProfile_image_resize(actorsJsonObject.optString("profile_image_resize"));
-                    galleryItemModel.setBanner_image_resize(actorsJsonObject.optString("banner_image_resize"));
+                    galleryItemModel.setName(actorsJsonObject.optString("name"));
+                    galleryItemModel.setType(actorsJsonObject.optString("type"));
+                    galleryItemModel.setImage(actorsJsonObject.optString("image"));
                     actorsGalleryModels.add(galleryItemModel);
                 }
                 mGalleryModel.setActorsGalleryList(actorsGalleryModels);
@@ -49,24 +39,14 @@ public class GalleryParser implements Parser<Model> {
 
             if (jsonObject.has("Actress")) {
                 JSONArray actressJsonArray = jsonObject.optJSONArray("Actress");
-                ArrayList<GalleryItemModel> actressGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> actressGalleryModels = new ArrayList<>();
                 for (int i = 0; i < actressJsonArray.length(); i++) {
                     JSONObject actressJsonObject = actressJsonArray.optJSONObject(i);
-                    GalleryItemModel galleryItemModel = new GalleryItemModel();
+                    GallerySubModel galleryItemModel = new GallerySubModel();
                     galleryItemModel.setId(actressJsonObject.optString("id"));
-                    galleryItemModel.setTitle(actressJsonObject.optString("title"));
-                    galleryItemModel.setCategory(actressJsonObject.optString("category"));
-                    galleryItemModel.setLanguage(actressJsonObject.optString("language"));
-                    galleryItemModel.setProfile_image(actressJsonObject.optString("profile_image"));
-                    galleryItemModel.setBanner_image(actressJsonObject.optString("banner_image"));
-                    galleryItemModel.setStatus(actressJsonObject.optString("status"));
-                    galleryItemModel.setGallery_status(actressJsonObject.optString("gallery_status"));
-                    galleryItemModel.setRecordedBy(actressJsonObject.optString("recordedBy"));
-                    galleryItemModel.setCategory_id(actressJsonObject.optString("category_id"));
-                    galleryItemModel.setRecordedDate(actressJsonObject.optString("recordedDate"));
-                    galleryItemModel.setCategory_name(actressJsonObject.optString("category_name"));
-                    galleryItemModel.setProfile_image_resize(actressJsonObject.optString("profile_image_resize"));
-                    galleryItemModel.setBanner_image_resize(actressJsonObject.optString("banner_image_resize"));
+                    galleryItemModel.setName(actressJsonObject.optString("name"));
+                    galleryItemModel.setType(actressJsonObject.optString("type"));
+                    galleryItemModel.setImage(actressJsonObject.optString("image"));
                     actressGalleryModels.add(galleryItemModel);
                 }
                 mGalleryModel.setActressGalleryList(actressGalleryModels);
@@ -74,24 +54,14 @@ public class GalleryParser implements Parser<Model> {
 
             if (jsonObject.has("Movie")) {
                 JSONArray movieJsonArray = jsonObject.optJSONArray("Movie");
-                ArrayList<GalleryItemModel> moviesGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> moviesGalleryModels = new ArrayList<>();
                 for (int i = 0; i < movieJsonArray.length(); i++) {
                     JSONObject moviesJsonObject = movieJsonArray.optJSONObject(i);
-                    GalleryItemModel galleryItemModel = new GalleryItemModel();
+                    GallerySubModel galleryItemModel = new GallerySubModel();
                     galleryItemModel.setId(moviesJsonObject.optString("id"));
-                    galleryItemModel.setTitle(moviesJsonObject.optString("title"));
-                    galleryItemModel.setCategory(moviesJsonObject.optString("category"));
-                    galleryItemModel.setLanguage(moviesJsonObject.optString("language"));
-                    galleryItemModel.setProfile_image(moviesJsonObject.optString("profile_image"));
-                    galleryItemModel.setBanner_image(moviesJsonObject.optString("banner_image"));
-                    galleryItemModel.setStatus(moviesJsonObject.optString("status"));
-                    galleryItemModel.setCategory_id(moviesJsonObject.optString("category_id"));
-                    galleryItemModel.setGallery_status(moviesJsonObject.optString("gallery_status"));
-                    galleryItemModel.setRecordedBy(moviesJsonObject.optString("recordedBy"));
-                    galleryItemModel.setCategory_name(moviesJsonObject.optString("category_name"));
-                    galleryItemModel.setRecordedDate(moviesJsonObject.optString("recordedDate"));
-                    galleryItemModel.setProfile_image_resize(moviesJsonObject.optString("profile_image_resize"));
-                    galleryItemModel.setBanner_image_resize(moviesJsonObject.optString("banner_image_resize"));
+                    galleryItemModel.setName(moviesJsonObject.optString("name"));
+                    galleryItemModel.setType(moviesJsonObject.optString("type"));
+                    galleryItemModel.setImage(moviesJsonObject.optString("image"));
                     moviesGalleryModels.add(galleryItemModel);
                 }
                 mGalleryModel.setMoviesGalleryList(moviesGalleryModels);
@@ -99,24 +69,14 @@ public class GalleryParser implements Parser<Model> {
 
             if (jsonObject.has("Events")) {
                 JSONArray eventsJsonArray = jsonObject.optJSONArray("Events");
-                ArrayList<GalleryItemModel> eventsGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> eventsGalleryModels = new ArrayList<>();
                 for (int i = 0; i < eventsJsonArray.length(); i++) {
                     JSONObject eventsJsonObject = eventsJsonArray.optJSONObject(i);
-                    GalleryItemModel galleryItemModel = new GalleryItemModel();
+                    GallerySubModel galleryItemModel = new GallerySubModel();
                     galleryItemModel.setId(eventsJsonObject.optString("id"));
-                    galleryItemModel.setTitle(eventsJsonObject.optString("title"));
-                    galleryItemModel.setCategory(eventsJsonObject.optString("category"));
-                    galleryItemModel.setLanguage(eventsJsonObject.optString("language"));
-                    galleryItemModel.setProfile_image(eventsJsonObject.optString("profile_image"));
-                    galleryItemModel.setBanner_image(eventsJsonObject.optString("banner_image"));
-                    galleryItemModel.setStatus(eventsJsonObject.optString("status"));
-                    galleryItemModel.setGallery_status(eventsJsonObject.optString("gallery_status"));
-                    galleryItemModel.setRecordedBy(eventsJsonObject.optString("recordedBy"));
-                    galleryItemModel.setCategory_id(eventsJsonObject.optString("category_id"));
-                    galleryItemModel.setCategory_name(eventsJsonObject.optString("category_name"));
-                    galleryItemModel.setRecordedDate(eventsJsonObject.optString("recordedDate"));
-                    galleryItemModel.setProfile_image_resize(eventsJsonObject.optString("profile_image_resize"));
-                    galleryItemModel.setBanner_image_resize(eventsJsonObject.optString("banner_image_resize"));
+                    galleryItemModel.setName(eventsJsonObject.optString("name"));
+                    galleryItemModel.setType(eventsJsonObject.optString("type"));
+                    galleryItemModel.setImage(eventsJsonObject.optString("image"));
                     eventsGalleryModels.add(galleryItemModel);
                 }
                 mGalleryModel.setEventsGalleryList(eventsGalleryModels);
