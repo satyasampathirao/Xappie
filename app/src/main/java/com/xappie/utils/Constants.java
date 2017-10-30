@@ -63,4 +63,5 @@ public class Constants {
     public static final String FOR_GALLERY = "FOR_GALLERY";
 
     public static final String GALLERY_ID = "GALLERY_ID";
+    public static final int FROM_POST_FORUM_GALLERY_ID = 990;
 }

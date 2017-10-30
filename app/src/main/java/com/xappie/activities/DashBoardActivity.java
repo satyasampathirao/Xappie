@@ -1,11 +1,15 @@
 package com.xappie.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.AppBarLayout;
@@ -20,20 +24,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.FilePath;
+import com.xappie.designes.MaterialDialog;
 import com.xappie.fragments.AccountSettingFragment;
 import com.xappie.fragments.ClassifiedsFragment;
 import com.xappie.fragments.CountriesFragment;
 import com.xappie.fragments.DiscussionsFragment;
 import com.xappie.fragments.EntertainmentFragment;
 import com.xappie.fragments.EventsFragment;
-import com.xappie.fragments.GalleryDetailViewFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
 import com.xappie.fragments.HomePageCustomizationFragment;
@@ -43,15 +48,23 @@ import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
 import com.xappie.fragments.TopStoriesFragment;
 import com.xappie.fragments.VideosFragment;
+import com.xappie.models.Model;
+import com.xappie.models.SignupLoginSuccessModel;
+import com.xappie.models.SignupSuccessModel;
+import com.xappie.parser.SignUpSuccessParser;
+import com.xappie.permisions.Permissions;
+import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DashBoardActivity extends BaseActivity {
+public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -62,6 +75,9 @@ public class DashBoardActivity extends BaseActivity {
     private TextView tv_language_icon;
 
     private LinearLayout layout_topics;
+    private File mSelectedFile;
+
+    private SignupSuccessModel mSignupLoginSuccessModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +110,44 @@ public class DashBoardActivity extends BaseActivity {
         getSupportActionBar().setTitle(null);
         initNavigationDrawer();
         setDataToHomeTabs();
+        checkForRunTimePermissions();
+    }
+
+    private void checkForRunTimePermissions() {
+        if (Utility.isMarshmallowOS()) {
+            Permissions.getInstance().setActivity(this);
+            CheckForPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+    }
+
+    private void CheckForPermissions(final Context mContext, final String... mPermissions) {
+        // A request for two permissions
+        Permissions.getInstance().requestPermissions(new Permissions.IOnPermissionResult() {
+            @Override
+            public void onPermissionResult(Permissions.ResultSet resultSet) {
+
+                if (!resultSet.isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    final MaterialDialog denyDialog = new MaterialDialog(mContext, Permissions.TITLE,
+                            Permissions.MESSAGE);
+                    //Positive
+                    denyDialog.setAcceptButton("RE-TRY");
+                    denyDialog.setOnAcceptButtonClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            CheckForPermissions(mContext, mPermissions);
+                        }
+                    });
+                    denyDialog.show();
+                }
+            }
+
+            @Override
+            public void onRationaleRequested(Permissions.IOnRationaleProvided callback, String... permissions) {
+                Permissions.getInstance().showRationaleInDialog(Permissions.TITLE,
+                        Permissions.MESSAGE, "RE-TRY", callback);
+            }
+        }, mPermissions);
     }
 
     /**
@@ -181,6 +235,7 @@ public class DashBoardActivity extends BaseActivity {
         });
         View header = navigationView.getHeaderView(0);
         ImageView img_user_image = (ImageView) header.findViewById(R.id.img_user_image);
+        TextView tv_edit = (TextView) header.findViewById(R.id.tv_edit);
         TextView tv_sign_in_to_xappie = (TextView) header.findViewById(R.id.tv_sign_in_to_xappie);
         tv_sign_in_to_xappie.setTypeface(Utility.getOpenSansBold(this));
         TextView txt_view_profile = (TextView) header.findViewById(R.id.txt_view_profile);
@@ -190,8 +245,18 @@ public class DashBoardActivity extends BaseActivity {
         TextView txt_hello = (TextView) header.findViewById(R.id.txt_hello);
         txt_hello.setTypeface(Utility.getOpenSansBold(this));
 
+        tv_edit.setTypeface(Utility.getFontAwesomeWebFont(this));
+        tv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+                showEditDialog();
+            }
+        });
+
         if (Utility.getSharedPrefBooleanData(this, Constants.IS_LOGIN_COMPLETED)) {
             tv_sign_in_to_xappie.setVisibility(View.GONE);
+            tv_edit.setVisibility(View.VISIBLE);
             tv_joined.setVisibility(View.VISIBLE);
             txt_view_profile.setVisibility(View.VISIBLE);
             tv_joined.setTextColor(Utility.getColor(DashBoardActivity.this, R.color.white));
@@ -207,6 +272,7 @@ public class DashBoardActivity extends BaseActivity {
             img_user_image.setImageDrawable(Utility.getDrawable(this, R.drawable.avatar_image));
             tv_sign_in_to_xappie.setVisibility(View.VISIBLE);
             tv_joined.setVisibility(View.GONE);
+            tv_edit.setVisibility(View.GONE);
             txt_view_profile.setVisibility(View.GONE);
             txt_hello.setText(Utility.getResourcesString(this, R.string.hello));
         }
@@ -263,6 +329,45 @@ public class DashBoardActivity extends BaseActivity {
             }
         });
 
+    }
+
+    /**
+     * This method is used to show the edit dialog
+     */
+    private void showEditDialog() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Post Image"), Constants.FROM_POST_FORUM_GALLERY_ID);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.FROM_POST_FORUM_GALLERY_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                String path = FilePath.getPath(this, selectedImageUri);
+                mSelectedFile = new File(path);
+                updateImageToServer();
+            }
+        }
+    }
+
+    /**
+     * This method is used to update the profile pic
+     */
+    private void updateImageToServer() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put("api_key", Constants.API_KEY_VALUE);
+        paramMap.put("photo", Utility.convertFileToByteArray(mSelectedFile));
+        paramMap.put("photo_name", mSelectedFile.getName());
+        SignUpSuccessParser signUpSuccessParser = new SignUpSuccessParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                R.string.please_wait), true,
+                APIConstants.UPDATE_PROFILE_PHOTO, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, signUpSuccessParser);
+        Utility.execute(serverIntractorAsync);
     }
 
     /**
@@ -476,4 +581,17 @@ public class DashBoardActivity extends BaseActivity {
         return mTabNames;
     }
 
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof SignupSuccessModel) {
+                mSignupLoginSuccessModel = (SignupSuccessModel) model;
+                if (mSignupLoginSuccessModel.isStatus()) {
+                    Utility.showToastMessage(DashBoardActivity.this, mSignupLoginSuccessModel.getMessage());
+                } else {
+                    Utility.showToastMessage(DashBoardActivity.this, mSignupLoginSuccessModel.getMessage());
+                }
+            }
+        }
+    }
 }

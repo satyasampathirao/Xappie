@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -57,6 +58,9 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -785,5 +789,25 @@ public class Utility {
             e.printStackTrace();
         }
         return outputDateStr;
+    }
+
+    public static String convertFileToByteArray(File f) {
+        byte[] byteArray = null;
+        try {
+            InputStream inputStream = new FileInputStream(f);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024 * 11];
+            int bytesRead = 0;
+
+            while ((bytesRead = inputStream.read(b)) != -1) {
+                bos.write(b, 0, bytesRead);
+            }
+
+            byteArray = bos.toByteArray();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
 }

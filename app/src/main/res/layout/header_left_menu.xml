@@ -9,11 +9,32 @@
     android:paddingBottom="@dimen/_15dp"
     android:paddingTop="@dimen/_35dp">
 
-    <ImageView
-        android:id="@+id/img_user_image"
-        android:layout_width="@dimen/_90dp"
-        android:layout_height="@dimen/_90dp"
-        android:src="@drawable/avatar_image" />
+    <RelativeLayout
+        android:id="@+id/rl_edit_layout"
+        android:layout_width="@dimen/_105dp"
+        android:layout_height="@dimen/_105dp">
+
+        <ImageView
+            android:id="@+id/img_user_image"
+            android:layout_width="@dimen/_95dp"
+            android:layout_height="@dimen/_95dp"
+            android:src="@drawable/avatar_image" />
+
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="@dimen/_35dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/bg_color_circle"
+            android:gravity="center"
+            android:text="@string/edit_icon"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_12sp" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_hello"

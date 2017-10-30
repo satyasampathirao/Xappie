@@ -50,4 +50,9 @@
     <color name="types_color">#B52838</color>
     <color name="black">@android:color/black</color>
 
+    <color name="dialogBgColor">#55000000</color>
+    <color name="svThumbColor">#26111111</color>
+    <color name="dialogAccept">#1E88E5</color>
+    <color name="btnDefaultColor">#000000</color>
+
 </resources>
