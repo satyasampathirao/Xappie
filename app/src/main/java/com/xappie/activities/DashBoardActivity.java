@@ -28,9 +28,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.CircleTransform;
 import com.xappie.customviews.FilePath;
 import com.xappie.designes.MaterialDialog;
 import com.xappie.fragments.AccountSettingFragment;
@@ -48,10 +52,9 @@ import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
 import com.xappie.fragments.TopStoriesFragment;
 import com.xappie.fragments.VideosFragment;
+import com.xappie.models.ImageUploadModel;
 import com.xappie.models.Model;
-import com.xappie.models.SignupLoginSuccessModel;
-import com.xappie.models.SignupSuccessModel;
-import com.xappie.parser.SignUpSuccessParser;
+import com.xappie.parser.ImageUpdateParser;
 import com.xappie.permisions.Permissions;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -77,7 +80,9 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
     private LinearLayout layout_topics;
     private File mSelectedFile;
 
-    private SignupSuccessModel mSignupLoginSuccessModel;
+    private ImageUploadModel mImageUploadModel;
+
+    private ImageView img_user_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,7 +239,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
             }
         });
         View header = navigationView.getHeaderView(0);
-        ImageView img_user_image = (ImageView) header.findViewById(R.id.img_user_image);
+        img_user_image = (ImageView) header.findViewById(R.id.img_user_image);
         TextView tv_edit = (TextView) header.findViewById(R.id.tv_edit);
         TextView tv_sign_in_to_xappie = (TextView) header.findViewById(R.id.tv_sign_in_to_xappie);
         tv_sign_in_to_xappie.setTypeface(Utility.getOpenSansBold(this));
@@ -267,6 +272,12 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
             } else
                 txt_hello.setText(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_FIRST_NAME)
                         + " " + Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_LAST_NAME));
+            if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_PHOTO)))
+                Picasso.with(this).load(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_PHOTO))
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .placeholder(Utility.getDrawable(this, R.drawable.avatar_image))
+                        .transform(new CircleTransform()).into(img_user_image);
 
         } else {
             img_user_image.setImageDrawable(Utility.getDrawable(this, R.drawable.avatar_image));
@@ -362,11 +373,11 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
         paramMap.put("api_key", Constants.API_KEY_VALUE);
         paramMap.put("photo", Utility.convertFileToByteArray(mSelectedFile));
         paramMap.put("photo_name", mSelectedFile.getName());
-        SignUpSuccessParser signUpSuccessParser = new SignUpSuccessParser();
+        ImageUpdateParser imageUpdateParser = new ImageUpdateParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
                 R.string.please_wait), true,
                 APIConstants.UPDATE_PROFILE_PHOTO, paramMap,
-                APIConstants.REQUEST_TYPE.POST, this, signUpSuccessParser);
+                APIConstants.REQUEST_TYPE.POST, this, imageUpdateParser);
         Utility.execute(serverIntractorAsync);
     }
 
@@ -584,12 +595,19 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
     @Override
     public void onComplete(Model model) {
         if (model != null) {
-            if (model instanceof SignupSuccessModel) {
-                mSignupLoginSuccessModel = (SignupSuccessModel) model;
-                if (mSignupLoginSuccessModel.isStatus()) {
-                    Utility.showToastMessage(DashBoardActivity.this, mSignupLoginSuccessModel.getMessage());
+            if (model instanceof ImageUploadModel) {
+                mImageUploadModel = (ImageUploadModel) model;
+                if (mImageUploadModel.isStatus()) {
+                    Utility.showToastMessage(DashBoardActivity.this, mImageUploadModel.getMessage());
+                    Utility.setSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_PHOTO, mImageUploadModel.getPhoto());
+                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_PHOTO)))
+                        Picasso.with(this).load(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_PHOTO))
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE)
+                                .placeholder(Utility.getDrawable(this, R.drawable.avatar_image))
+                                .transform(new CircleTransform()).into(img_user_image);
                 } else {
-                    Utility.showToastMessage(DashBoardActivity.this, mSignupLoginSuccessModel.getMessage());
+                    Utility.showToastMessage(DashBoardActivity.this, mImageUploadModel.getMessage());
                 }
             }
         }

@@ -82,6 +82,7 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
         mSelectedCountryName = intent.getStringExtra(Constants.SELECTED_COUNTRY_NAME);
         mSelectedStateName = intent.getStringExtra(Constants.SELECTED_STATE_NAME);
         mSelectedStateId = intent.getStringExtra(Constants.SELECTED_STATE_ID);
+        mSelectedCountryId = intent.getStringExtra(Constants.SELECTED_COUNTRY_ID);
         setTypeFace();
     }
 

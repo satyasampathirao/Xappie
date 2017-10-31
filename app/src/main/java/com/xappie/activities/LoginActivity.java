@@ -49,7 +49,6 @@ import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.LoginModel;
 import com.xappie.models.Model;
 import com.xappie.parser.LoginParser;
-import com.xappie.parser.SignUpLoginSuccessParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -417,6 +416,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_LAST_NAME, mLoginModel.getLast_name());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_DISPLAY_NAME, mLoginModel.getDisplay_name());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_MAIL_ID, mLoginModel.getEmail());
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_PHOTO, mLoginModel.getPhoto());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_UUID, mLoginModel.getUuid());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.JOIN_DATE, Utility.getJoiningDate(mLoginModel.getJoined_date()));
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.TOKEN, mLoginModel.getCi_session());
