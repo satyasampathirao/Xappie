@@ -3,6 +3,7 @@ package com.xappie.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -53,6 +54,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -711,9 +714,34 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     /**
      * This method is used to set the data to the screen
      */
+    int page_position = 0;
+
     private void setDataToBanner() {
         getHomePageData();
         card_pager.setAdapter(new HomeViewPagerAdapter(mParent, mHomePageBannerListModel.getHomePageBannerModels()));
+
+        // addBottomDots(0);
+        final Handler handler = new Handler();
+
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (page_position == mHomePageBannerListModel.getHomePageBannerModels().size()) {
+                    page_position = 0;
+                } else {
+                    page_position = page_position + 1;
+                }
+                card_pager.setCurrentItem(page_position, true);
+            }
+        };
+
+        new Timer().schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 100, 4000);
+
     }
 
     /**

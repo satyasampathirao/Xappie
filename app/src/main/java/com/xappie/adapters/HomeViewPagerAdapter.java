@@ -1,6 +1,7 @@
 package com.xappie.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.xappie.R;
+import com.xappie.customviews.TouchImageView;
 import com.xappie.models.HomePageBannerModel;
 import com.xappie.utils.Utility;
 
@@ -23,9 +26,11 @@ public class HomeViewPagerAdapter extends PagerAdapter {
 
     private LayoutInflater inflater;
     private ArrayList<HomePageBannerModel> homePageBannerModels;
+    private Context context;
 
     public HomeViewPagerAdapter(Context context, ArrayList<HomePageBannerModel> homePageBannerModels) {
         this.homePageBannerModels = homePageBannerModels;
+        this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
@@ -56,8 +61,31 @@ public class HomeViewPagerAdapter extends PagerAdapter {
                     "", null, R.drawable.xappie_place_holder);
         }
 
+        imageLayout.setId(position);
+        imageLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = view.getId();
+                showFitDialog(homePageBannerModels.get(pos).getBanner_image(), context);
+            }
+        });
+
         view.addView(imageLayout, 0);
         return imageLayout;
+    }
+
+
+    /*Image full view*/
+    private void showFitDialog(String url, Context context) {
+        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_fitcenter);
+        dialog.setCanceledOnTouchOutside(false);
+        TouchImageView imageView = (TouchImageView) dialog.findViewById(R.id.imageView);
+        Picasso.with(context)
+                .load(url)
+                .placeholder(Utility.getDrawable(context, R.drawable.xappie_place_holder))
+                .into(imageView);
+        dialog.show();
     }
 
     @Override
