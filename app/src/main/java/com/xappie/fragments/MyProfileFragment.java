@@ -12,10 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.customviews.CircleTransform;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -66,6 +71,8 @@ public class MyProfileFragment extends Fragment {
     TextView tv_mobile_no;
     @BindView(R.id.tv_ravi_mobile_nbr)
     TextView tv_ravi_mobile_nbr;
+    @BindView(R.id.img_ravi_image)
+    ImageView img_ravi_image;
     @BindView(R.id.b_edit_profile)
     Button btn_edit_profile;
     private Typeface mTypefaceOpenSansRegular;
@@ -148,6 +155,12 @@ public class MyProfileFragment extends Fragment {
         tv_ravi_mobile_nbr.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_MOBILE));
         tv_ravi_hyd.setText(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_NAME) + "," +
                 Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_NAME));
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_PHOTO)))
+            Picasso.with(mParent).load(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_PHOTO))
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .placeholder(Utility.getDrawable(mParent, R.drawable.avatar_image))
+                    .transform(new CircleTransform()).into(img_ravi_image);
     }
 
     @OnClick(R.id.b_edit_profile)
