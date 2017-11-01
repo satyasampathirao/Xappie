@@ -810,4 +810,20 @@ public class Utility {
         }
         return Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
+
+    public static String displayDateFormat(String sDate) {
+        //2017-11-10 22:42:00
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:MM:SS", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM, HH:MM aa", Locale.getDefault());
+        Date date;
+        String outputDateStr = "";
+        try {
+            date = inputFormat.parse(sDate);
+            outputDateStr = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
+    }
+
 }

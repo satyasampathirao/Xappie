@@ -4,7 +4,7 @@ package com.xappie.models;
  * Created by Shankar on 10/31/2017.
  */
 
-public class EventsModel {
+public class EventsModel extends Model{
 
     private String id;
     private String name;
@@ -13,10 +13,12 @@ public class EventsModel {
     private String state;
     private String city;
     private String image;
-    private String status;
+    //private String status;
     private String events_status;
     private String recordedBy;
     private String recordedDate;
+    private String start_time;
+    private String end_time;
 
     public String getId() {
         return id;
@@ -74,13 +76,13 @@ public class EventsModel {
         this.image = image;
     }
 
-    public String getStatus() {
+    /*public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
+    }*/
 
     public String getEvents_status() {
         return events_status;
@@ -104,5 +106,21 @@ public class EventsModel {
 
     public void setRecordedDate(String recordedDate) {
         this.recordedDate = recordedDate;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
     }
 }

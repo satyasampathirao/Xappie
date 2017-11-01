@@ -1,6 +1,7 @@
 package com.xappie.adapters;
 
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.EventDetailViewFragment;
 import com.xappie.models.EventsModel;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -76,6 +78,7 @@ public class AllEventsListAdapter extends BaseAdapter {
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(eventsModel.getName());
         mClassifiedsListHolder.tv_location.setText(eventsModel.getCity());
+        mClassifiedsListHolder.tv_time.setText(Utility.displayDateFormat(eventsModel.getStart_time()).toUpperCase());
 
         if (!Utility.isValueNullOrEmpty(eventsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
@@ -85,10 +88,14 @@ public class AllEventsListAdapter extends BaseAdapter {
                     "", null, R.drawable.xappie_place_holder);
         }
 
+        convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null, mDashBoardActivity);
+                int position = v.getId();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.EVENT_ID, eventsModels.get(position).getId());
+                Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, bundle, mDashBoardActivity);
             }
         });
 

@@ -13,11 +13,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.EventsListModel;
+import com.xappie.models.EventsModel;
+import com.xappie.models.Model;
+import com.xappie.parser.EventsDetailParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
+
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +37,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar on 7/28/2017.
  */
-public class EventDetailViewFragment extends Fragment {
+public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = EventDetailViewFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -42,6 +53,8 @@ public class EventDetailViewFragment extends Fragment {
     @BindView(R.id.tv_notification_menu_icon)
     TextView tv_notification_menu_icon;
 
+    @BindView(R.id.img_event)
+    ImageView img_event;
     @BindView(R.id.tv_title)
     TextView tv_title;
     @BindView(R.id.tv_location_icon)
@@ -85,6 +98,9 @@ public class EventDetailViewFragment extends Fragment {
     private Typeface mTypefaceFontAwesomeWebFont;
     private Typeface mTypefaceOpenSansBold;
 
+    private String mId;
+    private EventsModel eventsModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +108,9 @@ public class EventDetailViewFragment extends Fragment {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        if (getArguments() != null && getArguments().containsKey(Constants.EVENT_ID)) {
+            mId = getArguments().getString(Constants.EVENT_ID);
+        }
     }
 
     @Override
@@ -149,6 +168,26 @@ public class EventDetailViewFragment extends Fragment {
         btn_who_is_going.setTypeface(mTypefaceOpenSansRegular);
         btn_may_be.setTypeface(mTypefaceOpenSansRegular);
         btn_i_am_going.setTypeface(mTypefaceOpenSansRegular);
+
+        getEventDetails();
+    }
+
+    /**
+     * This method is used to get event details
+     */
+    private void getEventDetails() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            EventsDetailParser eventsListParser = new EventsDetailParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_AD_DETAILS +"/"+ mId, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*This method is used to navigate event detail view*/
@@ -164,19 +203,39 @@ public class EventDetailViewFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
-    }
-    @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
-    }
-    @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
 
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
+    }
+
+    @OnClick(R.id.tv_location_icon)
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
+    }
+
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof EventsModel) {
+                eventsModel = (EventsModel) model;
+                setEventsData();
+            }
+        }
+    }
+
+    private void setEventsData() {
+        if (!Utility.isValueNullOrEmpty(eventsModel.getImage())) {
+            Utility.universalImageLoaderPicLoading(img_event,
+                    eventsModel.getImage(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(img_event,
+                    "", null, R.drawable.xappie_place_holder);
+        }
+
+    }
 }

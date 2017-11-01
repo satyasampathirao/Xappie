@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:minHeight="@dimen/_200dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/events_image" />
+                android:src="@drawable/xappie_place_holder" />
 
             <TextView
                 android:id="@+id/tv_event_name"
