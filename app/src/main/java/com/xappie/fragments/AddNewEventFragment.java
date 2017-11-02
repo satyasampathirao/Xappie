@@ -18,6 +18,7 @@ import com.xappie.utils.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Shankar on 7/28/2017.
@@ -112,5 +113,58 @@ public class AddNewEventFragment extends Fragment {
 
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
         btn_upload.setTypeface(mTypefaceOpenSansRegular);
+    }
+
+    @OnClick(R.id.btn_submit)
+    void submitDetails() {
+        if (isValidFields()) {
+
+        }
+    }
+
+    private boolean isValidFields() {
+        boolean isValid = true;
+        if (Utility.isValueNullOrEmpty(edt_name_of_the_event.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_name_of_the_event, "Please enter name of the event");
+            edt_name_of_the_event.requestFocus();
+            isValid = false;
+        } else if (edt_tag_line.getText().toString().length() < 4) {
+            Utility.setSnackBar(mParent, edt_tag_line, "Please enter tag line");
+            edt_tag_line.requestFocus();
+            isValid = false;
+        } else if (edt_description.getText().toString().length() < 4) {
+            Utility.setSnackBar(mParent, edt_description, "Please enter description");
+            edt_description.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_upload_image, "Please choose event image");
+            edt_upload_image.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_cost.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_cost, "Please enter cost");
+            edt_cost.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_dress_code.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_dress_code, "Please enter dress code");
+            edt_dress_code.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_start_time.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_start_time, "Please enter start time");
+            edt_start_time.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_end_time.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_end_time, "Please enter end time");
+            edt_end_time.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_name_of_the_location.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_name_of_the_location, "Please enter name of the location");
+            edt_name_of_the_location.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_address.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_address, "Please enter address");
+            edt_address.requestFocus();
+            isValid = false;
+        }
+        return isValid;
     }
 }

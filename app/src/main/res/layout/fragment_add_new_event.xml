@@ -159,6 +159,7 @@
                 android:focusableInTouchMode="false"
                 android:hint="@string/type_of_event"
                 android:paddingEnd="@dimen/_10dp"
+                android:visibility="gone"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
