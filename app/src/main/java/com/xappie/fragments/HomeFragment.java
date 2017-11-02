@@ -541,12 +541,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
         tv_ads.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_top_stories.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_top_stories.setTypeface(Utility.getOpenSansBold(mParent));
         tv_top_stories.setText(tv_top_stories.getText().toString().toUpperCase());
         tv_top_stories_more.setTypeface(Utility.getOpenSansBold(mParent));
 
 
-        tv_entertainment.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_entertainment.setTypeface(Utility.getOpenSansBold(mParent));
         tv_entertainment.setText(tv_entertainment.getText().toString().toUpperCase());
         tv_entertainment_more.setTypeface(Utility.getOpenSansBold(mParent));
 

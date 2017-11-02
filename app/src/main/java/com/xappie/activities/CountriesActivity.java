@@ -85,6 +85,7 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
 
         tv_notification_icon.setVisibility(View.GONE);
         tv_language_icon.setVisibility(View.GONE);
+        tv_countries_menu_icon.setVisibility(View.GONE);
 
         getCountriesList();
     }

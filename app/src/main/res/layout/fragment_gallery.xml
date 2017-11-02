@@ -187,14 +187,21 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:background="@color/background_gray" />
+
             <TextView
                 android:id="@+id/tv_ads"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/_8dp"
+                android:paddingTop="@dimen/_15dp"
                 android:text="@string/ads"
-                android:textColor="@color/color_black"
+                android:textColor="@color/title_color"
+                android:textStyle="bold"
                 android:textSize="@dimen/_13sp" />
 
             <HorizontalScrollView
@@ -368,15 +375,22 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:background="@color/background_gray" />
+
             <TextView
                 android:id="@+id/tv_actress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/_8dp"
+                android:paddingTop="@dimen/_15dp"
                 android:text="@string/actress"
                 android:textAllCaps="true"
-                android:textColor="@color/color_black"
+                android:textColor="@color/title_color"
+                android:textStyle="bold"
                 android:textSize="@dimen/_13sp" />
 
             <LinearLayout
@@ -548,15 +562,22 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:background="@color/background_gray" />
+
             <TextView
                 android:id="@+id/tv_actors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/_8dp"
+                android:paddingTop="@dimen/_15dp"
                 android:text="@string/actors"
                 android:textAllCaps="true"
-                android:textColor="@color/color_black"
+                android:textColor="@color/title_color"
+                android:textStyle="bold"
                 android:textSize="@dimen/_13sp" />
 
             <LinearLayout
@@ -728,15 +749,22 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:background="@color/background_gray" />
+
             <TextView
                 android:id="@+id/tv_movies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/_8dp"
+                android:paddingTop="@dimen/_15dp"
                 android:text="@string/movies"
                 android:textAllCaps="true"
-                android:textColor="@color/color_black"
+                android:textColor="@color/title_color"
+                android:textStyle="bold"
                 android:textSize="@dimen/_13sp" />
 
             <LinearLayout
@@ -908,15 +936,22 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:background="@color/background_gray" />
+
             <TextView
                 android:id="@+id/tv_events"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/_8dp"
+                android:paddingTop="@dimen/_15dp"
                 android:text="@string/events"
                 android:textAllCaps="true"
-                android:textColor="@color/color_black"
+                android:textColor="@color/title_color"
+                android:textStyle="bold"
                 android:textSize="@dimen/_13sp" />
 
             <LinearLayout

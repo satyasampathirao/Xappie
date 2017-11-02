@@ -70,6 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5dp"
+        android:paddingLeft="@dimen/_5dp"
+        android:paddingRight="@dimen/_5dp"
         android:background="@drawable/red_corners"
         android:gravity="center"
         android:text="@string/view_profile"

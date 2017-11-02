@@ -5,14 +5,15 @@
     <color name="colorAccent">#AD343E</color>
 
     <color name="moderate_red">#C6363D</color>
-    <color name="nav_bg_red">#4E3638</color>
+    <color name="twenty_percent_red">#4DC6363D</color>
+    <color name="nav_bg_red">#B34E3638</color>
     <color name="view_profile_bg">#c13838</color>
     <color name="joined_color">#837274</color>
 
     <color name="white">#ffffff</color>
     <color name="light_gray">#c2c2c2</color>
     <color name="very_light_gray">#FCFCFC</color>
-    <color name="dark_gray">#8c8c8c</color>
+    <color name="dark_gray">#808c8c8c</color>
     <color name="light_white">#F1F1F1</color>
     <color name="color_black">#000000</color>
     <color name="hello_color">#F69560</color>

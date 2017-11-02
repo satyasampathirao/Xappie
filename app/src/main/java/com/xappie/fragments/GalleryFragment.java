@@ -69,6 +69,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     TextView tv_language_icon;
 
     private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceOpenSansBold;
     private Typeface mTypefaceFontAwesomeWebFont;
 
     private LanguageModel languageModel;
@@ -402,6 +403,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
      */
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -413,11 +415,11 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_ads.setTypeface(mTypefaceOpenSansRegular);
-        tv_actress.setTypeface(mTypefaceOpenSansRegular);
-        tv_actors.setTypeface(mTypefaceOpenSansRegular);
-        tv_events.setTypeface(mTypefaceOpenSansRegular);
-        tv_movies.setTypeface(mTypefaceOpenSansRegular);
+        tv_ads.setTypeface(mTypefaceOpenSansBold);
+        tv_actress.setTypeface(mTypefaceOpenSansBold);
+        tv_actors.setTypeface(mTypefaceOpenSansBold);
+        tv_events.setTypeface(mTypefaceOpenSansBold);
+        tv_movies.setTypeface(mTypefaceOpenSansBold);
     }
 
     /**

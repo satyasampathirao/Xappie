@@ -4,6 +4,7 @@ package com.xappie.activities;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -73,6 +74,7 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
         tv_languages.setTypeface(mTypefaceOpenSansRegular);
         tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_languages_menu_icon.setVisibility(View.INVISIBLE);
         tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);
 
         getLanguagesData();

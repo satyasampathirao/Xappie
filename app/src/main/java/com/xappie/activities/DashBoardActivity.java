@@ -50,6 +50,7 @@ import com.xappie.fragments.JobsFragment;
 import com.xappie.fragments.LanguageFragment;
 import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
+import com.xappie.fragments.PreferenceFragment;
 import com.xappie.fragments.TopStoriesFragment;
 import com.xappie.fragments.VideosFragment;
 import com.xappie.models.ImageUploadModel;
@@ -225,7 +226,8 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                         break;
                     case R.id.preferences:
                         drawerLayout.closeDrawers();
-                        showDialogForPreferences();
+                       /* showDialogForPreferences(); */
+                        Utility.navigateDashBoardFragment(new PreferenceFragment(),PreferenceFragment.TAG,null,DashBoardActivity.this);
                         break;
                     case R.id.account_settings:
                         drawerLayout.closeDrawers();
@@ -384,7 +386,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
     /**
      * This method is used to show the Preferences dialog
      */
-    private void showDialogForPreferences() {
+ /*   private void showDialogForPreferences() {
         final Dialog mDialog = new Dialog(this);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialog.setContentView(R.layout.home_custmization_dialog);
@@ -477,7 +479,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
         });
 
         mDialog.show();
-    }
+    }  */
 
     /**
      * This method is used to logout from the application
