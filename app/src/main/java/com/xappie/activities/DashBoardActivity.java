@@ -3,11 +3,8 @@ package com.xappie.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,6 +34,7 @@ import com.xappie.customviews.CircleTransform;
 import com.xappie.customviews.FilePath;
 import com.xappie.designes.MaterialDialog;
 import com.xappie.fragments.AccountSettingFragment;
+import com.xappie.fragments.AddNewEventFragment;
 import com.xappie.fragments.ClassifiedsFragment;
 import com.xappie.fragments.CountriesFragment;
 import com.xappie.fragments.DiscussionsFragment;
@@ -45,7 +42,6 @@ import com.xappie.fragments.EntertainmentFragment;
 import com.xappie.fragments.EventsFragment;
 import com.xappie.fragments.GalleryFragment;
 import com.xappie.fragments.HomeFragment;
-import com.xappie.fragments.HomePageCustomizationFragment;
 import com.xappie.fragments.JobsFragment;
 import com.xappie.fragments.LanguageFragment;
 import com.xappie.fragments.MyProfileFragment;
@@ -227,7 +223,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                     case R.id.preferences:
                         drawerLayout.closeDrawers();
                        /* showDialogForPreferences(); */
-                        Utility.navigateDashBoardFragment(new PreferenceFragment(),PreferenceFragment.TAG,null,DashBoardActivity.this);
+                        Utility.navigateDashBoardFragment(new PreferenceFragment(), PreferenceFragment.TAG, null, DashBoardActivity.this);
                         break;
                     case R.id.account_settings:
                         drawerLayout.closeDrawers();
@@ -363,6 +359,13 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 String path = FilePath.getPath(this, selectedImageUri);
                 mSelectedFile = new File(path);
                 updateImageToServer();
+            }
+        } else if (requestCode == Constants.FROM_POST_FORUM_ADD_EVENT_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                String path = FilePath.getPath(this, selectedImageUri);
+                mSelectedFile = new File(path);
+                AddNewEventFragment.getInstance().updateFile(path);
             }
         }
     }

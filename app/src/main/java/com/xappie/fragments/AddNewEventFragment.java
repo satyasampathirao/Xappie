@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +15,17 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.interfaces.IUpdateSelectedFile;
+import com.xappie.models.Model;
+import com.xappie.parser.LoginParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
+
+import java.io.File;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +34,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar on 7/28/2017.
  */
-public class AddNewEventFragment extends Fragment {
+public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpdateSelectedFile {
 
     public static final String TAG = AddNewEventFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -68,11 +79,20 @@ public class AddNewEventFragment extends Fragment {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceOpenSansBold;
+    public static File mYourFile;
+
+
+    private static IUpdateSelectedFile iUpdateSelectedFile;
+
+    public static IUpdateSelectedFile getInstance() {
+        return iUpdateSelectedFile;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
+        iUpdateSelectedFile = this;
     }
 
     @Override
@@ -118,8 +138,47 @@ public class AddNewEventFragment extends Fragment {
     @OnClick(R.id.btn_submit)
     void submitDetails() {
         if (isValidFields()) {
-
+            LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+            paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            paramMap.put("event_name", edt_name_of_the_event.getText().toString());
+            paramMap.put("tag_line", edt_tag_line.getText().toString());
+            paramMap.put("description", edt_description.getText().toString());
+            paramMap.put("cost", edt_cost.getText().toString());
+            paramMap.put("dress_code", edt_dress_code.getText().toString());
+            paramMap.put("start_time", edt_start_time.getText().toString());
+            paramMap.put("end_time", edt_end_time.getText().toString());
+            paramMap.put("location", edt_name_of_the_location.getText().toString());
+            paramMap.put("address", edt_address.getText().toString());
+            paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+            paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
+            paramMap.put("photo_name", edt_upload_image.getText().toString());
+            LoginParser mLoginParser = new LoginParser();
+            ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                    R.string.please_wait), true,
+                    APIConstants.ADD_EVENT, paramMap,
+                    APIConstants.REQUEST_TYPE.POST, this, mLoginParser);
+            Utility.execute(serverIntractorAsync);
         }
+    }
+
+    /**
+     * This method is used to upload
+     */
+    @OnClick(R.id.btn_upload)
+    void eventDialog() {
+        showEventDialog();
+    }
+
+    /**
+     * This method is used to show the edit dialog
+     */
+    private void showEventDialog() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select event image"), Constants.FROM_POST_FORUM_ADD_EVENT_ID);
     }
 
     private boolean isValidFields() {
@@ -166,5 +225,22 @@ public class AddNewEventFragment extends Fragment {
             isValid = false;
         }
         return isValid;
+    }
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model.isStatus()) {
+                /*if (model instanceof CategoryModel) {
+
+                }*/
+            }
+        }
+    }
+
+    @Override
+    public void updateFile(String path) {
+        mYourFile = new File(path);
+        edt_upload_image.setText(mYourFile.getName());
     }
 }
