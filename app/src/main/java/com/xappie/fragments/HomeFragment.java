@@ -929,9 +929,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
             TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+            TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
 
             tv_title.setText(topStoriesModels.get(i).getTitle());
+            tv_posted_by.setText(topStoriesModels.get(i).getRecordedBy());
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -983,8 +986,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
             TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+            TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
 
             tv_title.setText(mHomePageContentModel.getEntertainmentModels().get(i).getTitle());
+            tv_posted_by.setText(mHomePageContentModel.getEntertainmentModels().get(i).getRecordedBy());
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
@@ -1001,6 +1006,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 }
             }
             tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+            tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getProfile_image())) {
                 Utility.universalImageLoaderPicLoading(img_news_item,

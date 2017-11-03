@@ -128,11 +128,11 @@ public class AddNewEventFragment extends Fragment {
             Utility.setSnackBar(mParent, edt_name_of_the_event, "Please enter name of the event");
             edt_name_of_the_event.requestFocus();
             isValid = false;
-        } else if (edt_tag_line.getText().toString().length() < 4) {
+        }/* else if (edt_tag_line.getText().toString().length() < 4) {
             Utility.setSnackBar(mParent, edt_tag_line, "Please enter tag line");
             edt_tag_line.requestFocus();
             isValid = false;
-        } else if (edt_description.getText().toString().length() < 4) {
+        } */ else if (edt_description.getText().toString().length() < 4) {
             Utility.setSnackBar(mParent, edt_description, "Please enter description");
             edt_description.requestFocus();
             isValid = false;
@@ -141,14 +141,14 @@ public class AddNewEventFragment extends Fragment {
             edt_upload_image.requestFocus();
             isValid = false;
         } else if (Utility.isValueNullOrEmpty(edt_cost.getText().toString())) {
-            Utility.setSnackBar(mParent, edt_cost, "Please enter cost");
+            Utility.setSnackBar(mParent, edt_cost, "If cost is not there mention it as Zero");
             edt_cost.requestFocus();
             isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_dress_code.getText().toString())) {
+        } /*else if (Utility.isValueNullOrEmpty(edt_dress_code.getText().toString())) {
             Utility.setSnackBar(mParent, edt_dress_code, "Please enter dress code");
             edt_dress_code.requestFocus();
             isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_start_time.getText().toString())) {
+        } */ else if (Utility.isValueNullOrEmpty(edt_start_time.getText().toString())) {
             Utility.setSnackBar(mParent, edt_start_time, "Please enter start time");
             edt_start_time.requestFocus();
             isValid = false;

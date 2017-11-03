@@ -266,9 +266,15 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
-                    languageModel = mLanguageListModel.getLanguageModels().get(0);
+                    for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID)
+                                .equalsIgnoreCase(mLanguageListModel.getLanguageModels().get(i).getId())) {
+                            languageModel = mLanguageListModel.getLanguageModels().get(i);
+                        }
+                    }
                     setLanguages();
-                    mCurrentLanguage = mLanguageListModel.getLanguageModels().get(0).getId();
+                    if (languageModel != null)
+                        mCurrentLanguage = languageModel.getId();
                     getGalleryData();
                 }
             } else if (model instanceof ActressActorsListModel) {
