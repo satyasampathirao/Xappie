@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
@@ -204,7 +202,8 @@ public class SignUpOtpActivity extends BaseActivity implements IAsyncCaller {
                     Utility.setSharedPrefBooleanData(SignUpOtpActivity.this, Constants.IS_LOGIN_COMPLETED, true);
                     finish();
                     Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_FIRST_NAME, et_sign_in_first_name.getText().toString());
-                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_LAST_NAME, et_sign_in_first_name.getText().toString());
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_LAST_NAME, et_sign_in_last_name.getText().toString());
+                    Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_MOBILE, mMobile);
                     Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_MAIL_ID, mMailId);
                     Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_CURRENT_DATE, Utility.getDate());
                     Utility.setSharedPrefStringData(SignUpOtpActivity.this, Constants.SIGN_UP_UUID, mUUID);
