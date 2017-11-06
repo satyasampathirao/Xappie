@@ -40,7 +40,6 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                 Utility.showLog("Request mParams ", "" + mParams);
                 mResponse = Utility.httpGetRequestToServer(Utility.getURL(mUrl, mParams));
                 if (mResponse != null) {
-
                     Utility.showLog("mResponse  ", mResponse);
                 }
                 return parseResposnse(mResponse);

@@ -17,11 +17,19 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.AllEventsListAdapter;
 import com.xappie.adapters.AllMyEventsListAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.models.EventsListModel;
+import com.xappie.models.Model;
+import com.xappie.parser.EventsListParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
+import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,10 +38,12 @@ import butterknife.ButterKnife;
  * Created by Shankar Pilli on 07/28/2017
  */
 
-public class AllMyEventsFragment extends Fragment {
+public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = AllMyEventsFragment.class.getSimpleName();
     private DashBoardActivity mParent;
+
+    private EventsListModel eventsListModel;
 
     /**
      * AllEvents List set up
@@ -58,12 +68,38 @@ public class AllMyEventsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setGridViewData();
+        initUI();
+    }
+
+    private void initUI() {
+        getMyEventsData("" + 1);
+    }
+
+
+    /**
+     * This method is used to get the all the events data from the server
+     */
+    private void getMyEventsData(String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            EventsListParser eventsListParser = new EventsListParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.MY_EVENTS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*This method is used to set the lsit view data*/
     private void setGridViewData() {
-        AllMyEventsListAdapter allEventsListAdapter = new AllMyEventsListAdapter(mParent, getEntertainData());
+        AllMyEventsListAdapter allEventsListAdapter = new AllMyEventsListAdapter(mParent, eventsListModel.getEventsModels());
         // step 1. create a MenuCreator
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -128,4 +164,16 @@ public class AllMyEventsFragment extends Fragment {
                 getResources().getDisplayMetrics());
     }
 
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof EventsListModel) {
+                eventsListModel = (EventsListModel) model;
+                if (eventsListModel != null && eventsListModel.getEventsModels().size() > 0) {
+                    setGridViewData();
+                }
+            }
+        }
+    }
 }
