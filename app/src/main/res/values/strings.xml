@@ -157,6 +157,8 @@
     <string name="type_of_event">Type of event</string>
     <string name="when_event_taking_place">When Event taking place</string>
     <string name="where_is_the_event_taking_place">Where is the Event taking place</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
     <string name="start_time">Start Time</string>
     <string name="end_time">End Time</string>
     <string name="name_of_the_location">Name of the Location</string>

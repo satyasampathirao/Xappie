@@ -1,30 +1,40 @@
 package com.xappie.fragments;
 
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.interfaces.IUpdateSelectedFile;
+import com.xappie.models.AddEventModel;
 import com.xappie.models.Model;
-import com.xappie.parser.LoginParser;
+import com.xappie.parser.AddEventSuccessParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -61,6 +71,10 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     @BindView(R.id.et_type_of_event)
     EditText et_type_of_event;
 
+    @BindView(R.id.edt_start_date)
+    EditText edt_start_date;
+    @BindView(R.id.edt_end_date)
+    EditText edt_end_date;
     @BindView(R.id.edt_start_time)
     EditText edt_start_time;
     @BindView(R.id.edt_end_time)
@@ -80,7 +94,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceOpenSansBold;
     public static File mYourFile;
-
+    private AddEventModel addEventModel;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
 
@@ -145,8 +159,8 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             paramMap.put("description", edt_description.getText().toString());
             paramMap.put("cost", edt_cost.getText().toString());
             paramMap.put("dress_code", edt_dress_code.getText().toString());
-            paramMap.put("start_time", edt_start_time.getText().toString());
-            paramMap.put("end_time", edt_end_time.getText().toString());
+            paramMap.put("start_time", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
+            paramMap.put("end_time", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
             paramMap.put("location", edt_name_of_the_location.getText().toString());
             paramMap.put("address", edt_address.getText().toString());
             paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
@@ -154,11 +168,11 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
             paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
             paramMap.put("photo_name", edt_upload_image.getText().toString());
-            LoginParser mLoginParser = new LoginParser();
+            AddEventSuccessParser mAddEventSuccessParser = new AddEventSuccessParser();
             ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
                     R.string.please_wait), true,
                     APIConstants.ADD_EVENT, paramMap,
-                    APIConstants.REQUEST_TYPE.POST, this, mLoginParser);
+                    APIConstants.REQUEST_TYPE.POST, this, mAddEventSuccessParser);
             Utility.execute(serverIntractorAsync);
         }
     }
@@ -171,6 +185,138 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         showEventDialog();
     }
 
+    private static int mStartYear;
+    private static int mStartMonth;
+    private static int mStartDay;
+
+
+    @OnClick(R.id.edt_start_date)
+    void selectStartDate() {
+        DialogFragment newFragment = null;
+        newFragment = new SelectDateFragment(edt_start_date, "start_date");
+        newFragment.show(mParent.getSupportFragmentManager(), "DatePicker");
+        edt_end_time.setText("");
+    }
+
+    @OnClick(R.id.edt_start_time)
+    void selectStartTime() {
+        TimePickerFragment timePickerFragment = null;
+        timePickerFragment = new TimePickerFragment(edt_start_time);
+        timePickerFragment.show(mParent.getSupportFragmentManager(), "TimePicker");
+    }
+
+    @OnClick(R.id.edt_end_time)
+    void selectEndTime() {
+        TimePickerFragment timePickerFragment = null;
+        timePickerFragment = new TimePickerFragment(edt_end_time);
+        timePickerFragment.show(mParent.getSupportFragmentManager(), "TimePicker");
+    }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        EditText editText;
+
+        public TimePickerFragment() {
+        }
+
+        @SuppressLint("ValidFragment")
+        public TimePickerFragment(EditText mEditText) {
+            this.editText = mEditText;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            editText.setText((hourOfDay < 10 ? ("0" + hourOfDay)
+                    : hourOfDay) + ":" + (minute < 10 ? ("0" + minute)
+                    : minute));
+        }
+    }
+
+    @OnClick(R.id.edt_end_date)
+    void selectEndDate() {
+        if (!edt_start_date.getText().toString().equals("")) {
+            DialogFragment newFragment = null;
+            newFragment = new SelectDateFragment(edt_end_date, "end_date");
+            newFragment.show(mParent.getSupportFragmentManager(), "DatePicker");
+        } else {
+            Utility.setSnackBar(mParent, edt_end_date, "Please select start date first");
+        }
+    }
+
+
+    public static class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        EditText editText;
+        String mFrom;
+
+        public SelectDateFragment() {
+        }
+
+        @SuppressLint("ValidFragment")
+        public SelectDateFragment(EditText mEditText, String mFrom) {
+            this.editText = mEditText;
+            this.mFrom = mFrom;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar calendar = Calendar.getInstance();
+            int yy = calendar.get(Calendar.YEAR);
+            int mm = calendar.get(Calendar.MONTH);
+            int dd = calendar.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog mDatePickerDialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
+            if (mFrom.equals("start_date")) {
+                //mDatePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+                Calendar mCalendar = Calendar.getInstance();
+                mCalendar.set(Calendar.YEAR, yy);
+                mCalendar.set(Calendar.MONTH, mm);
+                mCalendar.set(Calendar.DAY_OF_MONTH, dd);
+                mCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                mCalendar.set(Calendar.MINUTE, 0);
+                mCalendar.set(Calendar.SECOND, 0);
+                mDatePickerDialog.getDatePicker().setMinDate(mCalendar.getTimeInMillis());
+            }
+            Calendar mCalendar = Calendar.getInstance();
+            if (mFrom.equals("end_date")) {
+                mCalendar.set(Calendar.YEAR, mStartYear);
+                mCalendar.set(Calendar.MONTH, mStartMonth);
+                mCalendar.set(Calendar.DAY_OF_MONTH, mStartDay);
+                mCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                mCalendar.set(Calendar.MINUTE, 0);
+                mCalendar.set(Calendar.SECOND, 0);
+                mDatePickerDialog.getDatePicker().setMinDate(mCalendar.getTimeInMillis());
+            }
+            return mDatePickerDialog;
+        }
+
+        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+            populateSetDate(yy, mm + 1, dd);
+        }
+
+        public void populateSetDate(int year, int month, int day) {
+            if (mFrom.equals("start_date")) {
+                mStartDay = day;
+                mStartYear = year;
+                mStartMonth = month - 1;
+            }
+            editText.setText((month < 10 ? ("0" + month)
+                    : month) + "-" + (day < 10 ? ("0" + day)
+                    : day) + "-" + year);
+        }
+    }
+
     /**
      * This method is used to show the edit dialog
      */
@@ -178,7 +324,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select event image"), Constants.FROM_POST_FORUM_ADD_EVENT_ID);
+        mParent.startActivityForResult(Intent.createChooser(intent, "Select event image"), Constants.FROM_POST_FORUM_ADD_EVENT_ID);
     }
 
     private boolean isValidFields() {
@@ -207,12 +353,32 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             Utility.setSnackBar(mParent, edt_dress_code, "Please enter dress code");
             edt_dress_code.requestFocus();
             isValid = false;
-        } */ else if (Utility.isValueNullOrEmpty(edt_start_time.getText().toString())) {
-            Utility.setSnackBar(mParent, edt_start_time, "Please enter start time");
+        } */ else if (Utility.isValueNullOrEmpty(edt_start_date.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_start_date, "Please select start date");
+            edt_start_date.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_start_time.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_start_time, "Please select start time");
             edt_start_time.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_end_date.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_end_date, "Please select end date");
+            edt_end_date.requestFocus();
             isValid = false;
         } else if (Utility.isValueNullOrEmpty(edt_end_time.getText().toString())) {
             Utility.setSnackBar(mParent, edt_end_time, "Please enter end time");
+            edt_end_time.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_end_time.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_end_time, "Please enter end time");
+            edt_end_time.requestFocus();
+            isValid = false;
+        } else if (!isValidStartDatesAndTime()) {
+            Utility.setSnackBar(mParent, edt_end_time, "Enter future start time");
+            edt_end_time.requestFocus();
+            isValid = false;
+        } else if (!isValidDatesAndTime()) {
+            Utility.setSnackBar(mParent, edt_end_time, "End date should be after the start date and time");
             edt_end_time.requestFocus();
             isValid = false;
         } else if (Utility.isValueNullOrEmpty(edt_name_of_the_location.getText().toString())) {
@@ -227,15 +393,85 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         return isValid;
     }
 
+    private boolean isValidStartDatesAndTime() {
+        Calendar mCal = Calendar.getInstance();
+        int mCurrentDate = mCal.get(Calendar.DAY_OF_MONTH);
+        int mCurrentMonth = mCal.get(Calendar.MONTH) + 1;
+        int mCurrentYear = mCal.get(Calendar.YEAR);
+        int mCurrentHour = mCal.get(Calendar.HOUR_OF_DAY);
+        int mCurrentMinute = mCal.get(Calendar.MINUTE);
+
+        String startTime = edt_start_time.getText().toString();
+        String startTimeFormatted = startTime.replace(":", "");
+
+        String mCurrentDateAsString = (mCurrentMonth < 10 ? ("0" + mCurrentMonth)
+                : mCurrentMonth) + "-" + (mCurrentDate < 10 ? ("0" + mCurrentDate)
+                : mCurrentDate) + "-" + mCurrentYear;
+        if (mCurrentDateAsString.equalsIgnoreCase(edt_start_date.getText().toString())) {
+            int startTimeCurrent = Integer.parseInt(String.valueOf((mCurrentHour < 10 ? ("0" + mCurrentHour)
+                    : mCurrentHour)) + String.valueOf((mCurrentMinute < 10 ? ("0" + mCurrentMinute)
+                    : mCurrentMinute)));
+            if (startTimeCurrent < Integer.parseInt(startTimeFormatted)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * This method is will check the is dates and time after
+     */
+    private boolean isValidDatesAndTime() {
+        if (edt_start_date.getText().toString().equalsIgnoreCase(edt_end_date.getText().toString())) {
+            String startTime = edt_start_time.getText().toString();
+            String endTime = edt_end_time.getText().toString();
+            String startTimeFormatted = startTime.replace(":", "");
+            String endTimeFormatted = endTime.replace(":", "");
+            if (Integer.parseInt(startTimeFormatted) < Integer.parseInt(endTimeFormatted)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public void onComplete(Model model) {
         if (model != null) {
-            if (model.isStatus()) {
-                /*if (model instanceof CategoryModel) {
-
-                }*/
+            //if (model.isStatus()) {
+            if (model instanceof AddEventModel) {
+                addEventModel = (AddEventModel) model;
+                Utility.showToastMessage(mParent, addEventModel.getMessage());
+                clearData();
             }
+            //}
         }
+    }
+
+    /**
+     * This method is used to clear data
+     */
+    private void clearData() {
+        edt_name_of_the_event.setText("");
+        edt_tag_line.setText("");
+        edt_description.setText("");
+        edt_upload_image.setText("");
+        mYourFile = null;
+        edt_cost.setText("");
+        edt_dress_code.setText("");
+
+        edt_start_date.setText("");
+        edt_end_date.setText("");
+        edt_start_time.setText("");
+        edt_end_time.setText("");
+
+        edt_name_of_the_location.setText("");
+        edt_address.setText("");
     }
 
     @Override
