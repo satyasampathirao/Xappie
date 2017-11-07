@@ -38,7 +38,11 @@ public class ServerIntractorAsync extends BaseAsynkTask {
             case GET:
                 Utility.showLog("Request URL ", mUrl);
                 Utility.showLog("Request mParams ", "" + mParams);
-                mResponse = Utility.httpGetRequestToServer(Utility.getURL(mUrl, mParams));
+                if (mUrl.contains(APIConstants.MY_EVENTS)) {
+                    mResponse = Utility.getWithHeader(Utility.getURL(mUrl, mParams), mContext);
+                } else {
+                    mResponse = Utility.httpGetRequestToServer(Utility.getURL(mUrl, mParams));
+                }
                 if (mResponse != null) {
                     Utility.showLog("mResponse  ", mResponse);
                 }

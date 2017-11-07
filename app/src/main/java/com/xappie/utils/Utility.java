@@ -826,4 +826,36 @@ public class Utility {
         return outputDateStr;
     }
 
+
+
+    public static String getWithHeader(String url, Context mContext) {
+        showLog("Url", url);
+        InputStream inputStream = null;
+        String result = "";
+        try {
+            final HttpParams httpParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpParams,
+                    CONNECTION_TIMEOUT);
+            HttpConnectionParams.setSoTimeout(httpParams,
+                    CONNECTION_TIMEOUT);
+
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient(httpParams);
+            HttpGet httpGet = new HttpGet(url);
+            httpGet.setHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mContext, Constants.LOGIN_SESSION_ID) + ";");
+            HttpResponse httpResponse = httpclient.execute(httpGet);
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+            // convert inputstream to string
+            if (inputStream != null) {
+                result = convertInputStreamToString(inputStream);
+            } else {
+                result = "Did not work!";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

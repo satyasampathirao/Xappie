@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LoginActivity;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
@@ -138,7 +141,13 @@ public class EventsFragment extends Fragment {
      */
     @OnClick(R.id.tv_add_new_event)
     void navigateAddNewEvents() {
-        Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
+        }
     }
 
     /**
@@ -146,22 +155,27 @@ public class EventsFragment extends Fragment {
      */
     @OnClick(R.id.tv_my_events)
     void navigateMyEvents() {
-        Utility.navigateAllEventsFragment(new AllMyEventsFragment(), AllMyEventsFragment.TAG, null, mParent);
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Utility.navigateAllEventsFragment(new AllMyEventsFragment(), AllMyEventsFragment.TAG, null, mParent);
+        }
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 }

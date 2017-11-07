@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.xappie.R;
+import com.xappie.activities.AppTourActivity;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LoginActivity;
 import com.xappie.adapters.AllEventsListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -20,6 +23,8 @@ import com.xappie.parser.EventsListParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
+
+import org.apache.commons.logging.Log;
 
 import java.util.LinkedHashMap;
 
@@ -101,7 +106,13 @@ public class AllEventsListFragment extends Fragment implements IAsyncCaller {
      */
     @OnClick(R.id.fab)
     void navigateToPost() {
-        Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, null, mParent);
+        }
     }
 
     @Override
