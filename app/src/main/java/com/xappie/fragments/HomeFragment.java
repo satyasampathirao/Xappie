@@ -687,7 +687,14 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 }
             } else if (model instanceof HomePageBannerListModel) {
                 mHomePageBannerListModel = (HomePageBannerListModel) model;
-                setDataToBanner();
+                if (mHomePageBannerListModel != null && mHomePageBannerListModel.getHomePageBannerModels() != null
+                        && mHomePageBannerListModel.getHomePageBannerModels().size() > 0) {
+                    setDataToBanner();
+                    card_pager.setVisibility(View.VISIBLE);
+                } else {
+                    card_pager.setVisibility(View.GONE);
+                    getHomePageData();
+                }
             } else if (model instanceof HomePageContentModel) {
                 mHomePageContentModel = (HomePageContentModel) model;
                 setDataToTheScreen();
