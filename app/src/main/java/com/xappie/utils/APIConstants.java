@@ -42,7 +42,7 @@ public class APIConstants {
     public static String UPDATE_PROFILE_PHOTO = BASE_URL + "update_profile_photo";
     public static String GET_EVENTS = BASE_URL + "get_events";
     public static String MY_EVENTS = BASE_URL + "my_events";
-    public static String GET_AD_DETAILS = BASE_URL + "get_ad_details";
+    public static String GET_EVENT_DETAILS = BASE_URL + "get_event_details";
     public static String ADD_EVENT = BASE_URL + "add_event";
 
 }

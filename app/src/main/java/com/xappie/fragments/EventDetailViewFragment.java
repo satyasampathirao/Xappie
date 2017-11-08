@@ -182,7 +182,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             EventsDetailParser eventsListParser = new EventsDetailParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
-                    APIConstants.GET_AD_DETAILS +"/"+ mId, linkedHashMap,
+                    APIConstants.GET_EVENT_DETAILS +"/"+ mId, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {

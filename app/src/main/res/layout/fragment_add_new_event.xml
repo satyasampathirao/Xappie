@@ -41,6 +41,7 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:singleLine="true"
+                android:text="shnskfa test"
                 android:textSize="@dimen/_15sp" />
 
             <EditText
@@ -58,6 +59,7 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:singleLine="true"
+                android:text="shnskfa  agagtest"
                 android:textSize="@dimen/_15sp" />
 
             <EditText
@@ -77,6 +79,7 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:paddingTop="@dimen/_10dp"
+                android:text="shnskfa  description"
                 android:textSize="@dimen/_15sp" />
 
             <LinearLayout
@@ -130,6 +133,7 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:singleLine="true"
+                android:text="20"
                 android:textSize="@dimen/_15sp" />
 
             <EditText
@@ -149,6 +153,7 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:paddingTop="@dimen/_10dp"
+                android:text="sdfsdfsdfsd"
                 android:textSize="@dimen/_15sp" />
 
             <EditText
@@ -203,6 +208,7 @@
                     android:paddingRight="@dimen/_10dp"
                     android:paddingStart="@dimen/_10dp"
                     android:singleLine="true"
+                    android:text="11-16-2017"
                     android:textSize="@dimen/_15sp" />
 
                 <EditText
@@ -223,6 +229,7 @@
                     android:paddingRight="@dimen/_10dp"
                     android:paddingStart="@dimen/_10dp"
                     android:singleLine="true"
+                    android:text="20:15"
                     android:textSize="@dimen/_15sp" />
             </LinearLayout>
 
@@ -248,6 +255,7 @@
                     android:paddingRight="@dimen/_10dp"
                     android:paddingStart="@dimen/_10dp"
                     android:singleLine="true"
+                    android:text="11-18-2017"
                     android:textSize="@dimen/_15sp" />
 
                 <EditText
@@ -268,6 +276,7 @@
                     android:paddingRight="@dimen/_10dp"
                     android:paddingStart="@dimen/_10dp"
                     android:singleLine="true"
+                    android:text="10:15"
                     android:textSize="@dimen/_15sp" />
             </LinearLayout>
 
@@ -299,6 +308,7 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:singleLine="true"
+                android:text="sfsdfsdf hyserdfssd"
                 android:textSize="@dimen/_15sp" />
 
             <EditText
@@ -318,6 +328,7 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:paddingTop="@dimen/_10dp"
+                android:text="sfsdfsdf sdfdskfjdsfkj s20"
                 android:textSize="@dimen/_15sp" />
 
             <Button
