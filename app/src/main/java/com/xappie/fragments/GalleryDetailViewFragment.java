@@ -310,9 +310,9 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     private void setData() {
         scroll.fullScroll(ScrollView.FOCUS_UP);
         tv_header_title.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getTitle());
-        tv_description.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getSource());
-        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy())) {
-            tv_written_by.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedBy());
+        tv_description.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getDescription());
+        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getSource())) {
+            tv_written_by.setText(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getSource());
             tv_written_by.setVisibility(View.VISIBLE);
             view_dot.setVisibility(View.VISIBLE);
         } else {

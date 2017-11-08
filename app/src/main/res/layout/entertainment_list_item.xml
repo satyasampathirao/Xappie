@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/_5dp"
+        android:paddingBottom="@dimen/_6dp"
         android:paddingEnd="@dimen/_8dp"
         android:paddingStart="@dimen/_8dp"
         android:paddingTop="@dimen/_5dp">
@@ -46,6 +46,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -54,12 +55,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10dp"
                     android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_15dp"
                     android:layout_weight="1"
                     android:alpha="0.8"
                     android:text="@string/_1day"
                     android:textColor="@color/light_yellow"
-                    android:textSize="@dimen/_11sp" />
+                    android:textSize="@dimen/_10sp" />
 
                 <TextView
                     android:id="@+id/tv_posted_by"
@@ -67,7 +67,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_10dp"
                     android:layout_marginRight="@dimen/_25dp"
-                    android:layout_marginTop="@dimen/_15dp"
                     android:alpha="0.8"
                     android:text="@string/posted_by"
                     android:textColor="@color/dark_gray"

@@ -7,6 +7,7 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.BuildConfig;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
@@ -273,6 +274,17 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     @OnClick(R.id.tv_sign_up_cancel)
     public void navigateCancel() {
         this.onBackPressed();
+    }
+
+    @OnClick(R.id.tv_sign_up_show)
+    public void showAndHidePassword() {
+        if (tv_sign_up_show.getText().toString().equalsIgnoreCase("Show")) {
+            tv_sign_up_show.setText("Hide");
+            et_sign_up_password.setTransformationMethod(null);
+        } else {
+            tv_sign_up_show.setText("Show");
+            et_sign_up_password.setTransformationMethod(new PasswordTransformationMethod());
+        }
     }
 
     private boolean isValidFields() {

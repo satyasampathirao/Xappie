@@ -101,8 +101,8 @@ public class EntertainmentAdapter extends BaseAdapter {
                     "", null, R.drawable.xappie_place_holder);
         }
 
-        if (!Utility.isValueNullOrEmpty(entertainmentModel.getRecordedBy())) {
-            mEntertainmentHolder.tv_posted_by.setText(entertainmentModel.getRecordedBy());
+        if (!Utility.isValueNullOrEmpty(entertainmentModel.getSource())) {
+            mEntertainmentHolder.tv_posted_by.setText(entertainmentModel.getSource());
             mEntertainmentHolder.tv_posted_by.setVisibility(View.VISIBLE);
         } else {
             mEntertainmentHolder.tv_posted_by.setVisibility(View.GONE);

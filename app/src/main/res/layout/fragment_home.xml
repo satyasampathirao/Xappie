@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:padding="@dimen/_8dp"
-                android:paddingTop="@dimen/_10dp"
+                android:paddingTop="@dimen/_15dp"
                 android:text="@string/ads"
                 android:textColor="@color/title_color"
                 android:textSize="@dimen/_13sp" />

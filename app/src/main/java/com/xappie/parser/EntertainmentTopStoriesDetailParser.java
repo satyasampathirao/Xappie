@@ -27,6 +27,7 @@ public class EntertainmentTopStoriesDetailParser implements Parser<Model> {
             entertainmentModel.setTitle(jsonObject.optString("title"));
             entertainmentModel.setType(jsonObject.optString("type"));
             entertainmentModel.setDescription(jsonObject.optString("description"));
+            entertainmentModel.setSource(jsonObject.optString("source"));
             entertainmentModel.setLanguage(jsonObject.optString("language"));
             entertainmentModel.setProfile_image(jsonObject.optString("profile_image"));
             entertainmentModel.setBanner_image(jsonObject.optString("banner_image"));
@@ -41,6 +42,7 @@ public class EntertainmentTopStoriesDetailParser implements Parser<Model> {
             entertainmentNextModel.setId(nextJsonObject.optString("id"));
             entertainmentNextModel.setTitle(nextJsonObject.optString("title"));
             entertainmentNextModel.setType(nextJsonObject.optString("type"));
+            entertainmentModel.setSource(jsonObject.optString("source"));
             entertainmentNextModel.setDescription(nextJsonObject.optString("description"));
             entertainmentNextModel.setLanguage(nextJsonObject.optString("language"));
             entertainmentNextModel.setProfile_image(nextJsonObject.optString("profile_image"));

@@ -19,6 +19,11 @@ public class EventsModel extends Model{
     private String recordedDate;
     private String start_time;
     private String end_time;
+    private String tag;
+    private String dress_code;
+    private String cost;
+    private String address;
+    private String description;
 
     public String getId() {
         return id;
@@ -123,4 +128,35 @@ public class EventsModel extends Model{
     public void setEnd_time(String end_time) {
         this.end_time = end_time;
     }
+
+    public String getDress_code() {
+        return dress_code;
+    }
+
+    public void setDress_code(String dress_code) {
+        this.dress_code = dress_code;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getAddress() {return address; }
+    public void setAddress(String address) { this.address = address; }
+
+    public String getDescription() {return  description;}
+
+    public void setDescription(String description) { this.description = description; }
 }

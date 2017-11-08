@@ -164,6 +164,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_total_cost.setTypeface(mTypefaceOpenSansRegular);
         tv_details.setTypeface(mTypefaceOpenSansRegular);
         tv_a_weekly_desi.setTypeface(mTypefaceOpenSansRegular);
+        tv_a_weekly_desi.setVisibility(View.GONE);
 
         btn_who_is_going.setTypeface(mTypefaceOpenSansRegular);
         btn_may_be.setTypeface(mTypefaceOpenSansRegular);
@@ -236,6 +237,12 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             Utility.universalImageLoaderPicLoading(img_event,
                     "", null, R.drawable.xappie_place_holder);
         }
-
+        tv_event_name.setText(eventsModel.getName());
+        tv_event_tag_line_text_comes_here.setText(eventsModel.getTag());
+        tv_date_time.setText(eventsModel.getStart_time());
+        tv_dress_code_value.setText(eventsModel.getDress_code());
+        tv_total_cost.setText(eventsModel.getCost());
+        tv_address.setText(eventsModel.getAddress());
+        tv_details.setText(eventsModel.getDescription());
     }
 }

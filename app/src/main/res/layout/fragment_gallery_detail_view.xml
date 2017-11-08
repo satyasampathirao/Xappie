@@ -26,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:textColor="@color/gallery_header_color"

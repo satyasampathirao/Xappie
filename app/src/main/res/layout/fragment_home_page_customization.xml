@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background_gray"
-                android:gravity="center"
+                android:gravity="start"
                 android:paddingBottom="@dimen/_10dp"
                 android:paddingEnd="@dimen/_5dp"
                 android:paddingStart="@dimen/_5dp"

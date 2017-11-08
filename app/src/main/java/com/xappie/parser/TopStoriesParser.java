@@ -28,6 +28,7 @@ public class TopStoriesParser implements Parser<Model> {
                 entertainmentModel.setId(jsonObject.optString("id"));
                 entertainmentModel.setTitle(jsonObject.optString("title"));
                 entertainmentModel.setType(jsonObject.optString("type"));
+                entertainmentModel.setSource(jsonObject.optString("source"));
                 entertainmentModel.setDescription(jsonObject.optString("description"));
                 entertainmentModel.setLanguage(jsonObject.optString("language"));
                 entertainmentModel.setProfile_image(jsonObject.optString("profile_image"));

@@ -207,6 +207,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                         break;
                     case R.id.videos:
                         drawerLayout.closeDrawers();
+                        Utility.navigateDashBoardFragment(new VideosFragment(),VideosFragment.TAG,null,DashBoardActivity.this);
                         break;
                     case R.id.events:
                         drawerLayout.closeDrawers();

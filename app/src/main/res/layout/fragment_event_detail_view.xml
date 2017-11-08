@@ -111,6 +111,7 @@
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:gravity="start|center"
                     android:layout_weight="1"
                     android:paddingStart="@dimen/_10dp"
                     android:text="@string/address"
