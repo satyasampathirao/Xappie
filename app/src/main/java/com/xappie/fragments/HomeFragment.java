@@ -939,7 +939,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
 
             tv_title.setText(topStoriesModels.get(i).getTitle());
-            tv_posted_by.setText(topStoriesModels.get(i).getRecordedBy());
+            tv_posted_by.setText(topStoriesModels.get(i).getSource());
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
             tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
 
@@ -996,7 +996,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
 
             tv_title.setText(mHomePageContentModel.getEntertainmentModels().get(i).getTitle());
-            tv_posted_by.setText(mHomePageContentModel.getEntertainmentModels().get(i).getRecordedBy());
+            tv_posted_by.setText(mHomePageContentModel.getEntertainmentModels().get(i).getSource());
             tv_title.setTypeface(Utility.getOpenSansBold(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {

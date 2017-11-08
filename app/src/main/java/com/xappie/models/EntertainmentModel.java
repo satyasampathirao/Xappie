@@ -11,12 +11,13 @@ public class EntertainmentModel implements Serializable {
     private String id;
     private String title;
     private String type;
-    private String description;
     private String language;
     private String profile_image;
     private String banner_image;
     private String status;
     private String news_status;
+    private String description;
+    private String source;
     private String recordedBy;
     private String recordedDate;
 
@@ -44,14 +45,6 @@ public class EntertainmentModel implements Serializable {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getLanguage() {
         return language;
     }
@@ -66,6 +59,14 @@ public class EntertainmentModel implements Serializable {
 
     public void setProfile_image(String profile_image) {
         this.profile_image = profile_image;
+    }
+
+    public String getBanner_image() {
+        return banner_image;
+    }
+
+    public void setBanner_image(String banner_image) {
+        this.banner_image = banner_image;
     }
 
     public String getStatus() {
@@ -84,6 +85,14 @@ public class EntertainmentModel implements Serializable {
         this.news_status = news_status;
     }
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public String getRecordedBy() {
         return recordedBy;
     }
@@ -100,11 +109,11 @@ public class EntertainmentModel implements Serializable {
         this.recordedDate = recordedDate;
     }
 
-    public String getBanner_image() {
-        return banner_image;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBanner_image(String banner_image) {
-        this.banner_image = banner_image;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

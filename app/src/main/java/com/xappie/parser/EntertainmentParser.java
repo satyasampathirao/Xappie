@@ -29,6 +29,7 @@ public class EntertainmentParser implements Parser<Model> {
                 entertainmentModel.setTitle(jsonObject.optString("title"));
                 entertainmentModel.setType(jsonObject.optString("type"));
                 entertainmentModel.setDescription(jsonObject.optString("description"));
+                entertainmentModel.setSource(jsonObject.optString("source"));
                 entertainmentModel.setLanguage(jsonObject.optString("language"));
                 entertainmentModel.setProfile_image(jsonObject.optString("profile_image"));
                 entertainmentModel.setStatus(jsonObject.optString("status"));

@@ -50,7 +50,7 @@ public class HomePageContentParser implements Parser<Model> {
                     entertainmentModel.setId(storiesJsonObject.optString("id"));
                     entertainmentModel.setTitle(storiesJsonObject.optString("title"));
                     entertainmentModel.setType(storiesJsonObject.optString("type"));
-                    entertainmentModel.setDescription(storiesJsonObject.optString("description"));
+                    entertainmentModel.setSource(storiesJsonObject.optString("source"));
                     entertainmentModel.setLanguage(storiesJsonObject.optString("language"));
                     entertainmentModel.setProfile_image(storiesJsonObject.optString("profile_image"));
                     entertainmentModel.setStatus(storiesJsonObject.optString("status"));
@@ -71,7 +71,7 @@ public class HomePageContentParser implements Parser<Model> {
                     entertainmentModel.setId(entertainmentsJsonObject.optString("id"));
                     entertainmentModel.setTitle(entertainmentsJsonObject.optString("title"));
                     entertainmentModel.setType(entertainmentsJsonObject.optString("type"));
-                    entertainmentModel.setDescription(entertainmentsJsonObject.optString("description"));
+                    entertainmentModel.setSource(entertainmentsJsonObject.optString("source"));
                     entertainmentModel.setLanguage(entertainmentsJsonObject.optString("language"));
                     entertainmentModel.setProfile_image(entertainmentsJsonObject.optString("profile_image"));
                     entertainmentModel.setStatus(entertainmentsJsonObject.optString("status"));
