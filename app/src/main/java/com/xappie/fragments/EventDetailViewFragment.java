@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
@@ -63,6 +64,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+    @BindView(R.id.ll_cost)
+    LinearLayout ll_cost;
 
     @BindView(R.id.tv_event_name)
     TextView tv_event_name;
@@ -81,6 +84,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_event_tag_line_text_comes_here;
     @BindView(R.id.tv_total_cost)
     TextView tv_total_cost;
+    @BindView(R.id.tv_ticket_cost)
+    TextView tv_ticket_cost;
     @BindView(R.id.tv_details)
     TextView tv_details;
     @BindView(R.id.tv_a_weekly_desi)
@@ -161,7 +166,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_address.setTypeface(mTypefaceOpenSansBold);
 
         tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
-        tv_total_cost.setTypeface(mTypefaceOpenSansRegular);
+        tv_total_cost.setTypeface(mTypefaceOpenSansBold);
+        tv_ticket_cost.setTypeface(mTypefaceOpenSansRegular);
         tv_details.setTypeface(mTypefaceOpenSansRegular);
         tv_a_weekly_desi.setTypeface(mTypefaceOpenSansRegular);
         tv_a_weekly_desi.setVisibility(View.GONE);
@@ -268,12 +274,12 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         else {
            tv_dress_code_value.setVisibility(View.GONE);
        }
-       if (Utility.isValueNullOrEmpty(eventsModel.getCost()))
+       if (!Utility.isValueNullOrEmpty(eventsModel.getCost()))
        {
            tv_total_cost.setText(eventsModel.getCost());
        }
        else {
-           tv_total_cost.setVisibility(View.GONE);
+           ll_cost.setVisibility(View.GONE);
        }
 
        if (!Utility.isValueNullOrEmpty(eventsModel.getAddress()))

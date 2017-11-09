@@ -11,12 +11,14 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="@dimen/_5dp">
+        android:paddingStart="@dimen/_5dp"
+        android:paddingEnd="@dimen/_5dp"
+        android:paddingBottom="@dimen/_5dp">
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/xappie_place_" />
 
