@@ -41,7 +41,6 @@
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:singleLine="true"
-                android:text="shnskfa test"
                 android:textSize="@dimen/_15sp" />
 
             <EditText

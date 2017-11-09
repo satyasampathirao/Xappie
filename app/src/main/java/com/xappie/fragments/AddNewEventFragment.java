@@ -27,6 +27,7 @@ import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.AddEventModel;
+import com.xappie.models.EventsModel;
 import com.xappie.models.Model;
 import com.xappie.parser.AddEventSuccessParser;
 import com.xappie.utils.APIConstants;
@@ -95,6 +96,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     private Typeface mTypefaceOpenSansBold;
     public static File mYourFile;
     private AddEventModel addEventModel;
+    private EventsModel eventsModel;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
 
@@ -107,6 +109,11 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         iUpdateSelectedFile = this;
+        if (getArguments() != null && getArguments().containsKey(Constants.EVENT_MODEL)) {
+            eventsModel = (EventsModel) getArguments().get(Constants.EVENT_MODEL);
+        } else {
+            eventsModel = null;
+        }
     }
 
     @Override
@@ -147,7 +154,30 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
 
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
         btn_upload.setTypeface(mTypefaceOpenSansRegular);
+
+        setPreData();
     }
+
+    /**
+     * This method is used to set old data
+     */
+    private void setPreData() {
+        if (eventsModel != null) {
+            edt_name_of_the_event.setText(eventsModel.getName());
+            edt_tag_line.setText(eventsModel.getTag());
+            edt_description.setText(eventsModel.getDescription());
+            edt_upload_image.setText(eventsModel.getImage());
+            edt_cost.setText(eventsModel.getCost());
+            edt_dress_code.setText(eventsModel.getDress_code());
+            edt_start_date.setText(eventsModel.getStart_time().substring(0, 10));
+            edt_start_time.setText(eventsModel.getStart_time().substring(11, eventsModel.getStart_time().length()));
+            edt_end_date.setText(eventsModel.getEnd_time().substring(0, 10));
+            edt_end_time.setText(eventsModel.getEnd_time().substring(11, eventsModel.getStart_time().length()));
+            edt_name_of_the_location.setText(eventsModel.getCity());
+            edt_address.setText(eventsModel.getAddress());
+        }
+    }
+
 
     @OnClick(R.id.btn_submit)
     void submitDetails() {
@@ -311,9 +341,9 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
                 mStartYear = year;
                 mStartMonth = month - 1;
             }
-            editText.setText((month < 10 ? ("0" + month)
+            editText.setText(year + "-" + (month < 10 ? ("0" + month)
                     : month) + "-" + (day < 10 ? ("0" + day)
-                    : day) + "-" + year);
+                    : day));
         }
     }
 

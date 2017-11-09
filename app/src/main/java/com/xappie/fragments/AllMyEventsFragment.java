@@ -175,7 +175,9 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        Utility.showToastMessage(mParent, "Edit");
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable(Constants.EVENT_MODEL, eventsListModel.getEventsModels().get(position));
+                        Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, bundle, mParent);
                         break;
                     case 1:
                         mDeletePosition = position;

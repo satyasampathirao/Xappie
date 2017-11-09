@@ -1,10 +1,12 @@
 package com.xappie.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Shankar on 10/31/2017.
  */
 
-public class EventsModel extends Model{
+public class EventsModel extends Model implements Serializable {
 
     private String id;
     private String name;
@@ -153,10 +155,19 @@ public class EventsModel extends Model{
         this.tag = tag;
     }
 
-    public String getAddress() {return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getAddress() {
+        return address;
+    }
 
-    public String getDescription() {return  description;}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public void setDescription(String description) { this.description = description; }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

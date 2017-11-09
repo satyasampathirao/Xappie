@@ -62,6 +62,7 @@ public class Constants {
     public static final int RC_SIGN_IN = 9001;
     public static final String TITLE = "Title";
     public static final String FOR_GALLERY = "FOR_GALLERY";
+    public static final String EVENT_MODEL = "EVENT_MODEL";
 
     public static final String GALLERY_ID = "GALLERY_ID";
     public static final String EVENT_ID = "EVENT_ID";
