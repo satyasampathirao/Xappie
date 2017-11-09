@@ -1173,7 +1173,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         for (int i = 0; i < getAdsSizes().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
             ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
-            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getId()));
+            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getSsds()));
             layout_ads.addView(ll);
         }
     }
@@ -1182,7 +1182,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         ArrayList<AdsModel> adsModels = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             AdsModel adsModel = new AdsModel();
-            adsModel.setId(R.drawable.ads);
+            adsModel.setSsds(R.drawable.ads);
             adsModels.add(adsModel);
         }
         return adsModels;

@@ -32,6 +32,7 @@ import com.xappie.models.EntertainmentModel;
 import com.xappie.models.GalleryItemModel;
 import com.xappie.models.HomePageBannerListModel;
 import com.xappie.models.HomePageContentModel;
+import com.xappie.models.HomePageEventsAdsBannersModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
@@ -39,6 +40,7 @@ import com.xappie.models.NewsModel;
 import com.xappie.models.TopStoriesListModel;
 import com.xappie.models.VideosModel;
 import com.xappie.parser.EntertainmentParser;
+import com.xappie.parser.HomePageAdsEventsBannerParser;
 import com.xappie.parser.HomePageBannerParser;
 import com.xappie.parser.HomePageContentParser;
 import com.xappie.parser.LanguageParser;
@@ -242,6 +244,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     private HomePageBannerListModel mHomePageBannerListModel;
     private LanguageModel languageModel;
     private HomePageContentModel mHomePageContentModel;
+    private HomePageEventsAdsBannersModel mHomePageEventsAdsBannersModel;
     private TopStoriesListModel mTopStoriesListModel;
     private EntertainmentListModel mEntertainmentListModel;
 
@@ -283,6 +286,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         setTypeface();
         getLanguagesData();
         setAdsData();
+        getHomePageLocData();
     }
 
     /**
@@ -319,6 +323,30 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_HOME_CONTENT, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, videosParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to get data of the events
+     */
+    private void getHomePageLocData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put(Constants.PAGE_NO, "1");
+            linkedHashMap.put(Constants.PAGE_SIZE, "7");
+            linkedHashMap.put("modules", Constants.EVENTS_ADS_BANNERS);
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+            HomePageAdsEventsBannerParser homePageAdsEventsBannerParser = new HomePageAdsEventsBannerParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_HOME_CONTENT_LOC, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, homePageAdsEventsBannerParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
@@ -572,7 +600,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         for (int i = 0; i < getAdsSizes().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
             ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
-            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getId()));
+            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getSsds()));
             layout_ads.addView(ll);
         }
     }
@@ -593,7 +621,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         ArrayList<AdsModel> adsModels = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             AdsModel adsModel = new AdsModel();
-            adsModel.setId(R.drawable.ads);
+            adsModel.setSsds(R.drawable.ads);
             adsModels.add(adsModel);
         }
         return adsModels;
@@ -698,6 +726,9 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             } else if (model instanceof HomePageContentModel) {
                 mHomePageContentModel = (HomePageContentModel) model;
                 setDataToTheScreen();
+            } else if (model instanceof HomePageEventsAdsBannersModel) {
+                mHomePageEventsAdsBannersModel = (HomePageEventsAdsBannersModel) model;
+                setDataToEvetnsAdsBanners();
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
                 if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
@@ -716,6 +747,40 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 }
             }
         }
+    }
+
+    private void setDataToEvetnsAdsBanners() {
+        ll_events.removeAllViews();
+        if (mHomePageEventsAdsBannersModel.getEventsModels().size() > 0)
+            for (int i = 0; i < mHomePageEventsAdsBannersModel.getEventsModels().size(); i++) {
+                LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+                ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+                TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+                TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+
+                if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getImage())) {
+                    Utility.universalImageLoaderPicLoading(img_news_item,
+                            mHomePageEventsAdsBannersModel.getEventsModels().get(i).getImage(), null, R.drawable.xappie_place_holder);
+                } else {
+                    Utility.universalImageLoaderPicLoading(img_news_item,
+                            "", null, R.drawable.xappie_place_holder);
+                }
+
+                tv_title.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getName());
+                tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+                tv_time.setText(Utility.displayDateFormat(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getStart_time()).toUpperCase());
+                tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+                ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null, mParent);
+                    }
+                });
+
+                ll_events.addView(ll);
+            }
     }
 
     /**
