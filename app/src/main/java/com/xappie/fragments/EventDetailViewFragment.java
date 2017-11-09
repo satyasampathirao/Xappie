@@ -237,12 +237,57 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             Utility.universalImageLoaderPicLoading(img_event,
                     "", null, R.drawable.xappie_place_holder);
         }
-        tv_event_name.setText(eventsModel.getName());
-        tv_event_tag_line_text_comes_here.setText(eventsModel.getTag());
-        tv_date_time.setText(eventsModel.getStart_time());
-        tv_dress_code_value.setText(eventsModel.getDress_code());
-        tv_total_cost.setText(eventsModel.getCost());
-        tv_address.setText(eventsModel.getAddress());
-        tv_details.setText(eventsModel.getDescription());
+
+        if (!Utility.isValueNullOrEmpty(eventsModel.getName()))
+        {
+            tv_event_name.setText(eventsModel.getName());
+        }
+        else {
+            tv_event_name.setVisibility(View.GONE);
+        }
+
+        if (!Utility.isValueNullOrEmpty(eventsModel.getTag()))
+        {
+            tv_event_tag_line_text_comes_here.setText(eventsModel.getTag());
+        }
+        else {
+            tv_event_tag_line_text_comes_here.setVisibility(View.GONE);
+        }
+       if (!Utility.isValueNullOrEmpty(eventsModel.getStart_time()))
+       {
+           tv_date_time.setText(eventsModel.getStart_time());
+       }
+       else {
+            tv_date_time.setVisibility(View.GONE);
+       }
+
+       if (!Utility.isValueNullOrEmpty(eventsModel.getDress_code()))
+       {
+           tv_dress_code_value.setText(eventsModel.getDress_code());
+       }
+        else {
+           tv_dress_code_value.setVisibility(View.GONE);
+       }
+       if (Utility.isValueNullOrEmpty(eventsModel.getCost()))
+       {
+           tv_total_cost.setText(eventsModel.getCost());
+       }
+       else {
+           tv_total_cost.setVisibility(View.GONE);
+       }
+
+       if (!Utility.isValueNullOrEmpty(eventsModel.getAddress()))
+       {
+           tv_address.setText(eventsModel.getAddress());
+       }
+       else {
+           tv_address.setVisibility(View.GONE);
+       }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getDescription())) {
+            tv_details.setText(eventsModel.getDescription());
+        }
+        else {
+            tv_details.setVisibility(View.GONE);
+        }
     }
 }
