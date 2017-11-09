@@ -4,4 +4,7 @@
 
     <solid android:color="@color/twenty_percent_black" />
 
+    <size
+        android:width="110dp"
+        android:height="110dp" />
 </shape>

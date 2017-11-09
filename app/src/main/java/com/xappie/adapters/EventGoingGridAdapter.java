@@ -8,8 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.customviews.CircleTransform;
 import com.xappie.models.WhoIsGoingModel;
 import com.xappie.utils.Utility;
 
@@ -67,13 +71,20 @@ public class EventGoingGridAdapter extends BaseAdapter {
 
         WhoIsGoingModel eventGoingModel = whoIsGoingModels.get(position);
         mEventGoingGridHolder.tv_name.setText(eventGoingModel.getFirst_name());
+        if (!Utility.isValueNullOrEmpty(eventGoingModel.getPhoto()))
+            Picasso.with(mDashBoardActivity).load(eventGoingModel.getPhoto())
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .placeholder(Utility.getDrawable(mDashBoardActivity, R.drawable.avatar_image))
+                    .transform(new CircleTransform()).into(mEventGoingGridHolder.img_topic);
+        else {
 
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+            Picasso.with(mDashBoardActivity).load("asdasda")
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .placeholder(Utility.getDrawable(mDashBoardActivity, R.drawable.avatar_image))
+                    .transform(new CircleTransform()).into(mEventGoingGridHolder.img_topic);
+        }
 
         return convertView;
     }

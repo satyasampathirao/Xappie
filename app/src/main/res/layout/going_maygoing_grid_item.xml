@@ -5,6 +5,7 @@
     android:padding="@dimen/_10dp">
 
     <ImageView
+        android:id="@+id/img_topic"
         android:layout_width="@dimen/_110dp"
         android:layout_height="@dimen/_110dp"
         android:src="@drawable/avatar_image" />
