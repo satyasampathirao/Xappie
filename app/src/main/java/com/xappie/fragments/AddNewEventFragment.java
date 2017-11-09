@@ -27,9 +27,12 @@ import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.AddEventModel;
+import com.xappie.models.EventUpdateModel;
 import com.xappie.models.EventsModel;
 import com.xappie.models.Model;
 import com.xappie.parser.AddEventSuccessParser;
+import com.xappie.parser.EventUpdateParser;
+import com.xappie.parser.EventsDetailParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -97,6 +100,8 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     public static File mYourFile;
     private AddEventModel addEventModel;
     private EventsModel eventsModel;
+    private EventUpdateModel eventUpdateModel;
+    private String mID;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
 
@@ -109,10 +114,10 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         iUpdateSelectedFile = this;
-        if (getArguments() != null && getArguments().containsKey(Constants.EVENT_MODEL)) {
-            eventsModel = (EventsModel) getArguments().get(Constants.EVENT_MODEL);
+        if (getArguments() != null && getArguments().containsKey(Constants.EVENT_ID)) {
+            mID = getArguments().getString(Constants.EVENT_ID);
         } else {
-            eventsModel = null;
+            mID = "";
         }
     }
 
@@ -155,14 +160,35 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
         btn_upload.setTypeface(mTypefaceOpenSansRegular);
 
-        setPreData();
+        if (!Utility.isValueNullOrEmpty(mID)) {
+            btn_submit.setText("Update");
+            getEventDetails();
+        }
+    }
+
+    /**
+     * This method is used to get event details
+     */
+    private void getEventDetails() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            EventsDetailParser eventsListParser = new EventsDetailParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_EVENT_DETAILS + "/" + mID, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * This method is used to set old data
      */
     private void setPreData() {
-        if (eventsModel != null) {
+        if (!Utility.isValueNullOrEmpty(mID) && eventsModel != null) {
             edt_name_of_the_event.setText(eventsModel.getName());
             edt_tag_line.setText(eventsModel.getTag());
             edt_description.setText(eventsModel.getDescription());
@@ -182,28 +208,56 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     @OnClick(R.id.btn_submit)
     void submitDetails() {
         if (isValidFields()) {
-            LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
-            paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            paramMap.put("event_name", edt_name_of_the_event.getText().toString());
-            paramMap.put("tag_line", edt_tag_line.getText().toString());
-            paramMap.put("description", edt_description.getText().toString());
-            paramMap.put("cost", edt_cost.getText().toString());
-            paramMap.put("dress_code", edt_dress_code.getText().toString());
-            paramMap.put("start_time", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
-            paramMap.put("end_time", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
-            paramMap.put("location", edt_name_of_the_location.getText().toString());
-            paramMap.put("address", edt_address.getText().toString());
-            paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
-            paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
-            paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
-            paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
-            paramMap.put("photo_name", edt_upload_image.getText().toString());
-            AddEventSuccessParser mAddEventSuccessParser = new AddEventSuccessParser();
-            ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
-                    R.string.please_wait), true,
-                    APIConstants.ADD_EVENT, paramMap,
-                    APIConstants.REQUEST_TYPE.POST, this, mAddEventSuccessParser);
-            Utility.execute(serverIntractorAsync);
+            if (!Utility.isValueNullOrEmpty(mID)) {
+                LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+                paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+                paramMap.put("id", mID);
+                paramMap.put("event_name", edt_name_of_the_event.getText().toString());
+                paramMap.put("tag_line", edt_tag_line.getText().toString());
+                paramMap.put("description", edt_description.getText().toString());
+                paramMap.put("cost", edt_cost.getText().toString());
+                paramMap.put("dress_code", edt_dress_code.getText().toString());
+                paramMap.put("start_time", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
+                paramMap.put("end_time", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
+                paramMap.put("location", edt_name_of_the_location.getText().toString());
+                paramMap.put("address", edt_address.getText().toString());
+                paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+                paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+                paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+                if (mYourFile != null) {
+                    paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
+                    paramMap.put("photo_name", edt_upload_image.getText().toString());
+                }
+                EventUpdateParser mEventUpdateParser = new EventUpdateParser();
+                ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                        R.string.please_wait), true,
+                        APIConstants.UPDATE_EVENT, paramMap,
+                        APIConstants.REQUEST_TYPE.POST, this, mEventUpdateParser);
+                Utility.execute(serverIntractorAsync);
+            } else {
+                LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+                paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+                paramMap.put("event_name", edt_name_of_the_event.getText().toString());
+                paramMap.put("tag_line", edt_tag_line.getText().toString());
+                paramMap.put("description", edt_description.getText().toString());
+                paramMap.put("cost", edt_cost.getText().toString());
+                paramMap.put("dress_code", edt_dress_code.getText().toString());
+                paramMap.put("start_time", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
+                paramMap.put("end_time", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
+                paramMap.put("location", edt_name_of_the_location.getText().toString());
+                paramMap.put("address", edt_address.getText().toString());
+                paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+                paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+                paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+                paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
+                paramMap.put("photo_name", edt_upload_image.getText().toString());
+                AddEventSuccessParser mAddEventSuccessParser = new AddEventSuccessParser();
+                ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                        R.string.please_wait), true,
+                        APIConstants.ADD_EVENT, paramMap,
+                        APIConstants.REQUEST_TYPE.POST, this, mAddEventSuccessParser);
+                Utility.execute(serverIntractorAsync);
+            }
         }
     }
 
@@ -478,6 +532,13 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
                 addEventModel = (AddEventModel) model;
                 Utility.showToastMessage(mParent, addEventModel.getMessage());
                 clearData();
+            } else if (model instanceof EventsModel) {
+                eventsModel = (EventsModel) model;
+                setPreData();
+            } else if (model instanceof EventUpdateModel) {
+                eventUpdateModel = (EventUpdateModel) model;
+                Utility.showToastMessage(mParent, eventUpdateModel.getMessage());
+                mParent.onBackPressed();
             }
             //}
         }

@@ -176,7 +176,7 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
                 switch (index) {
                     case 0:
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constants.EVENT_MODEL, eventsListModel.getEventsModels().get(position));
+                        bundle.putString(Constants.EVENT_ID, eventsListModel.getEventsModels().get(position).getId());
                         Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, bundle, mParent);
                         break;
                     case 1:
