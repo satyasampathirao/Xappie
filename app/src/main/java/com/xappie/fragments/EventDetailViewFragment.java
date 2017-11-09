@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -19,12 +20,16 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LoginActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.AddEventModel;
 import com.xappie.models.EventsListModel;
 import com.xappie.models.EventsModel;
+import com.xappie.models.IAmGoingModel;
 import com.xappie.models.Model;
 import com.xappie.parser.EventsDetailParser;
+import com.xappie.parser.IAmGoingParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -105,6 +110,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
 
     private String mId;
     private EventsModel eventsModel;
+    private IAmGoingModel iAmGoingModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -189,11 +195,34 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             EventsDetailParser eventsListParser = new EventsDetailParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
-                    APIConstants.GET_EVENT_DETAILS +"/"+ mId, linkedHashMap,
+                    APIConstants.GET_EVENT_DETAILS + "/" + mId, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /*This method is used to navigate event detail view*/
+    @OnClick(R.id.btn_i_am_going)
+    void submitIAmGoing() {
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            try {
+                LinkedHashMap linkedHashMap = new LinkedHashMap();
+                linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+                IAmGoingParser iAmGoingParser = new IAmGoingParser();
+                ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                        mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                        APIConstants.EVENT_GOING + "/" + mId + "/1", linkedHashMap,
+                        APIConstants.REQUEST_TYPE.GET, this, iAmGoingParser);
+                Utility.execute(serverJSONAsyncTask);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -231,6 +260,9 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             if (model instanceof EventsModel) {
                 eventsModel = (EventsModel) model;
                 setEventsData();
+            } else if (model instanceof IAmGoingModel) {
+                iAmGoingModel = (IAmGoingModel) model;
+                Utility.showToastMessage(mParent, iAmGoingModel.getMessage());
             }
         }
     }
@@ -244,55 +276,42 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
                     "", null, R.drawable.xappie_place_holder);
         }
 
-        if (!Utility.isValueNullOrEmpty(eventsModel.getName()))
-        {
+        if (!Utility.isValueNullOrEmpty(eventsModel.getName())) {
             tv_event_name.setText(eventsModel.getName());
-        }
-        else {
+        } else {
             tv_event_name.setVisibility(View.GONE);
         }
 
-        if (!Utility.isValueNullOrEmpty(eventsModel.getTag()))
-        {
+        if (!Utility.isValueNullOrEmpty(eventsModel.getTag())) {
             tv_event_tag_line_text_comes_here.setText(eventsModel.getTag());
-        }
-        else {
+        } else {
             tv_event_tag_line_text_comes_here.setVisibility(View.GONE);
         }
-       if (!Utility.isValueNullOrEmpty(eventsModel.getStart_time()))
-       {
-           tv_date_time.setText(eventsModel.getStart_time());
-       }
-       else {
+        if (!Utility.isValueNullOrEmpty(eventsModel.getStart_time())) {
+            tv_date_time.setText(eventsModel.getStart_time());
+        } else {
             tv_date_time.setVisibility(View.GONE);
-       }
+        }
 
-       if (!Utility.isValueNullOrEmpty(eventsModel.getDress_code()))
-       {
-           tv_dress_code_value.setText(eventsModel.getDress_code());
-       }
-        else {
-           tv_dress_code_value.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(eventsModel.getCost()))
-       {
-           tv_total_cost.setText(eventsModel.getCost());
-       }
-       else {
-           ll_cost.setVisibility(View.GONE);
-       }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getDress_code())) {
+            tv_dress_code_value.setText(eventsModel.getDress_code());
+        } else {
+            tv_dress_code_value.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getCost())) {
+            tv_total_cost.setText(eventsModel.getCost());
+        } else {
+            ll_cost.setVisibility(View.GONE);
+        }
 
-       if (!Utility.isValueNullOrEmpty(eventsModel.getAddress()))
-       {
-           tv_address.setText(eventsModel.getAddress());
-       }
-       else {
-           tv_address.setVisibility(View.GONE);
-       }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getAddress())) {
+            tv_address.setText(eventsModel.getAddress());
+        } else {
+            tv_address.setVisibility(View.GONE);
+        }
         if (!Utility.isValueNullOrEmpty(eventsModel.getDescription())) {
             tv_details.setText(eventsModel.getDescription());
-        }
-        else {
+        } else {
             tv_details.setVisibility(View.GONE);
         }
     }

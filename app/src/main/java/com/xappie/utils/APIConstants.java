@@ -43,6 +43,7 @@ public class APIConstants {
     public static String GET_EVENTS = BASE_URL + "get_events";
     public static String MY_EVENTS = BASE_URL + "my_events";
     public static String GET_EVENT_DETAILS = BASE_URL + "get_event_details";
+    public static String EVENT_GOING = BASE_URL + "event_going";
     public static String ADD_EVENT = BASE_URL + "add_event";
 
 }
