@@ -18,10 +18,17 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.EventGoingGridAdapter;
-import com.xappie.models.EventGoingModel;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.Model;
+import com.xappie.models.WhoIsGoingListModel;
+import com.xappie.parser.WhoIsGoingListParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +37,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsGoingMaybeGoingFragment extends Fragment {
+public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = EventsGoingMaybeGoingFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -56,7 +63,6 @@ public class EventsGoingMaybeGoingFragment extends Fragment {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
-    private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
     /**
@@ -67,6 +73,11 @@ public class EventsGoingMaybeGoingFragment extends Fragment {
     @BindView(R.id.grid_view)
     GridView grid_view;
 
+    private String mId;
+    private WhoIsGoingListModel mWhoIsGoingListModel;
+    private EventGoingGridAdapter eventGoingGridAdapter;
+    private String mCurrentTag = "GOING";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +85,9 @@ public class EventsGoingMaybeGoingFragment extends Fragment {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        if (getArguments() != null && getArguments().containsKey(Constants.EVENT_ID)) {
+            mId = getArguments().getString(Constants.EVENT_ID);
+        }
     }
 
     @Override
@@ -100,7 +114,7 @@ public class EventsGoingMaybeGoingFragment extends Fragment {
     }
 
     private void setTypeFace() {
-        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
 
@@ -116,27 +130,72 @@ public class EventsGoingMaybeGoingFragment extends Fragment {
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         setGoing();
-        setGridViewData();
+        getGoingDetails("1");
     }
+
+    private void getGoingDetails(String type) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            WhoIsGoingListParser whoIsGoingListParser = new WhoIsGoingListParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.WHOIS_GOING + mId + "/" + type, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, whoIsGoingListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /*This method is used to set the grid view data*/
     private void setGridViewData() {
-        EventGoingGridAdapter actressGridAdapter = new EventGoingGridAdapter(mParent, getWhoIsGoingData());
-        grid_view.setAdapter(actressGridAdapter);
+        eventGoingGridAdapter = new EventGoingGridAdapter(mParent, mWhoIsGoingListModel.getWhoIsGoingModels());
+        grid_view.setAdapter(eventGoingGridAdapter);
     }
 
-    private ArrayList<EventGoingModel> getWhoIsGoingData() {
-        ArrayList<EventGoingModel> eventGoingModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            EventGoingModel eventGoingModel = new EventGoingModel();
-            eventGoingModel.setId(R.drawable.video_hint);
-            eventGoingModel.setName("Kajal");
-            eventGoingModels.add(eventGoingModel);
+    /**
+     * This method is used to set the languages
+     */
+    private void setGoing() {
+        ll_languages.removeAllViews();
+        for (int i = 0; i < getGoingData().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = ll.findViewById(R.id.view);
+            tv_language_name.setText(getGoingData().get(i));
+            tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_language_name.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            tv_language_name.setId(i);
+            tv_language_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    mCurrentTag = getGoingData().get(pos);
+                    mWhoIsGoingListModel = null;
+                    eventGoingGridAdapter = null;
+                    setGoing();
+                    if (mCurrentTag.equalsIgnoreCase("GOING"))
+                        getGoingDetails("" + 1);
+                    else getGoingDetails("" + 2);
+                }
+            });
+
+            if (mCurrentTag != null && getGoingData().get(i).equalsIgnoreCase(mCurrentTag)) {
+                view.setVisibility(View.VISIBLE);
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
+                view.setBackgroundColor(Utility.getColor(mParent, R.color.white));
+            } else {
+                view.setVisibility(View.GONE);
+            }
+
+            ll_languages.addView(ll);
         }
-        return eventGoingModels;
     }
 
-    /*This method is used to set the languages*/
+    /*This method is used to set the languages
     private void setGoing() {
         ll_languages.removeAllViews();
         for (int i = 0; i < getGoingData().size(); i++) {
@@ -155,12 +214,12 @@ public class EventsGoingMaybeGoingFragment extends Fragment {
             }
             ll_languages.addView(ll);
         }
-    }
+    }*/
 
     private ArrayList<String> getGoingData() {
         ArrayList<String> mLanguagesData = new ArrayList<>();
-        mLanguagesData.add("GOING(58)");
-        mLanguagesData.add("MAYBE GOING(16)");
+        mLanguagesData.add("GOING");
+        mLanguagesData.add("MAYBE GOING");
         return mLanguagesData;
     }
 
@@ -171,18 +230,28 @@ public class EventsGoingMaybeGoingFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
+    }
+
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof WhoIsGoingListModel) {
+                mWhoIsGoingListModel = (WhoIsGoingListModel) model;
+                setGridViewData();
+            }
+        }
     }
 }

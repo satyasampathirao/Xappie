@@ -252,7 +252,9 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     /*This method is used to navigate event detail view*/
     @OnClick(R.id.btn_who_is_going)
     void whoIsGoing() {
-        Utility.navigateDashBoardFragment(new EventsGoingMaybeGoingFragment(), EventsGoingMaybeGoingFragment.TAG, null, mParent);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.EVENT_ID, mId);
+        Utility.navigateDashBoardFragment(new EventsGoingMaybeGoingFragment(), EventsGoingMaybeGoingFragment.TAG, bundle, mParent);
     }
 
     @OnClick({R.id.tv_notification_arrow_back_icon,

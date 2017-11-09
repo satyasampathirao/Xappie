@@ -46,6 +46,7 @@ public class APIConstants {
     public static String EVENT_GOING = BASE_URL + "event_going";
     public static String ADD_EVENT = BASE_URL + "add_event";
     public static String DELETE_EVENT = BASE_URL + "delete_event/";
+    public static String WHOIS_GOING = BASE_URL + "whois_going/";
 
 
 }

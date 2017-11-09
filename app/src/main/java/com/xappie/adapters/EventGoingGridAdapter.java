@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.models.ActressModel;
-import com.xappie.models.EventGoingModel;
+import com.xappie.models.WhoIsGoingModel;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -24,19 +23,19 @@ public class EventGoingGridAdapter extends BaseAdapter {
 
     private DashBoardActivity mDashBoardActivity;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<EventGoingModel> eventGoingModels;
+    private ArrayList<WhoIsGoingModel> whoIsGoingModels;
     private Typeface mOpenSansBoldTypeface;
 
-    public EventGoingGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<EventGoingModel> eventGoingModels) {
+    public EventGoingGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<WhoIsGoingModel> whoIsGoingModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
-        this.eventGoingModels = eventGoingModels;
+        this.whoIsGoingModels = whoIsGoingModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
     }
 
     @Override
     public int getCount() {
-        return eventGoingModels.size();
+        return whoIsGoingModels.size();
     }
 
     @Override
@@ -66,8 +65,8 @@ public class EventGoingGridAdapter extends BaseAdapter {
             mEventGoingGridHolder = (EventGoingGridAdapter.EventGoingGridHolder) convertView.getTag();
         }
 
-        EventGoingModel eventGoingModel = eventGoingModels.get(position);
-        mEventGoingGridHolder.tv_name.setText(eventGoingModel.getName());
+        WhoIsGoingModel eventGoingModel = whoIsGoingModels.get(position);
+        mEventGoingGridHolder.tv_name.setText(eventGoingModel.getFirst_name());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
