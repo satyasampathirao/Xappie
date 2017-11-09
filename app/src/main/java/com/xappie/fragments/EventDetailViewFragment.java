@@ -226,6 +226,29 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    /*This method is used to may be going*/
+    @OnClick(R.id.btn_may_be)
+    void submitMayBeGoing() {
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            try {
+                LinkedHashMap linkedHashMap = new LinkedHashMap();
+                linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+                IAmGoingParser iAmGoingParser = new IAmGoingParser();
+                ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                        mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                        APIConstants.EVENT_GOING + "/" + mId + "/2", linkedHashMap,
+                        APIConstants.REQUEST_TYPE.GET, this, iAmGoingParser);
+                Utility.execute(serverJSONAsyncTask);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /*This method is used to navigate event detail view*/
     @OnClick(R.id.btn_who_is_going)
     void whoIsGoing() {
