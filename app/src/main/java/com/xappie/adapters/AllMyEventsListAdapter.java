@@ -88,7 +88,7 @@ public class AllMyEventsListAdapter extends BaseAdapter {
                     "", null, R.drawable.xappie_place_holder);
         }
 
-        convertView.setId(position);
+       /* convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +97,7 @@ public class AllMyEventsListAdapter extends BaseAdapter {
                 bundle.putString(Constants.EVENT_ID, eventsModels.get(position).getId());
                 Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, bundle, mDashBoardActivity);
             }
-        });
+        });*/
 
 
         return convertView;

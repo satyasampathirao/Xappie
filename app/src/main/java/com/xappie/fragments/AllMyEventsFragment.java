@@ -20,10 +20,12 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.AllMyEventsListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.EntertainmentModel;
 import com.xappie.models.EventsListModel;
+import com.xappie.models.EventsModel;
+import com.xappie.models.IAmGoingModel;
 import com.xappie.models.Model;
 import com.xappie.parser.EventsListParser;
+import com.xappie.parser.IAmGoingParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -44,12 +46,16 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
     private DashBoardActivity mParent;
 
     private EventsListModel eventsListModel;
+    private AllMyEventsListAdapter allEventsListAdapter;
 
     /**
      * AllEvents List set up
      */
     @BindView(R.id.listView)
     SwipeMenuListView listView;
+
+    private IAmGoingModel iAmGoingModel;
+    private int mDeletePosition = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,9 +103,27 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    /**
+     * Delete Event
+     */
+    private void getDeleteData(String event_id) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            IAmGoingParser eventsListParser = new IAmGoingParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.DELETE_EVENT + event_id, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /*This method is used to set the lsit view data*/
     private void setGridViewData() {
-        AllMyEventsListAdapter allEventsListAdapter = new AllMyEventsListAdapter(mParent, eventsListModel.getEventsModels());
+        allEventsListAdapter = new AllMyEventsListAdapter(mParent, eventsListModel.getEventsModels());
         // step 1. create a MenuCreator
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -146,18 +170,23 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
         // set creator
         listView.setMenuCreator(creator);
         listView.setAdapter(allEventsListAdapter);
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        Utility.showToastMessage(mParent, "Edit");
+                        break;
+                    case 1:
+                        mDeletePosition = position;
+                        getDeleteData(eventsListModel.getEventsModels().get(position).getId());
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
-    private ArrayList<EntertainmentModel> getEntertainData() {
-        ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            EntertainmentModel entertainmentModel = new EntertainmentModel();
-            //entertainmentModel.setId(R.drawable.video_hint);
-            entertainmentModel.setTitle("Rarandoi");
-            entertainmentModels.add(entertainmentModel);
-        }
-        return entertainmentModels;
-    }
 
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
@@ -172,6 +201,15 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
                 eventsListModel = (EventsListModel) model;
                 if (eventsListModel != null && eventsListModel.getEventsModels().size() > 0) {
                     setGridViewData();
+                }
+            } else if (model instanceof IAmGoingModel) {
+                iAmGoingModel = (IAmGoingModel) model;
+                Utility.showToastMessage(mParent, iAmGoingModel.getMessage());
+                if (iAmGoingModel.isStatus()) {
+                    ArrayList<EventsModel> eventsModels = eventsListModel.getEventsModels();
+                    eventsModels.remove(mDeletePosition);
+                    eventsListModel.setEventsModels(eventsModels);
+                    allEventsListAdapter.notifyDataSetChanged();
                 }
             }
         }

@@ -2,7 +2,6 @@ package com.xappie.parser;
 
 import android.content.Context;
 
-import com.xappie.models.AddEventModel;
 import com.xappie.models.IAmGoingModel;
 import com.xappie.models.Model;
 
