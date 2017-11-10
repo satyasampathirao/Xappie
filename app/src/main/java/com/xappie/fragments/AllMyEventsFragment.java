@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -53,6 +54,9 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
      */
     @BindView(R.id.listView)
     SwipeMenuListView listView;
+
+    @BindView(R.id.ll_no_data)
+    LinearLayout ll_no_data;
 
     private IAmGoingModel iAmGoingModel;
     private int mDeletePosition = -1;
@@ -202,7 +206,12 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
             if (model instanceof EventsListModel) {
                 eventsListModel = (EventsListModel) model;
                 if (eventsListModel != null && eventsListModel.getEventsModels().size() > 0) {
+                    ll_no_data.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
                     setGridViewData();
+                } else {
+                    ll_no_data.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
                 }
             } else if (model instanceof IAmGoingModel) {
                 iAmGoingModel = (IAmGoingModel) model;
