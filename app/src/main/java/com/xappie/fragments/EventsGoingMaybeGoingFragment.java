@@ -122,7 +122,7 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.actress));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.events));
         tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);

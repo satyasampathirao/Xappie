@@ -80,8 +80,6 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_dress_code;
     @BindView(R.id.tv_dress_code_value)
     TextView tv_dress_code_value;
-    @BindView(R.id.tv_restrictions)
-    TextView tv_restrictions;
     @BindView(R.id.tv_address)
     TextView tv_address;
 
@@ -168,7 +166,6 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_dress_code.setPaintFlags(tv_dress_code.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_dress_code.setTypeface(mTypefaceOpenSansRegular);
         tv_dress_code_value.setTypeface(mTypefaceOpenSansBold);
-        tv_restrictions.setTypeface(mTypefaceOpenSansBold);
         tv_address.setTypeface(mTypefaceOpenSansBold);
 
         tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
@@ -322,6 +319,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_dress_code_value.setText(eventsModel.getDress_code());
         } else {
             tv_dress_code_value.setVisibility(View.GONE);
+            tv_dress_code.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(eventsModel.getCost())) {
             tv_total_cost.setText(eventsModel.getCost());
