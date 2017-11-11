@@ -203,6 +203,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     @BindView(R.id.ll_events)
     LinearLayout ll_events;
 
+
+    @BindView(R.id.ll_no_data_event)
+    LinearLayout ll_no_data_event;
+    @BindView(R.id.tv_no_data_event)
+    TextView tv_no_data_event;
+
     /**
      * Classifieds View Ids
      */
@@ -244,6 +250,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     LinearLayout ll_languages_layout_jobs;
     @BindView(R.id.ll_jobs)
     LinearLayout ll_jobs;
+
 
     private LanguageListModel mLanguageListModel;
     private HomePageBannerListModel mHomePageBannerListModel;
@@ -736,10 +743,15 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             } else if (model instanceof EventsListModel) {
                 eventsListModel = (EventsListModel) model;
                 if (eventsListModel.getEventsModels().size() > 0) {
+                    ll_no_data_event.setVisibility(View.GONE);
+                    ll_events.setVisibility(View.VISIBLE);
                     if (mHomePageEventsAdsBannersModel != null) {
                         mHomePageEventsAdsBannersModel.setEventsModels(eventsListModel.getEventsModels());
                         setDataToEvents();
                     }
+                } else {
+                    ll_no_data_event.setVisibility(View.VISIBLE);
+                    ll_events.setVisibility(View.GONE);
                 }
             }
         }
@@ -773,10 +785,14 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
                 tv_posted.setVisibility(View.GONE);
 
+                ll.setId(i);
                 ll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null,
+                        int position = view.getId();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.EVENT_ID, mHomePageEventsAdsBannersModel.getEventsModels().get(position).getId());
+                        Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, bundle,
                                 mParent);
                     }
                 });

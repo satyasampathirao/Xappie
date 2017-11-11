@@ -73,6 +73,11 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
     @BindView(R.id.grid_view)
     GridView grid_view;
 
+    @BindView(R.id.ll_no_data_event_going)
+    LinearLayout ll_no_data_event_going;
+    @BindView(R.id.tv_no_data_event_going)
+    TextView tv_no_data_event_going;
+
     private String mId;
     private WhoIsGoingListModel mWhoIsGoingListModel;
     private EventGoingGridAdapter eventGoingGridAdapter;
@@ -151,8 +156,16 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
 
     /*This method is used to set the grid view data*/
     private void setGridViewData() {
-        eventGoingGridAdapter = new EventGoingGridAdapter(mParent, mWhoIsGoingListModel.getWhoIsGoingModels());
-        grid_view.setAdapter(eventGoingGridAdapter);
+
+        if (mWhoIsGoingListModel != null && mWhoIsGoingListModel.getWhoIsGoingModels().size() > 0) {
+            eventGoingGridAdapter = new EventGoingGridAdapter(mParent, mWhoIsGoingListModel.getWhoIsGoingModels());
+            grid_view.setAdapter(eventGoingGridAdapter);
+            ll_no_data_event_going.setVisibility(View.GONE);
+            grid_view.setVisibility(View.VISIBLE);
+        } else {
+            ll_no_data_event_going.setVisibility(View.VISIBLE);
+            grid_view.setVisibility(View.GONE);
+        }
     }
 
     /**

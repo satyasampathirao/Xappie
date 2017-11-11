@@ -360,6 +360,27 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical" />
 
+        <LinearLayout
+            android:id="@+id/ll_no_data_event"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/hs_types"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_no_data_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:text="@string/no_events_found"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_25sp" />
+        </LinearLayout>
+
             <!-- Classifieds layout-->
 
             <RelativeLayout
