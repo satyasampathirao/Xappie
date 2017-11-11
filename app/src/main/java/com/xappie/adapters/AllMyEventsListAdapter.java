@@ -68,6 +68,7 @@ public class AllMyEventsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
             mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_location.setVisibility(View.GONE);
 
             convertView.setTag(mClassifiedsListHolder);
         } else {

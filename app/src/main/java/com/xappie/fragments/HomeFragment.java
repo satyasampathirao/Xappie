@@ -756,6 +756,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
                 TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
                 TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+                TextView tv_posted = (TextView) ll.findViewById(R.id.tv_posted_by);
 
                 if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getImage())) {
                     Utility.universalImageLoaderPicLoading(img_news_item,
@@ -770,11 +771,13 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
                 tv_time.setText(Utility.displayDateFormat(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getStart_time()).toUpperCase());
                 tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+                tv_posted.setVisibility(View.GONE);
 
                 ll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null, mParent);
+                        Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null,
+                                mParent);
                     }
                 });
 
@@ -924,7 +927,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
             linkedHashMap.put("city", stateModel.getId());
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
-            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            linkedHashMap.put(Constants.PAGE_SIZE, "7");
             EventsListParser eventsListParser = new EventsListParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
