@@ -29,6 +29,7 @@ import com.xappie.interfaces.IHomeCustomization;
 import com.xappie.models.AdsModel;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.models.EventsListModel;
 import com.xappie.models.GalleryItemModel;
 import com.xappie.models.HomePageBannerListModel;
 import com.xappie.models.HomePageContentModel;
@@ -37,13 +38,17 @@ import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
 import com.xappie.models.NewsModel;
+import com.xappie.models.StateModel;
+import com.xappie.models.StatesListModel;
 import com.xappie.models.TopStoriesListModel;
 import com.xappie.models.VideosModel;
 import com.xappie.parser.EntertainmentParser;
+import com.xappie.parser.EventsListParser;
 import com.xappie.parser.HomePageAdsEventsBannerParser;
 import com.xappie.parser.HomePageBannerParser;
 import com.xappie.parser.HomePageContentParser;
 import com.xappie.parser.LanguageParser;
+import com.xappie.parser.StatesParser;
 import com.xappie.parser.TopStoriesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -247,6 +252,9 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     private HomePageEventsAdsBannersModel mHomePageEventsAdsBannersModel;
     private TopStoriesListModel mTopStoriesListModel;
     private EntertainmentListModel mEntertainmentListModel;
+    private StatesListModel mStatesListModel;
+    private StateModel stateModel;
+    private EventsListModel eventsListModel;
 
     private static IHomeCustomization iHomeCustomization;
 
@@ -286,7 +294,23 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         setTypeface();
         getLanguagesData();
         setAdsData();
-        getHomePageLocData();
+        //getHomePageLocData();
+        getCitiesList();
+    }
+
+    private void getCitiesList() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            StatesParser statesParser = new StatesParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_CITIES + "/" + Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID), linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, statesParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -463,53 +487,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             ll_jobs.addView(ll);
         }
-    }
-
-    /**
-     * Sets Events data
-     */
-    private void setEventsData() {
-
-        ll_languages_layout_events.removeAllViews();
-        for (int i = 0; i < getEventsData().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
-            TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
-            View view = (View) ll.findViewById(R.id.view);
-            tv_language_name.setText(getEventsData().get(i));
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
-            if (i == 0) {
-                view.setVisibility(View.VISIBLE);
-                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
-            } else {
-                view.setVisibility(View.GONE);
-            }
-            ll_languages_layout_events.addView(ll);
-        }
-
-
-        ll_events.removeAllViews();
-        for (int i = 0; i < getNewsModels().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
-            ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
-            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
-
-            tv_title.setText(getNewsModels().get(i).getTitle());
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
-
-            tv_time.setText(getNewsModels().get(i).getTime());
-            tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
-
-            ll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new EventDetailViewFragment(), EventDetailViewFragment.TAG, null, mParent);
-                }
-            });
-
-            ll_events.addView(ll);
-        }
-
     }
 
     /**
@@ -713,6 +690,17 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     }
                     getHomeBannerData();
                 }
+            } else if (model instanceof StatesListModel) {
+                mStatesListModel = (StatesListModel) model;
+                if (mStatesListModel.getStateModels().size() > 0) {
+                    for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID)
+                                .equalsIgnoreCase(mStatesListModel.getStateModels().get(i).getId())) {
+                            stateModel = mStatesListModel.getStateModels().get(i);
+                        }
+                    }
+                    getHomePageLocData();
+                }
             } else if (model instanceof HomePageBannerListModel) {
                 mHomePageBannerListModel = (HomePageBannerListModel) model;
                 if (mHomePageBannerListModel != null && mHomePageBannerListModel.getHomePageBannerModels() != null
@@ -728,7 +716,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 setDataToTheScreen();
             } else if (model instanceof HomePageEventsAdsBannersModel) {
                 mHomePageEventsAdsBannersModel = (HomePageEventsAdsBannersModel) model;
-                setDataToEvetnsAdsBanners();
+                setDataToEvents();
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
                 if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
@@ -745,13 +733,24 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                         setEntertainmentData(mHomePageContentModel.getEntertainmentModels());
                     }
                 }
+            } else if (model instanceof EventsListModel) {
+                eventsListModel = (EventsListModel) model;
+                if (eventsListModel.getEventsModels().size() > 0) {
+                    if (mHomePageEventsAdsBannersModel != null) {
+                        mHomePageEventsAdsBannersModel.setEventsModels(eventsListModel.getEventsModels());
+                        setDataToEvents();
+                    }
+                }
             }
         }
     }
 
-    private void setDataToEvetnsAdsBanners() {
+    private void setDataToEvents() {
+        setEventsFilters();
         ll_events.removeAllViews();
-        if (mHomePageEventsAdsBannersModel.getEventsModels().size() > 0)
+        if (mHomePageEventsAdsBannersModel.getEventsModels().size() > 0) {
+            rl_events_heading.setVisibility(View.VISIBLE);
+            hs_events.setVisibility(View.VISIBLE);
             for (int i = 0; i < mHomePageEventsAdsBannersModel.getEventsModels().size(); i++) {
                 LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
                 ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
@@ -781,6 +780,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
                 ll_events.addView(ll);
             }
+        }
     }
 
     /**
@@ -830,9 +830,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
         rl_discussions_heading.setVisibility(View.GONE);
         hs_discussions.setVisibility(View.GONE);
-
-        rl_events_heading.setVisibility(View.GONE);
-        hs_events.setVisibility(View.GONE);
 
         rl_classifieds_heading.setVisibility(View.GONE);
         hs_classifieds_inner_layout.setVisibility(View.GONE);
@@ -912,6 +909,65 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             }
 
             ll_languages_layout_top_stories.addView(ll);
+        }
+    }
+
+    /**
+     * This method is used to get the all the events data from the server
+     */
+    private void getEventsData(String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", stateModel.getId());
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            EventsListParser eventsListParser = new EventsListParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_EVENTS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to set the languages
+     */
+    private void setEventsFilters() {
+        ll_languages_layout_events.removeAllViews();
+        for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_type_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_type);
+            tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            tv_type.setId(i);
+            tv_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    stateModel = mStatesListModel.getStateModels().get(pos);
+                    setEventsFilters();
+                    getEventsData("" + 1);
+                }
+            });
+
+            if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+                tv_type.setBackground(Utility.getDrawable(mParent, R.drawable.bg_color_rect));
+            } else {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.types_color));
+                tv_type.setBackground(null);
+            }
+
+            ll_languages_layout_events.addView(ll);
         }
     }
 

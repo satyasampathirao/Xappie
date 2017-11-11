@@ -160,9 +160,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:text="@string/top_stories"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp" />
+                    android:textSize="@dimen/_12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_top_stories_more"
@@ -213,9 +213,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:text="@string/entertainment"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp" />
+                    android:textSize="@dimen/_12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_entertainment_more"
@@ -267,9 +267,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:text="@string/discussions"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp" />
+                    android:textSize="@dimen/_12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_discussions_more"
@@ -321,9 +321,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:text="@string/events"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp" />
+                    android:textSize="@dimen/_12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_events_more"
@@ -347,6 +347,7 @@
                     android:id="@+id/ll_languages_layout_events"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40dp"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
@@ -375,9 +376,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:text="@string/classifieds"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp" />
+                    android:textSize="@dimen/_12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_classifieds_more"
@@ -436,9 +437,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:text="@string/jobs"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp" />
+                    android:textSize="@dimen/_12sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_jobs_more"
