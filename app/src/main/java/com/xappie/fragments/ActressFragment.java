@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -41,7 +42,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 26/07/2017.
  */
-public class ActressFragment extends Fragment implements IAsyncCaller {
+public class ActressFragment extends Fragment implements IAsyncCaller,AbsListView.OnScrollListener  {
 
     public static final String TAG = ActressFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -49,6 +50,10 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
     private View rootView;
+
+    private int aaTotalCount, aaVisibleCount, aaFirstVisibleItem;
+    private int mPageNumber = 1;
+    private boolean endScroll = false;
 
     /**
      * Gallery Toolbar
@@ -168,6 +173,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
         actressGridAdapter = new
                 ActressGridAdapter(mParent, actressModels);
         grid_view.setAdapter(actressGridAdapter);
+        grid_view.setOnScrollListener(this);
     }
 
     /**
@@ -192,8 +198,9 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                     actressModels = null;
                     actressGridAdapter = null;
                     setLanguages();
+                    endScroll = false;
                     mCurrentLanguage = languageModel.getId();
-                    getGalleryData();
+                    getGalleryData("" + 1);
                 }
             });
 
@@ -212,13 +219,13 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
     /**
      * Get the Gallery data
      */
-    private void getGalleryData() {
+    private void getGalleryData(String pageNo) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", mCurrentLanguage);
             linkedHashMap.put("type", mForGallery);
-            linkedHashMap.put(Constants.PAGE_NO, "1");
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             ActressActorParser actressActorParser = new ActressActorParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
@@ -275,7 +282,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                     setLanguages();
                     if (languageModel != null)
                         mCurrentLanguage = languageModel.getId();
-                    getGalleryData();
+                    getGalleryData("" + 1);
                 }
             } else if (model instanceof ActressActorsListModel) {
                 ActressActorsListModel mActressActorsListModel = (ActressActorsListModel) model;
@@ -305,6 +312,48 @@ public class ActressFragment extends Fragment implements IAsyncCaller {
                             actressGridAdapter.notifyDataSetChanged();
                         }
                     }
+                        else {
+                            endScroll = true;
+                        }
+                    }
+                }
+            }
+        }
+
+    @Override
+    public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+        if (scrollState == SCROLL_STATE_IDLE) {
+            isScrollCompleted();
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        aaTotalCount = totalItemCount;
+        aaVisibleCount = visibleItemCount;
+        aaFirstVisibleItem = firstVisibleItem;
+    }
+    private void isScrollCompleted() {
+        if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
+            if (Utility.isNetworkAvailable(getActivity())) {
+                mPageNumber = mPageNumber + 1;
+                getGalleryData("" + mPageNumber);
+                Utility.showLog("mPageNumber", "mPageNumber : " + mPageNumber);
+            } else {
+                Utility.showSettingDialog(
+                        getActivity(),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_msg),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_title),
+                        Utility.NO_INTERNET_CONNECTION).show();
+            }
+        } else {
+            if (grid_view.getAdapter() != null) {
+                if (grid_view.getLastVisiblePosition() == grid_view.getAdapter().getCount() - 1 &&
+                        grid_view.getChildAt(grid_view.getChildCount() - 1).getBottom() <= grid_view.getHeight()) {
+                    Utility.showToastMessage(getActivity(), Utility.getResourcesString(getActivity(),
+                            R.string.no_more_data_to_display));
                 }
             }
         }

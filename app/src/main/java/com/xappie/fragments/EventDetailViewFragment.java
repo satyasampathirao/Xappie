@@ -82,6 +82,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_dress_code_value;
     @BindView(R.id.tv_address)
     TextView tv_address;
+    @BindView(R.id.tv_date_location_icon)
+    TextView tv_date_location_icon;
 
     @BindView(R.id.tv_event_tag_line_text_comes_here)
     TextView tv_event_tag_line_text_comes_here;
@@ -160,13 +162,14 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_date_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_event_name.setTypeface(mTypefaceOpenSansBold);
         tv_date_time.setTypeface(mTypefaceOpenSansBold);
         tv_dress_code.setPaintFlags(tv_dress_code.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_dress_code.setTypeface(mTypefaceOpenSansRegular);
         tv_dress_code_value.setTypeface(mTypefaceOpenSansBold);
-        tv_address.setTypeface(mTypefaceOpenSansBold);
+        tv_address.setTypeface(mTypefaceOpenSansRegular);
 
         tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
         tv_total_cost.setTypeface(mTypefaceOpenSansBold);
