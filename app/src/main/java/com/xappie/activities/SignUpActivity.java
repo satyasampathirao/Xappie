@@ -45,9 +45,11 @@ import com.twitter.sdk.android.core.services.AccountService;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.ImageUploadModel;
 import com.xappie.models.Model;
 import com.xappie.models.SignupLoginSuccessModel;
 import com.xappie.models.SignupSuccessModel;
+import com.xappie.parser.ImageUpdateParser;
 import com.xappie.parser.SignUpLoginSuccessParser;
 import com.xappie.parser.SignUpSuccessParser;
 import com.xappie.utils.APIConstants;
@@ -116,6 +118,10 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     private SignupSuccessModel mSignupSuccessModel;
     private SignupLoginSuccessModel mSignupLoginSuccessModel;
     private GoogleApiClient mGoogleApiClient;
+
+    private ImageUploadModel mImageUploadModel;
+
+    private String mProfileImage = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,6 +211,13 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                                         email = object.getString("email");
                                     mFaceBookUniqueId = object.getString("id");
 
+                                    if (object.has("picture")) {
+                                        JSONObject jsonObject = object.getJSONObject("picture");
+                                        JSONObject dataObject = jsonObject.getJSONObject("data");
+                                        if (dataObject.has("url"))
+                                            mProfileImage = dataObject.getString("url");
+                                    }
+
                                     String token = loginResult.getAccessToken().getToken();
                                     Utility.showLog("name", "name" + name);
                                     Utility.showLog("token", "token" + token);
@@ -216,7 +229,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "name,email");
+                parameters.putString("fields", "name,email,picture");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -369,10 +382,22 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                 mSignupLoginSuccessModel = (SignupLoginSuccessModel) model;
                 if (mSignupLoginSuccessModel.isStatus()) {
                     Utility.showToastMessage(SignUpActivity.this, mSignupLoginSuccessModel.getMessage());
-                    Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
-                    startActivity(signUpOtpIntent);
+                    //Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                    //startActivity(signUpOtpIntent);
+                    if (!Utility.isValueNullOrEmpty(mProfileImage)) {
+                        updateImageToServer();
+                    } else {
+                        Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                        startActivity(signUpOtpIntent);
+                    }
                 } else {
                     Utility.showToastMessage(SignUpActivity.this, mSignupLoginSuccessModel.getMessage());
+                }
+            } else if (model instanceof ImageUploadModel) {
+                mImageUploadModel = (ImageUploadModel) model;
+                if (mImageUploadModel.isStatus()) {
+                    Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                    startActivity(signUpOtpIntent);
                 }
             }
         }
@@ -408,6 +433,8 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
+            mProfileImage = acct.getPhotoUrl().toString();
+            Utility.showLog("url", "" + mProfileImage);
             saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName(), "google");
         } else {
             Utility.showLog("Logging error", "Logging error");
@@ -432,6 +459,22 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                 R.string.please_wait), true,
                 APIConstants.SIGN_UP, paramMap,
                 APIConstants.REQUEST_TYPE.POST, this, mSignUpLoginSuccessParser);
+        Utility.execute(serverIntractorAsync);
+    }
+
+    /**
+     * This method is used to update the profile pic
+     */
+    private void updateImageToServer() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put("api_key", Constants.API_KEY_VALUE);
+        paramMap.put("photo_url", mProfileImage);
+        paramMap.put("photo_name", "facebook_image");
+        ImageUpdateParser imageUpdateParser = new ImageUpdateParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                R.string.please_wait), true,
+                APIConstants.UPDATE_PROFILE_PHOTO, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, imageUpdateParser);
         Utility.execute(serverIntractorAsync);
     }
 }
