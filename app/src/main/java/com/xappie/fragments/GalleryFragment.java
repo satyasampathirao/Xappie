@@ -1,6 +1,8 @@
 package com.xappie.fragments;
 
 
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -15,16 +17,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.TouchImageView;
+import com.xappie.models.AdsListModel;
 import com.xappie.models.AdsModel;
 import com.xappie.models.GalleryLatestModel;
 import com.xappie.models.GalleryModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
+import com.xappie.parser.AdsListParser;
 import com.xappie.parser.GalleryLatestParser;
 import com.xappie.parser.GalleryParser;
 import com.xappie.parser.LanguageParser;
@@ -75,6 +81,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     private LanguageModel languageModel;
     private LanguageListModel mLanguageListModel;
     private GalleryModel mGalleryModel;
+    private AdsListModel mAdsListModel;
     private GalleryLatestModel mGalleryLatestModel;
     private String mCurrentLanguage;
 
@@ -340,7 +347,29 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
     private void initUI() {
         setTypeFace();
         getLanguagesData();
-        setAdsData();
+        //setAdsData();
+        getAdsData();
+    }
+
+    /**
+     * This method is used to get the ads data
+     */
+    private void getAdsData() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+            AdsListParser languageParser = new AdsListParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_ADS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, languageParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -512,6 +541,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                     setEventsData();
                     setMoviesData();
                 }
+            } else if (model instanceof AdsListModel) {
+                mAdsListModel = (AdsListModel) model;
+                setAdsData();
             }
         }
     }
@@ -1170,13 +1202,48 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
      */
     private void setAdsData() {
         layout_ads.removeAllViews();
-        for (int i = 0; i < getAdsSizes().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
-            ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
-            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getSsds()));
-            layout_ads.addView(ll);
-        }
+        if (mAdsListModel != null && mAdsListModel.getAdsModels() != null && mAdsListModel.getAdsModels().size() > 0) {
+            for (int i = 0; i < mAdsListModel.getAdsModels().size(); i++) {
+                LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
+                ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
+                if (!Utility.isValueNullOrEmpty(mAdsListModel.getAdsModels().get(i).getImage())) {
+                    Utility.universalImageLoaderPicLoading(img_ad_image,
+                            mAdsListModel.getAdsModels().get(i).getImage(), null, R.drawable.xappie_place_holder);
+                } else {
+                    Utility.universalImageLoaderPicLoading(img_ad_image,
+                            "", null, R.drawable.xappie_place_holder);
+                }
+                ll.setId(i);
+                ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int pos = view.getId();
+                        showFitDialog(mAdsListModel.getAdsModels().get(pos).getImage(), mParent);
+                    }
+                });
+                layout_ads.addView(ll);
+            }
+            layout_ads.setVisibility(View.VISIBLE);
+        } else
+            layout_ads.setVisibility(View.GONE);
+
     }
+
+    /**
+     * Image full view
+     */
+    private void showFitDialog(String url, Context context) {
+        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_fitcenter);
+        dialog.setCanceledOnTouchOutside(false);
+        TouchImageView imageView = (TouchImageView) dialog.findViewById(R.id.imageView);
+        Picasso.with(context)
+                .load(url)
+                .placeholder(Utility.getDrawable(context, R.drawable.xappie_place_holder))
+                .into(imageView);
+        dialog.show();
+    }
+
 
     private ArrayList<AdsModel> getAdsSizes() {
         ArrayList<AdsModel> adsModels = new ArrayList<>();

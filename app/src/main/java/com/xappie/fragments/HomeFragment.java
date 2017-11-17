@@ -1,6 +1,8 @@
 package com.xappie.fragments;
 
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,14 +21,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.activities.VideoViewActivity;
 import com.xappie.adapters.HomeViewPagerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.TouchImageView;
 import com.xappie.interfaces.IHomeCustomization;
-import com.xappie.models.AdsModel;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.EventsListModel;
@@ -581,34 +584,46 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
     private void setAdsData() {
         layout_ads.removeAllViews();
-        for (int i = 0; i < getAdsSizes().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
-            ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
-            img_ad_image.setImageDrawable(Utility.getDrawable(mParent, getAdsSizes().get(i).getSsds()));
-            layout_ads.addView(ll);
-        }
+        if (mHomePageEventsAdsBannersModel != null && mHomePageEventsAdsBannersModel.getAdsModels() != null && mHomePageEventsAdsBannersModel.getAdsModels().size() > 0) {
+            for (int i = 0; i < mHomePageEventsAdsBannersModel.getAdsModels().size(); i++) {
+                LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
+                ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
+                if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getAdsModels().get(i).getImage())) {
+                    Utility.universalImageLoaderPicLoading(img_ad_image,
+                            mHomePageEventsAdsBannersModel.getAdsModels().get(i).getImage(), null, R.drawable.xappie_place_holder);
+                } else {
+                    Utility.universalImageLoaderPicLoading(img_ad_image,
+                            "", null, R.drawable.xappie_place_holder);
+                }
+                ll.setId(i);
+                ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int pos = view.getId();
+                        showFitDialog(mHomePageEventsAdsBannersModel.getAdsModels().get(pos).getImage(), mParent);
+                    }
+                });
+                layout_ads.addView(ll);
+            }
+            layout_ads.setVisibility(View.VISIBLE);
+        } else
+            layout_ads.setVisibility(View.GONE);
+
     }
 
-   /* private ArrayList<GalleryModel> getGallerySizes() {
-        ArrayList<GalleryModel> galleryModels = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            GalleryModel galleryModel = new GalleryModel();
-            galleryModel.setTitle("Ileana's hottest holiday picture");
-            galleryModel.setId(R.drawable.illiyana);
-            galleryModels.add(galleryModel);
-        }
-        return galleryModels;
-    }*/
-
-    private ArrayList<AdsModel> getAdsSizes() {
-        ArrayList<AdsModel> adsModels = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            AdsModel adsModel = new AdsModel();
-            adsModel.setSsds(R.drawable.ads);
-            adsModels.add(adsModel);
-        }
-        return adsModels;
+    /**
+     * Image full view
+     */
+    private void showFitDialog(String url, Context context) {
+        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_fitcenter);
+        dialog.setCanceledOnTouchOutside(false);
+        TouchImageView imageView = (TouchImageView) dialog.findViewById(R.id.imageView);
+        Picasso.with(context)
+                .load(url)
+                .placeholder(Utility.getDrawable(context, R.drawable.xappie_place_holder))
+                .into(imageView);
+        dialog.show();
     }
 
     private ArrayList<String> getDiscussionsData() {
@@ -724,6 +739,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             } else if (model instanceof HomePageEventsAdsBannersModel) {
                 mHomePageEventsAdsBannersModel = (HomePageEventsAdsBannersModel) model;
                 setDataToEvents();
+                setAdsData();
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
                 if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
