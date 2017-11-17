@@ -16,10 +16,25 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.ClassifiedsAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.ClassifiedsListModel;
 import com.xappie.models.ClassifiedsModel;
+import com.xappie.models.EntertainmentListModel;
+import com.xappie.models.EntertainmentModel;
+import com.xappie.models.LanguageListModel;
+import com.xappie.models.Model;
+import com.xappie.models.StateModel;
+import com.xappie.models.StatesListModel;
+import com.xappie.parser.ClassifiedsParser;
+import com.xappie.parser.EventsListParser;
+import com.xappie.parser.StatesParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +44,7 @@ import butterknife.OnClick;
  * Created by Shankar on 7/28/2017.
  */
 
-public class ClassifiedsFragment extends Fragment {
+public class ClassifiedsFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = ClassifiedsFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -55,6 +70,13 @@ public class ClassifiedsFragment extends Fragment {
     TextView tv_language_icon;
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+
+    private ArrayList<ClassifiedsModel> classifiedsModels;
+    private ClassifiedsListModel classifiedsListModel;
+    private ClassifiedsAdapter classifiedsAdapter;
+    private StatesListModel mStatesListModel;
+
+    private StateModel stateModel;
 
     /**
      * Gallery Classifieds setup
@@ -92,7 +114,26 @@ public class ClassifiedsFragment extends Fragment {
 
     private void initUI() {
         setTypeFace();
+        stateModel = new StateModel();
+        stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        getCitiesList();
     }
+
+    private void getCitiesList() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            StatesParser statesParser = new StatesParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_CITIES + "/" + Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID), linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, statesParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
@@ -109,7 +150,7 @@ public class ClassifiedsFragment extends Fragment {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        setGridViewData();
+        //setGridViewData();
     }
 
     /**
@@ -125,35 +166,74 @@ public class ClassifiedsFragment extends Fragment {
      * This method is used to set the grid view data
      */
     private void setGridViewData() {
-        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent, getClassifiedsData());
+        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent, classifiedsModels);
         grid_view.setAdapter(classifiedsAdapter);
     }
 
-    private ArrayList<ClassifiedsModel> getClassifiedsData() {
-        ArrayList<ClassifiedsModel> classifiedsModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            ClassifiedsModel classifiedsModel = new ClassifiedsModel();
-            classifiedsModel.setId(R.drawable.classifieds);
-            classifiedsModel.setTitle("Auto Mobiles");
-            classifiedsModels.add(classifiedsModel);
-        }
-        return classifiedsModels;
-    }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
+    }
+
+
+    private void getClassifiedsData(String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            ClassifiedsParser classifiedsParser = new ClassifiedsParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_CLASSIFIED_CATEGORIES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, classifiedsParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onComplete(Model model) {
+
+        if (model != null) {
+            if (model instanceof ClassifiedsListModel) {
+                classifiedsListModel = (ClassifiedsListModel) model;
+                setClasifiedsData();
+            } else if (model instanceof StatesListModel) {
+                mStatesListModel = (StatesListModel) model;
+                if (mStatesListModel.getStateModels().size() > 0) {
+                    for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID)
+                                .equalsIgnoreCase(mStatesListModel.getStateModels().get(i).getId())) {
+                            stateModel = mStatesListModel.getStateModels().get(i);
+                        }
+                    }
+                    getClassifiedsData("" + 1);
+                }
+            }
+
+        }
+    }
+
+    private void setClasifiedsData() {
+        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent,classifiedsModels);
+        grid_view.setAdapter(classifiedsAdapter);
+
     }
 
 }

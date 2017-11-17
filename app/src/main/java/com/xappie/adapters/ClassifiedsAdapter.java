@@ -68,7 +68,15 @@ public class ClassifiedsAdapter extends BaseAdapter {
         }
 
         ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
-        mClassifiedsGridHolder.tv_title.setText(classifiedsModel.getTitle());
+        mClassifiedsGridHolder.tv_title.setText(classifiedsModel.getName());
+        if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
+            Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
+                    classifiedsModel.getImage(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
+                    "", null, R.drawable.xappie_place_holder);
+        }
+
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

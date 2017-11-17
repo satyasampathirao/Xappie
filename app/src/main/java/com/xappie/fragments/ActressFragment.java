@@ -42,7 +42,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 26/07/2017.
  */
-public class ActressFragment extends Fragment implements IAsyncCaller,AbsListView.OnScrollListener  {
+public class ActressFragment extends Fragment implements IAsyncCaller, AbsListView.OnScrollListener {
 
     public static final String TAG = ActressFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -311,14 +311,13 @@ public class ActressFragment extends Fragment implements IAsyncCaller,AbsListVie
                         } else {
                             actressGridAdapter.notifyDataSetChanged();
                         }
-                    }
-                        else {
-                            endScroll = true;
-                        }
+                    } else {
+                        endScroll = true;
                     }
                 }
             }
         }
+    }
 
     @Override
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
@@ -333,6 +332,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller,AbsListVie
         aaVisibleCount = visibleItemCount;
         aaFirstVisibleItem = firstVisibleItem;
     }
+
     private void isScrollCompleted() {
         if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
             if (Utility.isNetworkAvailable(getActivity())) {

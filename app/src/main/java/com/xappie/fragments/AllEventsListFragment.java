@@ -207,5 +207,6 @@ public class AllEventsListFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+
 }
 

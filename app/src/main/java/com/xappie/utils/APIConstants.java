@@ -50,6 +50,8 @@ public class APIConstants {
     public static String WHOIS_GOING = BASE_URL + "whois_going/";
     public static String GET_HOME_CONTENT_LOC = BASE_URL + "get_home_content_loc";
     public static String GET_ADS = BASE_URL + "get_ads";
+    public static String GET_CLASSIFIED_CATEGORIES = BASE_URL + "get_classified_categories";
+
 
 
 }

@@ -504,6 +504,7 @@ public class Utility {
             HttpGet request = new HttpGet(uri);
             HttpResponse httpResponse = httpclient.execute(request);
             int statusCode = httpResponse.getStatusLine().getStatusCode();
+            Log.d("Requset", "" + statusCode);
             if (statusCode == 204) {
                 result = null;
             }
