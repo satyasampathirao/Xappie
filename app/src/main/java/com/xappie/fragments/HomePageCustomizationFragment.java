@@ -149,7 +149,11 @@ public class HomePageCustomizationFragment extends Fragment {
             } else if (namesAfterSplit[i].equalsIgnoreCase("videos")) {
                 switch_button_videos.setChecked(true);
             } else if (namesAfterSplit[i].equalsIgnoreCase("galleries")) {
-                switch_button_videos.setChecked(true);
+                sw_button_gallery.setChecked(true);
+            } else if (namesAfterSplit[i].equalsIgnoreCase("galleries")) {
+                sw_button_gallery.setChecked(true);
+            } else if (namesAfterSplit[i].equalsIgnoreCase("events")) {
+                sw_button_events.setChecked(true);
             }
         }
     }
@@ -184,6 +188,11 @@ public class HomePageCustomizationFragment extends Fragment {
         changePreferenceSettings("galleries", isChecked);
     }
 
+    @OnCheckedChanged(R.id.switch_button_events)
+    void eventsPreferenceChange(boolean isChecked) {
+        changePreferenceSettings("events", isChecked);
+    }
+
     /**
      * This is the universal method for the preferences
      */
@@ -194,28 +203,52 @@ public class HomePageCustomizationFragment extends Fragment {
         ArrayList<String> namesAfterArrayList = new ArrayList<>(Arrays.asList(namesAfterSplit));
         if (isChecked) {
             String finalString = "";
+            String eventString = "";
             if (!namesAfterArrayList.contains(name))
                 namesAfterArrayList.add(name);
             for (int i = 0; i < namesAfterArrayList.size(); i++) {
                 if (i == namesAfterArrayList.size()) {
                     finalString = finalString + namesAfterArrayList.get(i);
+                    if (namesAfterArrayList.get(i).equalsIgnoreCase("events")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("classifieds")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("jobs")) {
+                        eventString = eventString + namesAfterArrayList.get(i);
+                    }
                 } else {
                     finalString = finalString + namesAfterArrayList.get(i) + ",";
+                    if (namesAfterArrayList.get(i).equalsIgnoreCase("events")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("classifieds")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("jobs")) {
+                        eventString = eventString + namesAfterArrayList.get(i) + ",";
+                    }
                 }
             }
             Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS, finalString);
+            Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS, eventString);
         } else {
             String finalString = "";
+            String eventString = "";
             int index = namesAfterArrayList.indexOf(name);
             namesAfterArrayList.remove(index);
             for (int i = 0; i < namesAfterArrayList.size(); i++) {
                 if (i == namesAfterArrayList.size()) {
                     finalString = finalString + namesAfterArrayList.get(i);
+                    if (namesAfterArrayList.get(i).equalsIgnoreCase("events")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("classifieds")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("jobs")) {
+                        eventString = eventString + namesAfterArrayList.get(i);
+                    }
                 } else {
                     finalString = finalString + namesAfterArrayList.get(i) + ",";
+                    if (namesAfterArrayList.get(i).equalsIgnoreCase("events")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("classifieds")
+                            || namesAfterArrayList.get(i).equalsIgnoreCase("jobs")) {
+                        eventString = eventString + namesAfterArrayList.get(i) + ",";
+                    }
                 }
             }
             Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS, finalString);
+            Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS, eventString);
         }
 
         HomeFragment.getInstance().updateData();

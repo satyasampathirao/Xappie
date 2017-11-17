@@ -169,6 +169,7 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
         String s = Utility.getSharedPrefStringData(this, Constants.HOME_PAGE_CONTENTS);
         if (Utility.isValueNullOrEmpty(s)) {
             Utility.setSharedPrefStringData(this, Constants.HOME_PAGE_CONTENTS, Constants.HOME_PAGE_CONTENTS_DATA);
+            Utility.setSharedPrefStringData(this, Constants.HOME_PAGE_EVENTS_CONTENTS, Constants.EVENTS_CLASSIFIEDS_JOBS);
         }
 
         Intent intent = new Intent(CitiesActivity.this, DashBoardActivity.class);

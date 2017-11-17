@@ -37,8 +37,11 @@ public class Constants {
     public static final String SELECTED_DETAIL_VIEW_FROM = "SELECTED_DETAIL_VIEW_FROM";
     public static final String SELECTED_MORE_TOPICS_LIST = "SELECTED_MORE_TOPICS_LIST";
     public static final String HOME_PAGE_CONTENTS = "HOME_PAGE_CONTENTS";
-    public static final String EVENTS_ADS_BANNERS = "events,ads,banners";
-    public static final String HOME_PAGE_CONTENTS_DATA = "discussions,entertainments,stories,videos,galleries";
+
+    public static final String EVENTS_CLASSIFIEDS_JOBS = "events,classifieds,jobs";
+    //public static final String ADS_BANNERS = "ads,banners";
+    public static final String HOME_PAGE_CONTENTS_DATA = "discussions,entertainments,stories,videos,galleries,events,classifieds,jobs";
+    public static final String HOME_PAGE_EVENTS_CONTENTS = "HOME_PAGE_EVENTS_CONTENTS";
 
     public static final String LOGIN_SESSION_ID = "LOGIN_SESSION_ID";
 
