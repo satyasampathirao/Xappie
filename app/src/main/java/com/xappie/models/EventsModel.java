@@ -10,22 +10,24 @@ public class EventsModel extends Model implements Serializable {
 
     private String id;
     private String name;
+    private String tag;
+    private String description;
+    private String image;
+    private String cost;
+    private String dress_code;
     private String type;
+    private String start_time;
+    private String end_time;
+    private String location;
+    private String address;
     private String country;
     private String state;
     private String city;
-    private String image;
     //private String status;
-    private String events_status;
     private String recordedBy;
     private String recordedDate;
-    private String start_time;
-    private String end_time;
-    private String tag;
-    private String dress_code;
-    private String cost;
-    private String address;
-    private String description;
+    private String recordedType;
+    private String going;
 
     public String getId() {
         return id;
@@ -43,12 +45,84 @@ public class EventsModel extends Model implements Serializable {
         this.name = name;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getDress_code() {
+        return dress_code;
+    }
+
+    public void setDress_code(String dress_code) {
+        this.dress_code = dress_code;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCountry() {
@@ -75,14 +149,6 @@ public class EventsModel extends Model implements Serializable {
         this.city = city;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     /*public String getStatus() {
         return status;
     }
@@ -90,14 +156,6 @@ public class EventsModel extends Model implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }*/
-
-    public String getEvents_status() {
-        return events_status;
-    }
-
-    public void setEvents_status(String events_status) {
-        this.events_status = events_status;
-    }
 
     public String getRecordedBy() {
         return recordedBy;
@@ -115,59 +173,19 @@ public class EventsModel extends Model implements Serializable {
         this.recordedDate = recordedDate;
     }
 
-    public String getStart_time() {
-        return start_time;
+    public String getRecordedType() {
+        return recordedType;
     }
 
-    public void setStart_time(String start_time) {
-        this.start_time = start_time;
+    public void setRecordedType(String recordedType) {
+        this.recordedType = recordedType;
     }
 
-    public String getEnd_time() {
-        return end_time;
+    public String getGoing() {
+        return going;
     }
 
-    public void setEnd_time(String end_time) {
-        this.end_time = end_time;
-    }
-
-    public String getDress_code() {
-        return dress_code;
-    }
-
-    public void setDress_code(String dress_code) {
-        this.dress_code = dress_code;
-    }
-
-    public String getCost() {
-        return cost;
-    }
-
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setGoing(String going) {
+        this.going = going;
     }
 }

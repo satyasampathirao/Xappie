@@ -258,5 +258,8 @@
     <string name="empty">empty</string>
     <string name="edit_icon">&#xf040;</string>
     <string name="accept_small">accept</string>
+    <string name="i_am_going_hint">I\'m Going!</string>
+    <string name="may_be_going">May be Going</string>
+    <string name="not_going">Not Going</string>
 
 </resources>

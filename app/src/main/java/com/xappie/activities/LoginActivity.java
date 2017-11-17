@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
     @BindView(R.id.tv_or_sign_social)
     TextView tv_or_sign_social;
     @BindView(R.id.relative_login_bottom)
-    RelativeLayout rl_login_bottom;
+    LinearLayout rl_login_bottom;
     @BindView(R.id.imageButton_facebook)
     ImageButton im_facebook;
     @BindView(R.id.imageButton_google)

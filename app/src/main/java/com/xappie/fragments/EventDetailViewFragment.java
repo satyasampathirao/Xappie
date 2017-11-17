@@ -23,8 +23,6 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.activities.LoginActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.AddEventModel;
-import com.xappie.models.EventsListModel;
 import com.xappie.models.EventsModel;
 import com.xappie.models.IAmGoingModel;
 import com.xappie.models.Model;
@@ -104,6 +102,19 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.btn_who_is_going)
     Button btn_who_is_going;
 
+
+    @BindView(R.id.ll_i_am_going_may_be_going)
+    LinearLayout ll_i_am_going_may_be_going;
+    @BindView(R.id.ll_reverse_layout)
+    LinearLayout ll_reverse_layout;
+
+    @BindView(R.id.tv_going)
+    TextView tv_going;
+    @BindView(R.id.tv_may)
+    TextView tv_may;
+    @BindView(R.id.tv_not)
+    TextView tv_not;
+
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
     private Typeface mTypefaceOpenSansBold;
@@ -111,6 +122,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     private String mId;
     private EventsModel eventsModel;
     private IAmGoingModel iAmGoingModel;
+
+    private String mFromNot = "0";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -211,6 +224,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
+            mFromNot = "1";
             try {
                 LinkedHashMap linkedHashMap = new LinkedHashMap();
                 linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
@@ -218,6 +232,62 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
                 ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                         mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                         APIConstants.EVENT_GOING + "/" + mId + "/1", linkedHashMap,
+                        APIConstants.REQUEST_TYPE.GET, this, iAmGoingParser);
+                Utility.execute(serverJSONAsyncTask);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * This method is used to navigate event detail view
+     */
+    @OnClick(R.id.tv_may)
+    void submittMay() {
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            if (tv_may.getText().toString().equalsIgnoreCase(Utility.getResourcesString(mParent, R.string.may_be_going))) {
+                mFromNot = "2";
+            } else {
+                mFromNot = "1";
+            }
+            try {
+                LinkedHashMap linkedHashMap = new LinkedHashMap();
+                linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+                IAmGoingParser iAmGoingParser = new IAmGoingParser();
+                ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                        mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                        APIConstants.EVENT_GOING + "/" + mId + "/" + mFromNot, linkedHashMap,
+                        APIConstants.REQUEST_TYPE.GET, this, iAmGoingParser);
+                Utility.execute(serverJSONAsyncTask);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * This method is used update not going
+     */
+    @OnClick(R.id.tv_not)
+    void submittNot() {
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            mFromNot = "0";
+            try {
+                LinkedHashMap linkedHashMap = new LinkedHashMap();
+                linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+                IAmGoingParser iAmGoingParser = new IAmGoingParser();
+                ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                        mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                        APIConstants.EVENT_GOING + "/" + mId + "/" + mFromNot, linkedHashMap,
                         APIConstants.REQUEST_TYPE.GET, this, iAmGoingParser);
                 Utility.execute(serverJSONAsyncTask);
             } catch (Exception e) {
@@ -234,6 +304,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
+            mFromNot = "2";
             try {
                 LinkedHashMap linkedHashMap = new LinkedHashMap();
                 linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
@@ -288,7 +359,41 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             } else if (model instanceof IAmGoingModel) {
                 iAmGoingModel = (IAmGoingModel) model;
                 Utility.showToastMessage(mParent, iAmGoingModel.getMessage());
+                updateNewUI();
             }
+        }
+    }
+
+    /**
+     * This method is used to update new ui
+     */
+    private void updateNewUI() {
+        if (mFromNot.equalsIgnoreCase("1")) {
+            ll_i_am_going_may_be_going.setVisibility(View.GONE);
+            ll_reverse_layout.setVisibility(View.VISIBLE);
+
+            tv_going.setText(Utility.getResourcesString(mParent, R.string.i_am_going_hint));
+            tv_may.setText(Utility.getResourcesString(mParent, R.string.may_be_going));
+            tv_not.setText(Utility.getResourcesString(mParent, R.string.not_going));
+
+            tv_going.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_may.setTypeface(Utility.getOpenSansRegular(mParent));
+            tv_not.setTypeface(Utility.getOpenSansRegular(mParent));
+
+        } else if (mFromNot.equalsIgnoreCase("2")) {
+            ll_i_am_going_may_be_going.setVisibility(View.GONE);
+            ll_reverse_layout.setVisibility(View.VISIBLE);
+
+            tv_going.setText(Utility.getResourcesString(mParent, R.string.may_be_going));
+            tv_may.setText(Utility.getResourcesString(mParent, R.string.i_am_going_hint));
+            tv_not.setText(Utility.getResourcesString(mParent, R.string.not_going));
+
+            tv_going.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_may.setTypeface(Utility.getOpenSansRegular(mParent));
+            tv_not.setTypeface(Utility.getOpenSansRegular(mParent));
+        } else {
+            ll_i_am_going_may_be_going.setVisibility(View.VISIBLE);
+            ll_reverse_layout.setVisibility(View.GONE);
         }
     }
 
@@ -339,6 +444,34 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_details.setText(eventsModel.getDescription());
         } else {
             tv_details.setVisibility(View.GONE);
+        }
+
+        if (eventsModel.getGoing().equalsIgnoreCase("1")) {
+            ll_i_am_going_may_be_going.setVisibility(View.GONE);
+            ll_reverse_layout.setVisibility(View.VISIBLE);
+
+            tv_going.setText(Utility.getResourcesString(mParent, R.string.i_am_going_hint));
+            tv_may.setText(Utility.getResourcesString(mParent, R.string.may_be_going));
+            tv_not.setText(Utility.getResourcesString(mParent, R.string.not_going));
+
+            tv_going.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_may.setTypeface(Utility.getOpenSansRegular(mParent));
+            tv_not.setTypeface(Utility.getOpenSansRegular(mParent));
+
+        } else if (eventsModel.getGoing().equalsIgnoreCase("2")) {
+            ll_i_am_going_may_be_going.setVisibility(View.GONE);
+            ll_reverse_layout.setVisibility(View.VISIBLE);
+
+            tv_going.setText(Utility.getResourcesString(mParent, R.string.may_be_going));
+            tv_may.setText(Utility.getResourcesString(mParent, R.string.i_am_going_hint));
+            tv_not.setText(Utility.getResourcesString(mParent, R.string.not_going));
+
+            tv_going.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_may.setTypeface(Utility.getOpenSansRegular(mParent));
+            tv_not.setTypeface(Utility.getOpenSansRegular(mParent));
+        } else {
+            ll_i_am_going_may_be_going.setVisibility(View.VISIBLE);
+            ll_reverse_layout.setVisibility(View.GONE);
         }
     }
 }
