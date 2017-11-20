@@ -16,20 +16,34 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.adapters.ClassifiedsAdapter;
 import com.xappie.adapters.ClassifiedsListAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.ClassifiedsListModel;
+import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.models.Model;
+import com.xappie.models.StateModel;
+import com.xappie.models.StatesListModel;
+import com.xappie.parser.ClassifiedsParser;
+import com.xappie.parser.StatesParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * Created by Shankar Pilli on 07/28/2017
  */
-public class ClassifiedsListFragment extends Fragment {
+public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = ClassifiedsListFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -62,6 +76,15 @@ public class ClassifiedsListFragment extends Fragment {
     @BindView(R.id.list_view)
     ListView list_view;
 
+    private ClassifiedsListModel classifiedsListModel;
+    private StatesListModel mStatesListModel;
+    private ArrayList<ClassifiedsModel> classifiedsModels;
+
+    private StateModel stateModel;
+
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +115,26 @@ public class ClassifiedsListFragment extends Fragment {
 
     private void initUI() {
         setTypeFace();
+        stateModel = new StateModel();
+        stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        getCitiesList();
     }
+
+    private void getCitiesList() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            StatesParser statesParser = new StatesParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_CITIES + "/" + Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID), linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, statesParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
@@ -109,24 +151,32 @@ public class ClassifiedsListFragment extends Fragment {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        setGridViewData();
+        // setGridViewData();
     }
 
     /*This method is used to set the lsit view data*/
     private void setGridViewData() {
-        ClassifiedsListAdapter classifiedsListAdapter = new ClassifiedsListAdapter(mParent, getEntertainData());
-        list_view.setAdapter(classifiedsListAdapter);
+
     }
 
-    private ArrayList<EntertainmentModel> getEntertainData() {
-        ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            EntertainmentModel entertainmentModel = new EntertainmentModel();
-           // entertainmentModel.setId(R.drawable.video_hint);
-            entertainmentModel.setTitle("Rarandoi");
-            entertainmentModels.add(entertainmentModel);
+    private void getClassifiedsData(String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            ClassifiedsParser classifiedsParser = new ClassifiedsParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_CLASSIFIEDS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, classifiedsParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return entertainmentModels;
     }
 
     /**
@@ -162,5 +212,43 @@ public class ClassifiedsListFragment extends Fragment {
         Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
     }
 
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof ClassifiedsListModel) {
+                classifiedsListModel = (ClassifiedsListModel) model;
+                setClasifiedsData();
+            } else if (model instanceof StatesListModel) {
+                mStatesListModel = (StatesListModel) model;
+                if (mStatesListModel.getStateModels().size() > 0) {
+                    for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID)
+                                .equalsIgnoreCase(mStatesListModel.getStateModels().get(i).getId())) {
+                            stateModel = mStatesListModel.getStateModels().get(i);
+                        }
+                    }
+                    getClassifiedsData("" + 1);
+                }
+            }
+
+        }
+    }
+
+
+    private void setClasifiedsData() {
+        ClassifiedsListAdapter classifiedsAdapter = new ClassifiedsListAdapter(mParent, classifiedsListModel.getClassifiedsModels());
+       list_view.setAdapter(classifiedsAdapter);
+
+    }
+
+    @OnItemClick(R.id.list_view)
+    void navigateData(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID,
+                classifiedsModels.get(position).getId());
+        bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
+        Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle,
+                mParent);
+    }
 }
 

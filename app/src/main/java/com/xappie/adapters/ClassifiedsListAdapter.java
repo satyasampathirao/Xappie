@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.ClassifiedsDetailFragment;
+import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.utils.Utility;
 
@@ -24,21 +25,21 @@ public class ClassifiedsListAdapter extends BaseAdapter {
 
     private DashBoardActivity mDashBoardActivity;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<EntertainmentModel> entertainmentModels;
+    private ArrayList<ClassifiedsModel> classifiedsModels;
     private Typeface mOpenSansBoldTypeface;
     private Typeface mOpenSansRegularTypeface;
 
-    public ClassifiedsListAdapter(DashBoardActivity mDashBoardActivity, ArrayList<EntertainmentModel> entertainmentModels) {
+    public ClassifiedsListAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ClassifiedsModel> classifiedsModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
-        this.entertainmentModels = entertainmentModels;
+        this.classifiedsModels= classifiedsModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(mDashBoardActivity);
     }
 
     @Override
     public int getCount() {
-        return entertainmentModels.size();
+        return classifiedsModels.size();
     }
 
     @Override
@@ -74,10 +75,17 @@ public class ClassifiedsListAdapter extends BaseAdapter {
             mClassifiedsListHolder = (ClassifiedsListHolder) convertView.getTag();
         }
 
-        EntertainmentModel entertainmentModel = entertainmentModels.get(position);
-        // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
-        mClassifiedsListHolder.tv_title.setText("Lorem ipsum is simply dummy text of the printing and typesetting industry");
-        mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.ravi_kiran).toUpperCase());
+        ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
+       mClassifiedsListHolder.tv_title.setText(classifiedsModel.getTitle());
+        if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
+            Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
+                    classifiedsModel.getImage(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
+                    "", null, R.drawable.xappie_place_holder);
+        }
+        mClassifiedsListHolder.tv_time.setText(classifiedsModel.getApprovedBy());
+
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

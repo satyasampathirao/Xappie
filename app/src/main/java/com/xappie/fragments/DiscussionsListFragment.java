@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.ClassifiedsListAdapter;
+import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.utils.Utility;
 
@@ -109,7 +110,7 @@ public class DiscussionsListFragment extends Fragment {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        setGridViewData();
+      //  setGridViewData();
     }
 
     /*This method is used to set the lsit view data*/
@@ -118,10 +119,10 @@ public class DiscussionsListFragment extends Fragment {
         list_view.setAdapter(classifiedsListAdapter);
     }
 
-    private ArrayList<EntertainmentModel> getEntertainData() {
-        ArrayList<EntertainmentModel> entertainmentModels = new ArrayList<>();
+    private ArrayList<ClassifiedsModel> getEntertainData() {
+        ArrayList<ClassifiedsModel> entertainmentModels = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
-            EntertainmentModel entertainmentModel = new EntertainmentModel();
+            ClassifiedsModel entertainmentModel = new ClassifiedsModel();
             //entertainmentModel.setId(R.drawable.video_hint);
             entertainmentModel.setTitle("Rarandoi");
             entertainmentModels.add(entertainmentModel);

@@ -71,7 +71,6 @@ public class ClassifiedsFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
-    private ArrayList<ClassifiedsModel> classifiedsModels;
     private ClassifiedsListModel classifiedsListModel;
     private ClassifiedsAdapter classifiedsAdapter;
     private StatesListModel mStatesListModel;
@@ -162,14 +161,6 @@ public class ClassifiedsFragment extends Fragment implements IAsyncCaller {
         mParent.onBackPressed();
     }
 
-    /**
-     * This method is used to set the grid view data
-     */
-    private void setGridViewData() {
-        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent, classifiedsModels);
-        grid_view.setAdapter(classifiedsAdapter);
-    }
-
 
     @OnClick(R.id.tv_notifications_icon)
     public void navigateNotification() {
@@ -231,9 +222,8 @@ public class ClassifiedsFragment extends Fragment implements IAsyncCaller {
     }
 
     private void setClasifiedsData() {
-        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent,classifiedsModels);
+        ClassifiedsAdapter classifiedsAdapter = new ClassifiedsAdapter(mParent, classifiedsListModel.getClassifiedsModels());
         grid_view.setAdapter(classifiedsAdapter);
-
     }
 
 }

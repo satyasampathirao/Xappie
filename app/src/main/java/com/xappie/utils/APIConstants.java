@@ -51,6 +51,8 @@ public class APIConstants {
     public static String GET_HOME_CONTENT_LOC = BASE_URL + "get_home_content_loc";
     public static String GET_ADS = BASE_URL + "get_ads";
     public static String GET_CLASSIFIED_CATEGORIES = BASE_URL + "get_classified_categories";
+    public static String GET_CLASSIFIEDS = BASE_URL + "get_classifieds";
+    public static String GET_CLASSIFIED_DETAILS = BASE_URL + "get_classified_details";
 
 
 

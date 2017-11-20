@@ -2,10 +2,9 @@ package com.xappie.parser;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.xappie.models.ClassifiedsListModel;
 import com.xappie.models.ClassifiedsModel;
-import com.xappie.models.EntertainmentListModel;
-import com.xappie.models.EntertainmentModel;
 import com.xappie.models.Model;
 
 import org.json.JSONArray;
@@ -26,14 +25,7 @@ public class ClassifiedsParser implements Parser<Model> {
             ArrayList<ClassifiedsModel> classifiedsModels = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
-                ClassifiedsModel classifiedsModel = new ClassifiedsModel();
-                classifiedsModel.setId(jsonObject.optString("id"));
-                classifiedsModel.setCountry(jsonObject.optString("Country"));
-                classifiedsModel.setName(jsonObject.optString("Name"));
-                classifiedsModel.setState(jsonObject.optString("State"));
-                classifiedsModel.setImage(jsonObject.optString("Image"));
-                classifiedsModel.setRecordedBy(jsonObject.optString("recordedBy"));
-                classifiedsModel.setRecordedDate(jsonObject.optString("recordedDate"));
+                ClassifiedsModel classifiedsModel = new Gson().fromJson(jsonObject.toString(), ClassifiedsModel.class);
                 classifiedsModels.add(classifiedsModel);
             }
             mClassifiedsListModel.setClassifiedsModels(classifiedsModels);
@@ -43,4 +35,4 @@ public class ClassifiedsParser implements Parser<Model> {
 
         return mClassifiedsListModel;
     }
-    }
+}
