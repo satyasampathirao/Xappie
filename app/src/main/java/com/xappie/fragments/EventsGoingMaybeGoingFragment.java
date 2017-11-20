@@ -20,6 +20,7 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.EventGoingGridAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.EventsGoingWithCountModel;
 import com.xappie.models.Model;
 import com.xappie.models.WhoIsGoingListModel;
 import com.xappie.parser.WhoIsGoingListParser;
@@ -83,6 +84,9 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
     private EventGoingGridAdapter eventGoingGridAdapter;
     private String mCurrentTag = "GOING";
 
+    private ArrayList<EventsGoingWithCountModel> mLanguagesData;
+    private String mCurrent = "1";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +123,7 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
     }
 
     private void setTypeFace() {
-
+        mCurrent = "1";
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
 
@@ -134,8 +138,9 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
+        getGoingData();
         setGoing();
-        getGoingDetails("1");
+        getGoingDetails(mCurrent);
     }
 
     private void getGoingDetails(String type) {
@@ -154,7 +159,9 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
     }
 
 
-    /*This method is used to set the grid view data*/
+    /**
+     * This method is used to set the grid view data
+     */
     private void setGridViewData() {
 
         if (mWhoIsGoingListModel != null && mWhoIsGoingListModel.getWhoIsGoingModels().size() > 0) {
@@ -162,6 +169,18 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
             grid_view.setAdapter(eventGoingGridAdapter);
             ll_no_data_event_going.setVisibility(View.GONE);
             grid_view.setVisibility(View.VISIBLE);
+
+            if (mCurrent.equalsIgnoreCase("1")) {
+                EventsGoingWithCountModel eventsGoingWithCountModel = mLanguagesData.get(0);
+                eventsGoingWithCountModel.setCount("" + mWhoIsGoingListModel.getWhoIsGoingModels().size());
+                mLanguagesData.set(0, eventsGoingWithCountModel);
+                setGoing();
+            } else {
+                EventsGoingWithCountModel eventsGoingWithCountModel = mLanguagesData.get(1);
+                eventsGoingWithCountModel.setCount("" + mWhoIsGoingListModel.getWhoIsGoingModels().size());
+                mLanguagesData.set(1, eventsGoingWithCountModel);
+                setGoing();
+            }
         } else {
             ll_no_data_event_going.setVisibility(View.VISIBLE);
             grid_view.setVisibility(View.GONE);
@@ -173,11 +192,11 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
      */
     private void setGoing() {
         ll_languages.removeAllViews();
-        for (int i = 0; i < getGoingData().size(); i++) {
+        for (int i = 0; i < mLanguagesData.size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
             View view = ll.findViewById(R.id.view);
-            tv_language_name.setText(getGoingData().get(i));
+            tv_language_name.setText(mLanguagesData.get(i).getName() + " (" + mLanguagesData.get(i).getCount() + ")");
             tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
             tv_language_name.setTypeface(Utility.getOpenSansRegular(mParent));
 
@@ -186,17 +205,21 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
                 @Override
                 public void onClick(View v) {
                     int pos = v.getId();
-                    mCurrentTag = getGoingData().get(pos);
+                    mCurrentTag = mLanguagesData.get(pos).getName();
                     mWhoIsGoingListModel = null;
                     eventGoingGridAdapter = null;
                     setGoing();
-                    if (mCurrentTag.equalsIgnoreCase("GOING"))
+                    if (mCurrentTag.contains("MAYBE")) {
+                        mCurrent = "2";
+                        getGoingDetails("" + 2);
+                    } else {
+                        mCurrent = "1";
                         getGoingDetails("" + 1);
-                    else getGoingDetails("" + 2);
+                    }
                 }
             });
 
-            if (mCurrentTag != null && getGoingData().get(i).equalsIgnoreCase(mCurrentTag)) {
+            if (mCurrentTag != null && mLanguagesData.get(i).getName().equalsIgnoreCase(mCurrentTag)) {
                 view.setVisibility(View.VISIBLE);
                 tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
                 view.setBackgroundColor(Utility.getColor(mParent, R.color.white));
@@ -229,11 +252,19 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
         }
     }*/
 
-    private ArrayList<String> getGoingData() {
-        ArrayList<String> mLanguagesData = new ArrayList<>();
-        mLanguagesData.add("GOING");
-        mLanguagesData.add("MAYBE GOING");
-        return mLanguagesData;
+    private void getGoingData() {
+        mLanguagesData = new ArrayList<>();
+        EventsGoingWithCountModel eventsGoingWithCountModel = new EventsGoingWithCountModel();
+        eventsGoingWithCountModel.setName("GOING");
+        eventsGoingWithCountModel.setCount("N/A");
+        mLanguagesData.add(eventsGoingWithCountModel);
+
+
+        EventsGoingWithCountModel eventsGoingWithCountModel1 = new EventsGoingWithCountModel();
+        eventsGoingWithCountModel1.setName("MAYBE GOING");
+        eventsGoingWithCountModel1.setCount("N/A");
+        mLanguagesData.add(eventsGoingWithCountModel1);
+
     }
 
     @OnClick({R.id.tv_notification_arrow_back_icon,
