@@ -78,7 +78,7 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
 
     private ClassifiedsListModel classifiedsListModel;
     private StatesListModel mStatesListModel;
-    private ArrayList<ClassifiedsModel> classifiedsModels;
+    ClassifiedsModel classifiedsModel;
 
     private StateModel stateModel;
 
@@ -241,14 +241,5 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
 
     }
 
-    @OnItemClick(R.id.list_view)
-    void navigateData(int position) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID,
-                classifiedsModels.get(position).getId());
-        bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
-        Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle,
-                mParent);
-    }
 }
 

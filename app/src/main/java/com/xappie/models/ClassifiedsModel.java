@@ -1,10 +1,12 @@
 package com.xappie.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Shankar on 7/21/2017.
  */
 
-public class ClassifiedsModel {
+public class ClassifiedsModel extends Model implements Serializable {
     private String image_url;
     private String id;
     private String name;
@@ -24,7 +26,7 @@ public class ClassifiedsModel {
     private String mobile;
     private String email;
     private String address;
-    private String status;
+    //private String status;
     private String recordedType;
     private String approvedOn;
     private String reason;
@@ -174,13 +176,13 @@ public class ClassifiedsModel {
         this.address = address;
     }
 
-    public String getStatus() {
+    /*public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
+    }*/
 
     public String getRecordedType() {
         return recordedType;

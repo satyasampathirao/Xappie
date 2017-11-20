@@ -1,6 +1,7 @@
 package com.xappie.adapters;
 
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.ClassifiedsDetailFragment;
 import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class ClassifiedsListAdapter extends BaseAdapter {
             mClassifiedsListHolder = (ClassifiedsListHolder) convertView.getTag();
         }
 
-        ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
+        final ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
        mClassifiedsListHolder.tv_title.setText(classifiedsModel.getTitle());
         if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
@@ -86,11 +88,14 @@ public class ClassifiedsListAdapter extends BaseAdapter {
         }
         mClassifiedsListHolder.tv_time.setText(classifiedsModel.getApprovedBy());
 
-
+        convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, null, mDashBoardActivity);
+                int position = v.getId();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.CLASSIFIEDS_ID,classifiedsModels.get(position).getId());
+                Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle, mDashBoardActivity);
             }
         });
 
