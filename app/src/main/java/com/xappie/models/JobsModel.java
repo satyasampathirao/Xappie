@@ -1,17 +1,26 @@
 package com.xappie.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Ravi on 04-Aug-17.
  */
 
-public class JobsModel
-{
+public class JobsModel extends Model implements Serializable {
     private String url;
     private int id;
     private String title;
     private String positions;
     private String positions_nbr;
     private String posted_by;
+    private String country;
+    private String state;
+    private String city;
+    private String category;
+    private String company_logo;
+    private String recordedBy;
+    private String recordedDate;
+    private String jobs_status;
 
     public String getUrl() {
         return url;
@@ -59,5 +68,69 @@ public class JobsModel
 
     public void setPosted_by(String posted_by) {
         this.posted_by = posted_by;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCompany_logo() {
+        return company_logo;
+    }
+
+    public void setCompany_logo(String company_logo) {
+        this.company_logo = company_logo;
+    }
+
+    public String getRecordedBy() {
+        return recordedBy;
+    }
+
+    public void setRecordedBy(String recordedBy) {
+        this.recordedBy = recordedBy;
+    }
+
+    public String getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(String recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
+    public String getJobs_status() {
+        return jobs_status;
+    }
+
+    public void setJobs_status(String jobs_status) {
+        this.jobs_status = jobs_status;
     }
 }

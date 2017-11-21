@@ -1,6 +1,7 @@
 package com.xappie.adapters;
 
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,9 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.fragments.EventDetailViewFragment;
-import com.xappie.fragments.FindJobsListFragment;
 import com.xappie.fragments.JobsViewFragment;
-import com.xappie.models.EntertainmentModel;
 import com.xappie.models.JobsModel;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -77,16 +76,26 @@ public class FindJobsListAdapter extends BaseAdapter
             mClassifiedsListHolder = (FindJobsListAdapter.ClassifiedsListHolder) convertView.getTag();
         }
 
-        JobsModel jobsModel = jobsModels.get(position);
+        final JobsModel jobsModel = jobsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
-        mClassifiedsListHolder.tv_title.setText("Lorem ipsum is simply dummy text of the printing and typesetting industry");
+        mClassifiedsListHolder.tv_title.setText(jobsModel.getTitle());
         mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.positions).toUpperCase());
-        mClassifiedsListHolder.tv_positions_nbr.setText(" 4 ");
+        mClassifiedsListHolder.tv_positions_nbr.setText(jobsModel.getJobs_status());
 
+        if (!Utility.isValueNullOrEmpty(jobsModel.getCompany_logo())) {
+            Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
+                    jobsModel.getCompany_logo(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
+                    "", null, R.drawable.xappie_place_holder);
+        }
+
+
+        convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                           Utility.navigateAllJobsFragment(new JobsViewFragment(),JobsViewFragment.TAG,null,mDashBoardActivity);
+                           Utility.navigateAllJobsFragment(new JobsViewFragment(),JobsViewFragment.TAG, null,mDashBoardActivity);
             }
         });
 

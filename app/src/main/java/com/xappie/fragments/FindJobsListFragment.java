@@ -1,23 +1,36 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.AllEventsListAdapter;
+import com.xappie.activities.LoginActivity;
 import com.xappie.adapters.FindJobsListAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.models.JobsListModel;
 import com.xappie.models.JobsModel;
+import com.xappie.models.Model;
+import com.xappie.models.StateModel;
+import com.xappie.models.StatesListModel;
+import com.xappie.parser.JobsListParser;
+import com.xappie.parser.StatesParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +39,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FindJobsListFragment extends Fragment {
+public class FindJobsListFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = FindJobsListFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -36,17 +49,19 @@ public class FindJobsListFragment extends Fragment {
      */
     @BindView(R.id.list_view)
     ListView list_view;
+    @BindView(R.id.ll_no_data)
+    LinearLayout ll_no_data;
+
+    private StatesListModel mStatesListModel;
+
+    private StateModel stateModel;
+    private JobsListModel jobsListModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
     }
-
-    public FindJobsListFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,24 +78,51 @@ public class FindJobsListFragment extends Fragment {
         initUI();
     }
     private void initUI() {
-        setGridViewData();
+        stateModel = new StateModel();
+        stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        getCitiesList();
     }
     private void setGridViewData() {
 
-        FindJobsListAdapter findJobsListAdapter = new FindJobsListAdapter(mParent, getJobsData());
+        FindJobsListAdapter findJobsListAdapter = new FindJobsListAdapter(mParent, jobsListModel.getJobsModels());
         list_view.setAdapter(findJobsListAdapter);
     }
-
-    private ArrayList<JobsModel> getJobsData() {
-        ArrayList<JobsModel> jobsModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            JobsModel jobsModel = new JobsModel();
-            jobsModel.setId(R.drawable.video_hint);
-            jobsModel.setTitle("Rarandoi");
-           jobsModels.add(jobsModel);
+    private void getCitiesList() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            StatesParser statesParser = new StatesParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_CITIES + "/" + Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID), linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, statesParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return jobsModels;
     }
+
+    private void getJobsData(String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", stateModel.getId());
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            JobsListParser jobsListParser = new JobsListParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_JOBS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, jobsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * This method is used navigate post
@@ -88,7 +130,48 @@ public class FindJobsListFragment extends Fragment {
     @OnClick(R.id.fab)
     void navigateToPost() {
 
-      Utility.navigateAllJobsFragment(new PostJobFragment(),PostJobFragment.TAG,null,mParent);
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+
+            Utility.navigateAllJobsFragment(new PostJobFragment(), PostJobFragment.TAG, null, mParent);
+        }
     }
 
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof JobsListModel)
+            {
+                jobsListModel = (JobsListModel) model;
+                if (jobsListModel != null && jobsListModel.getJobsModels().size() > 0)
+                {
+                    list_view.setVisibility(View.VISIBLE);
+                    ll_no_data.setVisibility(View.GONE);
+                    setGridViewData();
+                }
+                else {
+                    ll_no_data.setVisibility(View.VISIBLE);
+                    list_view.setVisibility(View.GONE);
+                }
+            } else if (model instanceof StatesListModel)
+            {
+                mStatesListModel = (StatesListModel) model;
+                if (mStatesListModel.getStateModels().size() > 0)
+                {
+                    for (int i=0; i < mStatesListModel.getStateModels().size();i++)
+                    {
+                        if (Utility.getSharedPrefStringData(mParent,Constants.SELECTED_CITY_ID).equalsIgnoreCase(mStatesListModel.getStateModels().get(i).getId()))
+                        {
+                            stateModel = mStatesListModel.getStateModels().get(i);
+                        }
+                           getJobsData(" "+1);
+                    }
+                }
+
+            }
+        }
+    }
 }
