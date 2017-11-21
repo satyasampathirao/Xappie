@@ -13,7 +13,6 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.ClassifiedsDetailFragment;
 import com.xappie.models.ClassifiedsModel;
-import com.xappie.models.EntertainmentModel;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -34,7 +33,7 @@ public class ClassifiedsListAdapter extends BaseAdapter {
     public ClassifiedsListAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ClassifiedsModel> classifiedsModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
-        this.classifiedsModels= classifiedsModels;
+        this.classifiedsModels = classifiedsModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(mDashBoardActivity);
     }
@@ -78,7 +77,7 @@ public class ClassifiedsListAdapter extends BaseAdapter {
         }
 
         final ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
-       mClassifiedsListHolder.tv_title.setText(classifiedsModel.getTitle());
+        mClassifiedsListHolder.tv_title.setText(classifiedsModel.getTitle());
         if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
                     classifiedsModel.getImage(), null, R.drawable.xappie_place_holder);
@@ -94,7 +93,7 @@ public class ClassifiedsListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int position = v.getId();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.CLASSIFIEDS_ID,classifiedsModels.get(position).getId());
+                bundle.putString(Constants.CLASSIFIEDS_ID, classifiedsModels.get(position).getId());
                 Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle, mDashBoardActivity);
             }
         });

@@ -1,6 +1,7 @@
 package com.xappie.adapters;
 
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.ClassifiedsFragment;
 import com.xappie.fragments.ClassifiedsListFragment;
+import com.xappie.fragments.ClassifiedsTabFragment;
 import com.xappie.models.ClassifiedsModel;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -77,11 +80,14 @@ public class ClassifiedsAdapter extends BaseAdapter {
                     "", null, R.drawable.xappie_place_holder);
         }
 
-
+        convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.navigateDashBoardFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mDashBoardActivity);
+                int position = v.getId();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, classifiedsModels.get(position).getId());
+                Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mDashBoardActivity);
             }
         });
 

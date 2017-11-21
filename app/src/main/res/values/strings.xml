@@ -262,4 +262,7 @@
     <string name="may_be_going">May be Going</string>
     <string name="not_going">Not Going</string>
 
+    <string name="all_classifieds">ALL CLASSIFIEDS</string>
+    <string name="add_classified">ADD CLASSIFIED</string>
+    <string name="my_classifieds">MY CLASSIFIEDS</string>
 </resources>

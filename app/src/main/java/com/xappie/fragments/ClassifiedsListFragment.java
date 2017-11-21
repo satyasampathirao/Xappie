@@ -1,28 +1,24 @@
 package com.xappie.fragments;
 
 
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.adapters.ClassifiedsAdapter;
+import com.xappie.activities.LoginActivity;
 import com.xappie.adapters.ClassifiedsListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ClassifiedsListModel;
-import com.xappie.models.ClassifiedsModel;
-import com.xappie.models.EntertainmentModel;
 import com.xappie.models.Model;
 import com.xappie.models.StateModel;
 import com.xappie.models.StatesListModel;
@@ -32,13 +28,11 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 /**
  * Created by Shankar Pilli on 07/28/2017
@@ -47,61 +41,37 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = ClassifiedsListFragment.class.getSimpleName();
     private DashBoardActivity mParent;
-    private AppBarLayout appBarLayout;
-    private FrameLayout mFrameLayout;
-    private CoordinatorLayout.LayoutParams mParams;
-
-    /**
-     * Classifieds Toolbar
-     */
-    @BindView(R.id.tv_notification_arrow_back_icon)
-    TextView tv_notification_arrow_back_icon;
-    @BindView(R.id.tv_notification_menu_icon)
-    TextView tv_notification_menu_icon;
-
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.tv_location_icon)
-    TextView tv_location_icon;
-    @BindView(R.id.tv_notifications_icon)
-    TextView tv_notifications_icon;
-    @BindView(R.id.tv_language_icon)
-    TextView tv_language_icon;
-    private Typeface mTypefaceOpenSansRegular;
-    private Typeface mTypefaceFontAwesomeWebFont;
-
-    /**
-     * Classifieds List set up
-     */
-    @BindView(R.id.list_view)
-    ListView list_view;
 
     private ClassifiedsListModel classifiedsListModel;
     private StatesListModel mStatesListModel;
-    ClassifiedsModel classifiedsModel;
 
     private StateModel stateModel;
+    /**
+     * AllEvents List set up
+     */
+    @BindView(R.id.list_view)
+    ListView list_view;
+    @BindView(R.id.ll_city_types)
+    LinearLayout ll_city_types;
 
-
-
+    @BindView(R.id.ll_no_data)
+    LinearLayout ll_no_data;
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
+    private String mId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
-        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
-        mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
-        mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
+            mId = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (appBarLayout != null) {
-            mParams.setBehavior(null);
-            mFrameLayout.requestLayout();
-            appBarLayout.setVisibility(View.GONE);
-        }
         View rootView = inflater.inflate(R.layout.fragment_classifieds_list, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
@@ -114,7 +84,8 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
     }
 
     private void initUI() {
-        setTypeFace();
+        tv_no_data.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_no_data.setText("No Classifieds found");
         stateModel = new StateModel();
         stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
         getCitiesList();
@@ -136,36 +107,16 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
     }
 
 
-    private void setTypeFace() {
-        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
-        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
-
-        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-
-        tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.auto_mobiles));
-        tv_title.setTypeface(mTypefaceOpenSansRegular);
-
-        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-
-        // setGridViewData();
-    }
-
-    /*This method is used to set the lsit view data*/
-    private void setGridViewData() {
-
-    }
-
+    /**
+     * This method is used to get the all the classifieds data from the server
+     */
     private void getClassifiedsData(String pageNo) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            //linkedHashMap.put("type", "Public");
             linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("cat_id", mId);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             ClassifiedsParser classifiedsParser = new ClassifiedsParser();
@@ -179,13 +130,10 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
         }
     }
 
-    /**
-     * This method is used for back from the fragment
-     */
-    @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_notification_menu_icon})
-    void backToTheHome() {
-        mParent.onBackPressed();
+    /*This method is used to set the lsit view data*/
+    private void setGridViewData() {
+        ClassifiedsListAdapter classifiedsListAdapter = new ClassifiedsListAdapter(mParent, classifiedsListModel.getClassifiedsModels());
+        list_view.setAdapter(classifiedsListAdapter);
     }
 
     /**
@@ -193,23 +141,13 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
      */
     @OnClick(R.id.fab)
     void navigateToPost() {
-        Utility.navigateDashBoardFragment(new ClassifiedsPostFragment(), ClassifiedsPostFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
-    }
-    @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
-    }
-    @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Utility.navigateAllEventsFragment(new ClassifiedsAddFragment(), ClassifiedsAddFragment.TAG, null, mParent);
+        }
     }
 
     @Override
@@ -217,7 +155,14 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
         if (model != null) {
             if (model instanceof ClassifiedsListModel) {
                 classifiedsListModel = (ClassifiedsListModel) model;
-                setClasifiedsData();
+                if (classifiedsListModel != null && classifiedsListModel.getClassifiedsModels().size() > 0) {
+                    ll_no_data.setVisibility(View.GONE);
+                    list_view.setVisibility(View.VISIBLE);
+                    setGridViewData();
+                } else {
+                    ll_no_data.setVisibility(View.VISIBLE);
+                    list_view.setVisibility(View.GONE);
+                }
             } else if (model instanceof StatesListModel) {
                 mStatesListModel = (StatesListModel) model;
                 if (mStatesListModel.getStateModels().size() > 0) {
@@ -227,19 +172,49 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
                             stateModel = mStatesListModel.getStateModels().get(i);
                         }
                     }
+                    setCitys();
                     getClassifiedsData("" + 1);
                 }
             }
-
         }
     }
 
 
-    private void setClasifiedsData() {
-        ClassifiedsListAdapter classifiedsAdapter = new ClassifiedsListAdapter(mParent, classifiedsListModel.getClassifiedsModels());
-       list_view.setAdapter(classifiedsAdapter);
+    /**
+     * This method is used to set the video types
+     */
+    private void setCitys() {
+        ll_city_types.removeAllViews();
+        for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_type_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_type);
+            tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
 
+            tv_type.setId(i);
+            tv_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    stateModel = mStatesListModel.getStateModels().get(pos);
+                    setCitys();
+                    getClassifiedsData("" + 1);
+                }
+            });
+
+            if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+                tv_type.setBackground(Utility.getDrawable(mParent, R.drawable.bg_color_rect));
+            } else {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.types_color));
+                tv_type.setBackground(null);
+            }
+
+            ll_city_types.addView(ll);
+        }
     }
+
 
 }
 
