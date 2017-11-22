@@ -167,7 +167,7 @@ public class ClassifiedsTabFragment extends Fragment {
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
-            Utility.navigateAllEventsFragment(new AllMyEventsFragment(), AllMyEventsFragment.TAG, null, mParent);
+            Utility.navigateAllEventsFragment(new MyClassifiedsFragment(), MyClassifiedsFragment.TAG, null, mParent);
         }
     }
 

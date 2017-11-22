@@ -42,6 +42,8 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                         || mUrl.contains(APIConstants.EVENT_GOING)
                         || mUrl.contains(APIConstants.WHOIS_GOING)
                         || mUrl.contains(APIConstants.GET_EVENT_DETAILS)
+                        || mUrl.contains(APIConstants.GET_MY_CLASSIFIEDS)
+                        || mUrl.contains(APIConstants.DELETE_CLASSIFIED)
                         || mUrl.contains(APIConstants.DELETE_EVENT)) {
                     mResponse = Utility.getWithHeader(Utility.getURL(mUrl, mParams), mContext);
                 } else {

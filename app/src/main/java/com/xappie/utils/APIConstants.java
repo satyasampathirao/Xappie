@@ -47,6 +47,7 @@ public class APIConstants {
     public static String ADD_EVENT = BASE_URL + "add_event";
     public static String UPDATE_EVENT = BASE_URL + "update_event";
     public static String DELETE_EVENT = BASE_URL + "delete_event/";
+    public static String DELETE_CLASSIFIED = BASE_URL + "delete_classified/";
     public static String WHOIS_GOING = BASE_URL + "whois_going/";
     public static String GET_HOME_CONTENT_LOC = BASE_URL + "get_home_content_loc";
     public static String GET_ADS = BASE_URL + "get_ads";
@@ -55,6 +56,7 @@ public class APIConstants {
     public static String GET_CLASSIFIED_CATEGORIES = BASE_URL + "get_classified_categories";
     public static String GET_CLASSIFIEDS = BASE_URL + "get_classifieds";
     public static String GET_CLASSIFIED_DETAILS = BASE_URL + "get_classified_details";
+    public static String GET_MY_CLASSIFIEDS = BASE_URL + "get_my_classifieds";
 
 
 
