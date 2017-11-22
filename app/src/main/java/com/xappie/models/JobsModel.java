@@ -21,6 +21,10 @@ public class JobsModel extends Model implements Serializable {
     private String recordedBy;
     private String recordedDate;
     private String jobs_status;
+    private String role;
+    private String company;
+    private String description;
+    private String isResume;
 
     public String getUrl() {
         return url;
@@ -132,5 +136,37 @@ public class JobsModel extends Model implements Serializable {
 
     public void setJobs_status(String jobs_status) {
         this.jobs_status = jobs_status;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIsResume() {
+        return isResume;
+    }
+
+    public void setIsResume(String isResume) {
+        this.isResume = isResume;
     }
 }

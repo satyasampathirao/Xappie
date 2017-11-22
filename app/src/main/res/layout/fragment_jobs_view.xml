@@ -226,27 +226,6 @@
                     android:text="State Level Police Recruitment Board,Andhra pradesh invites Application for filling up the following posts "
                     android:textSize="@dimen/_12sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/_12sp"
-                    android:text="1. Stipendiary Cadet Trainee (SCT) Police Constable in police Department: 3216 posts "
-                    android:id="@+id/tv_Stipendiary"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/_12sp"
-                    android:text="2. Stipendiary Cadet Trainee (SCT) Police Constable in police Department: 1067 posts "
-                    android:id="@+id/tv_Stipendiary_police"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:textSize="@dimen/_12sp"
-                    android:text="3. Stipendiary Cadet Trainee (SCT) Police Constable in police Department: 246 posts "
-                    android:id="@+id/tv_Stipendiary_police_constable"/>
 
 
             </LinearLayout>

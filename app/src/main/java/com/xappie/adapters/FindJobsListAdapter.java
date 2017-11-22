@@ -95,7 +95,11 @@ public class FindJobsListAdapter extends BaseAdapter
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                           Utility.navigateAllJobsFragment(new JobsViewFragment(),JobsViewFragment.TAG, null,mDashBoardActivity);
+                int position = v.getId();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.JOBS_ID, String.valueOf(jobsModels.get(position).getId()));
+
+                Utility.navigateAllJobsFragment(new JobsViewFragment(),JobsViewFragment.TAG, bundle,mDashBoardActivity);
             }
         });
 
