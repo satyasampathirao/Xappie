@@ -118,6 +118,9 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
     private GoogleApiClient mGoogleApiClient;
     public TwitterAuthClient mTwitterAuthClient;
 
+    private String mAuthType = "";
+    private String mAuthToken = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -307,6 +310,8 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
      * This method is login with social intigation
      */
     private void saveDetailsInDb(String id, String email, String displayName, String type) {
+        mAuthType = type;
+        mAuthToken = id;
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
         paramMap.put(Constants.AUTH_TYPE, type);
@@ -360,6 +365,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         Intent signUpIntent = new Intent(this, DashBoardActivity.class);
         startActivity(signUpIntent);*/
         if (isValidFields()) {
+            mAuthType = Constants.XAPPIE;
             LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
             paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             paramMap.put(Constants.AUTH_TYPE, Constants.XAPPIE);
@@ -421,6 +427,9 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.LOGIN_SESSION_ID, mLoginModel.getCi_session());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.JOIN_DATE, Utility.getJoiningDate(mLoginModel.getJoined_date()));
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.TOKEN, mLoginModel.getCi_session());
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.AUTH_TYPE, mAuthType);
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.AUTH_TOKEN, mAuthToken);
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.PASSWORD, et_password.getText().toString());
                     Intent signUpIntent = new Intent(this, DashBoardActivity.class);
                     startActivity(signUpIntent);
                     //Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_CURRENT_DATE, Utility.getDate());

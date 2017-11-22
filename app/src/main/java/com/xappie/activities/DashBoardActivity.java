@@ -207,7 +207,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                         break;
                     case R.id.videos:
                         drawerLayout.closeDrawers();
-                        Utility.navigateDashBoardFragment(new VideosFragment(),VideosFragment.TAG,null,DashBoardActivity.this);
+                        Utility.navigateDashBoardFragment(new VideosFragment(), VideosFragment.TAG, null, DashBoardActivity.this);
                         break;
                     case R.id.events:
                         drawerLayout.closeDrawers();
@@ -490,6 +490,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
      */
     private void logout() {
         Utility.setSharedPrefBooleanData(this, Constants.IS_LOGIN_COMPLETED, false);
+        Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_NAME, "");
         finish();
         Intent intent = new Intent(DashBoardActivity.this, DashBoardActivity.class);
         startActivity(intent);
