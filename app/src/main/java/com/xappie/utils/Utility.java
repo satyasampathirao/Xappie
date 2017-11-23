@@ -39,6 +39,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.xappie.R;
 import com.xappie.fragments.AllEventsListFragment;
+import com.xappie.fragments.ClassifiedsListFragment;
 import com.xappie.fragments.FindJobsListFragment;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
@@ -353,6 +354,24 @@ public class Utility {
         }
         fragmentTransaction.replace(R.id.content_frame_events, fragment, tag);
         if (!tag.equalsIgnoreCase(AllEventsListFragment.TAG))
+            fragmentTransaction.addToBackStack(tag);
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * This method is used to navigate or replace fragment
+     */
+    public static void navigateAllClassifiedsFragment(Fragment fragment,
+                                                      String tag, Bundle bundle, FragmentActivity fragmentActivity) {
+        FragmentManager fragmentManager = fragmentActivity
+                .getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+        fragmentTransaction.replace(R.id.content_frame_events, fragment, tag);
+        if (!tag.equalsIgnoreCase(ClassifiedsListFragment.TAG))
             fragmentTransaction.addToBackStack(tag);
         fragmentTransaction.commit();
     }

@@ -5,13 +5,10 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.xappie.models.AdsModel;
 import com.xappie.models.BannersModel;
-import com.xappie.models.EntertainmentModel;
+import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EventsModel;
-import com.xappie.models.GalleryItemModel;
-import com.xappie.models.HomePageContentModel;
 import com.xappie.models.HomePageEventsAdsBannersModel;
 import com.xappie.models.Model;
-import com.xappie.models.VideosModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -49,6 +46,17 @@ public class HomePageAdsEventsBannerParser implements Parser<Model> {
                     eventsModels.add(eventsModel);
                 }
                 homePageEventsAdsBannersModel.setEventsModels(eventsModels);
+            }
+
+            if (jsonObject.has("classifieds")) {
+                JSONArray classifiedsJsonArray = jsonObject.optJSONArray("classifieds");
+                ArrayList<ClassifiedsModel> classifiedsModels = new ArrayList<>();
+                for (int i = 0; i < classifiedsJsonArray.length(); i++) {
+                    JSONObject eventsJsonObject = classifiedsJsonArray.optJSONObject(i);
+                    ClassifiedsModel classifiedsModel = new Gson().fromJson(eventsJsonObject.toString(), ClassifiedsModel.class);
+                    classifiedsModels.add(classifiedsModel);
+                }
+                homePageEventsAdsBannersModel.setClassifiedsModel(classifiedsModels);
             }
 
             if (jsonObject.has("ads")) {

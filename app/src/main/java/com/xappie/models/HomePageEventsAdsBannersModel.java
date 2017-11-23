@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class HomePageEventsAdsBannersModel extends Model {
     private ArrayList<BannersModel> bannersModels;
     private ArrayList<EventsModel> eventsModels;
+    private ArrayList<ClassifiedsModel> classifiedsModel;
     private ArrayList<AdsModel> adsModels;
 
     public ArrayList<BannersModel> getBannersModels() {
@@ -33,5 +34,13 @@ public class HomePageEventsAdsBannersModel extends Model {
 
     public void setAdsModels(ArrayList<AdsModel> adsModels) {
         this.adsModels = adsModels;
+    }
+
+    public ArrayList<ClassifiedsModel> getClassifiedsModel() {
+        return classifiedsModel;
+    }
+
+    public void setClassifiedsModel(ArrayList<ClassifiedsModel> classifiedsModel) {
+        this.classifiedsModel = classifiedsModel;
     }
 }

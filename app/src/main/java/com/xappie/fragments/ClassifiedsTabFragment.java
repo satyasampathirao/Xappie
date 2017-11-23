@@ -131,7 +131,7 @@ public class ClassifiedsTabFragment extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
-        Utility.navigateAllEventsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
+        Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
 
     }
 
@@ -140,7 +140,7 @@ public class ClassifiedsTabFragment extends Fragment {
      */
     @OnClick(R.id.tv_all_classifieds)
     void navigateAllEvents() {
-        Utility.navigateAllEventsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
+        Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
     }
 
     /**

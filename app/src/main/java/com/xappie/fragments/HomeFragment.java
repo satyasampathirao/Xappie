@@ -411,7 +411,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
     private void setClassifiedsData() {
 
-        ll_languages_layout_classifieds.removeAllViews();
+        /*ll_languages_layout_classifieds.removeAllViews();
         for (int i = 0; i < getEventsData().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
@@ -425,30 +425,53 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 view.setVisibility(View.GONE);
             }
             ll_languages_layout_classifieds.addView(ll);
-        }
+        }*/
 
         ll_classifieds.removeAllViews();
         LinearLayout linearLayout = new LinearLayout(mParent);
-        for (int i = 0; i < 3; i++) {
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-            RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
-            ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
-            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+        hs_classifieds.setVisibility(View.GONE);
+        rl_classifieds_heading.setVisibility(View.VISIBLE);
+        hs_classifieds_inner_layout.setVisibility(View.VISIBLE);
+        ll_classifieds.setVisibility(View.VISIBLE);
 
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+        if (mHomePageEventsAdsBannersModel != null && mHomePageEventsAdsBannersModel.getClassifiedsModel().size() > 0) {
+            for (int i = 0; i < mHomePageEventsAdsBannersModel.getClassifiedsModel().size(); i++) {
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
+                ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
+                TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
 
-            ll.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Utility.navigateDashBoardFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
+                if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage())) {
+                    Utility.universalImageLoaderPicLoading(img_gallery_image,
+                            mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage(), null, R.drawable.xappie_place_holder);
+                } else {
+                    Utility.universalImageLoaderPicLoading(img_gallery_image,
+                            "", null, R.drawable.xappie_place_holder);
                 }
-            });
-            linearLayout.addView(ll);
 
-            if (i == 2)
-                ll_classifieds.addView(linearLayout);
+                tv_title.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getName());
+                tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+                ll.setId(i);
+                ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = view.getId();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getId());
+                        Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mParent);
+                    }
+                });
+                linearLayout.addView(ll);
+
+                if (i == 2 || i == mHomePageEventsAdsBannersModel.getClassifiedsModel().size() - 1)
+                    ll_classifieds.addView(linearLayout);
+            }
+        } else {
+            rl_classifieds_heading.setVisibility(View.GONE);
+            hs_classifieds_inner_layout.setVisibility(View.GONE);
+            hs_classifieds.setVisibility(View.GONE);
         }
-
     }
 
     /**
@@ -740,6 +763,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 mHomePageEventsAdsBannersModel = (HomePageEventsAdsBannersModel) model;
                 setAdsData();
                 setDataToEvents();
+                setClassifiedsData();
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
                 if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
@@ -877,9 +901,9 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         rl_discussions_heading.setVisibility(View.GONE);
         hs_discussions.setVisibility(View.GONE);
 
-        rl_classifieds_heading.setVisibility(View.GONE);
+        /*rl_classifieds_heading.setVisibility(View.GONE);
         hs_classifieds_inner_layout.setVisibility(View.GONE);
-        hs_classifieds.setVisibility(View.GONE);
+        hs_classifieds.setVisibility(View.GONE);*/
 
         rl_jobs.setVisibility(View.GONE);
         hs_jobs.setVisibility(View.GONE);
