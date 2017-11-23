@@ -88,17 +88,6 @@ public class AllMyClassifiedsListAdapter extends BaseAdapter {
         }
         mClassifiedsListHolder.tv_time.setText(classifiedsModel.getApprovedBy());
 
-        convertView.setId(position);
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = v.getId();
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.CLASSIFIEDS_ID, classifiedsModels.get(position).getId());
-                Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle, mDashBoardActivity);
-            }
-        });
-
 
         return convertView;
     }

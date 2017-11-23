@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 /**
  * Created by Santosh on 23-11-2017.
+ * Edited by Shankar on  23-11-2017.
  */
 
 public class ClassifiedUpdateParser implements Parser<Model> {
@@ -27,6 +28,6 @@ public class ClassifiedUpdateParser implements Parser<Model> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return classifiedUpdateModel;
     }
 }

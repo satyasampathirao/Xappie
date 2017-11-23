@@ -137,9 +137,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
         btn_upload.setTypeface(mTypefaceOpenSansRegular);
 
-        if (!Utility.isValueNullOrEmpty(mID))
-
-        {
+        if (!Utility.isValueNullOrEmpty(mID)) {
             btn_submit.setText("Update");
             getClassifiedDetails();
         }
@@ -192,9 +190,10 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                 LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
                 paramMap.put("id", mID);
-                paramMap.put("cat_id", mCat_Id);
+                paramMap.put("cat_id", classifiedsModel.getCat_id());
+                paramMap.put("title", edt_title.getText().toString());
                 paramMap.put("description", edt_description.getText().toString());
-                paramMap.put("cost", edt_cost.getText().toString());
+                paramMap.put("price", edt_cost.getText().toString());
                 paramMap.put("name", edt_name.getText().toString());
                 paramMap.put("mobile", edt_mobile.getText().toString());
                 paramMap.put("email", edt_email.getText().toString());

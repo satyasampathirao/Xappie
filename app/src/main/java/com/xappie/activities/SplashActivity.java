@@ -42,8 +42,8 @@ public class SplashActivity extends BaseActivity implements IAsyncCaller {
                 } else {
                     Intent intent = new Intent(SplashActivity.this, AppTourActivity.class);
                     startActivity(intent);
+                    finish();
                 }
-                finish();
             }
         };
         mSplashHandler.postDelayed(action, Constants.SPLASH_TIME_OUT);

@@ -19,16 +19,13 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.AllMyClassifiedsListAdapter;
-import com.xappie.adapters.AllMyEventsListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ClassifiedsListModel;
 import com.xappie.models.ClassifiedsModel;
-import com.xappie.models.EventsListModel;
-import com.xappie.models.EventsModel;
 import com.xappie.models.IAmGoingModel;
 import com.xappie.models.Model;
-import com.xappie.parser.EventsListParser;
+import com.xappie.parser.ClassifiedsParser;
 import com.xappie.parser.IAmGoingParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -62,10 +59,17 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
     private int mDeletePosition = -1;
     private IAmGoingModel iAmGoingModel;
 
+    private String mCat_Id;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
+
+        if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
+            mCat_Id = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
+        }
     }
 
     @Override
@@ -97,11 +101,11 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
             //linkedHashMap.put("type", "Public");
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
-            EventsListParser eventsListParser = new EventsListParser();
+            ClassifiedsParser classifiedsParser = new ClassifiedsParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_MY_CLASSIFIEDS, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+                    APIConstants.REQUEST_TYPE.GET, this, classifiedsParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,21 +115,24 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
     /**
      * Delete classifieds
      */
-    private void getDeleteData(String event_id) {
+    private void getDeleteData(String delete_id) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             IAmGoingParser eventsListParser = new IAmGoingParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
-                    APIConstants.DELETE_CLASSIFIED + event_id, linkedHashMap,
+                    APIConstants.DELETE_CLASSIFIED + delete_id, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    } /*This method is used to set the lsit view data*/
+    }
 
+    /**
+     * This method is used to set the list view data
+     */
     private void setGridViewData() {
         allMyClassifiedsListAdapter = new AllMyClassifiedsListAdapter(mParent, classifiedsListModel.getClassifiedsModels());
         // step 1. create a MenuCreator
@@ -137,12 +144,12 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getActivity().getApplicationContext());
                 // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xAD, 0x24,
-                        0x3E)));
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xFF, 0xFF,
+                        0xFF)));
                 // set item width
-                openItem.setWidth(dp2px(90));
+                openItem.setWidth(dp2px(70));
                 // set item title
-                openItem.setTitle("Edit");
+                //openItem.setTitle("Edit");
                 // set item title fontsize
                 openItem.setTitleSize(15);
                 openItem.setIcon(R.drawable.edit);
@@ -156,12 +163,12 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getActivity().getApplicationContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xEF, 0x4E,
-                        0x54)));
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xFF, 0xFF,
+                        0xFF)));
                 // set item width
-                deleteItem.setWidth(dp2px(90));
+                deleteItem.setWidth(dp2px(70));
                 // set item title
-                deleteItem.setTitle("Delete");
+                //deleteItem.setTitle("Delete");
                 // set item title fontsize
                 deleteItem.setTitleSize(15);
                 deleteItem.setIcon(R.drawable.delete);
@@ -180,8 +187,8 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
                 switch (index) {
                     case 0:
                         Bundle bundle = new Bundle();
-                        bundle.putString(Constants.EVENT_ID, classifiedsListModel.getClassifiedsModels().get(position).getId());
-                        Utility.navigateAllEventsFragment(new AddNewEventFragment(), AddNewEventFragment.TAG, bundle, mParent);
+                        bundle.putString(Constants.CLASSIFIEDS_ID, classifiedsListModel.getClassifiedsModels().get(position).getId());
+                        Utility.navigateAllEventsFragment(new ClassifiedsAddFragment(), ClassifiedsAddFragment.TAG, bundle, mParent);
                         break;
                     case 1:
                         mDeletePosition = position;
@@ -217,9 +224,9 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
                 iAmGoingModel = (IAmGoingModel) model;
                 Utility.showToastMessage(mParent, iAmGoingModel.getMessage());
                 if (iAmGoingModel.isStatus()) {
-                    ArrayList<ClassifiedsModel> eventsModels = classifiedsListModel.getClassifiedsModels();
-                    eventsModels.remove(mDeletePosition);
-                    classifiedsListModel.setClassifiedsModels(eventsModels);
+                    ArrayList<ClassifiedsModel> classifiedsModels = classifiedsListModel.getClassifiedsModels();
+                    classifiedsModels.remove(mDeletePosition);
+                    classifiedsListModel.setClassifiedsModels(classifiedsModels);
                     allMyClassifiedsListAdapter.notifyDataSetChanged();
                 }
             }
