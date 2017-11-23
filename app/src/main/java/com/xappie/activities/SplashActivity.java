@@ -80,7 +80,6 @@ public class SplashActivity extends BaseActivity implements IAsyncCaller {
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.LOGIN_SESSION_ID, mLoginModel.getCi_session());
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.JOIN_DATE, Utility.getJoiningDate(mLoginModel.getJoined_date()));
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.TOKEN, mLoginModel.getCi_session());
-                    finish();
                     Intent signUpIntent = new Intent(this, DashBoardActivity.class);
                     startActivity(signUpIntent);
                     //Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_CURRENT_DATE, Utility.getDate());

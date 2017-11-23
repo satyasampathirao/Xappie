@@ -80,6 +80,8 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     private ClassifiedUpdateModel classifiedUpdateModel;
     private String mID;
 
+    private String mCat_Id;
+
     private static IUpdateSelectedFile iUpdateSelectedFile;
 
     public static IUpdateSelectedFile getInstance() {
@@ -91,6 +93,11 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         iUpdateSelectedFile = this;
+
+        if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
+            mCat_Id = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
+        }
+
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_ID)) {
             mID = getArguments().getString(Constants.CLASSIFIEDS_ID);
         } else {
@@ -138,8 +145,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         }
     }
 
-    private void getClassifiedDetails()
-    {
+    private void getClassifiedDetails() {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
@@ -149,24 +155,21 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                     APIConstants.GET_CLASSIFIED_DETAILS + "/" + mID, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, classifiedsDetailParser);
             Utility.execute(serverJSONAsyncTask);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void setPreData() {
-        if (!Utility.isValueNullOrEmpty(mID) && classifiedsModel != null)
-        {
-         edt_title.setText(classifiedsModel.getTitle());
-         edt_description.setText(classifiedsModel.getDescription());
-         edt_cost.setText(classifiedsModel.getPrice());
-         edt_upload_image.setText(classifiedsModel.getImage());
-         edt_name.setText(classifiedsModel.getName());
-         edt_mobile.setText(classifiedsModel.getMobile());
-         edt_email.setText(classifiedsModel.getEmail());
-         edt_address.setText(classifiedsModel.getAddress());
+        if (!Utility.isValueNullOrEmpty(mID) && classifiedsModel != null) {
+            edt_title.setText(classifiedsModel.getTitle());
+            edt_description.setText(classifiedsModel.getDescription());
+            edt_cost.setText(classifiedsModel.getPrice());
+            edt_upload_image.setText(classifiedsModel.getImage());
+            edt_name.setText(classifiedsModel.getName());
+            edt_mobile.setText(classifiedsModel.getMobile());
+            edt_email.setText(classifiedsModel.getEmail());
+            edt_address.setText(classifiedsModel.getAddress());
         }
     }
 
@@ -189,13 +192,13 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                 LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
                 paramMap.put("id", mID);
-                paramMap.put("classified_name", edt_title.getText().toString());
-                paramMap.put("description",edt_description.getText().toString());
-                paramMap.put("cost",edt_cost.getText().toString());
-                paramMap.put("name",edt_name.getText().toString());
-                paramMap.put("mobile",edt_mobile.getText().toString());
-                paramMap.put("email",edt_email.getText().toString());
-                paramMap.put("address",edt_address.getText().toString());
+                paramMap.put("cat_id", mCat_Id);
+                paramMap.put("description", edt_description.getText().toString());
+                paramMap.put("cost", edt_cost.getText().toString());
+                paramMap.put("name", edt_name.getText().toString());
+                paramMap.put("mobile", edt_mobile.getText().toString());
+                paramMap.put("email", edt_email.getText().toString());
+                paramMap.put("address", edt_address.getText().toString());
                 paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
                 paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
                 paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
@@ -209,18 +212,17 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                         APIConstants.UPDATE_CLASSIFIED, paramMap,
                         APIConstants.REQUEST_TYPE.POST, this, classifiedUpdateParser);
                 Utility.execute(serverIntractorAsync);
-            }
-            else {
+            } else {
                 LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-                paramMap.put("id", mID);
-                paramMap.put("classified_name", edt_title.getText().toString());
-                paramMap.put("description",edt_description.getText().toString());
-                paramMap.put("cost",edt_cost.getText().toString());
-                paramMap.put("name",edt_name.getText().toString());
-                paramMap.put("mobile",edt_mobile.getText().toString());
-                paramMap.put("email",edt_email.getText().toString());
-                paramMap.put("address",edt_address.getText().toString());
+                paramMap.put("cat_id", mCat_Id);
+                paramMap.put("title", edt_title.getText().toString());
+                paramMap.put("description", edt_description.getText().toString());
+                paramMap.put("price", edt_cost.getText().toString());
+                paramMap.put("name", edt_name.getText().toString());
+                paramMap.put("mobile", edt_mobile.getText().toString());
+                paramMap.put("email", edt_email.getText().toString());
+                paramMap.put("address", edt_address.getText().toString());
                 paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
                 paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
                 paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
@@ -228,7 +230,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                     paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
                     paramMap.put("photo_name", edt_upload_image.getText().toString());
                 }
-               ClassifiedSuccessParser classifiedSuccessParser = new ClassifiedSuccessParser();
+                ClassifiedSuccessParser classifiedSuccessParser = new ClassifiedSuccessParser();
                 ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
                         R.string.please_wait), true,
                         APIConstants.ADD_CLASSIFIED, paramMap,
@@ -241,45 +243,36 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
 
     private boolean isValidFields() {
         boolean isValid = true;
-        if (Utility.isValueNullOrEmpty(edt_title.getText().toString()))
-        {
-            Utility.setSnackBar(mParent, edt_title, "Please enter name of the classified");
+        if (Utility.isValueNullOrEmpty(edt_title.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_title, "Please enter title of the classified");
             edt_title.requestFocus();
             isValid = false;
-        }
-        else if (edt_description.getText().toString().length() < 4) {
+        } else if (edt_description.getText().toString().length() < 4) {
             Utility.setSnackBar(mParent, edt_description, "Please enter description");
             edt_description.requestFocus();
-            isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
-            Utility.setSnackBar(mParent, edt_upload_image, "Please choose classified image");
-            edt_upload_image.requestFocus();
             isValid = false;
         } else if (Utility.isValueNullOrEmpty(edt_cost.getText().toString())) {
             Utility.setSnackBar(mParent, edt_cost, "If cost is not there mention it as Zero");
             edt_cost.requestFocus();
             isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_name.getText().toString()))
-        {
-            Utility.setSnackBar(mParent,edt_name,"Please Enter Name");
+        } else if (Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_upload_image, "Please choose classified image");
+            edt_upload_image.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_name.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_name, "Please Enter Name");
             edt_name.requestFocus();
             isValid = false;
-        }
-        else if (Utility.isValueNullOrEmpty(edt_mobile.getText().toString()))
-        {
-            Utility.setSnackBar(mParent,edt_mobile,"Please Enter Mobile No");
+        } else if (Utility.isValueNullOrEmpty(edt_mobile.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_mobile, "Please Enter Mobile No");
             edt_mobile.requestFocus();
             isValid = false;
-        }
-        else if (Utility.isValueNullOrEmpty(edt_email.getText().toString()))
-        {
-            Utility.setSnackBar(mParent,edt_email,"Please Enter Email");
+        } else if (Utility.isValueNullOrEmpty(edt_email.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_email, "Please Enter Email");
             edt_email.requestFocus();
             isValid = false;
-        }
-        else if (Utility.isValueNullOrEmpty(edt_address.getText().toString()))
-        {
-            Utility.setSnackBar(mParent,edt_address,"Please Enter Address");
+        } else if (Utility.isValueNullOrEmpty(edt_address.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_address, "Please Enter Address");
             edt_address.requestFocus();
             isValid = false;
         }
@@ -287,24 +280,19 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     }
 
 
-
     @Override
     public void onComplete(Model model) {
         if (model != null) {
-            if (model instanceof AddClassifiedModel){
+            if (model instanceof AddClassifiedModel) {
                 addClassifiedModel = (AddClassifiedModel) model;
-                Utility.showToastMessage(mParent,addClassifiedModel.getMsg());
+                Utility.showToastMessage(mParent, addClassifiedModel.getMsg());
                 clearData();
-            }
-            else if (model instanceof ClassifiedsModel)
-            {
+            } else if (model instanceof ClassifiedsModel) {
                 classifiedsModel = (ClassifiedsModel) model;
                 setPreData();
-            }
-            else if (model instanceof ClassifiedUpdateModel)
-            {
+            } else if (model instanceof ClassifiedUpdateModel) {
                 classifiedUpdateModel = (ClassifiedUpdateModel) model;
-                Utility.showToastMessage(mParent,classifiedUpdateModel.getMessage());
+                Utility.showToastMessage(mParent, classifiedUpdateModel.getMessage());
                 mParent.onBackPressed();
             }
         }
@@ -325,7 +313,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
 
     @Override
     public void updateFile(String path) {
-      mYourFile = new File(path);
-      edt_upload_image.setText(mYourFile.getName());
+        mYourFile = new File(path);
+        edt_upload_image.setText(mYourFile.getName());
     }
 }

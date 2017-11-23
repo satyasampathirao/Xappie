@@ -153,7 +153,9 @@ public class ClassifiedsTabFragment extends Fragment {
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
-            Utility.navigateAllEventsFragment(new ClassifiedsAddFragment(), ClassifiedsAddFragment.TAG, null, mParent);
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
+            Utility.navigateAllEventsFragment(new ClassifiedsAddFragment(), ClassifiedsAddFragment.TAG, bundle, mParent);
         }
     }
 
