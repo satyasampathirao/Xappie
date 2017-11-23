@@ -70,9 +70,7 @@ public class SplashActivity extends BaseActivity implements IAsyncCaller {
             if (model instanceof LoginModel) {
                 mLoginModel = (LoginModel) model;
                 if (mLoginModel.isStatus()) {
-                    Utility.showToastMessage(SplashActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
                     Utility.setSharedPrefBooleanData(SplashActivity.this, Constants.IS_LOGIN_COMPLETED, true);
-                    finish();
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.SIGN_UP_FIRST_NAME, mLoginModel.getFirst_name());
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.SIGN_UP_LAST_NAME, mLoginModel.getLast_name());
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.SIGN_UP_DISPLAY_NAME, mLoginModel.getDisplay_name());
@@ -82,6 +80,7 @@ public class SplashActivity extends BaseActivity implements IAsyncCaller {
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.LOGIN_SESSION_ID, mLoginModel.getCi_session());
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.JOIN_DATE, Utility.getJoiningDate(mLoginModel.getJoined_date()));
                     Utility.setSharedPrefStringData(SplashActivity.this, Constants.TOKEN, mLoginModel.getCi_session());
+                    finish();
                     Intent signUpIntent = new Intent(this, DashBoardActivity.class);
                     startActivity(signUpIntent);
                     //Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_CURRENT_DATE, Utility.getDate());
