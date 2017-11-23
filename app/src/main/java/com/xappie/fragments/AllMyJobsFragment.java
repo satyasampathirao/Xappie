@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -18,10 +19,19 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.AllMyJobsListAdapter;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.EntertainmentModel;
+import com.xappie.models.JobsListModel;
 import com.xappie.models.JobsModel;
+import com.xappie.models.Model;
+import com.xappie.parser.JobsListParser;
+import com.xappie.utils.APIConstants;
+import com.xappie.utils.Constants;
+import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,13 +39,19 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllMyJobsFragment extends Fragment {
+public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = AllMyJobsFragment.class.getSimpleName();
     private DashBoardActivity mParent;
 
     @BindView(R.id.listView)
     SwipeMenuListView listView;
+    @BindView(R.id.ll_no_data)
+    LinearLayout ll_no_data;
+
+    private JobsListModel jobsListModel;
+    private AllMyJobsListAdapter allmyJobsListAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,10 +77,38 @@ public class AllMyJobsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setGridViewData();
+        initUI();
     }
+    private void initUI()
+    {
+        getMyJobsData(""+1);
+    }
+
+    private void getMyJobsData(String pageNo)
+    {
+        try {
+
+
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
+            JobsListParser jobsListParser = new JobsListParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_MY_JOBS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, jobsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private void setGridViewData() {
-        AllMyJobsListAdapter allMyJobsListAdapter = new AllMyJobsListAdapter(mParent,getJobsData());
+        allmyJobsListAdapter = new AllMyJobsListAdapter(mParent,jobsListModel.getJobsModels());
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -110,18 +154,7 @@ public class AllMyJobsFragment extends Fragment {
         };
         // set creator
         listView.setMenuCreator(creator);
-        listView.setAdapter(allMyJobsListAdapter);
-    }
-
-    private ArrayList<JobsModel> getJobsData() {
-        ArrayList<JobsModel> jobsModels = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            JobsModel jobsModel = new JobsModel();
-            jobsModel.setId(R.drawable.video_hint);
-            jobsModel.setTitle("Rarandoi");
-            jobsModels.add(jobsModel);
-        }
-        return jobsModels;
+        listView.setAdapter(allmyJobsListAdapter);
     }
 
     private int dp2px(int dp) {
@@ -129,4 +162,26 @@ public class AllMyJobsFragment extends Fragment {
                 getResources().getDisplayMetrics());
     }
 
+    @Override
+    public void onComplete(Model model) {
+        if (model != null)
+        {
+            if (model instanceof JobsListModel)
+            {
+                jobsListModel = (JobsListModel) model;
+                if (jobsListModel != null && jobsListModel.getJobsModels().size() > 0)
+                {
+                    setGridViewData();
+                    listView.setVisibility(View.VISIBLE);
+                    ll_no_data.setVisibility(View.GONE);
+                }
+                else {
+                    listView.setVisibility(View.GONE);
+                    ll_no_data.setVisibility(View.VISIBLE);
+                }
+
+            }
+        }
+
+    }
 }

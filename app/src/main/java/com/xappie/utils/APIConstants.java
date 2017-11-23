@@ -53,11 +53,12 @@ public class APIConstants {
     public static String GET_ADS = BASE_URL + "get_ads";
     public static String GET_JOBS = BASE_URL + "get_jobs";
     public static String GET_JOB_DETAILS = BASE_URL + "get_job_details";
+    public static String GET_MY_JOBS = BASE_URL + "get_my_jobs";
     public static String GET_CLASSIFIED_CATEGORIES = BASE_URL + "get_classified_categories";
     public static String GET_CLASSIFIEDS = BASE_URL + "get_classifieds";
     public static String GET_CLASSIFIED_DETAILS = BASE_URL + "get_classified_details";
+    public static String UPDATE_CLASSIFIED = BASE_URL + "update_classified";
     public static String GET_MY_CLASSIFIEDS = BASE_URL + "get_my_classifieds";
-
-
+    public static String ADD_CLASSIFIED = BASE_URL + "add_classified";
 
 }

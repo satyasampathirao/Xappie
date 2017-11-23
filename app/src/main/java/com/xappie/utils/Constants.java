@@ -78,4 +78,5 @@ public class Constants {
     public static final String JOBS_ID = "JOBS_ID";
     public static final int FROM_POST_FORUM_GALLERY_ID = 990;
     public static final int FROM_POST_FORUM_ADD_EVENT_ID = 991;
+    public static final int FROM_POST_FORUM_ADD_CLASSIFIEDS_ID = 992;
 }

@@ -64,9 +64,11 @@ public class AllMyJobsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_positions);
             mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_company_name);
+            mClassifiedsListHolder.tv_positions_nbr = (TextView) convertView.findViewById(R.id.tv_positions_nbr);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
             mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
 
             convertView.setTag(mClassifiedsListHolder);
@@ -76,8 +78,17 @@ public class AllMyJobsListAdapter extends BaseAdapter {
 
         JobsModel jobsModel = jobsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
-        mClassifiedsListHolder.tv_title.setText("Lorem ipsum is simply");
+        mClassifiedsListHolder.tv_title.setText(jobsModel.getTitle());
         mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.positions).toUpperCase());
+        mClassifiedsListHolder.tv_positions_nbr.setText(jobsModel.getJobs_status());
+
+        if (!Utility.isValueNullOrEmpty(jobsModel.getCompany_logo())) {
+            Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
+                    jobsModel.getCompany_logo(), null, R.drawable.xappie_place_holder);
+        } else {
+            Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
+                    "", null, R.drawable.xappie_place_holder);
+        }
 
 
         return convertView;
@@ -86,6 +97,7 @@ public class AllMyJobsListAdapter extends BaseAdapter {
     private class ClassifiedsListHolder {
         TextView tv_title;
         TextView tv_time;
+        TextView tv_positions_nbr;
         TextView tv_location;
         ImageView img_logo;
     }

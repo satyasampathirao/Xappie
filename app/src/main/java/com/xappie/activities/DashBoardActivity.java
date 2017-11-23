@@ -35,6 +35,7 @@ import com.xappie.customviews.FilePath;
 import com.xappie.designes.MaterialDialog;
 import com.xappie.fragments.AccountSettingFragment;
 import com.xappie.fragments.AddNewEventFragment;
+import com.xappie.fragments.ClassifiedsAddFragment;
 import com.xappie.fragments.ClassifiedsFragment;
 import com.xappie.fragments.CountriesFragment;
 import com.xappie.fragments.DiscussionsFragment;
@@ -369,7 +370,16 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 AddNewEventFragment.getInstance().updateFile(path);
             }
         }
-    }
+            else if (requestCode == Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_ID) {
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri selectedImageUri  = data.getData();
+                    String path = FilePath.getPath(this,selectedImageUri);
+                    mSelectedFile = new File(path);
+                    ClassifiedsAddFragment.getInstance().updateFile(path);
+                }
+            }
+        }
+
 
     /**
      * This method is used to update the profile pic
