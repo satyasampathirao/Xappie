@@ -196,7 +196,11 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
             View view = ll.findViewById(R.id.view);
-            tv_language_name.setText(mLanguagesData.get(i).getName() + " (" + mLanguagesData.get(i).getCount() + ")");
+            if (!Utility.isValueNullOrEmpty(mLanguagesData.get(i).getCount())) {
+                tv_language_name.setText(mLanguagesData.get(i).getName() + " (" + mLanguagesData.get(i).getCount() + ")");
+            } else {
+                tv_language_name.setText(mLanguagesData.get(i).getName());
+            }
             tv_language_name.setTextColor(Utility.getColor(mParent, R.color.white));
             tv_language_name.setTypeface(Utility.getOpenSansRegular(mParent));
 
@@ -256,13 +260,13 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
         mLanguagesData = new ArrayList<>();
         EventsGoingWithCountModel eventsGoingWithCountModel = new EventsGoingWithCountModel();
         eventsGoingWithCountModel.setName("GOING");
-        eventsGoingWithCountModel.setCount("N/A");
+        eventsGoingWithCountModel.setCount("");
         mLanguagesData.add(eventsGoingWithCountModel);
 
 
         EventsGoingWithCountModel eventsGoingWithCountModel1 = new EventsGoingWithCountModel();
         eventsGoingWithCountModel1.setName("MAYBE GOING");
-        eventsGoingWithCountModel1.setCount("N/A");
+        eventsGoingWithCountModel1.setCount("");
         mLanguagesData.add(eventsGoingWithCountModel1);
 
     }

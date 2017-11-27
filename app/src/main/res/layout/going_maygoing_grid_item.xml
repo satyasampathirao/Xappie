@@ -18,10 +18,10 @@
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="@dimen/_110dp"
-        android:layout_height="@dimen/_110dp"
-        android:gravity="center"
+        android:layout_height="@dimen/_30dp"
+        android:layout_below="@+id/img_topic"
         android:text="@string/ravi_kiran"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/_15sp" />
 
 </RelativeLayout>

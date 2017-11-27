@@ -45,6 +45,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:orientation="horizontal">
 
@@ -97,7 +98,6 @@
                         android:textSize="@dimen/_12sp" />
 
 
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,8 +112,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
-                        android:paddingStart="@dimen/_10dp"
                         android:paddingEnd="@dimen/_10dp"
+                        android:paddingStart="@dimen/_10dp"
                         android:text="@string/dress_code_with_colon"
                         android:textColor="@color/text_upload_color" />
 
@@ -122,8 +122,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center|start"
-                        android:paddingStart="@dimen/_10dp"
                         android:paddingEnd="@dimen/_10dp"
+                        android:paddingStart="@dimen/_10dp"
                         android:text="@string/dress_code"
                         android:textColor="@color/color_black" />
 

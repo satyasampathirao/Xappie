@@ -418,7 +418,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_event_tag_line_text_comes_here.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(eventsModel.getStart_time())) {
-            tv_date_time.setText(eventsModel.getStart_time());
+            tv_date_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
+                    + eventsModel.getStart_time().substring(11, 16).toUpperCase());
         } else {
             tv_date_time.setVisibility(View.GONE);
         }
@@ -446,7 +447,10 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_details.setVisibility(View.GONE);
         }
 
-        if (eventsModel.getGoing().equalsIgnoreCase("1")) {
+        if (Utility.isValueNullOrEmpty(eventsModel.getGoing())) {
+            ll_i_am_going_may_be_going.setVisibility(View.VISIBLE);
+            ll_reverse_layout.setVisibility(View.GONE);
+        } else if (eventsModel.getGoing().equalsIgnoreCase("1")) {
             ll_i_am_going_may_be_going.setVisibility(View.GONE);
             ll_reverse_layout.setVisibility(View.VISIBLE);
 
