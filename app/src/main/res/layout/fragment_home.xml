@@ -129,20 +129,12 @@
                 android:textColor="@color/title_color"
                 android:textSize="@dimen/_13sp" />
 
-            <HorizontalScrollView
+            <android.support.v4.view.ViewPager
+                android:id="@+id/ads_pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:id="@+id/layout_ads"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
+                android:layout_height="@dimen/_95dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:background="@android:color/white" />
 
             <!-- Top Stories layout-->
 
@@ -150,7 +142,6 @@
                 android:id="@+id/rl_top_stories_heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
                 android:background="@drawable/header_bg"
                 android:padding="@dimen/_8dp">
 

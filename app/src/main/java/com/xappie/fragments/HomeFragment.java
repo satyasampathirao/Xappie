@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.activities.VideoViewActivity;
+import com.xappie.adapters.AdsPagerAdapter;
 import com.xappie.adapters.HomeViewPagerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -120,8 +121,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     @BindView(R.id.tv_ads)
     TextView tv_ads;
 
-    @BindView(R.id.layout_ads)
-    LinearLayout layout_ads;
+    @BindView(R.id.ads_pager)
+    ViewPager ads_pager;
 
 
     /**
@@ -303,7 +304,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     private void initUI() {
         setTypeface();
         getLanguagesData();
-        setAdsData();
+        //setAdsData();
         //getHomePageLocData();
         getCitiesList();
     }
@@ -606,7 +607,32 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     }
 
     private void setAdsData() {
-        layout_ads.removeAllViews();
+        if (mHomePageEventsAdsBannersModel != null && mHomePageEventsAdsBannersModel.getAdsModels() != null && mHomePageEventsAdsBannersModel.getAdsModels().size() > 0) {
+            ads_pager.setAdapter(new AdsPagerAdapter(mParent, mHomePageEventsAdsBannersModel.getAdsModels()));
+            final Handler handler = new Handler();
+            final Runnable update = new Runnable() {
+                public void run() {
+                    if (ads_page_position == mHomePageEventsAdsBannersModel.getAdsModels().size()) {
+                        ads_page_position = 0;
+                    } else {
+                        ads_page_position = ads_page_position + 2;
+                    }
+                    ads_pager.setCurrentItem(ads_page_position, true);
+                }
+            };
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(update);
+                }
+            }, 100, 4000);
+            tv_ads.setVisibility(View.VISIBLE);
+            ads_pager.setVisibility(View.VISIBLE);
+        } else {
+            tv_ads.setVisibility(View.GONE);
+            ads_pager.setVisibility(View.GONE);
+        }
+        /*layout_ads.removeAllViews();
         if (mHomePageEventsAdsBannersModel != null && mHomePageEventsAdsBannersModel.getAdsModels() != null && mHomePageEventsAdsBannersModel.getAdsModels().size() > 0) {
             for (int i = 0; i < mHomePageEventsAdsBannersModel.getAdsModels().size(); i++) {
                 LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
@@ -630,23 +656,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             }
             layout_ads.setVisibility(View.VISIBLE);
         } else
-            layout_ads.setVisibility(View.GONE);
+            layout_ads.setVisibility(View.GONE);*/
 
-    }
-
-    /**
-     * Image full view
-     */
-    private void showFitDialog(String url, Context context) {
-        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
-        dialog.setContentView(R.layout.dialog_fitcenter);
-        dialog.setCanceledOnTouchOutside(false);
-        TouchImageView imageView = (TouchImageView) dialog.findViewById(R.id.imageView);
-        Picasso.with(context)
-                .load(url)
-                .placeholder(Utility.getDrawable(context, R.drawable.xappie_place_holder))
-                .into(imageView);
-        dialog.show();
     }
 
     private ArrayList<String> getDiscussionsData() {
@@ -857,6 +868,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
      * This method is used to set the data to the screen
      */
     int page_position = 0;
+    int ads_page_position = 0;
 
     private void setDataToBanner() {
         getHomePageData();

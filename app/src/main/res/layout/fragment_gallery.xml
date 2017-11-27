@@ -201,25 +201,15 @@
                 android:paddingTop="@dimen/_15dp"
                 android:text="@string/ads"
                 android:textColor="@color/title_color"
-                android:textStyle="bold"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_13sp"
+                android:textStyle="bold" />
 
-            <HorizontalScrollView
+            <android.support.v4.view.ViewPager
+                android:id="@+id/ads_pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_95dp"
                 android:background="@android:color/white"
-                android:paddingBottom="@dimen/_10dp"
-                android:paddingEnd="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:id="@+id/layout_ads"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
+                android:paddingStart="@dimen/_10dp" />
 
             <RelativeLayout
                 android:id="@+id/rl_header_layout_2"
@@ -390,8 +380,8 @@
                 android:text="@string/actress"
                 android:textAllCaps="true"
                 android:textColor="@color/title_color"
-                android:textStyle="bold"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_13sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -577,8 +567,8 @@
                 android:text="@string/actors"
                 android:textAllCaps="true"
                 android:textColor="@color/title_color"
-                android:textStyle="bold"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_13sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -764,8 +754,8 @@
                 android:text="@string/movies"
                 android:textAllCaps="true"
                 android:textColor="@color/title_color"
-                android:textStyle="bold"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_13sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -951,8 +941,8 @@
                 android:text="@string/events"
                 android:textAllCaps="true"
                 android:textColor="@color/title_color"
-                android:textStyle="bold"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_13sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"

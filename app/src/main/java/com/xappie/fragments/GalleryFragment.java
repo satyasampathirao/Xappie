@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.adapters.AdsPagerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.customviews.TouchImageView;
@@ -40,6 +43,8 @@ import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -166,8 +171,9 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
 
     @BindView(R.id.tv_ads)
     TextView tv_ads;
-    @BindView(R.id.layout_ads)
-    LinearLayout layout_ads;
+    @BindView(R.id.ads_pager)
+    ViewPager ads_pager;
+    private int page_position = 0;
 
     @BindView(R.id.tv_actress)
     TextView tv_actress;
@@ -1201,31 +1207,31 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
      * This method is used set the ads data
      */
     private void setAdsData() {
-        layout_ads.removeAllViews();
         if (mAdsListModel != null && mAdsListModel.getAdsModels() != null && mAdsListModel.getAdsModels().size() > 0) {
-            for (int i = 0; i < mAdsListModel.getAdsModels().size(); i++) {
-                LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.ads_item, null);
-                ImageView img_ad_image = (ImageView) ll.findViewById(R.id.img_ad_image);
-                if (!Utility.isValueNullOrEmpty(mAdsListModel.getAdsModels().get(i).getImage())) {
-                    Utility.universalImageLoaderPicLoading(img_ad_image,
-                            mAdsListModel.getAdsModels().get(i).getImage(), null, R.drawable.xappie_place_holder);
-                } else {
-                    Utility.universalImageLoaderPicLoading(img_ad_image,
-                            "", null, R.drawable.xappie_place_holder);
-                }
-                ll.setId(i);
-                ll.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int pos = view.getId();
-                        showFitDialog(mAdsListModel.getAdsModels().get(pos).getImage(), mParent);
+            ads_pager.setAdapter(new AdsPagerAdapter(mParent, mAdsListModel.getAdsModels()));
+            final Handler handler = new Handler();
+            final Runnable update = new Runnable() {
+                public void run() {
+                    if (page_position == mAdsListModel.getAdsModels().size()) {
+                        page_position = 0;
+                    } else {
+                        page_position = page_position + 2;
                     }
-                });
-                layout_ads.addView(ll);
-            }
-            layout_ads.setVisibility(View.VISIBLE);
-        } else
-            layout_ads.setVisibility(View.GONE);
+                    ads_pager.setCurrentItem(page_position, true);
+                }
+            };
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(update);
+                }
+            }, 100, 4000);
+            ads_pager.setVisibility(View.VISIBLE);
+            tv_ads.setVisibility(View.VISIBLE);
+        } else {
+            ads_pager.setVisibility(View.GONE);
+            tv_ads.setVisibility(View.GONE);
+        }
 
     }
 
