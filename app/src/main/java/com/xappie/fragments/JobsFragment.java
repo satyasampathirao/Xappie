@@ -3,6 +3,7 @@ package com.xappie.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LoginActivity;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
@@ -151,7 +154,13 @@ public class JobsFragment extends Fragment {
                             Utility.navigateAllJobsFragment(new PostJobFragment(),PostJobFragment.TAG,null,mParent);
                             break;
                         case 2:
-                            Utility.navigateAllJobsFragment(new AllMyJobsFragment(),AllMyJobsFragment.TAG,null,mParent);
+                            if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+                                Utility.showToastMessage(mParent, "Login First");
+                                Intent intent = new Intent(mParent, LoginActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Utility.navigateAllJobsFragment(new AllMyJobsFragment(), AllMyJobsFragment.TAG, null, mParent);
+                            }
                             break;
                         case 3:
                                Utility.navigateAllJobsFragment(new JobsAppliedFragment(),JobsAppliedFragment.TAG,null,mParent);

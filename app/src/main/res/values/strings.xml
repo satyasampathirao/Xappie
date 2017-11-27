@@ -188,8 +188,8 @@
     <string name="find_jobs">FIND JOBS</string>
     <string name="post_job">POST JOB</string>
     <string name="my_posts">MY POSTS</string>
-    <string name="jobs_applied">JOBS APPLIED</string>
-    <string name="jobs_search">JOBS SEARCH</string>
+    <string name="jobs_applied">APPLIED JOBS</string>
+    <string name="jobs_search">SEARCH JOBS</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

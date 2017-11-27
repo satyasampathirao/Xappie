@@ -118,15 +118,15 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                 SwipeMenuItem openItem = new SwipeMenuItem(
                         getActivity().getApplicationContext());
                 // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xAD, 0x24,
-                        0x3E)));
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xFF, 0xFF,
+                        0xFF)));
                 // set item width
-                openItem.setWidth(dp2px(90));
+                openItem.setWidth(dp2px(70));
                 // set item title
-                openItem.setTitle("Edit");
+               // openItem.setTitle("Edit");
                 // set item title fontsize
                 openItem.setTitleSize(15);
-                openItem.setIcon(R.drawable.ic_mode_edit_white_24dp);
+                openItem.setIcon(R.drawable.edit);
                 // set item title font color
                 openItem.setTitleColor(Color.WHITE);
                 // add to menu
@@ -137,15 +137,15 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                 SwipeMenuItem deleteItem = new SwipeMenuItem(
                         getActivity().getApplicationContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xEF, 0x4E,
-                        0x54)));
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xFF, 0xFF,
+                        0xFF)));
                 // set item width
-                deleteItem.setWidth(dp2px(90));
+                deleteItem.setWidth(dp2px(70));
                 // set item title
-                deleteItem.setTitle("Delete");
+               // deleteItem.setTitle("Delete");
                 // set item title fontsize
                 deleteItem.setTitleSize(15);
-                deleteItem.setIcon(R.drawable.ic_delete_sweep_white_24dp);
+                deleteItem.setIcon(R.drawable.delete);
                 // set item title font color
                 deleteItem.setTitleColor(Color.WHITE);
                 // add to menu

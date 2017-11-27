@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
@@ -51,6 +52,8 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
     ListView list_view;
     @BindView(R.id.ll_no_data)
     LinearLayout ll_no_data;
+    @BindView(R.id.ll_city_types)
+    LinearLayout ll_city_types;
 
     private StatesListModel mStatesListModel;
 
@@ -67,7 +70,7 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_find_jobs_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_find_jobs_list, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -77,16 +80,19 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
+
     private void initUI() {
         stateModel = new StateModel();
         stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
         getCitiesList();
     }
+
     private void setGridViewData() {
 
         FindJobsListAdapter findJobsListAdapter = new FindJobsListAdapter(mParent, jobsListModel.getJobsModels());
         list_view.setAdapter(findJobsListAdapter);
     }
+
     private void getCitiesList() {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
@@ -143,35 +149,62 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
     @Override
     public void onComplete(Model model) {
         if (model != null) {
-            if (model instanceof JobsListModel)
-            {
+            if (model instanceof JobsListModel) {
                 jobsListModel = (JobsListModel) model;
-                if (jobsListModel != null && jobsListModel.getJobsModels().size() > 0)
-                {
+                if (jobsListModel != null && jobsListModel.getJobsModels().size() > 0) {
                     list_view.setVisibility(View.VISIBLE);
                     ll_no_data.setVisibility(View.GONE);
                     setGridViewData();
-                }
-                else {
+                } else {
                     ll_no_data.setVisibility(View.VISIBLE);
                     list_view.setVisibility(View.GONE);
                 }
-            } else if (model instanceof StatesListModel)
-            {
+            } else if (model instanceof StatesListModel) {
                 mStatesListModel = (StatesListModel) model;
-                if (mStatesListModel.getStateModels().size() > 0)
-                {
-                    for (int i=0; i < mStatesListModel.getStateModels().size();i++)
-                    {
-                        if (Utility.getSharedPrefStringData(mParent,Constants.SELECTED_CITY_ID).equalsIgnoreCase(mStatesListModel.getStateModels().get(i).getId()))
-                        {
+                if (mStatesListModel.getStateModels().size() > 0) {
+                    for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID).equalsIgnoreCase(mStatesListModel.getStateModels().get(i).getId())) {
                             stateModel = mStatesListModel.getStateModels().get(i);
                         }
-                           getJobsData(" "+1);
                     }
+                    setCityTypes();
+                    getJobsData(" " + 1);
                 }
-
             }
+
         }
     }
+
+    private void setCityTypes() {
+        ll_city_types.removeAllViews();
+        for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_type_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_type);
+            tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            tv_type.setId(i);
+            tv_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    stateModel = mStatesListModel.getStateModels().get(pos);
+                    setCityTypes();
+                    getJobsData("" + 1);
+                }
+            });
+
+            if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+                tv_type.setBackground(Utility.getDrawable(mParent, R.drawable.bg_color_rect));
+            } else {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.types_color));
+                tv_type.setBackground(null);
+            }
+
+            ll_city_types.addView(ll);
+        }
+    }
+
 }
