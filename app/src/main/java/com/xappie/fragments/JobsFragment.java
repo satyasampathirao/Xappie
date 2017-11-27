@@ -2,7 +2,6 @@ package com.xappie.fragments;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -122,7 +121,7 @@ public class JobsFragment extends Fragment {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        Utility.navigateAllJobsFragment(new FindJobsListFragment(),FindJobsListFragment.TAG,null,mParent);
+        Utility.navigateAllJobsFragment(new FindJobsListFragment(), FindJobsListFragment.TAG, null, mParent);
 
     }
 
@@ -148,10 +147,10 @@ public class JobsFragment extends Fragment {
                     selected_position = pos;
                     switch (selected_position) {
                         case 0:
-                            Utility.navigateAllJobsFragment(new FindJobsListFragment(),FindJobsListFragment.TAG,null,mParent);
+                            Utility.navigateAllJobsFragment(new FindJobsListFragment(), FindJobsListFragment.TAG, null, mParent);
                             break;
                         case 1:
-                            Utility.navigateAllJobsFragment(new PostJobFragment(),PostJobFragment.TAG,null,mParent);
+                            Utility.navigateAllJobsFragment(new PostJobFragment(), PostJobFragment.TAG, null, mParent);
                             break;
                         case 2:
                             if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
@@ -163,10 +162,10 @@ public class JobsFragment extends Fragment {
                             }
                             break;
                         case 3:
-                               Utility.navigateAllJobsFragment(new JobsAppliedFragment(),JobsAppliedFragment.TAG,null,mParent);
+                            Utility.navigateAllJobsFragment(new JobsAppliedFragment(), JobsAppliedFragment.TAG, null, mParent);
                             break;
                         case 4:
-                            Utility.navigateAllJobsFragment(new JobsSearchFragment(),JobsSearchFragment.TAG,null,mParent);
+                            Utility.navigateAllJobsFragment(new JobsSearchFragment(), JobsSearchFragment.TAG, null, mParent);
                             break;
                     }
                 }
@@ -187,19 +186,18 @@ public class JobsFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
 }

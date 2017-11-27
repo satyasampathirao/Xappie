@@ -1,11 +1,9 @@
 package com.xappie.models;
 
+import java.util.AbstractList;
 
-
-
-
-public class MyAppliedJobsModel  {
-    private int id;
+public class MyAppliedJobsModel extends Model {
+    private String id;
     private String title;
     private String position;
     private String role;
@@ -13,14 +11,15 @@ public class MyAppliedJobsModel  {
     private String location;
     private String category;
     private String isHired;
-    private static boolean mHiredLayout;
+    private String logo;
+    private boolean mHiredLayout;
+    private AbstractList<MyAppliedJobsModel> myAppliedJobsModels;
 
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -79,7 +78,16 @@ public class MyAppliedJobsModel  {
     public void setIsHired(String isHired) {
         this.isHired = isHired;
     }
-    public static boolean ismHiredLayout() {
+
+    public AbstractList<MyAppliedJobsModel> getMyAppliedJobsModels() {
+        return myAppliedJobsModels;
+    }
+
+    public void setMyAppliedJobsModels(AbstractList<MyAppliedJobsModel> myAppliedJobsModels) {
+        this.myAppliedJobsModels = myAppliedJobsModels;
+    }
+
+    public boolean ismHiredLayout() {
         return mHiredLayout;
     }
 
@@ -87,5 +95,11 @@ public class MyAppliedJobsModel  {
         this.mHiredLayout = mHiredLayout;
     }
 
+    public String getLogo() {
+        return logo;
+    }
 
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
 }

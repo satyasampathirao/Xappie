@@ -15,9 +15,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.AppTourActivity;
-import com.xappie.activities.DashBoardActivity;
 import com.xappie.activities.LanguageActivity;
-import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 /**
