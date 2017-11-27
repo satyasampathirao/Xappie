@@ -47,6 +47,7 @@ import com.xappie.fragments.JobsFragment;
 import com.xappie.fragments.LanguageFragment;
 import com.xappie.fragments.MyProfileFragment;
 import com.xappie.fragments.NotificationsFragment;
+import com.xappie.fragments.PostJobFragment;
 import com.xappie.fragments.PreferenceFragment;
 import com.xappie.fragments.TopStoriesFragment;
 import com.xappie.fragments.VideosFragment;
@@ -369,16 +370,21 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 mSelectedFile = new File(path);
                 AddNewEventFragment.getInstance().updateFile(path);
             }
-        }
-            else if (requestCode == Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_ID) {
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri selectedImageUri  = data.getData();
-                    String path = FilePath.getPath(this,selectedImageUri);
-                    mSelectedFile = new File(path);
-                    ClassifiedsAddFragment.getInstance().updateFile(path);
-                }
+        } else if (requestCode == Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                String path = FilePath.getPath(this, selectedImageUri);
+                mSelectedFile = new File(path);
+                ClassifiedsAddFragment.getInstance().updateFile(path);
+            }
+        } else if (requestCode == Constants.FROM_POSTING_LOGO_FILE_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                String path = FilePath.getPath(this, selectedImageUri);
+                PostJobFragment.getInstance().updateFile(path);
             }
         }
+    }
 
 
     /**

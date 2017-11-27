@@ -60,5 +60,7 @@ public class APIConstants {
     public static String UPDATE_CLASSIFIED = BASE_URL + "update_classified";
     public static String GET_MY_CLASSIFIEDS = BASE_URL + "get_my_classifieds";
     public static String ADD_CLASSIFIED = BASE_URL + "add_classified";
+    public static String JOB_CATEGORY_URL = BASE_URL + "get_jobs_categories";
+    public static String POST_JOB_URL = BASE_URL + "post_job";
 
 }

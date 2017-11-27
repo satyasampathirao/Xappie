@@ -45,8 +45,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                         || mUrl.contains(APIConstants.GET_MY_CLASSIFIEDS)
                         || mUrl.contains(APIConstants.DELETE_CLASSIFIED)
                         || mUrl.contains(APIConstants.DELETE_EVENT)
-                        || mUrl.contains(APIConstants.GET_MY_JOBS))
-                {
+                        || mUrl.contains(APIConstants.GET_MY_JOBS)) {
                     mResponse = Utility.getWithHeader(Utility.getURL(mUrl, mParams), mContext);
                 } else {
                     mResponse = Utility.httpGetRequestToServer(Utility.getURL(mUrl, mParams));
@@ -68,6 +67,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                         || mUrl.contains(APIConstants.UPDATE_PROFILE)
                         || mUrl.contains(APIConstants.UPDATE_EVENT)
                         || mUrl.contains(APIConstants.ADD_EVENT)
+                        || mUrl.contains(APIConstants.POST_JOB_URL)
                         || mUrl.contains(APIConstants.ADD_CLASSIFIED)
                         || mUrl.contains(APIConstants.UPDATE_CLASSIFIED)
                         ) {

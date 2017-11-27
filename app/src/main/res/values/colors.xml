@@ -55,5 +55,7 @@
     <color name="svThumbColor">#26111111</color>
     <color name="dialogAccept">#1E88E5</color>
     <color name="btnDefaultColor">#000000</color>
+    <color name="blackColor">#000000</color>
+    <color name="txt_hint_color">#c0c0c0</color>
 
 </resources>
