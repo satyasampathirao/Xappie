@@ -25,6 +25,7 @@ import com.xappie.models.EntertainmentModel;
 import com.xappie.models.JobsListModel;
 import com.xappie.models.JobsModel;
 import com.xappie.models.Model;
+import com.xappie.parser.IAmGoingParser;
 import com.xappie.parser.JobsListParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -48,6 +49,7 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
     SwipeMenuListView listView;
     @BindView(R.id.ll_no_data)
     LinearLayout ll_no_data;
+    private int mDeletePosition = -1;
 
     private JobsListModel jobsListModel;
     private AllMyJobsListAdapter allmyJobsListAdapter;
@@ -107,6 +109,22 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    private void getDeleteData(String delete_id) {
+        try {
+
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            IAmGoingParser eventsListParser = new IAmGoingParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.DELETE_JOB + delete_id, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e)
+        {
+             e.printStackTrace();
+        }
+    }
     private void setGridViewData() {
         allmyJobsListAdapter = new AllMyJobsListAdapter(mParent,jobsListModel.getJobsModels());
 
@@ -155,6 +173,26 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
         // set creator
         listView.setMenuCreator(creator);
         listView.setAdapter(allmyJobsListAdapter);
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index)
+                {
+                    case 0:
+                        Bundle bundle= new Bundle();
+                        bundle.putString(Constants.JOBS_ID, String.valueOf(jobsListModel.getJobsModels().get(position).getId()));
+                        Utility.navigateAllJobsFragment(new PostJobFragment(),PostJobFragment.TAG,bundle,mParent);
+                        break;
+                    case 1:
+                        mDeletePosition = position;
+                        getDeleteData(String.valueOf(jobsListModel.getJobsModels().get(position).getId()));
+                        break;
+                }
+
+                return false;
+            }
+
+        });
     }
 
     private int dp2px(int dp) {
