@@ -38,6 +38,7 @@ import com.xappie.models.GalleryItemModel;
 import com.xappie.models.HomePageBannerListModel;
 import com.xappie.models.HomePageContentModel;
 import com.xappie.models.HomePageEventsAdsBannersModel;
+import com.xappie.models.JobsListModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
@@ -51,6 +52,7 @@ import com.xappie.parser.EventsListParser;
 import com.xappie.parser.HomePageAdsEventsBannerParser;
 import com.xappie.parser.HomePageBannerParser;
 import com.xappie.parser.HomePageContentParser;
+import com.xappie.parser.JobsListParser;
 import com.xappie.parser.LanguageParser;
 import com.xappie.parser.StatesParser;
 import com.xappie.parser.TopStoriesParser;
@@ -255,6 +257,11 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     @BindView(R.id.ll_jobs)
     LinearLayout ll_jobs;
 
+    @BindView(R.id.ll_no_data_jobs)
+    LinearLayout ll_no_data_jobs;
+    @BindView(R.id.tv_no_data_jobs)
+    TextView tv_no_data_jobs;
+
 
     private LanguageListModel mLanguageListModel;
     private HomePageBannerListModel mHomePageBannerListModel;
@@ -266,6 +273,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     private StatesListModel mStatesListModel;
     private StateModel stateModel;
     private EventsListModel eventsListModel;
+    private JobsListModel jobsListModel;
 
     private static IHomeCustomization iHomeCustomization;
 
@@ -373,7 +381,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put(Constants.PAGE_NO, "1");
             linkedHashMap.put(Constants.PAGE_SIZE, "7");
-            linkedHashMap.put("modules", "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS));
+            linkedHashMap.put("modules", "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS) + Utility.getSharedPrefStringData(mParent,Constants.HOME_PAGE_JOBS_CONTENTS));
             linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
             linkedHashMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
@@ -480,7 +488,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
      */
     private void setJobsData() {
 
-        ll_languages_layout_jobs.removeAllViews();
+       /* ll_languages_layout_jobs.removeAllViews();
         for (int i = 0; i < getEventsData().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
@@ -496,10 +504,11 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             }
 
             ll_languages_layout_jobs.addView(ll);
-        }
+        } */
 
 
         ll_jobs.removeAllViews();
+
         for (int i = 0; i < getNewsModels().size(); i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
             ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
@@ -775,6 +784,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 setAdsData();
                 setDataToEvents();
                 setClassifiedsData();
+                setDataToJobs();
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
                 if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
@@ -803,6 +813,20 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 } else {
                     ll_no_data_event.setVisibility(View.VISIBLE);
                     ll_events.setVisibility(View.GONE);
+                }
+            }
+            else if (model instanceof JobsListModel) {
+                jobsListModel = (JobsListModel) model;
+                if (jobsListModel.getJobsModels().size() > 0) {
+                    ll_no_data_jobs.setVisibility(View.GONE);
+                    ll_jobs.setVisibility(View.VISIBLE);
+                    if (mHomePageEventsAdsBannersModel != null) {
+                        mHomePageEventsAdsBannersModel.setJobsModels(jobsListModel.getJobsModels());
+                        setDataToJobs();
+                    }
+                } else {
+                    ll_no_data_jobs.setVisibility(View.VISIBLE);
+                    ll_jobs.setVisibility(View.GONE);
                 }
             }
         }
@@ -864,6 +888,61 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         }
     }
 
+    private void setDataToJobs() {
+        if (mHomePageEventsAdsBannersModel != null
+                && mHomePageEventsAdsBannersModel.getJobsModels() != null
+                && mHomePageEventsAdsBannersModel.getJobsModels().size() > 0) {
+            setJobsFilters();
+            ll_jobs.removeAllViews();
+            if (mHomePageEventsAdsBannersModel.getJobsModels().size() > 0) {
+                rl_jobs.setVisibility(View.VISIBLE);
+                hs_jobs.setVisibility(View.VISIBLE);
+                for (int i = 0; i < mHomePageEventsAdsBannersModel.getJobsModels().size(); i++) {
+                    LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
+                    ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+                    TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+                    TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+                    TextView tv_posted = (TextView) ll.findViewById(R.id.tv_posted_by);
+
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany_logo())) {
+                        Utility.universalImageLoaderPicLoading(img_news_item,
+                                mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany_logo(), null, R.drawable.xappie_place_holder);
+                    } else {
+                        Utility.universalImageLoaderPicLoading(img_news_item,
+                                "", null, R.drawable.xappie_place_holder);
+                    }
+
+                    tv_title.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getTitle());
+                    tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+
+                    tv_time.setText(Utility.displayDateFormat(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getRecordedDate()).toUpperCase());
+                    tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_posted.setVisibility(View.GONE);
+
+                    ll.setId(i);
+                    ll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int position = view.getId();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.JOBS_ID, String.valueOf(mHomePageEventsAdsBannersModel.getJobsModels().get(position).getId()));
+                            Utility.navigateDashBoardFragment(new JobsViewFragment(), JobsViewFragment.TAG, bundle,
+                                    mParent);
+                        }
+                    });
+
+                    ll_jobs.addView(ll);
+                }
+            }
+            rl_jobs.setVisibility(View.VISIBLE);
+            hs_jobs.setVisibility(View.VISIBLE);
+            ll_jobs.setVisibility(View.VISIBLE);
+        } else {
+            rl_jobs.setVisibility(View.GONE);
+            hs_jobs.setVisibility(View.GONE);
+            ll_jobs.setVisibility(View.GONE);
+        }
+    }
     /**
      * This method is used to set the data to the screen
      */
@@ -917,8 +996,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         hs_classifieds_inner_layout.setVisibility(View.GONE);
         hs_classifieds.setVisibility(View.GONE);*/
 
-        rl_jobs.setVisibility(View.GONE);
-        hs_jobs.setVisibility(View.GONE);
+       /* rl_jobs.setVisibility(View.GONE);
+        hs_jobs.setVisibility(View.GONE); */
 
         if (mHomePageContentModel.getVideosModels() != null &&
                 mHomePageContentModel.getVideosModels().size() > 0) {
@@ -1018,6 +1097,27 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         }
     }
 
+    private void getJobsData(String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", stateModel.getId());
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, "7");
+            JobsListParser eventsListParser = new JobsListParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_JOBS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This method is used to set the languages
      */
@@ -1050,6 +1150,38 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             }
 
             ll_languages_layout_events.addView(ll);
+        }
+    }
+
+    private void setJobsFilters() {
+        ll_languages_layout_jobs.removeAllViews();
+        for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_type_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_type);
+            tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            tv_type.setId(i);
+            tv_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    stateModel = mStatesListModel.getStateModels().get(pos);
+                    setJobsFilters();
+                    getJobsData("" + 1);
+                }
+            });
+
+            if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+                tv_type.setBackground(Utility.getDrawable(mParent, R.drawable.bg_color_rect));
+            } else {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.types_color));
+                tv_type.setBackground(null);
+            }
+
+            ll_languages_layout_jobs.addView(ll);
         }
     }
 

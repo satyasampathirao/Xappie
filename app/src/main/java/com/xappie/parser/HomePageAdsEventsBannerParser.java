@@ -8,6 +8,7 @@ import com.xappie.models.BannersModel;
 import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EventsModel;
 import com.xappie.models.HomePageEventsAdsBannersModel;
+import com.xappie.models.JobsModel;
 import com.xappie.models.Model;
 
 import org.json.JSONArray;
@@ -68,6 +69,17 @@ public class HomePageAdsEventsBannerParser implements Parser<Model> {
                     adsModels.add(adsModel);
                 }
                 homePageEventsAdsBannersModel.setAdsModels(adsModels);
+            }
+
+            if (jsonObject.has("jobs")) {
+                JSONArray jobsJsonArray = jsonObject.optJSONArray("jobs");
+                ArrayList<JobsModel> jobsModels = new ArrayList<>();
+                for (int i = 0; i < jobsJsonArray.length(); i++) {
+                    JSONObject jobsJsonObject = jobsJsonArray.optJSONObject(i);
+                    JobsModel jobsModel = new Gson().fromJson(jobsJsonObject.toString(), JobsModel.class);
+                    jobsModels.add(jobsModel);
+                }
+                homePageEventsAdsBannersModel.setJobsModels(jobsModels);
             }
 
         } catch (Exception e) {

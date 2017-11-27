@@ -42,6 +42,7 @@ public class Constants {
     //public static final String ADS_BANNERS = "ads,banners";
     public static final String HOME_PAGE_CONTENTS_DATA = "discussions,entertainments,stories,videos,galleries,events,classifieds,jobs";
     public static final String HOME_PAGE_EVENTS_CONTENTS = "HOME_PAGE_EVENTS_CONTENTS";
+    public static final String HOME_PAGE_JOBS_CONTENTS = "HOME_PAGE_JOBS_CONTENTS";
 
     public static final String LOGIN_SESSION_ID = "LOGIN_SESSION_ID";
 

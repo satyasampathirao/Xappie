@@ -11,6 +11,7 @@ public class HomePageEventsAdsBannersModel extends Model {
     private ArrayList<EventsModel> eventsModels;
     private ArrayList<ClassifiedsModel> classifiedsModel;
     private ArrayList<AdsModel> adsModels;
+    private ArrayList<JobsModel> jobsModels;
 
     public ArrayList<BannersModel> getBannersModels() {
         return bannersModels;
@@ -42,5 +43,13 @@ public class HomePageEventsAdsBannersModel extends Model {
 
     public void setClassifiedsModel(ArrayList<ClassifiedsModel> classifiedsModel) {
         this.classifiedsModel = classifiedsModel;
+    }
+
+    public ArrayList<JobsModel> getJobsModels() {
+        return jobsModels;
+    }
+
+    public void setJobsModels(ArrayList<JobsModel> jobsModels) {
+        this.jobsModels = jobsModels;
     }
 }

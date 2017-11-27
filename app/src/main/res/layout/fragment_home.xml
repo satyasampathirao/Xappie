@@ -476,6 +476,7 @@
                     android:id="@+id/ll_languages_layout_jobs"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40dp"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
@@ -487,6 +488,26 @@
                 android:dividerPadding="@dimen/_2dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical" />
+        <LinearLayout
+            android:id="@+id/ll_no_data_jobs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/hs_types"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_no_data_jobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:text="@string/no_events_found"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_25sp" />
+        </LinearLayout>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
