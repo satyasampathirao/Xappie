@@ -421,11 +421,11 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             Utility.setSnackBar(mParent, edt_tag_line, "Please enter tag line");
             edt_tag_line.requestFocus();
             isValid = false;
-        } */ else if (edt_description.getText().toString().length() < 4) {
+        } */ /* else if (edt_description.getText().toString().length() < 4) {
             Utility.setSnackBar(mParent, edt_description, "Please enter description");
             edt_description.requestFocus();
             isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
+        } */ else if (Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
             Utility.setSnackBar(mParent, edt_upload_image, "Please choose event image");
             edt_upload_image.requestFocus();
             isValid = false;

@@ -79,7 +79,6 @@
                 android:gravity="top"
                 android:hint="@string/description"
                 android:imeOptions="actionNext"
-                android:inputType="text"
                 android:maxLines="6"
                 android:minHeight="@dimen/_100dp"
                 android:paddingEnd="@dimen/_10dp"
