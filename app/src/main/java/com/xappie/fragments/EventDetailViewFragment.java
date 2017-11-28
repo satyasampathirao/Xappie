@@ -220,7 +220,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     @OnClick(R.id.btn_i_am_going)
     void submitIAmGoing() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "Login First");
+            Utility.showToastMessage(mParent, "You need to login for updating the status");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
@@ -246,7 +246,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     @OnClick(R.id.tv_may)
     void submittMay() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "Login First");
+            Utility.showToastMessage(mParent, "You need to login for updating the status");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
@@ -276,7 +276,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     @OnClick(R.id.tv_not)
     void submittNot() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "Login First");
+            Utility.showToastMessage(mParent, "You need to login for updating the status");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {

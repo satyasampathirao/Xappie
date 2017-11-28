@@ -188,7 +188,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.home:
-
+                        Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, DashBoardActivity.this);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.discussions:

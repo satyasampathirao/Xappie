@@ -78,7 +78,7 @@
                 android:ellipsize="end"
                 android:hint="@string/cost"
                 android:imeOptions="actionNext"
-                android:inputType="number"
+                android:inputType="text"
                 android:maxLength="8"
                 android:maxLines="1"
                 android:paddingEnd="@dimen/_10dp"

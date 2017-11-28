@@ -381,7 +381,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put(Constants.PAGE_NO, "1");
             linkedHashMap.put(Constants.PAGE_SIZE, "7");
-            linkedHashMap.put("modules", "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS) + Utility.getSharedPrefStringData(mParent,Constants.HOME_PAGE_JOBS_CONTENTS));
+            linkedHashMap.put("modules", "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS) + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS));
             linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
             linkedHashMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
@@ -634,7 +634,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 public void run() {
                     handler.post(update);
                 }
-            }, 100, 4000);
+            }, 100, 3000);
             tv_ads.setVisibility(View.VISIBLE);
             ads_pager.setVisibility(View.VISIBLE);
         } else {
@@ -814,8 +814,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     ll_no_data_event.setVisibility(View.VISIBLE);
                     ll_events.setVisibility(View.GONE);
                 }
-            }
-            else if (model instanceof JobsListModel) {
+            } else if (model instanceof JobsListModel) {
                 jobsListModel = (JobsListModel) model;
                 if (jobsListModel.getJobsModels().size() > 0) {
                     ll_no_data_jobs.setVisibility(View.GONE);
@@ -841,7 +840,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             if (mHomePageEventsAdsBannersModel.getEventsModels().size() > 0) {
                 rl_events_heading.setVisibility(View.VISIBLE);
                 hs_events.setVisibility(View.VISIBLE);
-                for (int i = 0; i < mHomePageEventsAdsBannersModel.getEventsModels().size(); i++) {
+                for (int i = 0; i < mHomePageEventsAdsBannersModel.getEventsModels().size() && i < 4; i++) {
                     LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
                     ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
                     TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
@@ -943,6 +942,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             ll_jobs.setVisibility(View.GONE);
         }
     }
+
     /**
      * This method is used to set the data to the screen
      */

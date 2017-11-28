@@ -55,7 +55,7 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_15dp"
                     android:text="@string/_1day"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/title_color"
                     android:textSize="@dimen/_10sp" />
 
                 <TextView
