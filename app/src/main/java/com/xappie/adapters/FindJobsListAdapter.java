@@ -99,7 +99,7 @@ public class FindJobsListAdapter extends BaseAdapter
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.JOBS_ID, String.valueOf(jobsModels.get(position).getId()));
 
-                Utility.navigateAllJobsFragment(new JobsViewFragment(),JobsViewFragment.TAG, bundle,mDashBoardActivity);
+                Utility.navigateDashBoardFragment(new JobsViewFragment(),JobsViewFragment.TAG, bundle,mDashBoardActivity);
             }
         });
 

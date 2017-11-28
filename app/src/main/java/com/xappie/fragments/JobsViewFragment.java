@@ -4,11 +4,14 @@ package com.xappie.fragments;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +42,11 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = JobsViewFragment.class.getSimpleName();
     private DashBoardActivity mParent;
+
+    private AppBarLayout appBarLayout;
+    private FrameLayout mFrameLayout;
+    private CoordinatorLayout.LayoutParams mParams;
+
 
     @BindView(R.id.iv_logo)
     ImageView iv_logo;
@@ -78,17 +86,35 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     Button btn_submit_resume;
 
     private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefaceFontAwesomeWebFont;
     private Typeface mTypefaceOpenSansBold;
+
+    @BindView(R.id.tv_notification_arrow_back_icon)
+    TextView tv_notification_arrow_back_icon;
+    @BindView(R.id.tv_notification_menu_icon)
+    TextView tv_notification_menu_icon;
+
     private String mId;
     private StatesListModel mStatesListModel;
     private StateModel stateModel;
     private JobsModel jobsModel;
 
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+    @BindView(R.id.tv_location_icon)
+    TextView tv_location_icon;
+    @BindView(R.id.tv_notifications_icon)
+    TextView tv_notifications_icon;
+    @BindView(R.id.tv_language_icon)
+    TextView tv_language_icon;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
+        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
+        mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
+        mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
         if (getArguments() != null && getArguments().containsKey(Constants.JOBS_ID)) {
             mId = getArguments().getString(Constants.JOBS_ID);
         }
@@ -97,6 +123,11 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (appBarLayout != null) {
+            mParams.setBehavior(null);
+            mFrameLayout.requestLayout();
+            appBarLayout.setVisibility(View.GONE);
+        }
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_jobs_view, container, false);
         ButterKnife.bind(this, rootView);
@@ -110,6 +141,23 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     }
 
     private void initUI() {
+
+        mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
+
+        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+
+        tv_title.setVisibility(View.VISIBLE);
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.jobs));
+        tv_title.setTypeface(mTypefaceOpenSansRegular);
+
+        tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+
+
         setTypeFace();
         stateModel = new StateModel();
         stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
@@ -245,5 +293,28 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
 
         tv_experience_details.setVisibility(View.GONE);
         tv_eligibility_details.setVisibility(View.GONE);
+        tv_eligibility.setVisibility(View.GONE);
+        tv_experience.setVisibility(View.GONE);
+    }
+
+    @OnClick({R.id.tv_notification_arrow_back_icon,
+            R.id.tv_notification_menu_icon})
+    void backToTheHome() {
+        mParent.onBackPressed();
+    }
+
+    @OnClick(R.id.tv_notifications_icon)
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
+    }
+
+    @OnClick(R.id.tv_language_icon)
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
+    }
+
+    @OnClick(R.id.tv_location_icon)
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 }

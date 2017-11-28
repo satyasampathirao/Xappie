@@ -6,6 +6,18 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/classifieds_top"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tool_bar_gallery"
+            layout="@layout/gallery_toolbar" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +31,7 @@
             android:layout_height="@dimen/_80dp"
             android:layout_margin="@dimen/_10dp"
             android:contentDescription="@string/find_jobs"
-            android:src="@drawable/police_image" />
+            android:src="@drawable/xappie_place_holder" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -93,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Published Date :"
-                   android:textColor="@color/published_color"
+                    android:textColor="@color/published_color"
                     android:textSize="@dimen/_12sp" />
 
                 <TextView
@@ -227,7 +239,6 @@
                     android:textSize="@dimen/_12sp" />
 
 
-
             </LinearLayout>
 
             <Button
@@ -248,7 +259,6 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
 
 
 </LinearLayout>
