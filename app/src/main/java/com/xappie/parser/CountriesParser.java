@@ -30,6 +30,7 @@ public class CountriesParser implements Parser<Model> {
                 mCountriesModel.setId(jsonObject.optString("id"));
                 mCountriesModel.setCountry_name(jsonObject.optString("country_name"));
                 mCountriesModel.setIso_code(jsonObject.optString("iso_code"));
+                mCountriesModel.setFlag(jsonObject.optString("flag"));
                 countriesModels.add(mCountriesModel);
             }
             mCountriesListModel.setCountriesModels(countriesModels);

@@ -8,6 +8,7 @@ public class CountriesModel {
     private String country_name;
     private String id;
     private String iso_code;
+    private String flag;
 
     public String getCountry_name() {
         return country_name;
@@ -31,5 +32,13 @@ public class CountriesModel {
 
     public void setIso_code(String iso_code) {
         this.iso_code = iso_code;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }
