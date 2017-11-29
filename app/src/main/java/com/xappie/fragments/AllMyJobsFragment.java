@@ -144,7 +144,7 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                // openItem.setTitle("Edit");
                 // set item title fontsize
                 openItem.setTitleSize(15);
-                openItem.setIcon(R.drawable.ic_mode_edit_white_24dp);
+                openItem.setIcon(R.drawable.edit);
                 // set item title font color
                 openItem.setTitleColor(Color.WHITE);
                 // add to menu
@@ -163,7 +163,7 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                // deleteItem.setTitle("Delete");
                 // set item title fontsize
                 deleteItem.setTitleSize(15);
-                deleteItem.setIcon(R.drawable.ic_delete_sweep_white_24dp);
+                deleteItem.setIcon(R.drawable.delete);
                 // set item title font color
                 deleteItem.setTitleColor(Color.WHITE);
                 // add to menu

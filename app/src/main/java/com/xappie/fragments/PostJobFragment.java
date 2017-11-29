@@ -28,10 +28,14 @@ import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.CategoryModel;
 import com.xappie.models.JobPostingModel;
+import com.xappie.models.JobUpdateModel;
+import com.xappie.models.JobsModel;
 import com.xappie.models.Model;
 import com.xappie.models.SpinnerModel;
 import com.xappie.parser.CategoryParser;
 import com.xappie.parser.JobPostingParser;
+import com.xappie.parser.JobsDetailParser;
+import com.xappie.parser.JobsUpdateParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
@@ -91,9 +95,14 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
 
     @BindView(R.id.btn_submit)
     Button btn_submit;
+    private String mID;
+
+    private String mCat_Id;
 
     private CategoryModel categoryModel;
     private JobPostingModel jobPostingModel;
+    private JobUpdateModel jobUpdateModel;
+    private JobsModel jobsModel;
 
     private Typeface mTypefaceOpenSansRegular;
 
@@ -109,6 +118,16 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         iUpdateSelectedFile = this;
+
+        if (getArguments() != null && getArguments().containsKey(Constants.JOBS_CATEGORY_ID)) {
+            mCat_Id = getArguments().getString(Constants.JOBS_CATEGORY_ID);
+        }
+
+        if (getArguments() != null && getArguments().containsKey(Constants.JOBS_ID)) {
+            mID = getArguments().getString(Constants.JOBS_ID);
+        } else {
+            mID = "";
+        }
     }
 
     @Override
@@ -158,7 +177,30 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
             }
         });
 
+        if (!Utility.isValueNullOrEmpty(mID)) {
+            btn_submit.setText("Update");
+            getJobsDetails();
+        }
+
         getJobCategoryData();
+    }
+
+    private void getJobsDetails()
+    {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            JobsDetailParser jobsDetailParser = new JobsDetailParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_JOB_DETAILS + "/" + mID, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, jobsDetailParser);
+            Utility.execute(serverJSONAsyncTask);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -228,6 +270,43 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
     }
 
     private void postJobInServer() {
+        if (!Utility.isValueNullOrEmpty(mID)) {
+            LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+            paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            paramMap.put("id", mID);
+            paramMap.put("title", edt_job_title.getText().toString());
+            paramMap.put("position", edt_no_of_positions.getText().toString());
+            paramMap.put("role", edt_job_role.getText().toString());
+            paramMap.put("company_name", edt_company_name.getText().toString());
+            paramMap.put("eligible", edt_eligibility.getText().toString());
+            paramMap.put("description", edt_job_description.getText().toString());
+            paramMap.put("category", getCategoryId(et_job_category.getText().toString()));
+            paramMap.put("location", edt_job_location.getText().toString());
+            if (rb_yes_send.isChecked()) {
+                paramMap.put("resume", "1");
+                paramMap.put("email", edt_yes_email.getText().toString());
+            } else {
+                paramMap.put("resume", "0");
+                paramMap.put("email", "");
+            }
+            if (yourFile != null) {
+                paramMap.put("logo_name", edt_company_logo.getText().toString());
+                paramMap.put("logo", Utility.convertFileToByteArray(yourFile));
+            }
+            paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+            JobsUpdateParser mJobPostingParser = new JobsUpdateParser();
+            ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(getActivity(),
+                    Utility.getResourcesString(getActivity(),
+                            R.string.please_wait), true,
+                    APIConstants.UPDATE_JOB,
+                    paramMap,
+                    APIConstants.REQUEST_TYPE.POST,
+                    this, mJobPostingParser);
+            Utility.execute(serverIntractorAsync);
+
+        }
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
         paramMap.put("title", edt_job_title.getText().toString());
@@ -239,6 +318,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         //paramMap.put("exp", edt_experience.getText().toString());
         paramMap.put("description", edt_job_description.getText().toString());
         paramMap.put("category", getCategoryId(et_job_category.getText().toString()));
+        paramMap.put("location", edt_job_location.getText().toString());
 
         if (rb_yes_send.isChecked()) {
             paramMap.put("resume", "1");
@@ -324,20 +404,51 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
     @Override
     public void onComplete(Model model) {
         if (model != null) {
-            if (model.isStatus()) {
+           // if (model.isStatus()) {
                 if (model instanceof CategoryModel) {
                     categoryModel = (CategoryModel) model;
                 } else if (model instanceof JobPostingModel) {
                     jobPostingModel = (JobPostingModel) model;
                     Utility.showToastMessage(getActivity(), jobPostingModel.getMessage());
-                    getActivity().onBackPressed();
+                    clearData();
                 }
-            } else {
-                Utility.showToastMessage(mParent, "OOPS..! Some problem with the API");
-            }
+                else if (model instanceof JobsModel) {
+                    jobsModel = (JobsModel) model;
+                    setPreData();
+                } else if (model instanceof JobUpdateModel) {
+                    jobUpdateModel = (JobUpdateModel) model;
+                    Utility.showToastMessage(mParent, jobUpdateModel.getMessage());
+                    mParent.onBackPressed();
+                }
+           // } else {
+             //   Utility.showToastMessage(mParent, "OOPS..! Some problem with the API");
+           // }
         }
     }
 
+    private void clearData()
+    {
+        edt_job_title.setText("");
+        edt_no_of_positions.setText("");
+        edt_job_role.setText("");
+        edt_job_location.setText("");
+        edt_job_description.setText("");
+        edt_company_name.setText("");
+        edt_company_logo.setText("");
+    }
+
+    private void setPreData()
+    {
+        if (!Utility.isValueNullOrEmpty(mID) && jobsModel != null) {
+            edt_company_logo.setText(jobsModel.getCompany_logo());
+            edt_company_name.setText(jobsModel.getCompany());
+            edt_job_description.setText(jobsModel.getDescription());
+            edt_job_location.setText(jobsModel.getCity());
+            edt_job_role.setText(jobsModel.getRole());
+            edt_no_of_positions.setText(jobsModel.getPositions());
+            edt_job_title.setText(jobsModel.getTitle());
+        }
+    }
     @Override
     public void updateFile(String path) {
         yourFile = new File(path);
