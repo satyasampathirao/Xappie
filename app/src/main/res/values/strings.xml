@@ -217,6 +217,7 @@
     <string name="no_send_directly">No, send directly to email given in job description</string>
     <string name="submit_resume">Submit Resume</string>
     <string name="upload_resume">Upload Resume</string>
+    <string name="update_status">Update Status</string>
     <string name="Cover_Letter">Cover Letter</string>
     <string name="apply">Apply</string>
     <string name="apply_job">Apply Job</string>

@@ -58,9 +58,7 @@ public class JobsFragment extends Fragment {
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
-    public JobsFragment() {
-        // Required empty public constructor
-    }
+    private View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,10 +80,15 @@ public class JobsFragment extends Fragment {
             appBarLayout.setVisibility(View.GONE);
         }
 
+        if (rootView != null) {
+            return rootView;
+        }
+
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_jobs, container, false);
+        rootView = inflater.inflate(R.layout.fragment_jobs, container, false);
         layout_tabs = (LinearLayout) rootView.findViewById(R.id.layout_tabs);
         ButterKnife.bind(this, rootView);
+        initUI();
         return rootView;
     }
 
@@ -93,12 +96,6 @@ public class JobsFragment extends Fragment {
             R.id.tv_notification_menu_icon})
     void backToTheHome() {
         mParent.onBackPressed();
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initUI();
     }
 
     private void initUI() {

@@ -108,6 +108,8 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
+    private View rootView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,8 +130,11 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
+        if (rootView != null) {
+            return rootView;
+        }
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_jobs_view, container, false);
+        rootView = inflater.inflate(R.layout.fragment_jobs_view, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -295,6 +300,12 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
         tv_eligibility_details.setVisibility(View.GONE);
         tv_eligibility.setVisibility(View.GONE);
         tv_experience.setVisibility(View.GONE);
+
+        if (jobsModel.getIsResume().equalsIgnoreCase("1")) {
+            btn_submit_resume.setText(Utility.getResourcesString(getActivity(), R.string.submit_resume));
+        } else {
+            btn_submit_resume.setText(Utility.getResourcesString(getActivity(), R.string.update_status));
+        }
     }
 
     @OnClick({R.id.tv_notification_arrow_back_icon,

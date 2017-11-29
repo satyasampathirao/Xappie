@@ -64,6 +64,8 @@ public class EventsFragment extends Fragment {
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
+    private View rootView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +83,13 @@ public class EventsFragment extends Fragment {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_events, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+
+        rootView = inflater.inflate(R.layout.fragment_events, container, false);
         ButterKnife.bind(this, rootView);
+        initUI();
         return rootView;
     }
 
@@ -93,12 +100,6 @@ public class EventsFragment extends Fragment {
             R.id.tv_notification_menu_icon})
     void backToTheHome() {
         mParent.onBackPressed();
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initUI();
     }
 
     private void initUI() {
