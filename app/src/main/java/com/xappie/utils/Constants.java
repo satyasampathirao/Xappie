@@ -15,6 +15,9 @@ public class Constants {
 
     public static final String IS_LOGIN_COMPLETED = "IS_LOGIN_COMPLETED";
     public static final String TOKEN = "TOKEN";
+    public static final String KEY_FCM_TOKEN = "KEY_FCM_TOKEN";
+    public static final String KEY_TOKEN_RECEIVER = "KEY_TOKEN_RECEIVER";
+
     public static final String API_KEY = "api_key";
     public static final String AUTH_TYPE = "auth_type";
     public static final String XAPPIE = "xappie";
