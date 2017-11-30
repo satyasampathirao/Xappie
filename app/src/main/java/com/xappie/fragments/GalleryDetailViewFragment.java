@@ -336,11 +336,11 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image()))
             Utility.universalImageLoaderPicLoading(img_banner,
                     entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getBanner_image(),
-                    null, R.drawable.xappie_place_holder);
+                    null, R.drawable.xappie_place_);
         else if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getProfile_image()))
             Utility.universalImageLoaderPicLoading(img_banner,
                     entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getProfile_image(),
-                    null, R.drawable.xappie_place_holder);
+                    null, R.drawable.xappie_place_);
 
         if (entertainmentTopStoriesDetailModel.getmNextDetailModel() != null) {
             tv_next_news_header_title.setText(entertainmentTopStoriesDetailModel.getmNextDetailModel().getTitle());

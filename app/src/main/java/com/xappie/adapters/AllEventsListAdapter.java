@@ -70,6 +70,7 @@ public class AllEventsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_location.setVisibility(View.GONE);
 
+
             convertView.setTag(mClassifiedsListHolder);
         } else {
             mClassifiedsListHolder = (ClassifiedsListHolder) convertView.getTag();
@@ -79,9 +80,9 @@ public class AllEventsListAdapter extends BaseAdapter {
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(eventsModel.getName());
         mClassifiedsListHolder.tv_location.setText(eventsModel.getCity());
-        mClassifiedsListHolder.tv_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
-                + eventsModel.getStart_time().substring(11, 16).toUpperCase());
-
+      //  mClassifiedsListHolder.tv_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
+       //         + eventsModel.getStart_time().substring(11, 16).toUpperCase());
+        mClassifiedsListHolder.tv_time.setText(Utility.displayDateFormat(eventsModel.getStart_time().toUpperCase()));
         if (!Utility.isValueNullOrEmpty(eventsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
                     eventsModel.getImage(), null, R.drawable.xappie_place_holder);

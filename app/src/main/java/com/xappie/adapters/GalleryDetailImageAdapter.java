@@ -58,10 +58,10 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
 
         if (!Utility.isValueNullOrEmpty(galleryImageViewModels.get(position).getImage()))
             Utility.universalImageLoaderPicLoading(image_view,
-                    galleryImageViewModels.get(position).getImage(), null, R.drawable.xappie_place_holder);
+                    galleryImageViewModels.get(position).getImage(), null, R.drawable.gallery_place_holder);
         else {
             Utility.universalImageLoaderPicLoading(image_view,
-                    "", null, R.drawable.xappie_place_holder);
+                    "", null, R.drawable.gallery_place_holder);
         }
         tv_title.setTypeface(Utility.getOpenSansRegular(context));
         tv_title.setText(galleryImageViewModels.get(position).getTitle());

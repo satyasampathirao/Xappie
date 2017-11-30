@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/_250dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/xappie_place_holder" />
+                android:src="@drawable/xappie_place_" />
 
             <TextView
                 android:id="@+id/tv_header_title"

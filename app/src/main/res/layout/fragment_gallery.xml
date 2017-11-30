@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/xappie_place_holder" />
+                    android:src="@drawable/xappie_place_" />
 
                 <TextView
                     android:id="@+id/tv_gallery_first_item"
@@ -547,7 +547,7 @@
                         android:id="@+id/actress_more"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_125dp"
-                        android:src="@drawable/more" />
+                        android:src="@drawable/see_all" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -734,7 +734,7 @@
                         android:id="@+id/actors_more"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_125dp"
-                        android:src="@drawable/more" />
+                        android:src="@drawable/see_all" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -921,7 +921,7 @@
                         android:id="@+id/movies_more"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_125dp"
-                        android:src="@drawable/more" />
+                        android:src="@drawable/see_all" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -1108,7 +1108,7 @@
                         android:id="@+id/events_more"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_125dp"
-                        android:src="@drawable/more" />
+                        android:src="@drawable/see_all" />
 
                 </LinearLayout>
             </LinearLayout>

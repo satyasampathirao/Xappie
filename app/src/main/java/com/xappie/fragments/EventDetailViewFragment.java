@@ -400,10 +400,10 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     private void setEventsData() {
         if (!Utility.isValueNullOrEmpty(eventsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(img_event,
-                    eventsModel.getImage(), null, R.drawable.xappie_place_holder);
+                    eventsModel.getImage(), null, R.drawable.xappie_place_);
         } else {
             Utility.universalImageLoaderPicLoading(img_event,
-                    "", null, R.drawable.xappie_place_holder);
+                    "", null, R.drawable.xappie_place_);
         }
 
         if (!Utility.isValueNullOrEmpty(eventsModel.getName())) {
@@ -418,8 +418,9 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_event_tag_line_text_comes_here.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(eventsModel.getStart_time())) {
-            tv_date_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
-                    + eventsModel.getStart_time().substring(11, 16).toUpperCase());
+           // tv_date_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
+               //     + eventsModel.getStart_time().substring(11, 16).toUpperCase());
+            tv_date_time.setText(Utility.displayDateFormat(eventsModel.getStart_time().toUpperCase()));
         } else {
             tv_date_time.setVisibility(View.GONE);
         }

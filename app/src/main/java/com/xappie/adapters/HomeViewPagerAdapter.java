@@ -55,10 +55,10 @@ public class HomeViewPagerAdapter extends PagerAdapter {
 
         if (!Utility.isValueNullOrEmpty(homePageBannerModel.getBanner_image())) {
             Utility.universalImageLoaderPicLoading(img_home_banner,
-                    homePageBannerModel.getBanner_image(), null, R.drawable.xappie_place_holder);
+                    homePageBannerModel.getBanner_image(), null, R.drawable.xappie_place_);
         } else {
             Utility.universalImageLoaderPicLoading(img_home_banner,
-                    "", null, R.drawable.xappie_place_holder);
+                    "", null, R.drawable.xappie_place_);
         }
 
         imageLayout.setId(position);
@@ -83,7 +83,7 @@ public class HomeViewPagerAdapter extends PagerAdapter {
         TouchImageView imageView = (TouchImageView) dialog.findViewById(R.id.imageView);
         Picasso.with(context)
                 .load(url)
-                .placeholder(Utility.getDrawable(context, R.drawable.xappie_place_holder))
+                .placeholder(Utility.getDrawable(context, R.drawable.xappie_place_))
                 .into(imageView);
         dialog.show();
     }

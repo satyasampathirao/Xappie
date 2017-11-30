@@ -8,7 +8,7 @@
         android:id="@+id/img_gallery_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/xappie_place_holder" />
+        android:src="@drawable/gallery_place_holder" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
 
             <TextView
                 android:id="@+id/tv_description"
-                android:layout_width="@dimen/_270dp"
+                android:layout_width="@dimen/_250dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:paddingEnd="@dimen/_10dp"
@@ -56,12 +56,12 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:paddingLeft="@dimen/_10dp"
+                android:paddingLeft="@dimen/_5dp"
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:text="@string/_1day"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_12sp" />
         </LinearLayout>
 
 

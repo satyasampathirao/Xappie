@@ -6,7 +6,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/_100dp"
+        android:layout_height="@dimen/_120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_30dp"
         android:src="@drawable/xappie" />
