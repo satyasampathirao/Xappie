@@ -270,4 +270,5 @@
     <string name="name">Name</string>
     <string name="no_jobs_found">No Jobs Found</string>
     <string name="custom_notification">Custom Notification</string>
+    <string name="calendar_icon">&#xf073;</string>
 </resources>

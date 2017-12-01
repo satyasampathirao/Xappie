@@ -82,6 +82,10 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_address;
     @BindView(R.id.tv_date_location_icon)
     TextView tv_date_location_icon;
+    @BindView(R.id.tv_start_time)
+    TextView tv_start_time;
+    @BindView(R.id.tv_end_time)
+    TextView tv_end_time;
 
     @BindView(R.id.tv_event_tag_line_text_comes_here)
     TextView tv_event_tag_line_text_comes_here;
@@ -93,6 +97,12 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_details;
     @BindView(R.id.tv_a_weekly_desi)
     TextView tv_a_weekly_desi;
+    @BindView(R.id.tv_date_calendar_icon)
+    TextView tv_date_calendar_icon;
+    @BindView(R.id.tv_end_date_calendar_icon)
+    TextView tv_end_date_calendar_icon;
+    @BindView(R.id.tv_end_date_time)
+    TextView tv_end_date_time;
 
 
     @BindView(R.id.btn_i_am_going)
@@ -176,6 +186,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_date_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_date_calendar_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_end_date_calendar_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_event_name.setTypeface(mTypefaceOpenSansBold);
         tv_date_time.setTypeface(mTypefaceOpenSansBold);
@@ -183,6 +195,11 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_dress_code.setTypeface(mTypefaceOpenSansRegular);
         tv_dress_code_value.setTypeface(mTypefaceOpenSansBold);
         tv_address.setTypeface(mTypefaceOpenSansRegular);
+        tv_end_date_time.setTypeface(mTypefaceOpenSansBold);
+        tv_start_time.setTypeface(mTypefaceOpenSansBold);
+        tv_start_time.setPaintFlags(tv_start_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv_end_time.setPaintFlags(tv_end_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv_end_time.setTypeface(mTypefaceOpenSansBold);
 
         tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
         tv_total_cost.setTypeface(mTypefaceOpenSansBold);
@@ -423,6 +440,13 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_date_time.setText(Utility.displayDateFormat(eventsModel.getStart_time().toUpperCase()));
         } else {
             tv_date_time.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getEnd_time()))
+        {
+            tv_end_date_time.setText(Utility.displayDateFormat(eventsModel.getEnd_time().toUpperCase()));
+        }
+        else {
+            tv_end_date_time.setVisibility(View.GONE);
         }
 
         if (!Utility.isValueNullOrEmpty(eventsModel.getDress_code())) {
