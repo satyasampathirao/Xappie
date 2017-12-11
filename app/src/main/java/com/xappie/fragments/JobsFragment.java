@@ -147,7 +147,13 @@ public class JobsFragment extends Fragment {
                             Utility.navigateAllJobsFragment(new FindJobsListFragment(), FindJobsListFragment.TAG, null, mParent);
                             break;
                         case 1:
-                            Utility.navigateAllJobsFragment(new PostJobFragment(), PostJobFragment.TAG, null, mParent);
+                            if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+                                Utility.showToastMessage(mParent, "To post a Job, Login First");
+                                Intent intent = new Intent(mParent, LoginActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Utility.navigateAllJobsFragment(new PostJobFragment(), PostJobFragment.TAG, null, mParent);
+                            }
                             break;
                         case 2:
                             if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
