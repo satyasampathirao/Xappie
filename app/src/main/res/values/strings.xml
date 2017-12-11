@@ -271,4 +271,13 @@
     <string name="no_jobs_found">No Jobs Found</string>
     <string name="custom_notification">Custom Notification</string>
     <string name="calendar_icon">&#xf073;</string>
+    <string name="price">Price</string>
+    <string name="phone">Phone</string>
+    <string name="phone_icon">&#xf098;</string>
+    <string name="price_icon">&#xf02c;</string>
+    <string name="person_icon">&#xf007;</string>
+    <string name="email_icon">&#xf0e0;</string>
+    <string name="call">CALL</string>
+    <string name="web_icon">&#xf0ac;</string>
+    <string name="no_classifieds_found">No Classifieds Found</string>
 </resources>

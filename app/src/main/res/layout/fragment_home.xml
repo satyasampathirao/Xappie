@@ -504,7 +504,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20dp"
-                android:text="@string/no_events_found"
+                android:text="@string/no_jobs_found"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_25sp" />
         </LinearLayout>

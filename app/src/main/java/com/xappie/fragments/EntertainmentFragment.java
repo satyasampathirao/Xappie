@@ -234,10 +234,10 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID,
                 entertainmentModels.get(position).getId());
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
-       /* bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST,
-                Utility.getMoreTopicsList(position, entertainmentModels));*/
         bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST,
-                entertainmentModels);
+                Utility.getMoreTopicsList(position, entertainmentModels));
+        //bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST,
+              //  entertainmentModels);
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
                 mParent);
     }

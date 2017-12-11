@@ -19,6 +19,7 @@ public class ClassifiedsModel extends Model implements Serializable {
     private String category;
     private String approvedBy;
     private String cat_id;
+    private String sub_cat_id;
     private String start_letter;
 
     private String description;
@@ -31,6 +32,7 @@ public class ClassifiedsModel extends Model implements Serializable {
     private String approvedOn;
     private String reason;
     private String city;
+    private String website;
 
     public String getImage_url() {
         return image_url;
@@ -214,5 +216,21 @@ public class ClassifiedsModel extends Model implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getSub_cat_id() {
+        return sub_cat_id;
+    }
+
+    public void setSub_cat_id(String sub_cat_id) {
+        this.sub_cat_id = sub_cat_id;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

@@ -57,5 +57,8 @@
     <color name="btnDefaultColor">#000000</color>
     <color name="blackColor">#000000</color>
     <color name="txt_hint_color">#c0c0c0</color>
+    <color name="green">#43b51f</color>
+    <color name="red">#ce384c</color>
+    <color name="orange">#FF6347</color>
 
 </resources>

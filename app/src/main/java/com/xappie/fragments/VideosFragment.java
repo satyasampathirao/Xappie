@@ -42,7 +42,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 26/07/2017
  */
-public class VideosFragment extends Fragment implements IAsyncCaller {
+public class VideosFragment extends Fragment implements IAsyncCaller, AbsListView.OnScrollListener {
 
     public static final String TAG = VideosFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -50,6 +50,11 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
     private View rootView;
+
+    private int aaTotalCount, aaVisibleCount, aaFirstVisibleItem;
+    private int mPageNumber = 1;
+    private boolean endScroll = false;
+    private VideosGridAdapter videosGridAdapter;
 
     /**
      * Gallery Toolbar
@@ -157,8 +162,9 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
      * This method is used to set the grid view data
      */
     private void setGridViewData() {
-        VideosGridAdapter videosGridAdapter = new VideosGridAdapter(mParent, mVideosListModel.getVideosModels());
+        videosGridAdapter = new VideosGridAdapter(mParent, mVideosListModel.getVideosModels());
         grid_view.setAdapter(videosGridAdapter);
+        grid_view.setOnScrollListener(this);
     }
 
     /**
@@ -206,6 +212,8 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
                     setLanguages();
                     videoTypeModel = null;
+                    videosGridAdapter= null;
+                    endScroll = false;
                     getVideoTypes();
                 }
             });
@@ -241,6 +249,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
                     int pos = v.getId();
                     videoTypeModel = mVideoTypesListModel.getVideoTypeModels().get(pos);
                     setVideoTypes();
+                    endScroll = false;
                     getVideosData(languageModel.getId(), "" + 1, videoTypeModel.getId());
                 }
             });
@@ -286,10 +295,13 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
                 }
             } else if (model instanceof VideosListModel) {
                 mVideosListModel = (VideosListModel) model;
-                if (mVideosListModel.getVideosModels().size() > 0) {
+                if (mVideosListModel.getVideosModels() != null && mVideosListModel.getVideosModels().size() > 0) {
                     setGridViewData();
+                } else {
+                    endScroll = true;
                 }
             }
+
         }
     }
 
@@ -330,6 +342,46 @@ public class VideosFragment extends Fragment implements IAsyncCaller {
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+        if (scrollState == SCROLL_STATE_IDLE) {
+            isScrollCompleted();
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        aaTotalCount = totalItemCount;
+        aaVisibleCount = visibleItemCount;
+        aaFirstVisibleItem = firstVisibleItem;
+    }
+
+    private void isScrollCompleted() {
+        if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
+            if (Utility.isNetworkAvailable(getActivity())) {
+                mPageNumber = mPageNumber + 1;
+                getVideosData( languageModel.getId(),"" + mPageNumber,videoTypeModel.getId());
+                Utility.showLog("mPageNumber", "mPageNumber : " + mPageNumber);
+            } else {
+                Utility.showSettingDialog(
+                        getActivity(),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_msg),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_title),
+                        Utility.NO_INTERNET_CONNECTION).show();
+            }
+        } else {
+            if (grid_view.getAdapter() != null) {
+                if (grid_view.getLastVisiblePosition() == grid_view.getAdapter().getCount() - 1 &&
+                        grid_view.getChildAt(grid_view.getChildCount() - 1).getBottom() <= grid_view.getHeight()) {
+                    Utility.showToastMessage(getActivity(), Utility.getResourcesString(getActivity(),
+                            R.string.no_more_data_to_display));
+                }
+            }
         }
     }
 }

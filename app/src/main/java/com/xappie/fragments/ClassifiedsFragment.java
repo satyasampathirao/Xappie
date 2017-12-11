@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
@@ -82,6 +83,8 @@ public class ClassifiedsFragment extends Fragment implements IAsyncCaller {
      */
     @BindView(R.id.grid_view)
     GridView grid_view;
+    @BindView(R.id.ll_no_data)
+    LinearLayout ll_no_data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -201,7 +204,17 @@ public class ClassifiedsFragment extends Fragment implements IAsyncCaller {
         if (model != null) {
             if (model instanceof ClassifiedsListModel) {
                 classifiedsListModel = (ClassifiedsListModel) model;
-                setClasifiedsData();
+                if (classifiedsListModel != null && classifiedsListModel.getClassifiedsModels().size()> 0)
+                {
+                    grid_view.setVisibility(View.VISIBLE);
+                    ll_no_data.setVisibility(View.GONE);
+                    setClasifiedsData();
+                }
+                else {
+                    grid_view.setVisibility(View.GONE);
+                    ll_no_data.setVisibility(View.VISIBLE);
+                }
+
             } else if (model instanceof StatesListModel) {
                 mStatesListModel = (StatesListModel) model;
                 if (mStatesListModel.getStateModels().size() > 0) {

@@ -131,7 +131,7 @@ public class ClassifiedsTabFragment extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
-        Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
+        Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, bundle, mParent);
 
     }
 

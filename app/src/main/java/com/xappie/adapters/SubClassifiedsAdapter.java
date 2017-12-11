@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.fragments.ClassifiedsFragment;
-import com.xappie.fragments.ClassifiedsListFragment;
 import com.xappie.fragments.ClassifiedsTabFragment;
 import com.xappie.fragments.SubClassifiedsFragment;
 import com.xappie.models.ClassifiedsModel;
@@ -22,17 +20,17 @@ import com.xappie.utils.Utility;
 import java.util.ArrayList;
 
 /**
- * Created by Shankar on 26/07/2017
+ * Created by Santosh on 07-12-2017.
  */
 
-public class ClassifiedsAdapter extends BaseAdapter {
+public class SubClassifiedsAdapter extends BaseAdapter {
 
     private DashBoardActivity mDashBoardActivity;
     private LayoutInflater mLayoutInflater;
     private ArrayList<ClassifiedsModel> classifiedsModels;
     private Typeface mOpenSansBoldTypeface;
 
-    public ClassifiedsAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ClassifiedsModel> classifiedsModels) {
+    public SubClassifiedsAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ClassifiedsModel> classifiedsModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
         this.classifiedsModels = classifiedsModels;
@@ -56,30 +54,22 @@ public class ClassifiedsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        ClassifiedsAdapter.ClassifiedsGridHolder mClassifiedsGridHolder = null;
+        SubClassifiedsAdapter.ClassifiedsGridHolder mClassifiedsGridHolder = null;
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.classfields_grid_item,
+            convertView = mLayoutInflater.inflate(R.layout.sub_classifieds_list_item,
                     null);
-            mClassifiedsGridHolder = new ClassifiedsAdapter.ClassifiedsGridHolder();
-            mClassifiedsGridHolder.img_gallery_image = (ImageView) convertView.findViewById(R.id.img_gallery_image);
-            mClassifiedsGridHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
+            mClassifiedsGridHolder = new SubClassifiedsAdapter.ClassifiedsGridHolder();
+            mClassifiedsGridHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_list);
 
             mClassifiedsGridHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
 
             convertView.setTag(mClassifiedsGridHolder);
         } else {
-            mClassifiedsGridHolder = (ClassifiedsAdapter.ClassifiedsGridHolder) convertView.getTag();
+            mClassifiedsGridHolder = (SubClassifiedsAdapter.ClassifiedsGridHolder) convertView.getTag();
         }
 
         ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
         mClassifiedsGridHolder.tv_title.setText(classifiedsModel.getName());
-        if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
-            Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
-                    classifiedsModel.getImage(), null, R.drawable.xappie_place_holder);
-        } else {
-            Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
-                    "", null, R.drawable.xappie_place_holder);
-        }
 
         convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +78,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
                 int position = v.getId();
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, classifiedsModels.get(position).getId());
-                Utility.navigateDashBoardFragment(new SubClassifiedsFragment(), SubClassifiedsFragment.TAG, bundle, mDashBoardActivity);
+                Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mDashBoardActivity);
             }
         });
 
@@ -97,6 +87,6 @@ public class ClassifiedsAdapter extends BaseAdapter {
 
     private class ClassifiedsGridHolder {
         TextView tv_title;
-        ImageView img_gallery_image;
+
     }
 }

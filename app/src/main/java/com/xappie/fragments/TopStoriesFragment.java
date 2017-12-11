@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,7 +41,7 @@ import butterknife.OnItemClick;
 /**
  * Created by Shankar 26/07/2017
  */
-public class TopStoriesFragment extends Fragment implements IAsyncCaller {
+public class TopStoriesFragment extends Fragment implements IAsyncCaller, AbsListView.OnScrollListener {
 
     public static final String TAG = TopStoriesFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -65,9 +66,15 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+    @BindView(R.id.tv_no_data_found)
+    TextView tv_no_data_found;
+
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private int aaTotalCount, aaVisibleCount, aaFirstVisibleItem;
+    private int mPageNumber = 1;
+    private boolean endScroll = false;
 
     /**
      * Gallery Actress setup
@@ -79,6 +86,8 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
 
     private LanguageListModel mLanguageListModel;
     private TopStoriesListModel mTopStoriesListModel;
+    private ArrayList<EntertainmentModel> entertainmentModels;
+    private EntertainmentAdapter entertainmentAdapter;
     private LanguageModel languageModel;
 
     @Override
@@ -154,6 +163,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
         EntertainmentAdapter entertainmentAdapter = new
                 EntertainmentAdapter(mParent, mTopStoriesListModel.getEntertainmentModels());
         list_view.setAdapter(entertainmentAdapter);
+        list_view.setOnScrollListener(this);
     }
 
     /**
@@ -199,8 +209,11 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
                 public void onClick(View v) {
                     int pos = v.getId();
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
+                    entertainmentModels = null;
+                    entertainmentAdapter = null;
                     setLanguages();
-                    getTopStoriesData(languageModel.getId(), "" + 1);
+                    endScroll = false;
+                    getTopStoriesData( "" + 1);
                 }
             });
 
@@ -286,12 +299,38 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
                         }
                     }
                     setLanguages();
-                    getTopStoriesData(languageModel.getId(), "" + 1);
+                    getTopStoriesData( "" + 1);
                 }
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
-                if (mTopStoriesListModel.getEntertainmentModels().size() > 0) {
-                    setGridViewData();
+                if (entertainmentModels == null) {
+                    if (mTopStoriesListModel.getEntertainmentModels() == null) {
+                        tv_no_data_found.setVisibility(View.VISIBLE);
+                        list_view.setVisibility(View.GONE);
+                    } else {
+                        tv_no_data_found.setVisibility(View.GONE);
+                        list_view.setVisibility(View.VISIBLE);
+                        if (entertainmentModels == null) {
+                            entertainmentModels = new ArrayList<>();
+                        }
+                        entertainmentModels.addAll(mTopStoriesListModel.getEntertainmentModels());
+                        if (entertainmentAdapter == null) {
+                            setGridViewData();
+                        }
+                    }
+                } else {
+                    list_view.setVisibility(View.VISIBLE);
+                    tv_no_data_found.setVisibility(View.GONE);
+                    if (mTopStoriesListModel.getEntertainmentModels() != null && mTopStoriesListModel.getEntertainmentModels().size() > 0) {
+                        entertainmentModels.addAll(mTopStoriesListModel.getEntertainmentModels());
+                        if (entertainmentAdapter == null) {
+                            setGridViewData();
+                        } else {
+                            entertainmentAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        endScroll = true;
+                    }
                 }
             }
         }
@@ -300,11 +339,11 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
     /**
      * This method is used to get data of the top stories
      */
-    private void getTopStoriesData(String id, String pageNo) {
+    private void getTopStoriesData(String pageNo) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-            linkedHashMap.put("language", id);
+            linkedHashMap.put("language", languageModel.getId());
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             TopStoriesParser topStoriesParser = new TopStoriesParser();
@@ -318,4 +357,43 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    @Override
+    public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+        if (scrollState == SCROLL_STATE_IDLE) {
+            isScrollCompleted();
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        aaTotalCount = totalItemCount;
+        aaVisibleCount = visibleItemCount;
+        aaFirstVisibleItem = firstVisibleItem;
+    }
+
+    private void isScrollCompleted() {
+        if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
+            if (Utility.isNetworkAvailable(getActivity())) {
+                mPageNumber = mPageNumber + 1;
+                getTopStoriesData("" + mPageNumber);
+                Utility.showLog("mPageNumber", "mPageNumber : " + mPageNumber);
+            } else {
+                Utility.showSettingDialog(
+                        getActivity(),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_msg),
+                        getActivity().getResources().getString(
+                                R.string.no_internet_title),
+                        Utility.NO_INTERNET_CONNECTION).show();
+            }
+        } else {
+            if (list_view.getAdapter() != null) {
+                if (list_view.getLastVisiblePosition() == list_view.getAdapter().getCount() - 1 &&
+                        list_view.getChildAt(list_view.getChildCount() - 1).getBottom() <= list_view.getHeight()) {
+                    Utility.showToastMessage(getActivity(), Utility.getResourcesString(getActivity(),
+                            R.string.no_more_data_to_display));
+                }
+            }
+        }
+    }
 }
