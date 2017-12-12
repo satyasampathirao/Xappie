@@ -71,7 +71,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
             mClassifiedsGridHolder = (ClassifiedsAdapter.ClassifiedsGridHolder) convertView.getTag();
         }
 
-        ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
+        final ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
         mClassifiedsGridHolder.tv_title.setText(classifiedsModel.getName());
         if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
@@ -88,6 +88,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
                 int position = v.getId();
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, classifiedsModels.get(position).getId());
+                bundle.putString("Name",classifiedsModel.getName());
                 Utility.navigateDashBoardFragment(new SubClassifiedsFragment(), SubClassifiedsFragment.TAG, bundle, mDashBoardActivity);
             }
         });

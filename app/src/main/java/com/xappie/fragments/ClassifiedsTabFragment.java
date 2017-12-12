@@ -140,7 +140,9 @@ public class ClassifiedsTabFragment extends Fragment {
      */
     @OnClick(R.id.tv_all_classifieds)
     void navigateAllEvents() {
-        Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, null, mParent);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
+        Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, bundle, mParent);
     }
 
     /**

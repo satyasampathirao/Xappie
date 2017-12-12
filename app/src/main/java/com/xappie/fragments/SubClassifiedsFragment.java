@@ -67,6 +67,7 @@ public class SubClassifiedsFragment  extends Fragment implements IAsyncCaller {
 
     private StateModel stateModel;
     private String mId;
+    private String name;
     private StatesListModel mStatesListModel;
     private ClassifiedsListModel classifiedsListModel;
 
@@ -84,6 +85,9 @@ public class SubClassifiedsFragment  extends Fragment implements IAsyncCaller {
 
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mId = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
+        }
+        if (getArguments() != null && getArguments().containsKey("Name")) {
+           name = getArguments().getString("Name");
         }
     }
 
@@ -137,7 +141,7 @@ public class SubClassifiedsFragment  extends Fragment implements IAsyncCaller {
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.classifieds));
+        tv_title.setText(name);
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
