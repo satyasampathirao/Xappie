@@ -210,7 +210,13 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
 
     @OnClick(R.id.btn_submit_resume)
     public void navigateApplyJobs() {
-        Utility.navigateAllJobsFragment(new ApplyJobsFragment(), ApplyJobsFragment.TAG, null, mParent);
+        Bundle bundle = new Bundle();
+        bundle.putString("id", "" + jobsModel.getId());
+        if (!Utility.isValueNullOrEmpty(jobsModel.getIsResume()))
+            bundle.putString(Constants.IS_RESUME, jobsModel.getIsResume());
+        else
+            bundle.putString(Constants.IS_RESUME, "0");
+        Utility.navigateDashBoardFragment(new ApplyJobsFragment(), ApplyJobsFragment.TAG, bundle, mParent);
     }
 
 

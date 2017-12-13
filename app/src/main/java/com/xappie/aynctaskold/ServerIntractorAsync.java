@@ -68,6 +68,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                         || mUrl.contains(APIConstants.UPDATE_PROFILE)
                         || mUrl.contains(APIConstants.UPDATE_EVENT)
                         || mUrl.contains(APIConstants.ADD_EVENT)
+                        || mUrl.contains(APIConstants.APPLY_JOB)
                         || mUrl.contains(APIConstants.POST_JOB_URL)
                         || mUrl.contains(APIConstants.ADD_CLASSIFIED)
                         || mUrl.contains(APIConstants.UPDATE_CLASSIFIED)
