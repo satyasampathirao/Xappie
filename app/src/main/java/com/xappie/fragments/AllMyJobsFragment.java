@@ -21,7 +21,7 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.AllMyJobsListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.EntertainmentModel;
+import com.xappie.models.IAmGoingModel;
 import com.xappie.models.JobsListModel;
 import com.xappie.models.JobsModel;
 import com.xappie.models.Model;
@@ -53,7 +53,7 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
 
     private JobsListModel jobsListModel;
     private AllMyJobsListAdapter allmyJobsListAdapter;
-
+    private IAmGoingModel iAmGoingModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,13 +81,12 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
         super.onViewCreated(view, savedInstanceState);
         initUI();
     }
-    private void initUI()
-    {
-        getMyJobsData(""+1);
+
+    private void initUI() {
+        getMyJobsData("" + 1);
     }
 
-    private void getMyJobsData(String pageNo)
-    {
+    private void getMyJobsData(String pageNo) {
         try {
 
 
@@ -102,9 +101,7 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                     APIConstants.GET_MY_JOBS, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, jobsListParser);
             Utility.execute(serverJSONAsyncTask);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -120,13 +117,13 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                     APIConstants.DELETE_JOB + delete_id, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
             Utility.execute(serverJSONAsyncTask);
-        } catch (Exception e)
-        {
-             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
     private void setGridViewData() {
-        allmyJobsListAdapter = new AllMyJobsListAdapter(mParent,jobsListModel.getJobsModels());
+        allmyJobsListAdapter = new AllMyJobsListAdapter(mParent, jobsListModel.getJobsModels());
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
@@ -141,7 +138,7 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                 // set item width
                 openItem.setWidth(dp2px(70));
                 // set item title
-               // openItem.setTitle("Edit");
+                // openItem.setTitle("Edit");
                 // set item title fontsize
                 openItem.setTitleSize(15);
                 openItem.setIcon(R.drawable.edit);
@@ -160,7 +157,7 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
                 // set item width
                 deleteItem.setWidth(dp2px(70));
                 // set item title
-               // deleteItem.setTitle("Delete");
+                // deleteItem.setTitle("Delete");
                 // set item title fontsize
                 deleteItem.setTitleSize(15);
                 deleteItem.setIcon(R.drawable.delete);
@@ -176,12 +173,11 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index)
-                {
+                switch (index) {
                     case 0:
-                        Bundle bundle= new Bundle();
+                        Bundle bundle = new Bundle();
                         bundle.putString(Constants.JOBS_ID, String.valueOf(jobsListModel.getJobsModels().get(position).getId()));
-                        Utility.navigateAllJobsFragment(new PostJobFragment(),PostJobFragment.TAG,bundle,mParent);
+                        Utility.navigateAllJobsFragment(new PostJobFragment(), PostJobFragment.TAG, bundle, mParent);
                         break;
                     case 1:
                         mDeletePosition = position;
@@ -202,22 +198,26 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
 
     @Override
     public void onComplete(Model model) {
-        if (model != null)
-        {
-            if (model instanceof JobsListModel)
-            {
+        if (model != null) {
+            if (model instanceof JobsListModel) {
                 jobsListModel = (JobsListModel) model;
-                if (jobsListModel != null && jobsListModel.getJobsModels().size() > 0)
-                {
+                if (jobsListModel != null && jobsListModel.getJobsModels().size() > 0) {
                     setGridViewData();
                     listView.setVisibility(View.VISIBLE);
                     ll_no_data.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     listView.setVisibility(View.GONE);
                     ll_no_data.setVisibility(View.VISIBLE);
                 }
-
+            } else if (model instanceof IAmGoingModel) {
+                iAmGoingModel = (IAmGoingModel) model;
+                Utility.showToastMessage(mParent, iAmGoingModel.getMessage());
+                if (iAmGoingModel.isStatus()) {
+                    ArrayList<JobsModel> jobsModels = jobsListModel.getJobsModels();
+                    jobsModels.remove(mDeletePosition);
+                    jobsListModel.setJobsModels(jobsModels);
+                    allmyJobsListAdapter.notifyDataSetChanged();
+                }
             }
         }
 

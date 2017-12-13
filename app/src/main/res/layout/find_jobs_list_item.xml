@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_15dp"
-                    android:text="@string/_4"
+                    android:text=""
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/_10sp" />
 
@@ -74,7 +74,7 @@
                     android:layout_marginStart="@dimen/_25dp"
                     android:layout_marginTop="@dimen/_15dp"
                     android:drawablePadding="@dimen/_3dp"
-                    android:text="@string/ibm"
+                    android:text=""
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/_10sp" />
 

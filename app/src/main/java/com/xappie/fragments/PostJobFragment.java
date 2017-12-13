@@ -281,7 +281,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
             paramMap.put("eligible", edt_eligibility.getText().toString());
             paramMap.put("description", edt_job_description.getText().toString());
             paramMap.put("category", getCategoryId(et_job_category.getText().toString()));
-            paramMap.put("location", edt_job_location.getText().toString());
+            paramMap.put("address", edt_job_location.getText().toString());
             if (rb_yes_send.isChecked()) {
                 paramMap.put("resume", "1");
                 paramMap.put("email", edt_yes_email.getText().toString());
@@ -318,7 +318,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         //paramMap.put("exp", edt_experience.getText().toString());
         paramMap.put("description", edt_job_description.getText().toString());
         paramMap.put("category", getCategoryId(et_job_category.getText().toString()));
-        paramMap.put("location", edt_job_location.getText().toString());
+        paramMap.put("address", edt_job_location.getText().toString());
 
         if (rb_yes_send.isChecked()) {
             paramMap.put("resume", "1");
