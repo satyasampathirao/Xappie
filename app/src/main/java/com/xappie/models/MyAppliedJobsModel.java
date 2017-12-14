@@ -5,13 +5,16 @@ import java.util.AbstractList;
 public class MyAppliedJobsModel extends Model {
     private String id;
     private String title;
-    private String position;
-    private String role;
-    private String company;
-    private String location;
     private String category;
-    private String isHired;
-    private String logo;
+    private String country;
+    private String state;
+    private String city;
+    private String company;
+    private String positions;
+    private String company_logo;
+    private String status;
+    private String recordedBy;
+    private String recordedDate;
     private boolean mHiredLayout;
     private AbstractList<MyAppliedJobsModel> myAppliedJobsModels;
 
@@ -31,20 +34,36 @@ public class MyAppliedJobsModel extends Model {
         this.title = title;
     }
 
-    public String getPosition() {
-        return position;
+    public String getCategory() {
+        return category;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getRole() {
-        return role;
+    public String getCountry() {
+        return country;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getCompany() {
@@ -55,36 +74,44 @@ public class MyAppliedJobsModel extends Model {
         this.company = company;
     }
 
-    public String getLocation() {
-        return location;
+    public String getPositions() {
+        return positions;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPositions(String positions) {
+        this.positions = positions;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCompany_logo() {
+        return company_logo;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCompany_logo(String company_logo) {
+        this.company_logo = company_logo;
     }
 
-    public String getIsHired() {
-        return isHired;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIsHired(String isHired) {
-        this.isHired = isHired;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public AbstractList<MyAppliedJobsModel> getMyAppliedJobsModels() {
-        return myAppliedJobsModels;
+    public String getRecordedBy() {
+        return recordedBy;
     }
 
-    public void setMyAppliedJobsModels(AbstractList<MyAppliedJobsModel> myAppliedJobsModels) {
-        this.myAppliedJobsModels = myAppliedJobsModels;
+    public void setRecordedBy(String recordedBy) {
+        this.recordedBy = recordedBy;
+    }
+
+    public String getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(String recordedDate) {
+        this.recordedDate = recordedDate;
     }
 
     public boolean ismHiredLayout() {
@@ -95,11 +122,11 @@ public class MyAppliedJobsModel extends Model {
         this.mHiredLayout = mHiredLayout;
     }
 
-    public String getLogo() {
-        return logo;
+    public AbstractList<MyAppliedJobsModel> getMyAppliedJobsModels() {
+        return myAppliedJobsModels;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
+    public void setMyAppliedJobsModels(AbstractList<MyAppliedJobsModel> myAppliedJobsModels) {
+        this.myAppliedJobsModels = myAppliedJobsModels;
     }
 }

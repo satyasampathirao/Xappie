@@ -131,11 +131,11 @@ public class JobsFragment extends Fragment {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.textview_layout, null);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
             tv_title.setText(getTabNames().get(i));
-            if (i == selected_position) {
+            /*if (i == selected_position) {
                 tv_title.setTypeface(Utility.getOpenSansBold(mParent));
             } else {
                 tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
-            }
+            }*/
             tv_title.setId(i);
             tv_title.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -157,7 +157,7 @@ public class JobsFragment extends Fragment {
                             break;
                         case 2:
                             if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-                                Utility.showToastMessage(mParent, "Login First");
+                                Utility.showToastMessage(mParent, "To get your posted jobs, Login First");
                                 Intent intent = new Intent(mParent, LoginActivity.class);
                                 startActivity(intent);
                             } else {
@@ -165,7 +165,13 @@ public class JobsFragment extends Fragment {
                             }
                             break;
                         case 3:
-                            Utility.navigateAllJobsFragment(new JobsAppliedFragment(), JobsAppliedFragment.TAG, null, mParent);
+                            if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+                                Utility.showToastMessage(mParent, "To get your Applied jobs, Login First");
+                                Intent intent = new Intent(mParent, LoginActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Utility.navigateAllJobsFragment(new JobsAppliedFragment(), JobsAppliedFragment.TAG, null, mParent);
+                            }
                             break;
                         case 4:
                             Utility.navigateAllJobsFragment(new JobsSearchFragment(), JobsSearchFragment.TAG, null, mParent);

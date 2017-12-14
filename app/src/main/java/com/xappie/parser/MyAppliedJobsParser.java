@@ -27,12 +27,16 @@ public class MyAppliedJobsParser implements Parser<Model> {
                 mMyAppliedJobsModelItem.setCompany(jsonObject.optString("company"));
                 mMyAppliedJobsModelItem.setId(jsonObject.optString("id"));
                 mMyAppliedJobsModelItem.setTitle(jsonObject.optString("title"));
-                mMyAppliedJobsModelItem.setPosition(jsonObject.optString("position"));
-                mMyAppliedJobsModelItem.setRole(jsonObject.optString("role"));
-                mMyAppliedJobsModelItem.setLogo(jsonObject.optString("logo"));
-                mMyAppliedJobsModelItem.setLocation(jsonObject.optString("location"));
                 mMyAppliedJobsModelItem.setCategory(jsonObject.optString("category"));
-                mMyAppliedJobsModelItem.setIsHired(jsonObject.optString("isHired"));
+                mMyAppliedJobsModelItem.setCountry(jsonObject.optString("country"));
+                mMyAppliedJobsModelItem.setState(jsonObject.optString("state"));
+                mMyAppliedJobsModelItem.setCity(jsonObject.optString("city"));
+                mMyAppliedJobsModelItem.setCompany(jsonObject.optString("company"));
+                mMyAppliedJobsModelItem.setPositions(jsonObject.optString("positions"));
+                mMyAppliedJobsModelItem.setCompany_logo(jsonObject.optString("company_logo"));
+                mMyAppliedJobsModelItem.setStatus(jsonObject.optString("status"));
+                mMyAppliedJobsModelItem.setRecordedBy(jsonObject.optString("recordedBy"));
+                mMyAppliedJobsModelItem.setRecordedDate(jsonObject.optString("recordedDate"));
                 myAppliedJobsModels.add(mMyAppliedJobsModelItem);
             }
             mMyAppliedJobsModel.setMyAppliedJobsModels(myAppliedJobsModels);

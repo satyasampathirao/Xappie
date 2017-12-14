@@ -5,15 +5,13 @@
     android:orientation="vertical"
     android:padding="@dimen/_5dp">
 
-
-
     <EditText
         android:id="@+id/et_select_job_category"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_55dp"
-        android:layout_marginTop="@dimen/_30dp"
-        android:layout_marginStart="@dimen/_20dp"
         android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_30dp"
         android:background="@drawable/white_corners"
         android:drawableEnd="@drawable/drop_down_arrow"
         android:focusable="false"
@@ -29,11 +27,11 @@
         android:id="@+id/edt_company_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_55dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
         android:layout_marginTop="@dimen/_20dp"
         android:background="@drawable/white_corners"
         android:ellipsize="end"
-        android:layout_marginStart="@dimen/_20dp"
-        android:layout_marginEnd="@dimen/_20dp"
         android:hint="@string/company_name"
         android:imeOptions="actionNext"
         android:maxLines="1"
@@ -47,19 +45,20 @@
         android:id="@+id/edt_city_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_55dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
         android:layout_marginTop="@dimen/_20dp"
         android:background="@drawable/white_corners"
         android:ellipsize="end"
         android:hint="@string/city_name"
-        android:layout_marginStart="@dimen/_20dp"
-        android:layout_marginEnd="@dimen/_20dp"
         android:imeOptions="actionNext"
         android:maxLines="1"
         android:paddingEnd="@dimen/_10dp"
         android:paddingLeft="@dimen/_10dp"
         android:paddingRight="@dimen/_10dp"
         android:paddingStart="@dimen/_10dp"
-        android:textSize="@dimen/_15sp" />
+        android:textSize="@dimen/_15sp"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_search"
@@ -67,8 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/_5dp"
-        android:layout_marginStart="@dimen/_20dp"
         android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
         android:layout_marginTop="@dimen/_20dp"
         android:background="@drawable/red_corners_dark"
         android:gravity="center_horizontal|center_vertical"
@@ -76,8 +75,6 @@
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="@dimen/_18sp" />
-
-
 
 
 </LinearLayout>

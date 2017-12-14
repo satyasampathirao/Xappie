@@ -90,4 +90,10 @@ public class Constants {
     public static final int FROM_FILE_ID = 690;
 
     public static final String IS_RESUME = "is_resume";
+
+    public static final String FILTER_CATEGORY = "FILTER_CATEGORY";
+    public static final String FILTER_FROM = "FILTER_FROM";
+    public static final String FILTER = "FILTER";
+    public static final String FILTER_SEARCH = "FILTER_SEARCH";
+    public static final String FILTER_CITY = "FILTER_CITY";
 }

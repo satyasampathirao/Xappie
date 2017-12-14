@@ -72,19 +72,19 @@ public class JobsAppliedAdapter extends BaseAdapter implements IAsyncCaller {
                     null);
             mJobAppliedAdapterHolder = new JobsAppliedAdapter.JobAppliedAdapterHolder();
 
-            mJobAppliedAdapterHolder.txt_job_name = (TextView) convertView.findViewById(R.id.txt_job_name);
-            mJobAppliedAdapterHolder.tv_company_name = (TextView) convertView.findViewById(R.id.tv_company_name);
-            mJobAppliedAdapterHolder.tv_positions = (TextView) convertView.findViewById(R.id.tv_positions);
-            mJobAppliedAdapterHolder.tv_positions_number = (TextView) convertView.findViewById(R.id.tv_positions_number);
-            mJobAppliedAdapterHolder.img_status_icon = (ImageView) convertView.findViewById(R.id.img_status_icon);
-            mJobAppliedAdapterHolder.img_job_company_logo = (ImageView) convertView.findViewById(R.id.img_job_company_logo);
-            mJobAppliedAdapterHolder.rl_relative_layout = (RelativeLayout) convertView.findViewById(R.id.rl_relative_layout);
+            mJobAppliedAdapterHolder.txt_job_name = convertView.findViewById(R.id.txt_job_name);
+            mJobAppliedAdapterHolder.tv_company_name = convertView.findViewById(R.id.tv_company_name);
+            mJobAppliedAdapterHolder.tv_positions = convertView.findViewById(R.id.tv_positions);
+            mJobAppliedAdapterHolder.tv_positions_number = convertView.findViewById(R.id.tv_positions_number);
+            mJobAppliedAdapterHolder.img_status_icon = convertView.findViewById(R.id.img_status_icon);
+            mJobAppliedAdapterHolder.img_job_company_logo = convertView.findViewById(R.id.img_job_company_logo);
+            mJobAppliedAdapterHolder.rl_relative_layout = convertView.findViewById(R.id.rl_relative_layout);
             // mJobAppliedAdapterHolder.mAdView = (NativeExpressAdView) convertView.findViewById(R.id.adView);
 
-            mJobAppliedAdapterHolder.ll_layout = (LinearLayout) convertView.findViewById(R.id.ll_layout);
-            mJobAppliedAdapterHolder.radio_button_hired = (RadioButton) convertView.findViewById(R.id.radio_button_hired);
-            mJobAppliedAdapterHolder.radio_button_not_hired = (RadioButton) convertView.findViewById(R.id.radio_button_not_hired);
-            mJobAppliedAdapterHolder.btn_update = (Button) convertView.findViewById(R.id.btn_update);
+            mJobAppliedAdapterHolder.ll_layout = convertView.findViewById(R.id.ll_layout);
+            mJobAppliedAdapterHolder.radio_button_hired = convertView.findViewById(R.id.radio_button_hired);
+            mJobAppliedAdapterHolder.radio_button_not_hired = convertView.findViewById(R.id.radio_button_not_hired);
+            mJobAppliedAdapterHolder.btn_update = convertView.findViewById(R.id.btn_update);
 
             mJobAppliedAdapterHolder.txt_job_name.setTypeface(typefaceLatoRegular);
             mJobAppliedAdapterHolder.tv_company_name.setTypeface(typefaceLatoRegular);
@@ -98,9 +98,9 @@ public class JobsAppliedAdapter extends BaseAdapter implements IAsyncCaller {
         MyAppliedJobsModel mMyAppliedJobsModel = getItem(position);
 
 
-        mJobAppliedAdapterHolder.txt_job_name.setText(Utility.capitalizeFirstLetter(mMyAppliedJobsModel.getRole()) + "@" + mMyAppliedJobsModel.getCompany());
+        mJobAppliedAdapterHolder.txt_job_name.setText(Utility.capitalizeFirstLetter(mMyAppliedJobsModel.getTitle()) + "@" + mMyAppliedJobsModel.getCompany());
         mJobAppliedAdapterHolder.tv_company_name.setText(Utility.capitalizeFirstLetter(mMyAppliedJobsModel.getCompany()));
-        mJobAppliedAdapterHolder.tv_positions_number.setText(mMyAppliedJobsModel.getPosition());
+        mJobAppliedAdapterHolder.tv_positions_number.setText(mMyAppliedJobsModel.getPositions());
 
         if (mMyAppliedJobsModel.ismHiredLayout()) {
             mJobAppliedAdapterHolder.ll_layout.setVisibility(View.VISIBLE);
@@ -110,11 +110,11 @@ public class JobsAppliedAdapter extends BaseAdapter implements IAsyncCaller {
             mJobAppliedAdapterHolder.rl_relative_layout.setVisibility(View.VISIBLE);
         }
 
-        if (!Utility.isValueNullOrEmpty(mMyAppliedJobsModel.getLogo()))
+        if (!Utility.isValueNullOrEmpty(mMyAppliedJobsModel.getCompany_logo()))
             Utility.universalImageLoaderPicLoading(mJobAppliedAdapterHolder.img_job_company_logo,
-                    mMyAppliedJobsModel.getLogo(), null, R.drawable.xappie_place_holder);
+                    mMyAppliedJobsModel.getCompany_logo(), null, R.drawable.xappie_place_holder);
 
-        if (mMyAppliedJobsModel.getIsHired().equalsIgnoreCase("0")) {
+        if (mMyAppliedJobsModel.getStatus().equalsIgnoreCase("2")) {
             mJobAppliedAdapterHolder.img_status_icon.setVisibility(View.GONE);
         } else {
             mJobAppliedAdapterHolder.img_status_icon.setVisibility(View.VISIBLE);
@@ -151,9 +151,9 @@ public class JobsAppliedAdapter extends BaseAdapter implements IAsyncCaller {
             public void onClick(View view) {
                 int position = view.getId();
                 if (finalMJobAppliedAdapterHolder.radio_button_hired.isChecked()) {
-                    updateHiredPosition("1", mMyAppliedJobsModelsList.get(position).getId());
-                } else if (finalMJobAppliedAdapterHolder.radio_button_not_hired.isChecked()) {
                     updateHiredPosition("2", mMyAppliedJobsModelsList.get(position).getId());
+                } else if (finalMJobAppliedAdapterHolder.radio_button_not_hired.isChecked()) {
+                    updateHiredPosition("3", mMyAppliedJobsModelsList.get(position).getId());
                 } else {
                     Utility.showToastMessage(mContext, "Please select one of the radio button");
                 }
@@ -205,12 +205,12 @@ public class JobsAppliedAdapter extends BaseAdapter implements IAsyncCaller {
     private void updateHiredPosition(String status, String id) {
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-        paramMap.put("status", status);
+        // paramMap.put("status", status);
         MyJobsAppliedStatusParser mMyJobsAppliedStatusParser = new MyJobsAppliedStatusParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mContext, Utility.getResourcesString(mContext,
                 R.string.please_wait), true,
-                APIConstants.MY_APPLIED_JOBS_UPDATE_JOB_STATUS + id, paramMap,
-                APIConstants.REQUEST_TYPE.POST, this, mMyJobsAppliedStatusParser);
+                APIConstants.APPLY_JOB + id + "/" + status, paramMap,
+                APIConstants.REQUEST_TYPE.GET, this, mMyJobsAppliedStatusParser);
         Utility.execute(serverIntractorAsync);
     }
 

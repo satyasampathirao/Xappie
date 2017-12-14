@@ -112,7 +112,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        et_cover_letter =  rootView.findViewById(R.id.edt_cover_letter);
+        et_cover_letter = rootView.findViewById(R.id.edt_cover_letter);
         edt_upload_resume = rootView.findViewById(R.id.edt_upload_resume);
         ll_upload_resume = rootView.findViewById(R.id.ll_upload_resume);
 
@@ -182,7 +182,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(getActivity(),
                 Utility.getResourcesString(getActivity(),
                         R.string.please_wait), true,
-                APIConstants.APPLY_JOB + id,
+                APIConstants.APPLY_JOB + id + "/1",
                 paramMap,
                 APIConstants.REQUEST_TYPE.POST,
                 this, applyJobsParser);
@@ -197,7 +197,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(getActivity(),
                 Utility.getResourcesString(getActivity(),
                         R.string.please_wait), true,
-                APIConstants.APPLY_JOB + id,
+                APIConstants.APPLY_JOB + id + "/1",
                 paramMap,
                 APIConstants.REQUEST_TYPE.POST,
                 this, applyJobsParser);

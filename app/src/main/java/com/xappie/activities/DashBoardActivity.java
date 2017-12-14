@@ -35,6 +35,7 @@ import com.xappie.customviews.FilePath;
 import com.xappie.designes.MaterialDialog;
 import com.xappie.fragments.AccountSettingFragment;
 import com.xappie.fragments.AddNewEventFragment;
+import com.xappie.fragments.ApplyJobsFragment;
 import com.xappie.fragments.ClassifiedsAddFragment;
 import com.xappie.fragments.ClassifiedsFragment;
 import com.xappie.fragments.CountriesFragment;
@@ -382,6 +383,12 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 Uri selectedImageUri = data.getData();
                 String path = FilePath.getPath(this, selectedImageUri);
                 PostJobFragment.getInstance().updateFile(path);
+            }
+        } else if (requestCode == Constants.FROM_FILE_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri selectedImageUri = data.getData();
+                String path = FilePath.getPath(this, selectedImageUri);
+                ApplyJobsFragment.getInstance().updateFile(path);
             }
         }
     }

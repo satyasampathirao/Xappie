@@ -60,10 +60,30 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
     private StateModel stateModel;
     private JobsListModel jobsListModel;
 
+    private String mFilterCategory = "";
+    private String mFilterCity = "";
+    private String mFilterCompany = "";
+    private String mFindJobsFrom = "";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if (bundle.containsKey(Constants.FILTER_CATEGORY)) {
+                mFilterCategory = bundle.getString(Constants.FILTER_CATEGORY);
+            }
+            if (bundle.containsKey(Constants.FILTER_CITY)) {
+                mFilterCity = bundle.getString(Constants.FILTER_CITY);
+            }
+            if (bundle.containsKey(Constants.FILTER_SEARCH)) {
+                mFilterCompany = bundle.getString(Constants.FILTER_SEARCH);
+            }
+            if (bundle.containsKey(Constants.FILTER_FROM)) {
+                mFindJobsFrom = bundle.getString(Constants.FILTER_FROM);
+            }
+        }
     }
 
     @Override
@@ -116,6 +136,10 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
             linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
             linkedHashMap.put("city", stateModel.getId());
+
+            linkedHashMap.put("company", mFilterCompany);
+            linkedHashMap.put("category", mFilterCategory);
+
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             JobsListParser jobsListParser = new JobsListParser();
