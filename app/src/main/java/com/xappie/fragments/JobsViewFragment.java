@@ -70,18 +70,14 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_company_name;
     @BindView(R.id.tv_company_details)
     TextView tv_company_details;
-    @BindView(R.id.tv_eligibility)
-    TextView tv_eligibility;
-    @BindView(R.id.tv_eligibility_details)
-    TextView tv_eligibility_details;
-    @BindView(R.id.tv_experience)
-    TextView tv_experience;
-    @BindView(R.id.tv_experience_details)
-    TextView tv_experience_details;
     @BindView(R.id.tv_job_description)
     TextView tv_job_description;
     @BindView(R.id.tv_job_description_details)
     TextView tv_job_description_details;
+    @BindView(R.id.tv_job_address)
+    TextView tv_job_address;
+    @BindView(R.id.tv_job_address_details)
+    TextView tv_job_address_details;
     @BindView(R.id.btn_submit_resume)
     Button btn_submit_resume;
 
@@ -188,14 +184,13 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_eligibility.setTypeface(mTypefaceOpenSansBold);
+
         tv_all_over.setTypeface(mTypefaceOpenSansRegular);
         tv_company_details.setTypeface(mTypefaceOpenSansRegular);
         tv_company_name.setTypeface(mTypefaceOpenSansBold);
         tv_date.setTypeface(mTypefaceOpenSansRegular);
-        tv_eligibility_details.setTypeface(mTypefaceOpenSansRegular);
-        tv_experience.setTypeface(mTypefaceOpenSansBold);
-        tv_experience_details.setTypeface(mTypefaceOpenSansRegular);
+        tv_job_address.setTypeface(mTypefaceOpenSansBold);
+        tv_job_address_details.setTypeface(mTypefaceOpenSansRegular);
         tv_job_description.setTypeface(mTypefaceOpenSansBold);
         tv_job_description_details.setTypeface(mTypefaceOpenSansRegular);
         tv_job_role.setTypeface(mTypefaceOpenSansRegular);
@@ -274,7 +269,7 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
         }
 
         if (!Utility.isValueNullOrEmpty(jobsModel.getRecordedDate())) {
-            tv_date.setText(jobsModel.getRecordedDate());
+            tv_date.setText(Utility.readDateFormat(jobsModel.getRecordedDate().toUpperCase()));
         } else {
             tv_date.setVisibility(View.GONE);
         }
@@ -294,6 +289,15 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
             tv_job_description_details.setVisibility(View.GONE);
         }
 
+        if (!Utility.isValueNullOrEmpty(jobsModel.getAddress()))
+        {
+            tv_job_address_details.setText(jobsModel.getAddress());
+        }
+        else {
+            tv_job_address_details.setVisibility(View.GONE);
+            tv_job_address.setVisibility(View.GONE);
+        }
+
         if (!Utility.isValueNullOrEmpty(jobsModel.getCompany_logo())) {
             Utility.universalImageLoaderPicLoading(iv_logo,
                     jobsModel.getCompany_logo(), null, R.drawable.xappie_place_holder);
@@ -302,10 +306,7 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
                     "", null, R.drawable.xappie_place_holder);
         }
 
-        tv_experience_details.setVisibility(View.GONE);
-        tv_eligibility_details.setVisibility(View.GONE);
-        tv_eligibility.setVisibility(View.GONE);
-        tv_experience.setVisibility(View.GONE);
+
 
         if (jobsModel.getIsResume().equalsIgnoreCase("1")) {
             btn_submit_resume.setText(Utility.getResourcesString(getActivity(), R.string.submit_resume));

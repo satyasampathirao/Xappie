@@ -280,4 +280,6 @@
     <string name="call">CALL</string>
     <string name="web_icon">&#xf0ac;</string>
     <string name="no_classifieds_found">No Classifieds Found</string>
+    <string name="description_qualification">Description / Qualification</string>
+
 </resources>

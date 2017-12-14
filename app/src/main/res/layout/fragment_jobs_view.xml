@@ -47,7 +47,7 @@
                 android:layout_marginEnd="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_20dp"
                 android:layout_marginTop="@dimen/_8dp"
-                android:text="Lorem ipsum is simply dummy text of the printing and typesetting industry"
+                android:text=""
                 android:textColor="@color/text_upload_color"
                 android:textSize="@dimen/_14sp" />
 
@@ -162,7 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5dp"
-                    android:text="Stipendiary Cadet Trainee (SCT)"
+                    android:text=""
                     android:textSize="@dimen/_12sp" />
 
                 <TextView
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
                     android:alpha=".8"
-                    android:text="Company Name"
+                    android:text="@string/company_name"
                     android:textColor="@color/text_upload_color"
                     android:textSize="@dimen/_14sp" />
 
@@ -180,44 +180,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5dp"
-                    android:text="Ap State Level Police Recruitment Board"
+                    android:text=""
                     android:textSize="@dimen/_12sp" />
 
-                <TextView
-                    android:id="@+id/tv_eligibility"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:alpha=".8"
-                    android:text="Eligibility"
-                    android:textColor="@color/text_upload_color"
-                    android:textSize="@dimen/_14sp" />
 
-                <TextView
-                    android:id="@+id/tv_eligibility_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="Intermediate or its equivalent Examination recognized By The State government"
-                    android:textSize="@dimen/_12sp" />
-
-                <TextView
-                    android:id="@+id/tv_experience"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:alpha=".8"
-                    android:text="Experience"
-                    android:textColor="@color/text_upload_color"
-                    android:textSize="@dimen/_14sp" />
-
-                <TextView
-                    android:id="@+id/tv_experience_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="freshers"
-                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/tv_job_description"
@@ -225,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
                     android:alpha=".8"
-                    android:text="Job Description"
+                    android:text="@string/description_qualification"
                     android:textColor="@color/text_upload_color"
                     android:textSize="@dimen/_14sp" />
 
@@ -235,9 +201,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:text="State Level Police Recruitment Board,Andhra pradesh invites Application for filling up the following posts "
+                    android:text=""
                     android:textSize="@dimen/_12sp" />
 
+                <TextView
+                    android:id="@+id/tv_job_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:alpha=".8"
+                    android:text="@string/address"
+                    android:textColor="@color/text_upload_color"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:id="@+id/tv_job_address_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text=""
+                    android:textSize="@dimen/_12sp" />
 
             </LinearLayout>
 

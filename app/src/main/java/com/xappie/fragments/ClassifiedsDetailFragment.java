@@ -138,6 +138,19 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     @BindView(R.id.tv_web_site_text)
     TextView tv_web_site_text;
 
+    @BindView(R.id.ll_price)
+    LinearLayout ll_price;
+    @BindView(R.id.ll_Name)
+    LinearLayout ll_name;
+    @BindView(R.id.ll_phone_field)
+    LinearLayout ll_phone_field;
+    @BindView(R.id.ll_email_field)
+    LinearLayout ll_email_field;
+    @BindView(R.id.ll_website)
+    LinearLayout ll_website;
+    @BindView(R.id.ll_address)
+    LinearLayout ll_address;
+
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
@@ -329,16 +342,77 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
 
     private void setClasifiedsData() {
 
-        tv_name.setText(classifiedsModel.getName());
-        tv_date.setText(Utility.readDateFormat(classifiedsModel.getRecordedDate()));
-        tv_post_title.setText(classifiedsModel.getTitle());
-        tv_price.setText(classifiedsModel.getPrice());
-        tv_topic_details.setText(classifiedsModel.getDescription());
-        tv_address.setText(classifiedsModel.getAddress());
-        tv_person_name.setText(classifiedsModel.getName());
-        tv_email.setText(classifiedsModel.getEmail());
-        tv_phone.setText(classifiedsModel.getMobile());
-        tv_website.setText(classifiedsModel.getWebsite());
+        if (!Utility.isValueNullOrEmpty(classifiedsModel.getName()))
+        {
+            tv_name.setText(classifiedsModel.getName());
+        }
+        else {
+            tv_name.setVisibility(View.GONE);
+        }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getRecordedDate()))
+       {
+           tv_date.setText(Utility.readDateFormat(classifiedsModel.getRecordedDate()));
+       }
+       else {
+            tv_date.setVisibility(View.GONE);
+       }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getTitle()))
+       {
+           tv_post_title.setText(classifiedsModel.getTitle());
+       }
+        else {
+            tv_post_title.setVisibility(View.GONE);
+       }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getPrice()))
+       {
+           tv_price.setText(classifiedsModel.getPrice());
+       }
+       else {
+            ll_price.setVisibility(View.GONE);
+       }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getDescription()))
+       {
+           tv_topic_details.setText(classifiedsModel.getDescription());
+       }
+       else {
+            tv_topic_details.setVisibility(View.GONE);
+       }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getAddress()))
+       {
+           tv_address.setText(classifiedsModel.getAddress());
+       }
+       else {
+            ll_address.setVisibility(View.GONE);
+       }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getName()))
+       {
+           tv_person_name.setText(classifiedsModel.getName());
+       }
+       else {
+            ll_name.setVisibility(View.GONE);
+       }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getEmail()))
+       {
+           tv_email.setText(classifiedsModel.getEmail());
+       }
+       else {
+            ll_email_field.setVisibility(View.GONE);
+       }
+       if (!Utility.isValueNullOrEmpty(classifiedsModel.getMobile()))
+       {
+           tv_phone.setText(classifiedsModel.getMobile());
+       }
+       else {
+            ll_phone_field.setVisibility(View.GONE);
+       }
+        if (!Utility.isValueNullOrEmpty(classifiedsModel.getWebsite()))
+        {
+            tv_website.setText(classifiedsModel.getWebsite());
+        }
+        else {
+            ll_website.setVisibility(View.GONE);
+        }
+
         if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(img_uploaded,
                     classifiedsModel.getImage(), null, R.drawable.xappie_place_);

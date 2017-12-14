@@ -98,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/ll_price"
                 android:layout_marginBottom="@dimen/_1dp"
                 android:orientation="horizontal">
 
@@ -142,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/ll_Name"
                 android:layout_marginBottom="@dimen/_1dp"
                 android:orientation="horizontal">
 
@@ -186,6 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/ll_phone_field"
                 android:layout_marginBottom="@dimen/_1dp"
                 android:orientation="horizontal">
 
@@ -230,6 +233,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/ll_email_field"
                 android:layout_marginBottom="@dimen/_1dp"
                 android:orientation="horizontal">
 
@@ -275,6 +279,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/ll_website"
                 android:layout_marginBottom="@dimen/_1dp"
                 android:orientation="horizontal">
 
@@ -319,6 +324,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:id="@+id/ll_address"
                 android:layout_marginBottom="@dimen/_3dp"
                 android:orientation="horizontal">
 

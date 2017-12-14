@@ -25,6 +25,7 @@ public class JobsModel extends Model implements Serializable {
     private String company;
     private String description;
     private String isResume;
+    private String address;
 
     public String getUrl() {
         return url;
@@ -168,5 +169,13 @@ public class JobsModel extends Model implements Serializable {
 
     public void setIsResume(String isResume) {
         this.isResume = isResume;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
