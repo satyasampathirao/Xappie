@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/_10dp"
-            android:text="@string/arrow_back_icon"
+            android:drawableStart="@drawable/back_arrow"
             android:textColor="@color/color_white"
             android:textSize="@dimen/_22sp" />
 

@@ -75,6 +75,7 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
         tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_languages_menu_icon.setVisibility(View.INVISIBLE);
+        tv_languages_arrow_back_icon.setVisibility(View.GONE);
         tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);
 
         getLanguagesData();
