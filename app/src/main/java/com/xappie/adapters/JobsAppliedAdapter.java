@@ -205,12 +205,13 @@ public class JobsAppliedAdapter extends BaseAdapter implements IAsyncCaller {
     private void updateHiredPosition(String status, String id) {
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-        // paramMap.put("status", status);
+        paramMap.put("job_id", id);
+        paramMap.put("status", status);
         MyJobsAppliedStatusParser mMyJobsAppliedStatusParser = new MyJobsAppliedStatusParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mContext, Utility.getResourcesString(mContext,
                 R.string.please_wait), true,
-                APIConstants.APPLY_JOB + id + "/" + status, paramMap,
-                APIConstants.REQUEST_TYPE.GET, this, mMyJobsAppliedStatusParser);
+                APIConstants.APPLY_JOB, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mMyJobsAppliedStatusParser);
         Utility.execute(serverIntractorAsync);
     }
 

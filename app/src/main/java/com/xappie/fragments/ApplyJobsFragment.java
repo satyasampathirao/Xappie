@@ -178,11 +178,13 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
         paramMap.put("message", et_cover_letter.getText().toString());
         paramMap.put("file", Utility.convertFileToByteArray(yourFile));
         paramMap.put("file_name", yourFile.getName());
+        paramMap.put("job_id", id);
+        paramMap.put("status", "1");
         ApplyJobsParser applyJobsParser = new ApplyJobsParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(getActivity(),
                 Utility.getResourcesString(getActivity(),
                         R.string.please_wait), true,
-                APIConstants.APPLY_JOB + id + "/1",
+                APIConstants.APPLY_JOB,
                 paramMap,
                 APIConstants.REQUEST_TYPE.POST,
                 this, applyJobsParser);
@@ -193,11 +195,13 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
         paramMap.put("message", et_cover_letter.getText().toString());
+        paramMap.put("job_id", id);
+        paramMap.put("status", "1");
         ApplyJobsParser applyJobsParser = new ApplyJobsParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(getActivity(),
                 Utility.getResourcesString(getActivity(),
                         R.string.please_wait), true,
-                APIConstants.APPLY_JOB + id + "/1",
+                APIConstants.APPLY_JOB,
                 paramMap,
                 APIConstants.REQUEST_TYPE.POST,
                 this, applyJobsParser);

@@ -66,6 +66,6 @@ public class APIConstants {
     public static String MY_APPLIED_JOBS_URL = BASE_URL + "get_applied_jobs";
     public static String MY_APPLIED_JOBS_UPDATE_JOB_STATUS = BASE_URL + "update_status";
     public static String DELETE_JOB = BASE_URL + "delete_job/";
-    public static String APPLY_JOB = BASE_URL + "apply_job/";
+    public static String APPLY_JOB = BASE_URL + "apply_job";
     public static String UPDATE_JOB = BASE_URL + "update_job";
 }
