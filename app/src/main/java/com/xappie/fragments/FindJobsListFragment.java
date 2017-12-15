@@ -62,6 +62,8 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
 
     private String mFilterCategory = "";
     private String mFilterCity = "";
+    private String mFilterState = "";
+    private String mFilterCountry = "";
     private String mFilterCompany = "";
     private String mFindJobsFrom = "";
 
@@ -76,6 +78,12 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
             }
             if (bundle.containsKey(Constants.FILTER_CITY)) {
                 mFilterCity = bundle.getString(Constants.FILTER_CITY);
+            }
+            if (bundle.containsKey(Constants.FILTER_STATE)) {
+                mFilterState = bundle.getString(Constants.FILTER_STATE);
+            }
+            if (bundle.containsKey(Constants.FILTER_COUNTRY)) {
+                mFilterCountry = bundle.getString(Constants.FILTER_COUNTRY);
             }
             if (bundle.containsKey(Constants.FILTER_SEARCH)) {
                 mFilterCompany = bundle.getString(Constants.FILTER_SEARCH);
@@ -133,10 +141,21 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             //linkedHashMap.put("type", "Public");
-            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
-            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
-            linkedHashMap.put("city", stateModel.getId());
-
+            if (Utility.isValueNullOrEmpty(mFilterCountry)) {
+                linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            } else {
+                linkedHashMap.put("country", mFilterCountry);
+            }
+            if (Utility.isValueNullOrEmpty(mFilterState)) {
+                linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            } else {
+                linkedHashMap.put("state", mFilterState);
+            }
+            if (Utility.isValueNullOrEmpty(mFilterState)) {
+                linkedHashMap.put("city", stateModel.getId());
+            } else {
+                linkedHashMap.put("city", mFilterCity);
+            }
             linkedHashMap.put("company", mFilterCompany);
             linkedHashMap.put("category", mFilterCategory);
 

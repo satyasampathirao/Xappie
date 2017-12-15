@@ -96,4 +96,6 @@ public class Constants {
     public static final String FILTER = "FILTER";
     public static final String FILTER_SEARCH = "FILTER_SEARCH";
     public static final String FILTER_CITY = "FILTER_CITY";
+    public static final String FILTER_STATE = "FILTER_STATE";
+    public static final String FILTER_COUNTRY = "FILTER_COUNTRY";
 }

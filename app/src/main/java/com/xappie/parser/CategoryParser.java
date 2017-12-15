@@ -27,10 +27,12 @@ public class CategoryParser implements Parser<Model> {
             for (int i = 0; i < mJSONArray.length(); i++) {
                 JSONObject jsonObject = mJSONArray.optJSONObject(i);
                 CategoryModel categoryModelItem = new CategoryModel();
+                SpinnerModel spinnerModel = new SpinnerModel();
                 categoryModelItem.setName(jsonObject.optString("name"));
                 categoryModelItem.setId(jsonObject.optString("id"));
                 categoryModels.add(categoryModelItem);
-                categorysSpinnerModels.add(new SpinnerModel(jsonObject.optString("name")));
+                spinnerModel.setTitle(jsonObject.optString("name"));
+                categorysSpinnerModels.add(spinnerModel);
             }
             mCategoryModel.setCategoryModels(categoryModels);
             mCategoryModel.setmCategorySpinnerModels(categorysSpinnerModels);

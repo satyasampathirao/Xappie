@@ -6,16 +6,16 @@ import java.util.ArrayList;
  * Created by Shankar on 8/24/2017.
  */
 
-public class StatesListModel extends Model {
-    private ArrayList<StateModel> stateModels;
+public class CitiesNewListModel extends Model {
+    private ArrayList<CityModel> cityModels;
     private ArrayList<SpinnerModel> spinnerModels;
 
-    public ArrayList<StateModel> getStateModels() {
-        return stateModels;
+    public ArrayList<CityModel> getCityModels() {
+        return cityModels;
     }
 
-    public void setStateModels(ArrayList<StateModel> stateModels) {
-        this.stateModels = stateModels;
+    public void setCityModels(ArrayList<CityModel> cityModels) {
+        this.cityModels = cityModels;
     }
 
     public ArrayList<SpinnerModel> getSpinnerModels() {

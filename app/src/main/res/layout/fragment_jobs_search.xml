@@ -6,12 +6,66 @@
     android:padding="@dimen/_5dp">
 
     <EditText
-        android:id="@+id/et_select_job_category"
+        android:id="@+id/et_country"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_55dp"
         android:layout_marginEnd="@dimen/_20dp"
         android:layout_marginStart="@dimen/_20dp"
         android:layout_marginTop="@dimen/_30dp"
+        android:background="@drawable/white_corners"
+        android:drawableEnd="@drawable/drop_down_arrow"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/select_country"
+        android:paddingEnd="@dimen/_10dp"
+        android:paddingLeft="@dimen/_10dp"
+        android:paddingRight="@dimen/_10dp"
+        android:paddingStart="@dimen/_10dp"
+        android:textSize="@dimen/_15sp" />
+
+    <EditText
+        android:id="@+id/et_state"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_55dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:background="@drawable/white_corners"
+        android:drawableEnd="@drawable/drop_down_arrow"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/select_state"
+        android:paddingEnd="@dimen/_10dp"
+        android:paddingLeft="@dimen/_10dp"
+        android:paddingRight="@dimen/_10dp"
+        android:paddingStart="@dimen/_10dp"
+        android:textSize="@dimen/_15sp" />
+
+    <EditText
+        android:id="@+id/et_city"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_55dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:background="@drawable/white_corners"
+        android:drawableEnd="@drawable/drop_down_arrow"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/select_city"
+        android:paddingEnd="@dimen/_10dp"
+        android:paddingLeft="@dimen/_10dp"
+        android:paddingRight="@dimen/_10dp"
+        android:paddingStart="@dimen/_10dp"
+        android:textSize="@dimen/_15sp" />
+
+    <EditText
+        android:id="@+id/et_select_job_category"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_55dp"
+        android:layout_marginEnd="@dimen/_20dp"
+        android:layout_marginStart="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:background="@drawable/white_corners"
         android:drawableEnd="@drawable/drop_down_arrow"
         android:focusable="false"
@@ -22,6 +76,7 @@
         android:paddingRight="@dimen/_10dp"
         android:paddingStart="@dimen/_10dp"
         android:textSize="@dimen/_15sp" />
+
 
     <EditText
         android:id="@+id/edt_company_name"
@@ -39,7 +94,8 @@
         android:paddingLeft="@dimen/_10dp"
         android:paddingRight="@dimen/_10dp"
         android:paddingStart="@dimen/_10dp"
-        android:textSize="@dimen/_15sp" />
+        android:textSize="@dimen/_15sp"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/edt_city_name"

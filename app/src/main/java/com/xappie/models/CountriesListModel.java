@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class CountriesListModel extends Model {
     private ArrayList<CountriesModel> countriesModels;
+    private ArrayList<SpinnerModel> spinnerCountyModels;
 
     public ArrayList<CountriesModel> getCountriesModels() {
         return countriesModels;
@@ -15,5 +16,13 @@ public class CountriesListModel extends Model {
 
     public void setCountriesModels(ArrayList<CountriesModel> countriesModels) {
         this.countriesModels = countriesModels;
+    }
+
+    public ArrayList<SpinnerModel> getSpinnerCountyModels() {
+        return spinnerCountyModels;
+    }
+
+    public void setSpinnerCountyModels(ArrayList<SpinnerModel> spinnerCountyModels) {
+        this.spinnerCountyModels = spinnerCountyModels;
     }
 }
