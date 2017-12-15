@@ -81,6 +81,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     private String mID;
 
     private String mCat_Id;
+    private String mSubId;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
 
@@ -96,6 +97,9 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
 
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mCat_Id = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
+        }
+        if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_SUB_CATEGORY_ID)) {
+            mSubId = getArguments().getString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID);
         }
 
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_ID)) {
@@ -191,6 +195,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
                 paramMap.put("id", mID);
                 paramMap.put("cat_id", classifiedsModel.getCat_id());
+                paramMap.put("sub_cat_id", mSubId);
                 paramMap.put("title", edt_title.getText().toString());
                 paramMap.put("description", edt_description.getText().toString());
                 paramMap.put("price", edt_cost.getText().toString());
@@ -215,6 +220,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                 LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
                 paramMap.put("cat_id", mCat_Id);
+                paramMap.put("sub_cat_id", mSubId);
                 paramMap.put("title", edt_title.getText().toString());
                 paramMap.put("description", edt_description.getText().toString());
                 paramMap.put("price", edt_cost.getText().toString());
