@@ -210,7 +210,7 @@ public class SubClassifiedsFragment  extends Fragment implements IAsyncCaller {
     }
 
     private void setClasifiedsData() {
-        SubClassifiedsAdapter classifiedsAdapter = new SubClassifiedsAdapter(mParent, classifiedsListModel.getClassifiedsModels());
+        SubClassifiedsAdapter classifiedsAdapter = new SubClassifiedsAdapter(mParent, classifiedsListModel.getClassifiedsModels(), mId);
         list_view.setAdapter(classifiedsAdapter);
     }
 }

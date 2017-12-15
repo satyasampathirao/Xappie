@@ -59,6 +59,7 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
     private String mId;
+    private String mSubId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
         mParent = (DashBoardActivity) getActivity();
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mId = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
+            mSubId = getArguments().getString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID);
         }
     }
 
@@ -117,6 +119,7 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
             linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
             linkedHashMap.put("cat_id", mId);
+            linkedHashMap.put("sub_cat_id", mSubId);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             ClassifiedsParser classifiedsParser = new ClassifiedsParser();

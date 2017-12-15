@@ -29,11 +29,13 @@ public class SubClassifiedsAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private ArrayList<ClassifiedsModel> classifiedsModels;
     private Typeface mOpenSansBoldTypeface;
+    private String mID;
 
-    public SubClassifiedsAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ClassifiedsModel> classifiedsModels) {
+    public SubClassifiedsAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ClassifiedsModel> classifiedsModels, String mID) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
         this.classifiedsModels = classifiedsModels;
+        this.mID = mID;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
     }
 
@@ -77,7 +79,8 @@ public class SubClassifiedsAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int position = v.getId();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, classifiedsModels.get(position).getId());
+                bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mID);
+                bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, classifiedsModels.get(position).getId());
                 Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mDashBoardActivity);
             }
         });

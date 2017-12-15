@@ -65,6 +65,7 @@ public class ClassifiedsTabFragment extends Fragment {
     private Typeface mTypefaceFontAwesomeWebFont;
 
     private String mId;
+    private String mSubId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class ClassifiedsTabFragment extends Fragment {
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mId = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
+            mSubId = getArguments().getString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID);
         }
     }
 
@@ -131,6 +133,7 @@ public class ClassifiedsTabFragment extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
+        bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, mSubId);
         Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, bundle, mParent);
 
     }
@@ -142,6 +145,7 @@ public class ClassifiedsTabFragment extends Fragment {
     void navigateAllEvents() {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
+        bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, mSubId);
         Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, bundle, mParent);
     }
 
@@ -157,6 +161,7 @@ public class ClassifiedsTabFragment extends Fragment {
         } else {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
+            bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, mSubId);
             Utility.navigateAllEventsFragment(new ClassifiedsAddFragment(), ClassifiedsAddFragment.TAG, bundle, mParent);
         }
     }
@@ -173,6 +178,7 @@ public class ClassifiedsTabFragment extends Fragment {
         } else {
             Bundle bundle = new Bundle();
             bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
+            bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, mSubId);
             Utility.navigateAllEventsFragment(new MyClassifiedsFragment(), MyClassifiedsFragment.TAG, null, mParent);
         }
     }

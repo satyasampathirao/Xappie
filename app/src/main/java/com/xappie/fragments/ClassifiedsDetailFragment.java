@@ -4,9 +4,11 @@ package com.xappie.fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -14,6 +16,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,27 +25,26 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.adapters.ClassifiedsDetailViewPagerAdapter;
+import com.xappie.adapters.HomeViewPagerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.models.ClassifiedsListModel;
-import com.xappie.models.ClassifiedsModel;
+import com.xappie.models.ClassifiedsDetailModel;
 import com.xappie.models.Model;
 import com.xappie.models.StateModel;
-import com.xappie.models.StatesListModel;
 import com.xappie.parser.ClassifiedsDetailParser;
-import com.xappie.parser.ClassifiedsParser;
 import com.xappie.parser.StatesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,8 +92,10 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     TextView tv_topic_details;
     @BindView(R.id.tv_price)
     TextView tv_price;
-    @BindView(R.id.img_uploaded)
-    ImageView img_uploaded;
+    @BindView(R.id.card_pager)
+    ViewPager card_pager;
+    @BindView(R.id.ll_dots)
+    LinearLayout ll_dots;
     @BindView(R.id.tv_price_text)
     TextView tv_price_text;
     @BindView(R.id.tv_name_text)
@@ -154,9 +159,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
-    private ClassifiedsListModel classifiedsListModel;
-    private StatesListModel mStatesListModel;
-    private ClassifiedsModel classifiedsModel;
+    private ClassifiedsDetailModel classifiedsDetailModel;
     private StateModel stateModel;
     private String mId;
 
@@ -196,7 +199,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         setTypeFace();
         stateModel = new StateModel();
         stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
-        getCitiesList();
+        getClassifiedsData("" + 1);
     }
 
     private void getCitiesList() {
@@ -257,6 +260,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         tv_web_site_text.setTypeface(mTypefaceOpenSansRegular);
         tv_website.setTypeface(Utility.getOpenSansBold(mParent));
     }
+
     @OnClick({R.id.tv_notification_arrow_back_icon,
             R.id.tv_notification_menu_icon})
     void backToTheHome() {
@@ -264,24 +268,22 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     }
 
     @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification()
-    {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(),NotificationsFragment.TAG,null,mParent);
+    public void navigateNotification() {
+        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage()
-    {
-        Utility.navigateDashBoardFragment(new LanguageFragment(),LanguageFragment.TAG,null,mParent);
+    public void navigateLanguage() {
+        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
     }
+
     @OnClick(R.id.tv_location_icon)
-    public void navigateLocation()
-    {
-        Utility.navigateDashBoardFragment(new CountriesFragment(),CountriesFragment.TAG,null,mParent);
+    public void navigateLocation() {
+        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
     @OnClick(R.id.ll_phone)
-    public void onCall()
-    {
+    public void onCall() {
         int permissionCheck = ContextCompat.checkSelfPermission(mParent, Manifest.permission.CALL_PHONE);
 
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
@@ -291,7 +293,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
                     Integer.parseInt("123"));
         } else {
             Intent intent = new Intent(Intent.ACTION_CALL);
-            intent.setData(Uri.parse("tel:" + classifiedsModel.getMobile()));
+            intent.setData(Uri.parse("tel:" + classifiedsDetailModel.getMobile()));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
@@ -309,7 +311,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
             ClassifiedsDetailParser classifiedsParser = new ClassifiedsDetailParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
-                    APIConstants.GET_CLASSIFIED_DETAILS + "/" + mId , linkedHashMap,
+                    APIConstants.GET_CLASSIFIED_DETAILS + "/" + mId, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, classifiedsParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
@@ -321,10 +323,10 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     @Override
     public void onComplete(Model model) {
         if (model != null) {
-            if (model instanceof ClassifiedsModel) {
-                classifiedsModel = (ClassifiedsModel) model;
+            if (model instanceof ClassifiedsDetailModel) {
+                classifiedsDetailModel = (ClassifiedsDetailModel) model;
                 setClasifiedsData();
-            } else if (model instanceof StatesListModel) {
+            } /*else if (model instanceof StatesListModel) {
                 mStatesListModel = (StatesListModel) model;
                 if (mStatesListModel.getStateModels().size() > 0) {
                     for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
@@ -335,89 +337,69 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
                     }
                     getClassifiedsData("" + 1);
                 }
-            }
+            }*/
 
         }
     }
 
     private void setClasifiedsData() {
 
-        if (!Utility.isValueNullOrEmpty(classifiedsModel.getName()))
-        {
-            tv_name.setText(classifiedsModel.getName());
-        }
-        else {
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getName())) {
+            tv_name.setText(classifiedsDetailModel.getName());
+        } else {
             tv_name.setVisibility(View.GONE);
         }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getRecordedDate()))
-       {
-           tv_date.setText(Utility.readDateFormat(classifiedsModel.getRecordedDate()));
-       }
-       else {
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getRecordedDate())) {
+            tv_date.setText(Utility.readDateFormat(classifiedsDetailModel.getRecordedDate()));
+        } else {
             tv_date.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getTitle()))
-       {
-           tv_post_title.setText(classifiedsModel.getTitle());
-       }
-        else {
-            tv_post_title.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getPrice()))
-       {
-           tv_price.setText(classifiedsModel.getPrice());
-       }
-       else {
-            ll_price.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getDescription()))
-       {
-           tv_topic_details.setText(classifiedsModel.getDescription());
-       }
-       else {
-            tv_topic_details.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getAddress()))
-       {
-           tv_address.setText(classifiedsModel.getAddress());
-       }
-       else {
-            ll_address.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getName()))
-       {
-           tv_person_name.setText(classifiedsModel.getName());
-       }
-       else {
-            ll_name.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getEmail()))
-       {
-           tv_email.setText(classifiedsModel.getEmail());
-       }
-       else {
-            ll_email_field.setVisibility(View.GONE);
-       }
-       if (!Utility.isValueNullOrEmpty(classifiedsModel.getMobile()))
-       {
-           tv_phone.setText(classifiedsModel.getMobile());
-       }
-       else {
-            ll_phone_field.setVisibility(View.GONE);
-       }
-        if (!Utility.isValueNullOrEmpty(classifiedsModel.getWebsite()))
-        {
-            tv_website.setText(classifiedsModel.getWebsite());
         }
-        else {
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getTitle())) {
+            tv_post_title.setText(classifiedsDetailModel.getTitle());
+        } else {
+            tv_post_title.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getPrice())) {
+            tv_price.setText(classifiedsDetailModel.getPrice());
+        } else {
+            ll_price.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getDescription())) {
+            tv_topic_details.setText(classifiedsDetailModel.getDescription());
+        } else {
+            tv_topic_details.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getAddress())) {
+            tv_address.setText(classifiedsDetailModel.getAddress());
+        } else {
+            ll_address.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getName())) {
+            tv_person_name.setText(classifiedsDetailModel.getName());
+        } else {
+            ll_name.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getEmail())) {
+            tv_email.setText(classifiedsDetailModel.getEmail());
+        } else {
+            ll_email_field.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getMobile())) {
+            tv_phone.setText(classifiedsDetailModel.getMobile());
+        } else {
+            ll_phone_field.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getWebsite())) {
+            tv_website.setText(classifiedsDetailModel.getWebsite());
+        } else {
             ll_website.setVisibility(View.GONE);
         }
 
-        if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
-            Utility.universalImageLoaderPicLoading(img_uploaded,
-                    classifiedsModel.getImage(), null, R.drawable.xappie_place_);
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getImage())) {
+            Utility.universalImageLoaderPicLoading(img_person,
+                    classifiedsDetailModel.getImage(), null, R.drawable.xappie_place_);
         } else {
-            Utility.universalImageLoaderPicLoading(img_uploaded,
+            Utility.universalImageLoaderPicLoading(img_person,
                     "", null, R.drawable.xappie_place_);
         }
 
@@ -425,17 +407,60 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
             @Override
             public void onClick(View view) {
                 Intent email = new Intent(Intent.ACTION_SEND);
-                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ classifiedsModel.getEmail()});
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{classifiedsDetailModel.getEmail()});
 
 
-             //need this to prompts email client only
+                //need this to prompts email client only
                 email.setType("message/rfc822");
 
                 startActivity(Intent.createChooser(email, "Choose an Email client :"));
             }
         });
 
+        setViewpagerData();
 
+    }
+
+    int page_position = 0;
+
+    private void setViewpagerData() {
+        card_pager.setAdapter(new ClassifiedsDetailViewPagerAdapter(mParent, classifiedsDetailModel.getImages()));
+
+        addBottomDots(0);
+        final Handler handler = new Handler();
+
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (page_position == classifiedsDetailModel.getImages().size()) {
+                    page_position = 0;
+                } else {
+                    page_position = page_position + 1;
+                }
+                card_pager.setCurrentItem(page_position, true);
+            }
+        };
+
+        new Timer().schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 100, 4000);
+    }
+
+    private void addBottomDots(int currentPage) {
+        TextView[] dots = new TextView[classifiedsDetailModel.getImages().size()];
+        ll_dots.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new TextView(mParent);
+            dots[i].setText(Html.fromHtml("&#8226;"));
+            dots[i].setTextSize(45);
+            dots[i].setTextColor(Color.parseColor("#AD343E"));
+            ll_dots.addView(dots[i]);
+        }
+        if (dots.length > 0)
+            dots[currentPage].setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -453,5 +478,5 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
                 break;
         }
     }
-    }
+}
 
