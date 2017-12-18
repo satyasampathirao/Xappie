@@ -46,9 +46,11 @@ import com.twitter.sdk.android.core.services.AccountService;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.DeviceTokenUpdateModel;
+import com.xappie.models.JobPostingModel;
 import com.xappie.models.LoginModel;
 import com.xappie.models.Model;
-import com.xappie.parser.JobPostingParser;
+import com.xappie.parser.DeviceTokenUpdateParser;
 import com.xappie.parser.LoginParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -178,6 +180,9 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
             FacebookSdk.setIsDebugEnabled(true);
             FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
         }
+
+       /* et_email.setText("santosh@nevexa.com");
+        et_password.setText("nevexa");*/
     }
 
     /**
@@ -418,7 +423,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                 if (mLoginModel.isStatus()) {
                     Utility.showToastMessage(LoginActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
                     Utility.setSharedPrefBooleanData(LoginActivity.this, Constants.IS_LOGIN_COMPLETED, true);
-                    finish();
+
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_FIRST_NAME, mLoginModel.getFirst_name());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_LAST_NAME, mLoginModel.getLast_name());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_DISPLAY_NAME, mLoginModel.getDisplay_name());
@@ -438,6 +443,10 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                 } else {
                     Utility.showToastMessage(LoginActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
                 }
+            } else if (model instanceof DeviceTokenUpdateModel) {
+                Intent signUpIntent = new Intent(this, DashBoardActivity.class);
+                startActivity(signUpIntent);
+                LoginActivity.this.finish();
             }
         }
     }
@@ -451,16 +460,17 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
         paramMap.put("device_type", Constants.DEVICE_TYPE);
+        paramMap.put("device_model", Constants.DEVICE_TYPE);
         paramMap.put("token", Utility.getSharedPrefStringData(LoginActivity.this, Constants.KEY_FCM_TOKEN));
         paramMap.put("latitude", "0.0");
         paramMap.put("longitude", "0.0");
         paramMap.put("city", "");
 
-        JobPostingParser mJobPostingParser = new JobPostingParser();
+        DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
-                R.string.please_wait), true,
+                R.string.please_wait), false,
                 APIConstants.UPDATE_DEVICE, paramMap,
-                APIConstants.REQUEST_TYPE.POST, this, mJobPostingParser);
+                APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
         Utility.execute(serverIntractorAsync);
     }
 }
