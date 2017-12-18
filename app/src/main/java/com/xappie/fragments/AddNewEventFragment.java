@@ -212,13 +212,13 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
                 LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
                 paramMap.put("id", mID);
-                paramMap.put("event_name", edt_name_of_the_event.getText().toString());
+                paramMap.put("name", edt_name_of_the_event.getText().toString());
                 paramMap.put("tag_line", edt_tag_line.getText().toString());
                 paramMap.put("description", edt_description.getText().toString());
                 paramMap.put("cost", edt_cost.getText().toString());
                 paramMap.put("dress_code", edt_dress_code.getText().toString());
-                paramMap.put("start_time", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
-                paramMap.put("end_time", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
+                paramMap.put("starttime", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
+                paramMap.put("endtime", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
                 paramMap.put("location", edt_name_of_the_location.getText().toString());
                 paramMap.put("address", edt_address.getText().toString());
                 paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
@@ -237,13 +237,13 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             } else {
                 LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-                paramMap.put("event_name", edt_name_of_the_event.getText().toString());
+                paramMap.put("name", edt_name_of_the_event.getText().toString());
                 paramMap.put("tag_line", edt_tag_line.getText().toString());
                 paramMap.put("description", edt_description.getText().toString());
                 paramMap.put("cost", edt_cost.getText().toString());
                 paramMap.put("dress_code", edt_dress_code.getText().toString());
-                paramMap.put("start_time", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
-                paramMap.put("end_time", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
+                paramMap.put("starttime", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
+                paramMap.put("endtime", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
                 paramMap.put("location", edt_name_of_the_location.getText().toString());
                 paramMap.put("address", edt_address.getText().toString());
                 paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));

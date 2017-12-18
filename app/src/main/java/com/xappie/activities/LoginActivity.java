@@ -48,6 +48,7 @@ import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.LoginModel;
 import com.xappie.models.Model;
+import com.xappie.parser.JobPostingParser;
 import com.xappie.parser.LoginParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -430,8 +431,9 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.AUTH_TYPE, mAuthType);
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.AUTH_TOKEN, mAuthToken);
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.PASSWORD, et_password.getText().toString());
-                    Intent signUpIntent = new Intent(this, DashBoardActivity.class);
-                    startActivity(signUpIntent);
+                   /* Intent signUpIntent = new Intent(this, DashBoardActivity.class);
+                    startActivity(signUpIntent);*/
+                    updateDeviceData();
                     //Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_CURRENT_DATE, Utility.getDate());
                 } else {
                     Utility.showToastMessage(LoginActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
@@ -443,5 +445,22 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private void updateDeviceData() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("device_type", Constants.DEVICE_TYPE);
+        paramMap.put("token", Utility.getSharedPrefStringData(LoginActivity.this, Constants.KEY_FCM_TOKEN));
+        paramMap.put("latitude", "0.0");
+        paramMap.put("longitude", "0.0");
+        paramMap.put("city", "");
+
+        JobPostingParser mJobPostingParser = new JobPostingParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                R.string.please_wait), true,
+                APIConstants.UPDATE_DEVICE, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mJobPostingParser);
+        Utility.execute(serverIntractorAsync);
     }
 }
