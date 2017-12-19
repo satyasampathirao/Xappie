@@ -20,12 +20,14 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.VideosGridAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.EntertainmentModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
 import com.xappie.models.VideoTypeModel;
 import com.xappie.models.VideoTypesListModel;
 import com.xappie.models.VideosListModel;
+import com.xappie.models.VideosModel;
 import com.xappie.parser.LanguageParser;
 import com.xappie.parser.VideoTypesParser;
 import com.xappie.parser.VideosParser;
@@ -33,6 +35,7 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -73,6 +76,9 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
+    @BindView(R.id.tv_no_data_found)
+    TextView tv_no_data_found;
+
     /**
      * Gallery Actress setup
      */
@@ -87,7 +93,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
     private LanguageListModel mLanguageListModel;
-    private VideosListModel mVideosListModel;
+    private ArrayList<VideosModel> videosModels;
     private VideoTypesListModel mVideoTypesListModel;
 
     private LanguageModel languageModel;
@@ -162,7 +168,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
      * This method is used to set the grid view data
      */
     private void setGridViewData() {
-        videosGridAdapter = new VideosGridAdapter(mParent, mVideosListModel.getVideosModels());
+        videosGridAdapter = new VideosGridAdapter(mParent, videosModels);
         grid_view.setAdapter(videosGridAdapter);
         grid_view.setOnScrollListener(this);
     }
@@ -212,7 +218,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
                     setLanguages();
                     videoTypeModel = null;
-                    videosGridAdapter= null;
+                    videosGridAdapter = null;
                     endScroll = false;
                     getVideoTypes();
                 }
@@ -250,6 +256,8 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
                     videoTypeModel = mVideoTypesListModel.getVideoTypeModels().get(pos);
                     setVideoTypes();
                     endScroll = false;
+                    videosModels = null;
+                    videosGridAdapter = null;
                     getVideosData(languageModel.getId(), "" + 1, videoTypeModel.getId());
                 }
             });
@@ -294,11 +302,35 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
                     setVideoTypes();
                 }
             } else if (model instanceof VideosListModel) {
-                mVideosListModel = (VideosListModel) model;
-                if (mVideosListModel.getVideosModels() != null && mVideosListModel.getVideosModels().size() > 0) {
-                    setGridViewData();
+                VideosListModel mVideosListModel = (VideosListModel) model;
+                if (videosModels == null) {
+                    if (mVideosListModel.getVideosModels() == null) {
+                        tv_no_data_found.setVisibility(View.VISIBLE);
+                        grid_view.setVisibility(View.GONE);
+                    } else {
+                        tv_no_data_found.setVisibility(View.GONE);
+                        grid_view.setVisibility(View.VISIBLE);
+                        if (videosModels == null) {
+                            videosModels = new ArrayList<>();
+                        }
+                        videosModels.addAll(mVideosListModel.getVideosModels());
+                        if (videosGridAdapter == null) {
+                            setGridViewData();
+                        }
+                    }
                 } else {
-                    endScroll = true;
+                    grid_view.setVisibility(View.VISIBLE);
+                    tv_no_data_found.setVisibility(View.GONE);
+                    if (mVideosListModel.getVideosModels() != null && mVideosListModel.getVideosModels().size() > 0) {
+                        videosModels.addAll(mVideosListModel.getVideosModels());
+                        if (videosGridAdapter == null) {
+                            setGridViewData();
+                        } else {
+                            videosGridAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        endScroll = true;
+                    }
                 }
             }
 
@@ -363,7 +395,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
         if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
             if (Utility.isNetworkAvailable(getActivity())) {
                 mPageNumber = mPageNumber + 1;
-                getVideosData( languageModel.getId(),"" + mPageNumber,videoTypeModel.getId());
+                getVideosData(languageModel.getId(), "" + mPageNumber, videoTypeModel.getId());
                 Utility.showLog("mPageNumber", "mPageNumber : " + mPageNumber);
             } else {
                 Utility.showSettingDialog(
