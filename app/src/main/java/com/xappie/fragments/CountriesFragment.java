@@ -1,10 +1,8 @@
 package com.xappie.fragments;
 
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -16,9 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
-import com.xappie.activities.CountriesActivity;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.activities.StatesActivity;
 import com.xappie.adapters.CountriesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -70,6 +66,9 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.country_list_view)
     ListView country_list_item;
     private CountriesListModel mCountriesListModel;
+    private ArrayList<CountriesModel> countriesModels;
+    private CountriesListAdapter countriesListAdapter;
+    private View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,12 +79,6 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
-
-    public CountriesFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,21 +87,17 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_countries, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_countries, container, false);
         ButterKnife.bind(this, rootView);
+        initUI();
         return rootView;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initUI();
-    }
-
     private void initUI() {
-
         setTypeFace();
-
     }
 
     private void setTypeFace() {
@@ -150,7 +139,9 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
         if (model != null) {
             if (model instanceof CountriesListModel) {
                 mCountriesListModel = (CountriesListModel) model;
-                country_list_item.setAdapter(new CountriesListAdapter(mParent, mCountriesListModel.getCountriesModels()));
+                countriesModels = mCountriesListModel.getCountriesModels();
+                countriesListAdapter = new CountriesListAdapter(mParent, countriesModels);
+                country_list_item.setAdapter(countriesListAdapter);
             }
         }
     }
@@ -172,12 +163,22 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
 
     @OnItemClick(R.id.country_list_view)
     void onItemClick(int position) {
-        Bundle bundle = new Bundle();
 
+        for (int i = 0; i < countriesModels.size(); i++) {
+            CountriesModel countriesListModel = countriesModels.get(i);
+            countriesListModel.setmSelected(false);
+            countriesModels.set(i, countriesListModel);
+        }
+
+        CountriesModel countriesListModel = countriesModels.get(position);
+        countriesListModel.setmSelected(true);
+        countriesListAdapter.notifyDataSetChanged();
+
+        Bundle bundle = new Bundle();
         bundle.putString(Constants.SELECTED_COUNTRY_ID, mCountriesListModel.getCountriesModels().get(position).getId());
         bundle.putString(Constants.SELECTED_COUNTRY_NAME, mCountriesListModel.getCountriesModels().get(position).getCountry_name());
 
-        Utility.navigateDashBoardFragment(new StatesFragment(),StatesFragment.TAG,bundle,mParent);
+        Utility.navigateDashBoardFragment(new StatesFragment(), StatesFragment.TAG, bundle, mParent);
 
     }
 }

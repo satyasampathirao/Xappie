@@ -13,12 +13,14 @@ import com.xappie.adapters.StatesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.Model;
+import com.xappie.models.StateModel;
 import com.xappie.models.StatesListModel;
 import com.xappie.parser.StatesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -64,6 +66,9 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
     private String mSelectedCountryId;
     private String mSelectedStateName;
     private String mSelectedStateId;
+
+    private ArrayList<StateModel> stateModels;
+    private StatesListAdapter statesListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +148,9 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
                 if (mStatesListModel.getStateModels().size() == 0) {
                     Utility.showToastMessage(CitiesActivity.this, Utility.getResourcesString(CitiesActivity.this, R.string.no_states_found));
                 } else {
-                    city_list_view.setAdapter(new StatesListAdapter(CitiesActivity.this, mStatesListModel.getStateModels()));
+                    stateModels = mStatesListModel.getStateModels();
+                    statesListAdapter = new StatesListAdapter(CitiesActivity.this, mStatesListModel.getStateModels());
+                    city_list_view.setAdapter(statesListAdapter);
                 }
             }
         }
@@ -159,6 +166,17 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
      */
     @OnItemClick(R.id.city_list_view)
     void onItemClick(int position) {
+
+        for (int i = 0; i < stateModels.size(); i++) {
+            StateModel stateModel = stateModels.get(i);
+            stateModel.setmSelected(false);
+            stateModels.set(i, stateModel);
+        }
+
+        StateModel stateModel = stateModels.get(position);
+        stateModel.setmSelected(true);
+        statesListAdapter.notifyDataSetChanged();
+
         Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
         Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
         Utility.setSharedPrefStringData(this, Constants.SELECTED_STATE_ID, mSelectedStateId);

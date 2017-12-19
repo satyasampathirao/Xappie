@@ -13,12 +13,14 @@ import com.xappie.adapters.LanguagesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.LanguageListModel;
+import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
 import com.xappie.parser.LanguageParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -47,6 +49,8 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
 
     private LanguageListModel mLanguageListModel;
 
+    private ArrayList<LanguageModel> languageModels;
+    private LanguagesListAdapter languagesListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +118,9 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
         if (model != null) {
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
-                language_list_item.setAdapter(new LanguagesListAdapter(this, mLanguageListModel.getLanguageModels()));
+                languageModels = mLanguageListModel.getLanguageModels();
+                languagesListAdapter = new LanguagesListAdapter(this, languageModels);
+                language_list_item.setAdapter(languagesListAdapter);
             }
         }
     }
@@ -124,6 +130,17 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
      */
     @OnItemClick(R.id.language_list_item)
     void onItemClick(int position) {
+
+        for (int i = 0; i < languageModels.size(); i++) {
+            LanguageModel languageModel = languageModels.get(i);
+            languageModel.setmSelected(false);
+            languageModels.set(i, languageModel);
+        }
+
+        LanguageModel languageModel = languageModels.get(position);
+        languageModel.setmSelected(true);
+        languagesListAdapter.notifyDataSetChanged();
+
         Utility.setSharedPrefStringData(LanguageActivity.this, Constants.SELECTED_LANGUAGE, mLanguageListModel.getLanguageModels().get(position).getName());
         Utility.setSharedPrefStringData(LanguageActivity.this, Constants.SELECTED_LANGUAGE_ID, mLanguageListModel.getLanguageModels().get(position).getId());
         Intent intent = new Intent(LanguageActivity.this, CountriesActivity.class);

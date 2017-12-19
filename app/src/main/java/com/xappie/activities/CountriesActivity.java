@@ -14,12 +14,14 @@ import com.xappie.adapters.CountriesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.CountriesListModel;
+import com.xappie.models.CountriesModel;
 import com.xappie.models.Model;
 import com.xappie.parser.CountriesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -55,6 +57,8 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
     ListView country_list_item;
 
     private CountriesListModel mCountriesListModel;
+    private ArrayList<CountriesModel> countriesModels;
+    private CountriesListAdapter countriesListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +121,9 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
         if (model != null) {
             if (model instanceof CountriesListModel) {
                 mCountriesListModel = (CountriesListModel) model;
-                country_list_item.setAdapter(new CountriesListAdapter(CountriesActivity.this, mCountriesListModel.getCountriesModels()));
+                countriesModels = mCountriesListModel.getCountriesModels();
+                countriesListAdapter = new CountriesListAdapter(CountriesActivity.this, countriesModels);
+                country_list_item.setAdapter(countriesListAdapter);
             }
         }
     }
@@ -133,6 +139,17 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
      */
     @OnItemClick(R.id.country_list_view)
     void onItemClick(int position) {
+
+        for (int i = 0; i < countriesModels.size(); i++) {
+            CountriesModel countriesListModel = countriesModels.get(i);
+            countriesListModel.setmSelected(false);
+            countriesModels.set(i, countriesListModel);
+        }
+
+        CountriesModel countriesListModel = countriesModels.get(position);
+        countriesListModel.setmSelected(true);
+        countriesListAdapter.notifyDataSetChanged();
+
         Intent intent = new Intent(CountriesActivity.this, StatesActivity.class);
         intent.putExtra(Constants.SELECTED_COUNTRY_ID, mCountriesListModel.getCountriesModels().get(position).getId());
         intent.putExtra(Constants.SELECTED_COUNTRY_NAME, mCountriesListModel.getCountriesModels().get(position).getCountry_name());

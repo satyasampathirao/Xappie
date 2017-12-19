@@ -24,12 +24,13 @@ public class StatesListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private Typeface mOpenSansRegularTypeface;
     private ArrayList<StateModel> stateModels;
-
+    private Typeface mMaterialTypeface;
 
     public StatesListAdapter(Context context, ArrayList<StateModel> stateModels) {
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(context);
+        mMaterialTypeface = Utility.getMaterialIconsRegular(context);
         this.stateModels = stateModels;
     }
 
@@ -56,8 +57,9 @@ public class StatesListAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.custom_cities_item,
                     null);
             mCitiesListHolder = new StatesListAdapter.CitiesListHolder();
-            mCitiesListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_cities_list);
-
+            mCitiesListHolder.tv_title = convertView.findViewById(R.id.tv_cities_list);
+            mCitiesListHolder.tv_selected = convertView.findViewById(R.id.tv_selected);
+            mCitiesListHolder.tv_selected.setTypeface(mMaterialTypeface);
             mCitiesListHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
 
             convertView.setTag(mCitiesListHolder);
@@ -68,11 +70,17 @@ public class StatesListAdapter extends BaseAdapter {
         StateModel stateModel = stateModels.get(position);
         mCitiesListHolder.tv_title.setText(stateModel.getName().toUpperCase());
 
+        if (stateModel.ismSelected()) {
+            mCitiesListHolder.tv_selected.setVisibility(View.VISIBLE);
+        } else
+            mCitiesListHolder.tv_selected.setVisibility(View.GONE);
+
         return convertView;
     }
 
     private class CitiesListHolder {
         TextView tv_title;
+        TextView tv_selected;
     }
 }
 

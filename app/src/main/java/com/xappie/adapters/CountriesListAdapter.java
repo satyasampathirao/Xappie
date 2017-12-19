@@ -29,12 +29,14 @@ public class CountriesListAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater mLayoutInflater;
     private Typeface mOpenSansRegularTypeface;
+    private Typeface mMaterialTypeface;
     private ArrayList<CountriesModel> countriesModels;
 
     public CountriesListAdapter(Context context, ArrayList<CountriesModel> countriesModels) {
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(context);
+        mMaterialTypeface = Utility.getMaterialIconsRegular(context);
         this.countriesModels = countriesModels;
     }
 
@@ -61,9 +63,11 @@ public class CountriesListAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.custom_countries_item,
                     null);
             mCountryHolder = new CountriesListAdapter.CountryHolder();
-            mCountryHolder.img_logo = (ImageView) convertView.findViewById(R.id.img_logo);
-            mCountryHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_country);
+            mCountryHolder.img_logo = convertView.findViewById(R.id.img_logo);
+            mCountryHolder.tv_title = convertView.findViewById(R.id.tv_country);
+            mCountryHolder.tv_selected = convertView.findViewById(R.id.tv_selected);
 
+            mCountryHolder.tv_selected.setTypeface(mMaterialTypeface);
             mCountryHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
 
             convertView.setTag(mCountryHolder);
@@ -73,6 +77,10 @@ public class CountriesListAdapter extends BaseAdapter {
 
         CountriesModel countriesListModel = countriesModels.get(position);
         mCountryHolder.tv_title.setText(countriesListModel.getCountry_name());
+        if (countriesListModel.ismSelected()) {
+            mCountryHolder.tv_selected.setVisibility(View.VISIBLE);
+        } else
+            mCountryHolder.tv_selected.setVisibility(View.GONE);
 
         if (!Utility.isValueNullOrEmpty(countriesListModel.getFlag())) {
             Picasso.with(context).load(countriesListModel.getFlag())
@@ -91,6 +99,7 @@ public class CountriesListAdapter extends BaseAdapter {
 
     private class CountryHolder {
         TextView tv_title;
+        TextView tv_selected;
         ImageView img_logo;
     }
 }

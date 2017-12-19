@@ -1,11 +1,9 @@
 package com.xappie.fragments;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -17,9 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
-import com.xappie.activities.CountriesActivity;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.activities.LanguageActivity;
 import com.xappie.adapters.LanguagesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -60,11 +56,14 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceFontAwesomeWebFont;
     private LanguageListModel mLanguageListModel;
 
+    private ArrayList<LanguageModel> languageModels;
+    private LanguagesListAdapter languagesListAdapter;
 
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
+    private View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,11 +74,6 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
     }
 
-    public LanguageFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,15 +83,13 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_language, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_language, container, false);
         ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         initUI();
+        return rootView;
     }
 
     private void initUI() {
@@ -138,7 +130,9 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
         if (model != null) {
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
-                language_list_item.setAdapter(new LanguagesListAdapter(mParent, mLanguageListModel.getLanguageModels()));
+                languageModels = mLanguageListModel.getLanguageModels();
+                languagesListAdapter = new LanguagesListAdapter(mParent, languageModels);
+                language_list_item.setAdapter(languagesListAdapter);
             }
         }
     }
@@ -148,13 +142,23 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
      */
     @OnItemClick(R.id.language_list_item)
     void onItemClick(int position) {
+
+        for (int i = 0; i < languageModels.size(); i++) {
+            LanguageModel languageModel = languageModels.get(i);
+            languageModel.setmSelected(false);
+            languageModels.set(i, languageModel);
+        }
+
+        LanguageModel languageModel = languageModels.get(position);
+        languageModel.setmSelected(true);
+        languagesListAdapter.notifyDataSetChanged();
+
+
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE, mLanguageListModel.getLanguageModels().get(position).getName());
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID, mLanguageListModel.getLanguageModels().get(position).getId());
         Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
         startActivity(dashBoardIntent);
     }
-
-
 
 
     @OnClick({R.id.tv_languages_arrow_back_icon, R.id.tv_languages_menu_icon})

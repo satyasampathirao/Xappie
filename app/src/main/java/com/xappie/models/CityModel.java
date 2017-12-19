@@ -8,6 +8,7 @@ public class CityModel {
 
     private String id;
     private String name;
+    private boolean mSelected;
 
     public String getId() {
         return id;
@@ -23,5 +24,13 @@ public class CityModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean ismSelected() {
+        return mSelected;
+    }
+
+    public void setmSelected(boolean mSelected) {
+        this.mSelected = mSelected;
     }
 }

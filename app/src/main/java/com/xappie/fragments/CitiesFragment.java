@@ -4,7 +4,6 @@ package com.xappie.fragments;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -21,12 +20,14 @@ import com.xappie.adapters.StatesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.Model;
+import com.xappie.models.StateModel;
 import com.xappie.models.StatesListModel;
 import com.xappie.parser.StatesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -80,9 +81,9 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
     private String mSelectedStateName;
     private String mSelectedStateId;
 
-    public CitiesFragment() {
-        // Required empty public constructor
-    }
+    private ArrayList<StateModel> stateModels;
+    private StatesListAdapter statesListAdapter;
+    private View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,21 +112,17 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_cities, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_cities, container, false);
         ButterKnife.bind(this, rootView);
+        initUI();
         return rootView;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initUI();
-    }
-
     private void initUI() {
-
         setTypeFace();
-
     }
 
     private void setTypeFace() {
@@ -175,7 +172,9 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
                 if (mStatesListModel.getStateModels().size() == 0) {
                     Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.no_states_found));
                 } else {
-                    city_list_view.setAdapter(new StatesListAdapter(mParent, mStatesListModel.getStateModels()));
+                    stateModels = mStatesListModel.getStateModels();
+                    statesListAdapter = new StatesListAdapter(mParent, mStatesListModel.getStateModels());
+                    city_list_view.setAdapter(statesListAdapter);
                 }
             }
         }
@@ -199,6 +198,16 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
 
     @OnItemClick(R.id.city_list_view)
     void onItemClick(int position) {
+        for (int i = 0; i < stateModels.size(); i++) {
+            StateModel stateModel = stateModels.get(i);
+            stateModel.setmSelected(false);
+            stateModels.set(i, stateModel);
+        }
+
+        StateModel stateModel = stateModels.get(position);
+        stateModel.setmSelected(true);
+        statesListAdapter.notifyDataSetChanged();
+
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID, mSelectedStateId);

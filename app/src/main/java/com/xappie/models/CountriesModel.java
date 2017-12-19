@@ -9,6 +9,7 @@ public class CountriesModel {
     private String id;
     private String iso_code;
     private String flag;
+    private boolean mSelected;
 
     public String getCountry_name() {
         return country_name;
@@ -40,5 +41,13 @@ public class CountriesModel {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public boolean ismSelected() {
+        return mSelected;
+    }
+
+    public void setmSelected(boolean mSelected) {
+        this.mSelected = mSelected;
     }
 }

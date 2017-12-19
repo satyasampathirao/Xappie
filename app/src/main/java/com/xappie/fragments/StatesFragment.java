@@ -1,10 +1,8 @@
 package com.xappie.fragments;
 
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -16,19 +14,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
-import com.xappie.activities.CitiesActivity;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.activities.StatesActivity;
 import com.xappie.adapters.StatesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.Model;
+import com.xappie.models.StateModel;
 import com.xappie.models.StatesListModel;
 import com.xappie.parser.StatesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -76,7 +74,9 @@ public class StatesFragment extends Fragment implements IAsyncCaller {
     private Bundle bundle;
     private String mSelectedCountryId;
     private String mSelectedCountryName;
-
+    private View rootView;
+    private ArrayList<StateModel> stateModels;
+    private StatesListAdapter statesListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,21 +100,17 @@ public class StatesFragment extends Fragment implements IAsyncCaller {
             mFrameLayout.requestLayout();
             appBarLayout.setVisibility(View.GONE);
         }
-        View rootView = inflater.inflate(R.layout.fragment_states, container, false);
+        if (rootView != null) {
+            return rootView;
+        }
+        rootView = inflater.inflate(R.layout.fragment_states, container, false);
         ButterKnife.bind(this, rootView);
+        initUI();
         return rootView;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initUI();
-    }
-
     private void initUI() {
-
         setTypeFace();
-
     }
 
     private void setTypeFace() {
@@ -164,7 +160,9 @@ public class StatesFragment extends Fragment implements IAsyncCaller {
                 if (mStatesListModel.getStateModels().size() == 0) {
                     Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.no_states_found));
                 } else {
-                    city_list_view.setAdapter(new StatesListAdapter(mParent, mStatesListModel.getStateModels()));
+                    stateModels = mStatesListModel.getStateModels();
+                    statesListAdapter = new StatesListAdapter(mParent, mStatesListModel.getStateModels());
+                    city_list_view.setAdapter(statesListAdapter);
                 }
             }
         }
@@ -188,8 +186,17 @@ public class StatesFragment extends Fragment implements IAsyncCaller {
     @OnItemClick(R.id.city_list_view)
     void onItemClick(int position) {
 
-        Bundle bundle = new Bundle();
+        for (int i = 0; i < stateModels.size(); i++) {
+            StateModel stateModel = stateModels.get(i);
+            stateModel.setmSelected(false);
+            stateModels.set(i, stateModel);
+        }
 
+        StateModel stateModel = stateModels.get(position);
+        stateModel.setmSelected(true);
+        statesListAdapter.notifyDataSetChanged();
+
+        Bundle bundle = new Bundle();
         bundle.putString(Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
         bundle.putString(Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
         bundle.putString(Constants.SELECTED_STATE_ID, mStatesListModel.getStateModels().get(position).getId());

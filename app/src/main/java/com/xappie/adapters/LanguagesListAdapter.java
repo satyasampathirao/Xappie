@@ -21,12 +21,14 @@ public class LanguagesListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private ArrayList<LanguageModel> languagesListModels;
     private Typeface mOpenSansRegularTypeface;
+    private Typeface mMaterialTypeface;
 
     public LanguagesListAdapter(Context context, ArrayList<LanguageModel> languagesListModels) {
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
         this.languagesListModels = languagesListModels;
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(context);
+        mMaterialTypeface = Utility.getMaterialIconsRegular(context);
     }
 
     @Override
@@ -52,8 +54,9 @@ public class LanguagesListAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.custom_language_item,
                     null);
             mLanguagesListHolder = new LanguagesListAdapter.LanguagesListHolder();
-            mLanguagesListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_languages_list);
-
+            mLanguagesListHolder.tv_title = convertView.findViewById(R.id.tv_languages_list);
+            mLanguagesListHolder.tv_selected = convertView.findViewById(R.id.tv_selected);
+            mLanguagesListHolder.tv_selected.setTypeface(mMaterialTypeface);
             mLanguagesListHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
 
             convertView.setTag(mLanguagesListHolder);
@@ -63,12 +66,17 @@ public class LanguagesListAdapter extends BaseAdapter {
 
         LanguageModel languagesListModel = languagesListModels.get(position);
         mLanguagesListHolder.tv_title.setText(languagesListModel.getName_native());
+        if (languagesListModel.ismSelected()) {
+            mLanguagesListHolder.tv_selected.setVisibility(View.VISIBLE);
+        } else
+            mLanguagesListHolder.tv_selected.setVisibility(View.GONE);
 
         return convertView;
     }
 
     private class LanguagesListHolder {
         TextView tv_title;
+        TextView tv_selected;
 
     }
 }
