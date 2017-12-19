@@ -160,8 +160,8 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller, AbsLis
      * This method is used to set the grid view data
      */
     private void setGridViewData() {
-        EntertainmentAdapter entertainmentAdapter = new
-                EntertainmentAdapter(mParent, mTopStoriesListModel.getEntertainmentModels());
+        entertainmentAdapter = new
+                EntertainmentAdapter(mParent, entertainmentModels);
         list_view.setAdapter(entertainmentAdapter);
         list_view.setOnScrollListener(this);
     }
@@ -213,7 +213,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller, AbsLis
                     entertainmentAdapter = null;
                     setLanguages();
                     endScroll = false;
-                    getTopStoriesData( "" + 1);
+                    getTopStoriesData("" + 1);
                 }
             });
 
@@ -299,7 +299,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller, AbsLis
                         }
                     }
                     setLanguages();
-                    getTopStoriesData( "" + 1);
+                    getTopStoriesData("" + 1);
                 }
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
