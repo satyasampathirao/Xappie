@@ -25,7 +25,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="45dp"
                 android:contentInsetEnd="0dp"
                 android:contentInsetLeft="0dp"
                 android:contentInsetRight="0dp"
@@ -55,8 +55,8 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="@dimen/_35dp"
-                        android:layout_height="@dimen/_35dp"
+                        android:layout_width="@dimen/_25dp"
+                        android:layout_height="@dimen/_25dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="-20dp"
                         android:src="@drawable/logo" />
@@ -69,7 +69,7 @@
 
                         <TextView
                             android:id="@+id/tv_location_icon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_15dp"
                             android:gravity="center_vertical"
@@ -79,7 +79,7 @@
 
                         <TextView
                             android:id="@+id/tv_notifications_icon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_15dp"
                             android:gravity="center_vertical"
@@ -89,7 +89,7 @@
 
                         <TextView
                             android:id="@+id/tv_language_icon"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_10dp"
                             android:gravity="center_vertical"
@@ -129,13 +129,16 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
-        android:layout_width="@dimen/_200dp"
+        android:layout_width="215dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/nav_bg_red"
+        android:background="@color/white"
+        android:padding="@dimen/_9dp"
         app:headerLayout="@layout/header_left_menu"
         app:itemBackground="@drawable/nav_item_background"
         app:itemTextColor="@drawable/nav_item_text"
+        style="@style/PopupMenuTextView"
+        app:itemIconTint="#5C5C5C"
         app:menu="@menu/menu_navigation" />
 
 </android.support.v4.widget.DrawerLayout>

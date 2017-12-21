@@ -72,7 +72,7 @@
 
     <!--Home Screen Icons-->
     <string name="location_icon">&#xf041;</string>
-    <string name="notifications_icon">&#xf0f3;</string>
+    <string name="notifications_icon">&#xf0a2;</string>
     <string name="language_icon">&#xf1ab;</string>
     <string name="customization_icon">&#xf013;</string>
     <string name="hello">Hello!</string>
@@ -273,15 +273,19 @@
     <string name="calendar_icon">&#xf073;</string>
     <string name="price">Price</string>
     <string name="phone">Phone</string>
-    <string name="phone_icon">&#xf098;</string>
-    <string name="price_icon">&#xf02c;</string>
-    <string name="person_icon">&#xf007;</string>
-    <string name="email_icon">&#xf0e0;</string>
+    <string name="phone_icon">&#xE0CD;</string>
+    <string name="price_icon">&#xE54E;</string>
+    <string name="person_icon">&#xE8A6;</string>
+    <string name="email_icon">&#xE0E1;</string>
     <string name="call">CALL</string>
-    <string name="web_icon">&#xf0ac;</string>
+    <string name="web_icon">&#xE88F;</string>
     <string name="done_icon">&#xE876;</string>
     <string name="no_classifieds_found">No Classifieds Found</string>
     <string name="description_qualification">Description / Qualification</string>
     <string name="select_country">Select Country</string>
+    <string name="icon_share">&#xf1e0;</string>
+    <string name="address_icon">&#xE0C8;</string>
+    <string name="three_dots">&#xE5D4;</string>
+
 
 </resources>

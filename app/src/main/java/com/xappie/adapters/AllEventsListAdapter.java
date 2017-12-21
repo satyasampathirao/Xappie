@@ -1,5 +1,6 @@
 package com.xappie.adapters;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class AllEventsListAdapter extends BaseAdapter {
     private ArrayList<EventsModel> eventsModels;
     private Typeface mOpenSansBoldTypeface;
     private Typeface mOpenSansRegularTypeface;
+    private Typeface mTypefaceFontAwesomeWebFont;
 
     public AllEventsListAdapter(DashBoardActivity mDashBoardActivity, ArrayList<EventsModel> eventsModels) {
         this.mDashBoardActivity = mDashBoardActivity;
@@ -36,6 +38,7 @@ public class AllEventsListAdapter extends BaseAdapter {
         this.eventsModels = eventsModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(mDashBoardActivity);
+        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mDashBoardActivity);
     }
 
     @Override
@@ -64,19 +67,19 @@ public class AllEventsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
+            mClassifiedsListHolder.tv_share = (TextView)convertView.findViewById(R.id.tv_share);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
             mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_location.setVisibility(View.GONE);
-
+            mClassifiedsListHolder.tv_share.setTypeface(mTypefaceFontAwesomeWebFont);
 
             convertView.setTag(mClassifiedsListHolder);
         } else {
             mClassifiedsListHolder = (ClassifiedsListHolder) convertView.getTag();
         }
 
-        EventsModel eventsModel = eventsModels.get(position);
+        final EventsModel eventsModel = eventsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(eventsModel.getName());
         mClassifiedsListHolder.tv_location.setText(eventsModel.getCity());
@@ -90,6 +93,16 @@ public class AllEventsListAdapter extends BaseAdapter {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
                     "", null, R.drawable.xappie_place_holder);
         }
+
+        mClassifiedsListHolder.tv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/html");
+                share.putExtra(android.content.Intent.EXTRA_TEXT, eventsModel.getName());
+                mDashBoardActivity.startActivity(share);
+            }
+        });
 
         convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -111,5 +124,6 @@ public class AllEventsListAdapter extends BaseAdapter {
         TextView tv_time;
         TextView tv_location;
         ImageView img_logo;
+        TextView tv_share;
     }
 }

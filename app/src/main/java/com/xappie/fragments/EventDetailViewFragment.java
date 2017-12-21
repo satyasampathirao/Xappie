@@ -317,7 +317,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     @OnClick(R.id.btn_may_be)
     void submitMayBeGoing() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "Login First");
+            Utility.showToastMessage(mParent, "You need to login for updating the status");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {

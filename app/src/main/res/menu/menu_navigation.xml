@@ -3,39 +3,51 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
+            android:icon="@drawable/home"
             android:title="@string/home" />
         <item
             android:id="@+id/discussions"
+            android:icon="@drawable/discussions"
             android:title="@string/discussions" />
         <item
             android:id="@+id/entertainment"
+            android:icon="@drawable/entertainment"
             android:title="@string/entertainment" />
         <item
             android:id="@+id/top_stories"
+            android:icon="@drawable/top_stories"
             android:title="@string/top_stories" />
         <item
             android:id="@+id/gallery"
+            android:icon="@drawable/gallery"
             android:title="@string/gallery" />
         <item
             android:id="@+id/videos"
+            android:icon="@drawable/videos"
             android:title="@string/videos" />
         <item
             android:id="@+id/events"
+            android:icon="@drawable/events"
             android:title="@string/events" />
         <item
             android:id="@+id/classifieds"
+            android:icon="@drawable/classified"
             android:title="@string/classifieds" />
         <item
             android:id="@+id/jobs"
+            android:icon="@drawable/jobs"
             android:title="@string/jobs" />
         <item
             android:id="@+id/preferences"
+            android:icon="@drawable/preferences"
             android:title="@string/preferences" />
         <item
             android:id="@+id/account_settings"
+            android:icon="@drawable/account_settings"
             android:title="@string/account_settings" />
         <item
             android:id="@+id/logout"
+            android:icon="@drawable/logout"
             android:title="@string/logout" />
     </group>
 </menu>

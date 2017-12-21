@@ -29,6 +29,8 @@ public class ClassifiedsListAdapter extends BaseAdapter {
     private ArrayList<ClassifiedsModel> classifiedsModels;
     private Typeface mOpenSansBoldTypeface;
     private Typeface mOpenSansRegularTypeface;
+    private Typeface mMaterialIcon;
+    private Typeface mFontAwesome;
 
     public ClassifiedsListAdapter(DashBoardActivity mDashBoardActivity, ArrayList<ClassifiedsModel> classifiedsModels) {
         this.mDashBoardActivity = mDashBoardActivity;
@@ -36,6 +38,8 @@ public class ClassifiedsListAdapter extends BaseAdapter {
         this.classifiedsModels = classifiedsModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(mDashBoardActivity);
+        mMaterialIcon = Utility.getMaterialIconsRegular(mDashBoardActivity);
+        mFontAwesome = Utility.getFontAwesomeWebFont(mDashBoardActivity);
     }
 
     @Override
@@ -57,19 +61,23 @@ public class ClassifiedsListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         ClassifiedsListHolder mClassifiedsListHolder = null;
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.entertainment_list_item,
+            convertView = mLayoutInflater.inflate(R.layout.classified_list_item,
                     null);
             mClassifiedsListHolder = new ClassifiedsListHolder();
             mClassifiedsListHolder.img_logo = (ImageView) convertView.findViewById(R.id.img_logo);
             mClassifiedsListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             mClassifiedsListHolder.tv_posted_by = (TextView) convertView.findViewById(R.id.tv_posted_by);
-            mClassifiedsListHolder.tv_posted_by.setVisibility(View.GONE);
-            mClassifiedsListHolder.tv_time.setTextColor(Utility.getColor(mDashBoardActivity, R.color.light_yellow));
+            mClassifiedsListHolder.tv_calendar_icon = (TextView) convertView.findViewById(R.id.tv_calendar_icon);
+            mClassifiedsListHolder.tv_price_icon = (TextView) convertView.findViewById(R.id.tv_price_icon);
+            mClassifiedsListHolder.tv_dots = (TextView) convertView.findViewById(R.id.tv_dots);
+            mClassifiedsListHolder.tv_dots.setVisibility(View.GONE);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
             mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_posted_by.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_calendar_icon.setTypeface(mFontAwesome);
+            mClassifiedsListHolder.tv_price_icon.setTypeface(mMaterialIcon);
 
             convertView.setTag(mClassifiedsListHolder);
         } else {
@@ -78,6 +86,10 @@ public class ClassifiedsListAdapter extends BaseAdapter {
 
         final ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
         mClassifiedsListHolder.tv_title.setText(classifiedsModel.getTitle());
+        mClassifiedsListHolder.tv_time.setText(Utility.readDateFormat(classifiedsModel.getRecordedDate()));
+        mClassifiedsListHolder.tv_posted_by.setText(classifiedsModel.getPrice());
+
+
         if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
                     classifiedsModel.getImage(), null, R.drawable.xappie_place_holder);
@@ -85,7 +97,7 @@ public class ClassifiedsListAdapter extends BaseAdapter {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
                     "", null, R.drawable.xappie_place_holder);
         }
-        mClassifiedsListHolder.tv_time.setText(classifiedsModel.getApprovedBy());
+
 
         convertView.setId(position);
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -107,5 +119,8 @@ public class ClassifiedsListAdapter extends BaseAdapter {
         TextView tv_time;
         TextView tv_posted_by;
         ImageView img_logo;
+        TextView tv_calendar_icon;
+        TextView tv_price_icon;
+        TextView tv_dots;
     }
 }

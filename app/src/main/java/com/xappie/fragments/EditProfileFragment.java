@@ -150,7 +150,7 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
         if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME))) {
             edit_text_full_name.setText("");
         } else {
-            edit_text_full_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_DISPLAY_NAME));
+            edit_text_full_name.setText(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_FIRST_NAME));
         }
         if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SIGN_UP_LAST_NAME))) {
             edit_text_last_name.setText("");

@@ -86,4 +86,26 @@
         </item>
     </style>
 
+
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+
+        <item name="android:actionBarWidgetTheme">@style/PopupMenuTextView</item>
+
+
+
+        <!-- Change Overflow Menu ListView Item Height & Property -->
+        <item name="android:listPreferredItemHeightSmall">1dp</item>
+        <item name="android:listPreferredItemPaddingLeft">1dp</item>
+    </style>
+
+
+    <!-- Change Overflow Menu ListView Text Size and Text Size -->
+    <style name="PopupMenuTextView" parent="@style/android:Theme.Holo.Light">
+        <item name="android:textColor">#5C5C5C</item>
+        <item name="android:textSize">3sp</item>
+        <item name="android:itemPadding">1dp</item>
+        <item name="android:listPreferredItemHeightSmall">5dp</item>
+    </style>
+
+
 </resources>

@@ -79,10 +79,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
 
-    @BindView(R.id.img_person)
-    ImageView img_person;
-    @BindView(R.id.tv_name)
-    TextView tv_name;
+
     @BindView(R.id.tv_date)
     TextView tv_date;
 
@@ -96,22 +93,17 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     ViewPager card_pager;
     @BindView(R.id.ll_dots)
     LinearLayout ll_dots;
-    @BindView(R.id.tv_price_text)
-    TextView tv_price_text;
-    @BindView(R.id.tv_name_text)
-    TextView tv_name_text;
+
+
     @BindView(R.id.tv_person_name)
     TextView tv_person_name;
-    @BindView(R.id.tv_phone_text)
-    TextView tv_phone_text;
+
     @BindView(R.id.tv_phone)
     TextView tv_phone;
-    @BindView(R.id.tv_email_text)
-    TextView tv_email_text;
+
     @BindView(R.id.tv_email)
     TextView tv_email;
-    @BindView(R.id.tv_address_text)
-    TextView tv_address_text;
+
     @BindView(R.id.tv_address)
     TextView tv_address;
     @BindView(R.id.tv_price_icon)
@@ -124,24 +116,17 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     TextView tv_phone_icon;
     @BindView(R.id.tv_person_icon)
     TextView tv_person_icon;
-    @BindView(R.id.ll_email)
-    LinearLayout ll_email;
-    @BindView(R.id.ll_phone)
-    LinearLayout ll_phone;
     @BindView(R.id.email_icon)
     TextView email_icon;
-    @BindView(R.id.email_text)
-    TextView email_text;
+
     @BindView(R.id.phone_icon)
     TextView phone_icon;
-    @BindView(R.id.phone_text)
-    TextView phone_text;
+
     @BindView(R.id.tv_web_site)
     TextView tv_website;
     @BindView(R.id.tv_web_site_icon)
     TextView tv_web_site_icon;
-    @BindView(R.id.tv_web_site_text)
-    TextView tv_web_site_text;
+
 
     @BindView(R.id.ll_price)
     LinearLayout ll_price;
@@ -156,8 +141,12 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     @BindView(R.id.ll_address)
     LinearLayout ll_address;
 
+    @BindView(R.id.tv_close_icon)
+    TextView tv_close_icon;
+
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceMaterialIcon;
 
     private ClassifiedsDetailModel classifiedsDetailModel;
     private StateModel stateModel;
@@ -221,48 +210,48 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
 
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
+        mTypefaceMaterialIcon = Utility.getMaterialIconsRegular(mParent);
 
         tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.auto_mobiles));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.classifieds));
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_name.setTypeface(mTypefaceOpenSansRegular);
+
         tv_date.setTypeface(mTypefaceOpenSansRegular);
         tv_post_title.setTypeface(Utility.getOpenSansBold(mParent));
         tv_topic_details.setTypeface(mTypefaceOpenSansRegular);
         tv_price.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_price_text.setTypeface(mTypefaceOpenSansRegular);
+
         tv_person_name.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_name_text.setTypeface(mTypefaceOpenSansRegular);
-        tv_phone_text.setTypeface(mTypefaceOpenSansRegular);
+
         tv_phone.setTypeface(Utility.getOpenSansBold(mParent));
         tv_email.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_email_text.setTypeface(mTypefaceOpenSansRegular);
+
         tv_address.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_address_text.setTypeface(mTypefaceOpenSansRegular);
-        tv_person_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_email_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_price_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_phone_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_web_site_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_address_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        email_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        phone_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        email_text.setTypeface(mTypefaceOpenSansRegular);
-        phone_text.setTypeface(mTypefaceOpenSansRegular);
-        tv_web_site_text.setTypeface(mTypefaceOpenSansRegular);
+
+        tv_person_icon.setTypeface(mTypefaceMaterialIcon);
+        tv_email_icon.setTypeface(mTypefaceMaterialIcon);
+        tv_price_icon.setTypeface(mTypefaceMaterialIcon);
+        tv_phone_icon.setTypeface(mTypefaceMaterialIcon);
+        tv_web_site_icon.setTypeface(mTypefaceMaterialIcon);
+        tv_address_icon.setTypeface(mTypefaceMaterialIcon);
+        email_icon.setTypeface(mTypefaceMaterialIcon);
+        phone_icon.setTypeface(mTypefaceMaterialIcon);
+        tv_close_icon.setTypeface(mTypefaceMaterialIcon);
+
+
         tv_website.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
     @OnClick({R.id.tv_notification_arrow_back_icon,
-            R.id.tv_notification_menu_icon})
+            R.id.tv_notification_menu_icon, R.id.tv_close_icon})
     void backToTheHome() {
         mParent.onBackPressed();
     }
@@ -282,7 +271,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
-    @OnClick(R.id.ll_phone)
+    @OnClick(R.id.phone_icon)
     public void onCall() {
         int permissionCheck = ContextCompat.checkSelfPermission(mParent, Manifest.permission.CALL_PHONE);
 
@@ -344,11 +333,6 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
 
     private void setClasifiedsData() {
 
-        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getName())) {
-            tv_name.setText(classifiedsDetailModel.getName());
-        } else {
-            tv_name.setVisibility(View.GONE);
-        }
         if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getRecordedDate())) {
             tv_date.setText(Utility.readDateFormat(classifiedsDetailModel.getRecordedDate()));
         } else {
@@ -395,15 +379,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
             ll_website.setVisibility(View.GONE);
         }
 
-        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getImage())) {
-            Utility.universalImageLoaderPicLoading(img_person,
-                    classifiedsDetailModel.getImage(), null, R.drawable.xappie_place_);
-        } else {
-            Utility.universalImageLoaderPicLoading(img_person,
-                    "", null, R.drawable.xappie_place_);
-        }
-
-        ll_email.setOnClickListener(new View.OnClickListener() {
+        email_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent email = new Intent(Intent.ACTION_SEND);

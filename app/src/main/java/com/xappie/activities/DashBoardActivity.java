@@ -246,7 +246,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
         TextView tv_sign_in_to_xappie = (TextView) header.findViewById(R.id.tv_sign_in_to_xappie);
         tv_sign_in_to_xappie.setTypeface(Utility.getOpenSansBold(this));
         TextView txt_view_profile = (TextView) header.findViewById(R.id.txt_view_profile);
-        txt_view_profile.setTypeface(Utility.getOpenSansBold(this));
+        txt_view_profile.setTypeface(Utility.getOpenSansRegular(this));
         TextView tv_joined = (TextView) header.findViewById(R.id.tv_joined);
         tv_joined.setTypeface(Utility.getOpenSansRegular(this));
         TextView txt_hello = (TextView) header.findViewById(R.id.txt_hello);
@@ -266,7 +266,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
             tv_edit.setVisibility(View.VISIBLE);
             tv_joined.setVisibility(View.VISIBLE);
             txt_view_profile.setVisibility(View.VISIBLE);
-            tv_joined.setTextColor(Utility.getColor(DashBoardActivity.this, R.color.white));
+            tv_joined.setTextColor(Utility.getColor(DashBoardActivity.this, R.color.dark_gray));
             tv_joined.setText(Utility.getResourcesString(DashBoardActivity.this, R.string.joined) + " " +
                     Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.JOIN_DATE).toUpperCase());
             if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_DISPLAY_NAME))) {

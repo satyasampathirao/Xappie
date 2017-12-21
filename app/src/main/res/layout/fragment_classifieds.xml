@@ -19,6 +19,9 @@
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/_3dp"
+        android:horizontalSpacing="@dimen/_3dp"
+        android:verticalSpacing="@dimen/_3dp"
         android:numColumns="2" />
 
     <LinearLayout

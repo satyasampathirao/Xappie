@@ -72,6 +72,7 @@
                 android:id="@+id/ll_videos_total_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -81,7 +82,7 @@
                     android:paddingBottom="@dimen/_8dp"
                     android:paddingEnd="@dimen/_8dp"
                     android:paddingStart="@dimen/_8dp"
-                    android:paddingTop="@dimen/_13dp">
+                    android:paddingTop="@dimen/_4dp">
 
                     <TextView
                         android:id="@+id/tv_videos"
@@ -126,6 +127,7 @@
                 android:padding="@dimen/_8dp"
                 android:paddingTop="@dimen/_15dp"
                 android:text="@string/ads"
+                android:layout_marginTop="@dimen/_10dp"
                 android:textColor="@color/title_color"
                 android:textSize="@dimen/_13sp" />
 
@@ -143,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/header_bg"
+                android:layout_marginTop="@dimen/_10dp"
                 android:padding="@dimen/_8dp">
 
                 <TextView
@@ -342,14 +345,24 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
-
-            <LinearLayout
-                android:id="@+id/ll_events"
+            <HorizontalScrollView
+                android:id="@+id/hs_events_inner_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dividerPadding="@dimen/_2dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" />
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/_10dp"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingStart="@dimen/_10dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/ll_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:dividerPadding="@dimen/_4dp"
+                    android:orientation="horizontal" />
+
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:id="@+id/ll_no_data_event"
@@ -423,14 +436,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/_10dp"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingStart="@dimen/_10dp"
                 android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@+id/ll_classifieds"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120dp"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:dividerPadding="@dimen/_2dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical" />
             </HorizontalScrollView>

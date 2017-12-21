@@ -1,27 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="140dp"
-    android:paddingEnd="@dimen/_10dp">
-
-    <ImageView
-        android:id="@+id/img_gallery_image"
-        android:layout_width="@dimen/_170dp"
-        android:layout_height="@dimen/_120dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/classifieds" />
+    android:layout_width="215dp"
+    android:background="@drawable/classifieds_border"
+    android:padding="@dimen/_5dp"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="@dimen/_170dp"
+        android:layout_width="215dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_toolbar"
-        android:ellipsize="end"
         android:maxLines="2"
-        android:paddingStart="@dimen/_10dp"
-        android:text="@string/auto_mobiles"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/_11sp" />
+        android:text="Lorem ipsum is simply dummy text"
+        android:padding="@dimen/_4dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/_14sp" />
+
+    <ImageView
+        android:id="@+id/img_gallery_image"
+        android:layout_width="215dp"
+        android:layout_height="115dp"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="@dimen/_6dp"
+        android:src="@drawable/classifieds" />
+
+    <LinearLayout
+        android:layout_width="215dp"
+        android:orientation="horizontal"
+        android:id="@+id/ll_classified_cat"
+        android:layout_below="@+id/img_gallery_image"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4dp"
+            android:maxLines="1"
+            android:textColor="@color/orange"
+            android:id="@+id/tv_classified_name"
+            android:textSize="@dimen/_13sp"
+            android:text="@string/auto_mobiles"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_4dp"
+            android:maxLines="1"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_13sp"
+            android:id="@+id/tv_sub_classified_name"
+            android:text="@string/auto_mobiles"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_below="@+id/ll_classified_cat"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_calendar_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/calendar_icon"
+            android:textColor="@color/dark_gray"
+            android:layout_marginStart="@dimen/_5dp"
+            android:textSize="@dimen/_13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_1dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:alpha="0.8"
+            android:text="@string/_1day"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/_10sp" />
+
+        <TextView
+            android:id="@+id/tv_price_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/price_icon"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_posted_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_25dp"
+            android:layout_gravity="center"
+            android:alpha="0.8"
+            android:text="250$"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_10sp" />
+    </LinearLayout>
+
+
 
 </RelativeLayout>

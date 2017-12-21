@@ -81,6 +81,7 @@ public class FindJobsListAdapter extends BaseAdapter
         mClassifiedsListHolder.tv_title.setText(jobsModel.getTitle());
         mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.positions).toUpperCase());
         mClassifiedsListHolder.tv_positions_nbr.setText(jobsModel.getPositions());
+        mClassifiedsListHolder.tv_location.setText(jobsModel.getCompany());
 
         if (!Utility.isValueNullOrEmpty(jobsModel.getCompany_logo())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
