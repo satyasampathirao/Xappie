@@ -67,8 +67,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
-    @BindView(R.id.ll_cost)
-    LinearLayout ll_cost;
+
 
     @BindView(R.id.tv_event_name)
     TextView tv_event_name;
@@ -91,26 +90,25 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_event_tag_line_text_comes_here;
     @BindView(R.id.tv_total_cost)
     TextView tv_total_cost;
-    @BindView(R.id.tv_ticket_cost)
-    TextView tv_ticket_cost;
+
     @BindView(R.id.tv_details)
     TextView tv_details;
     @BindView(R.id.tv_a_weekly_desi)
     TextView tv_a_weekly_desi;
     @BindView(R.id.tv_date_calendar_icon)
     TextView tv_date_calendar_icon;
-    @BindView(R.id.tv_end_date_calendar_icon)
-    TextView tv_end_date_calendar_icon;
     @BindView(R.id.tv_end_date_time)
     TextView tv_end_date_time;
+    @BindView(R.id.tv_price_icon)
+    TextView tv_price_icon;
 
 
     @BindView(R.id.btn_i_am_going)
-    Button btn_i_am_going;
+    TextView btn_i_am_going;
     @BindView(R.id.btn_may_be)
-    Button btn_may_be;
+    TextView btn_may_be;
     @BindView(R.id.btn_who_is_going)
-    Button btn_who_is_going;
+    TextView btn_who_is_going;
 
 
     @BindView(R.id.ll_i_am_going_may_be_going)
@@ -187,7 +185,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_date_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_date_calendar_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_end_date_calendar_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         tv_event_name.setTypeface(mTypefaceOpenSansBold);
         tv_date_time.setTypeface(mTypefaceOpenSansBold);
@@ -203,10 +201,9 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
 
         tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
         tv_total_cost.setTypeface(mTypefaceOpenSansBold);
-        tv_ticket_cost.setTypeface(mTypefaceOpenSansRegular);
         tv_details.setTypeface(mTypefaceOpenSansRegular);
         tv_a_weekly_desi.setTypeface(mTypefaceOpenSansRegular);
-        tv_a_weekly_desi.setVisibility(View.GONE);
+
 
         btn_who_is_going.setTypeface(mTypefaceOpenSansRegular);
         btn_may_be.setTypeface(mTypefaceOpenSansRegular);
@@ -458,7 +455,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         if (!Utility.isValueNullOrEmpty(eventsModel.getCost())) {
             tv_total_cost.setText(eventsModel.getCost());
         } else {
-            ll_cost.setVisibility(View.GONE);
+
         }
 
         if (!Utility.isValueNullOrEmpty(eventsModel.getAddress())) {

@@ -224,7 +224,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
             Utility.setSnackBar(mParent, edt_job_title, "Please enter your Job Title");
             edt_job_title.requestFocus();
         } else if (Utility.isValueNullOrEmpty(edt_no_of_positions.getText().toString().trim())) {
-            Utility.setSnackBar(mParent, edt_no_of_positions, "Please enter your Job Position");
+            Utility.setSnackBar(mParent, edt_no_of_positions, "Please enter Number of Positions");
             edt_no_of_positions.requestFocus();
         } else if (Utility.isValueNullOrEmpty(edt_job_role.getText().toString().trim())) {
             Utility.setSnackBar(mParent, edt_job_role, "Please enter your Job Role");

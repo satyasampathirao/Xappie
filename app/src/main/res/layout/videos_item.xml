@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
+        android:padding="@dimen/_4dp"
         android:textColor="@color/color_black"
         android:text="@string/app_name"
         android:textSize="@dimen/_11sp" />

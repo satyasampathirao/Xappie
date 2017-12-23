@@ -437,7 +437,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             }
             ll_languages_layout_classifieds.addView(ll);
         }*/
-
         ll_classifieds.removeAllViews();
         LinearLayout linearLayout = new LinearLayout(mParent);
         hs_classifieds.setVisibility(View.GONE);
@@ -447,75 +446,79 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
         if (mHomePageEventsAdsBannersModel != null && mHomePageEventsAdsBannersModel.getClassifiedsModel().size() > 0) {
             for (int i = 0; i < mHomePageEventsAdsBannersModel.getClassifiedsModel().size(); i++) {
-                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
-                LinearLayout view = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.view, null);
-                ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
-                TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-                TextView tv_classified_name = (TextView) ll.findViewById(R.id.tv_classified_name);
-                TextView tv_calendar_icon = (TextView) ll.findViewById(R.id.tv_calendar_icon);
-                TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
-                TextView tv_price_icon = (TextView) ll.findViewById(R.id.tv_price_icon);
-                TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
-                TextView tv_sub_classified_name = (TextView) ll.findViewById(R.id.tv_sub_classified_name);
+                    linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
+                    LinearLayout view = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.view, null);
+                    ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
+                    TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+                    TextView tv_classified_name = (TextView) ll.findViewById(R.id.tv_classified_name);
+                    TextView tv_calendar_icon = (TextView) ll.findViewById(R.id.tv_calendar_icon);
+                    TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+                    TextView tv_price_icon = (TextView) ll.findViewById(R.id.tv_price_icon);
+                    TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
+                    TextView tv_sub_classified_name = (TextView) ll.findViewById(R.id.tv_sub_classified_name);
 
-                if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage())) {
-                    Utility.universalImageLoaderPicLoading(img_gallery_image,
-                            mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage(), null, R.drawable.xappie_place_holder);
-                } else {
-                    Utility.universalImageLoaderPicLoading(img_gallery_image,
-                            "", null, R.drawable.xappie_place_holder);
-                }
-                tv_classified_name.setTypeface(Utility.getOpenSansLight(mParent));
-
-                tv_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getName());
-              //  tv_title.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getTitle());
-                tv_calendar_icon.setTypeface(Utility.getFontAwesomeWebFont(mParent));
-                tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-                //  tv_posted_by.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice());
-                // tv_sub_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getCategory());
-                tv_title.setTypeface(Utility.getOpenSansLight(mParent));
-                tv_sub_classified_name.setTypeface(Utility.getOpenSansLight(mParent));
-                tv_posted_by.setTypeface(Utility.getOpenSansLight(mParent));
-
-
-                if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getBannersModels().get(i).getRecordedDate())) {
-                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    PrettyTime prettyTime = new PrettyTime();
-                    Date date;
-                    String outputDateStr = "";
-                    try {
-                        date = inputFormat.parse(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getRecordedDate());
-                        outputDateStr = prettyTime.format(date);
-                        tv_time.setText(outputDateStr);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage())) {
+                        Utility.universalImageLoaderPicLoading(img_gallery_image,
+                                mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage(), null, R.drawable.xappie_place_holder);
+                    } else {
+                        Utility.universalImageLoaderPicLoading(img_gallery_image,
+                                "", null, R.drawable.xappie_place_holder);
                     }
-                }
+                    tv_classified_name.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_time.setTypeface(Utility.getOpenSansLight(mParent));
+
+                    tv_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getCategory());
+                    tv_title.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getTitle());
+                    tv_calendar_icon.setTypeface(Utility.getFontAwesomeWebFont(mParent));
+                    tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+                    tv_posted_by.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice());
+                    tv_sub_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getSub_category());
+                    tv_title.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_sub_classified_name.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_posted_by.setTypeface(Utility.getOpenSansLight(mParent));
 
 
-                ll.setId(i);
-                ll.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int position = view.getId();
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getId());
-                        Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mParent);
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getBannersModels().get(i).getRecordedDate())) {
+                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        PrettyTime prettyTime = new PrettyTime();
+                        Date date;
+                        String outputDateStr = "";
+                        try {
+                            date = inputFormat.parse(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getRecordedDate());
+                            outputDateStr = prettyTime.format(date);
+                            tv_time.setText(outputDateStr);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
-                });
-                linearLayout.addView(view);
-                linearLayout.addView(ll);
 
-                if (i == 2 || i == mHomePageEventsAdsBannersModel.getClassifiedsModel().size() - 1)
+
+                    ll.setId(i);
+                    ll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int position = view.getId();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getId());
+                            Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mParent);
+                        }
+                    });
+                    linearLayout.addView(view);
+                    linearLayout.addView(ll);
+
+                 if (i == 2 || i == mHomePageEventsAdsBannersModel.getClassifiedsModel().size() - 1)
                     ll_classifieds.addView(linearLayout);
+                }
             }
-        } else {
-            rl_classifieds_heading.setVisibility(View.GONE);
-            hs_classifieds_inner_layout.setVisibility(View.GONE);
-            hs_classifieds.setVisibility(View.GONE);
-        }
-    }
+                else {
+                    rl_classifieds_heading.setVisibility(View.GONE);
+                    hs_classifieds_inner_layout.setVisibility(View.GONE);
+                    hs_classifieds.setVisibility(View.GONE);
+                }
+            }
+
+
 
     /**
      * Sets Jobs data
@@ -879,6 +882,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 for (int i = 0; i < mHomePageEventsAdsBannersModel.getEventsModels().size() && i < 7; i++) {
 
                     RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.events_item, null);
+                    LinearLayout view = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.view, null);
                     ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
                     TextView tv_title = (TextView) ll.findViewById(R.id.tv_event_name);
                     TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
@@ -898,7 +902,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_time.setText(Utility.readDateFormat(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getStart_time()).toUpperCase());
                     tv_time.setTypeface(Utility.getOpenSansLight(mParent));
                     tv_posted.setTypeface(Utility.getOpenSansLight(mParent));
-                  // tv_posted.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getAddress());
+                    tv_posted.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getLocation());
 
                     ll.setId(i);
                     ll.setOnClickListener(new View.OnClickListener() {
@@ -911,7 +915,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                                     mParent);
                         }
                     });
-
+                   ll_events.addView(view);
                     ll_events.addView(ll);
                 }
             }
@@ -1164,11 +1168,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     private void setEventsFilters() {
         ll_languages_layout_events.removeAllViews();
         for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_type_item, null);
-            TextView tv_type = (TextView) ll.findViewById(R.id.tv_type);
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
             tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
-            tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
-            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
+            tv_type.setTypeface(Utility.getOpenSansBold(mParent));
 
             tv_type.setId(i);
             tv_type.setOnClickListener(new View.OnClickListener() {
@@ -1182,11 +1187,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             });
 
             if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
-                tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
-                tv_type.setBackground(Utility.getDrawable(mParent, R.drawable.bg_color_rect));
+                view.setVisibility(View.VISIBLE);
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+
             } else {
-                tv_type.setTextColor(Utility.getColor(mParent, R.color.types_color));
-                tv_type.setBackground(null);
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
+                view.setVisibility(View.GONE);
             }
 
             ll_languages_layout_events.addView(ll);
@@ -1306,7 +1312,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
      */
     private void setTopStoriesData(ArrayList<EntertainmentModel> topStoriesModels) {
         ll_top_stories.removeAllViews();
-        for (int i = 0; i < topStoriesModels.size(); i++) {
+        for (int i = 0; i < topStoriesModels.size() && i < 5; i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
             ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
@@ -1315,7 +1321,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             tv_title.setText(topStoriesModels.get(i).getTitle());
             tv_posted_by.setText(topStoriesModels.get(i).getSource());
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
             tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
@@ -1363,7 +1369,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
      */
     private void setEntertainmentData(ArrayList<EntertainmentModel> topStoriesModels) {
         ll_entertainment.removeAllViews();
-        for (int i = 0; i < mHomePageContentModel.getEntertainmentModels().size(); i++) {
+        for (int i = 0; i < mHomePageContentModel.getEntertainmentModels().size()  && i < 5; i++) {
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
             ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
@@ -1372,7 +1378,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             tv_title.setText(mHomePageContentModel.getEntertainmentModels().get(i).getTitle());
             tv_posted_by.setText(mHomePageContentModel.getEntertainmentModels().get(i).getSource());
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -1424,7 +1430,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_item, null);
             ImageView img_video_image = (ImageView) ll.findViewById(R.id.img_video_image);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
 
             tv_title.setText(videosData.get(i).getTitle());
             if (!Utility.isValueNullOrEmpty(videosData.get(i).getThumb_nail()))
@@ -1468,7 +1474,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.gallery_item, null);
             ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
             tv_title.setText(galleryData.get(i).getTitle());
 
             if (!Utility.isValueNullOrEmpty(galleryData.get(i).getProfile_image()))

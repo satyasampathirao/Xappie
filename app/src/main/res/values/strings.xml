@@ -204,7 +204,7 @@
     <string name="_company_name">Company Name *</string>
     <string name="job_role">Job Role *</string>
     <string name="_no_of_positions">No of Positions *</string>
-    <string name="company_logo">Company Logo</string>
+    <string name="company_logo">Company Logo *</string>
     <string name="_website">Website</string>
     <string name="_eligibility">Eligibility</string>
     <string name="_experience">Experience *</string>
@@ -286,6 +286,7 @@
     <string name="icon_share">&#xf1e0;</string>
     <string name="address_icon">&#xE0C8;</string>
     <string name="three_dots">&#xE5D4;</string>
+    <string name="about">About</string>
 
 
 </resources>

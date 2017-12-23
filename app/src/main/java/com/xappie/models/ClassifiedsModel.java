@@ -33,6 +33,7 @@ public class ClassifiedsModel extends Model implements Serializable {
     private String reason;
     private String city;
     private String website;
+    private String sub_category;
 
     public String getImage_url() {
         return image_url;
@@ -232,5 +233,13 @@ public class ClassifiedsModel extends Model implements Serializable {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getSub_category() {
+        return sub_category;
+    }
+
+    public void setSub_category(String sub_category) {
+        this.sub_category = sub_category;
     }
 }

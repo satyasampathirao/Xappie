@@ -124,7 +124,7 @@
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
-                    android:background="@color/light_gray"
+                    android:background="@drawable/red_rectangular_bg"
                     android:text="@string/upload"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
