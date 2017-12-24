@@ -56,6 +56,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_country_list"
+        android:dividerHeight="@dimen/_0.5dp"
+        android:padding="@dimen/_15dp"
         android:background="@color/white" />
 
 

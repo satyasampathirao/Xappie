@@ -500,8 +500,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                         public void onClick(View view) {
                             int position = view.getId();
                             Bundle bundle = new Bundle();
-                            bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getId());
-                            Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mParent);
+                            bundle.putString(Constants.CLASSIFIEDS_ID, mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getId());
+                            Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle, mParent);
                         }
                     });
                     linearLayout.addView(view);
@@ -635,19 +635,19 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         tv_entertainment.setText(tv_entertainment.getText().toString().toUpperCase());
         tv_entertainment_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_discussions.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_discussions.setTypeface(Utility.getOpenSansBold(mParent));
         tv_discussions.setText(tv_discussions.getText().toString().toUpperCase());
         tv_discussions_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_events.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_events.setTypeface(Utility.getOpenSansBold(mParent));
         tv_events.setText(tv_events.getText().toString().toUpperCase());
         tv_events_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_classifieds.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_classifieds.setTypeface(Utility.getOpenSansBold(mParent));
         tv_classifieds.setText(tv_classifieds.getText().toString().toUpperCase());
         tv_classifieds_more.setTypeface(Utility.getOpenSansBold(mParent));
 
-        tv_jobs.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_jobs.setTypeface(Utility.getOpenSansBold(mParent));
         tv_jobs.setText(tv_jobs.getText().toString().toUpperCase());
         tv_jobs_more.setTypeface(Utility.getOpenSansBold(mParent));
     }
@@ -941,11 +941,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 rl_jobs.setVisibility(View.VISIBLE);
                 hs_jobs.setVisibility(View.VISIBLE);
                 for (int i = 0; i < mHomePageEventsAdsBannersModel.getJobsModels().size() && i < 5; i++) {
-                    LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.news_item, null);
-                    ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_news_item);
+                    LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.find_jobs_list_item, null);
+                    ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_logo);
                     TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-                    TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
-                    TextView tv_posted = (TextView) ll.findViewById(R.id.tv_posted_by);
+                    TextView tv_positions = (TextView) ll.findViewById(R.id.tv_positions);
+                    TextView tv_time = (TextView) ll.findViewById(R.id.tv_positions_nbr);
+                    TextView tv_posted = (TextView) ll.findViewById(R.id.tv_company_name);
 
                     if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany_logo())) {
                         Utility.universalImageLoaderPicLoading(img_news_item,
@@ -956,11 +957,13 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     }
 
                     tv_title.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getTitle());
-                    tv_title.setTypeface(Utility.getOpenSansBold(mParent));
+                    tv_title.setTypeface(Utility.getOpenSansLight(mParent));
 
-                    tv_time.setText(Utility.displayDateFormat(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getRecordedDate()).toUpperCase());
-                    tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
-                    tv_posted.setVisibility(View.GONE);
+                    tv_time.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getPositions());
+                    tv_time.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_posted.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_positions.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_posted.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany());
 
                     ll.setId(i);
                     ll.setOnClickListener(new View.OnClickListener() {
@@ -1093,7 +1096,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
             View view = ll.findViewById(R.id.view);
             tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName());
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_language_name.setTypeface(Utility.getOpenSansRegular(mParent));
 
             tv_language_name.setId(i);
             tv_language_name.setOnClickListener(new View.OnClickListener() {
@@ -1173,7 +1176,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             View view = (View) ll.findViewById(R.id.view);
             tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
             tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
-            tv_type.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
 
             tv_type.setId(i);
             tv_type.setOnClickListener(new View.OnClickListener() {
@@ -1202,10 +1205,11 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     private void setJobsFilters() {
         ll_languages_layout_jobs.removeAllViews();
         for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_type_item, null);
-            TextView tv_type = (TextView) ll.findViewById(R.id.tv_type);
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
             tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
-            tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
             tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
 
             tv_type.setId(i);
@@ -1220,11 +1224,11 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             });
 
             if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
-                tv_type.setTextColor(Utility.getColor(mParent, R.color.white));
-                tv_type.setBackground(Utility.getDrawable(mParent, R.drawable.bg_color_rect));
+                view.setVisibility(View.VISIBLE);
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
             } else {
-                tv_type.setTextColor(Utility.getColor(mParent, R.color.types_color));
-                tv_type.setBackground(null);
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
+                view.setVisibility(View.GONE);
             }
 
             ll_languages_layout_jobs.addView(ll);
@@ -1241,7 +1245,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             TextView tv_language_name = (TextView) ll.findViewById(R.id.tv_language_name);
             View view = ll.findViewById(R.id.view);
             tv_language_name.setText(mLanguageListModel.getLanguageModels().get(i).getName());
-            tv_language_name.setTypeface(Utility.getOpenSansBold(mParent));
+            tv_language_name.setTypeface(Utility.getOpenSansRegular(mParent));
 
             tv_language_name.setId(i);
             tv_language_name.setOnClickListener(new View.OnClickListener() {
@@ -1474,7 +1478,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.gallery_item, null);
             ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
+            tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
             tv_title.setText(galleryData.get(i).getTitle());
 
             if (!Utility.isValueNullOrEmpty(galleryData.get(i).getProfile_image()))

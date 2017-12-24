@@ -58,7 +58,7 @@
                     android:alpha="0.8"
                     android:text="@string/_1day"
                     android:textColor="@color/light_yellow"
-                    android:textSize="@dimen/_10sp" />
+                    android:textSize="@dimen/_11sp" />
 
                 <TextView
                     android:id="@+id/tv_posted_by"

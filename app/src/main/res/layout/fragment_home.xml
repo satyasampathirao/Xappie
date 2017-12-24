@@ -350,7 +350,7 @@
                 android:layout_height="match_parent"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
-                android:paddingTop="@dimen/_5dp"
+                android:paddingTop="@dimen/_10dp"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -500,6 +500,7 @@
                 android:id="@+id/hs_jobs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
                 android:scrollbars="none">
@@ -507,7 +508,7 @@
                 <LinearLayout
                     android:id="@+id/ll_languages_layout_jobs"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40dp"
+                    android:layout_height="@dimen/_43dp"
                     android:layout_marginTop="@dimen/_10dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />

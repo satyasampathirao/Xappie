@@ -75,9 +75,9 @@ public class AllMyClassifiedsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_dots = (TextView) convertView.findViewById(R.id.tv_dots);
 
 
-            mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
-            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_posted_by.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_title.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
+            mClassifiedsListHolder.tv_time.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
+            mClassifiedsListHolder.tv_posted_by.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
             mClassifiedsListHolder.tv_calendar_icon.setTypeface(mFontAwesome);
             mClassifiedsListHolder.tv_price_icon.setTypeface(mMaterialIcon);
             mClassifiedsListHolder.tv_dots.setTypeface(mMaterialIcon);

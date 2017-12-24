@@ -9,11 +9,11 @@
         android:id="@+id/tv_languages_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_15dp"
         android:layout_marginStart="@dimen/_25dp"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:layout_weight="1"
-        android:textSize="@dimen/_14sp" />
+        android:textSize="@dimen/_15sp" />
 
     <TextView
         android:id="@+id/tv_selected"

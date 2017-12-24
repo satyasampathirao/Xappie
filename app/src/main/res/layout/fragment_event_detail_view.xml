@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/calendar_icon"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/orange"
                         android:layout_marginStart="@dimen/_20dp"
                         android:textSize="@dimen/_25sp"
                         android:textStyle="bold" />
@@ -86,7 +86,6 @@
                             android:paddingEnd="@dimen/_10dp"
                             android:paddingStart="@dimen/_10dp"
                             android:text="@string/date_time_hint"
-                            android:textColor="@color/dark_gray"
                             android:textSize="@dimen/_14sp" />
 
                     <TextView
@@ -97,7 +96,6 @@
                         android:paddingEnd="@dimen/_10dp"
                         android:paddingStart="@dimen/_10dp"
                         android:text="@string/date_time_hint"
-                        android:textColor="@color/dark_gray"
                         android:textSize="@dimen/_14sp" />
 
                 </LinearLayout>
@@ -149,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location_icon"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/orange"
                 android:layout_marginStart="@dimen/_20dp"
                 android:textSize="@dimen/_25sp"
                 android:textStyle="bold" />
@@ -161,7 +159,6 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_12dp"
                 android:text="@string/address"
-                android:textColor="@color/dark_gray"
                 android:textSize="@dimen/_14sp" />
         </LinearLayout>
 
@@ -180,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/price_icon"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/orange"
                     android:layout_marginStart="@dimen/_20dp"
                     android:textSize="@dimen/_25sp"
                     android:textStyle="bold" />
@@ -190,7 +187,6 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/_10dp"
                     android:layout_gravity="center_vertical"
-                    android:textColor="@color/dark_gray"
                     android:textSize="@dimen/_14sp" />
             </LinearLayout>
 
@@ -221,8 +217,7 @@
                     android:paddingEnd="@dimen/_10dp"
                     android:paddingStart="@dimen/_15dp"
                     android:text="@string/dress_code_with_colon"
-                    android:textSize="@dimen/_15sp"
-                    android:textColor="@color/dark_gray" />
+                    android:textSize="@dimen/_15sp" />
 
                 <TextView
                     android:id="@+id/tv_dress_code_value"
@@ -245,8 +240,7 @@
                     android:paddingBottom="@dimen/_10dp"
                     android:paddingTop="@dimen/_10dp"
                     android:text="@string/about"
-                    android:textSize="@dimen/_15sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textSize="@dimen/_15sp" />
 
                 <TextView
                     android:id="@+id/tv_details"
@@ -257,7 +251,7 @@
                     android:paddingBottom="@dimen/_10dp"
                     android:paddingTop="@dimen/_10dp"
                     android:text="@string/every_saturday_night"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@color/gallery_header_color" />
 
 
             </LinearLayout>
@@ -283,7 +277,7 @@
                 android:id="@+id/btn_i_am_going"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_30dp"
-                android:background="@drawable/bordr_text"
+                android:background="@drawable/iam_going_border"
                 android:gravity="center"
                 android:paddingEnd="@dimen/_30dp"
                 android:paddingStart="@dimen/_30dp"
@@ -362,13 +356,13 @@
             android:id="@+id/btn_who_is_going"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_30dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/who_is_going_border"
             android:gravity="center"
             android:paddingEnd="@dimen/_30dp"
             android:paddingStart="@dimen/_30dp"
             android:text="@string/who_is_going"
             android:textAllCaps="false"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/dialogAccept"
             android:textSize="@dimen/_18sp" />
     </LinearLayout>
 

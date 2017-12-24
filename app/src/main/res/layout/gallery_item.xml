@@ -20,6 +20,7 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:paddingStart="@dimen/_10dp"
+        android:paddingBottom="@dimen/_5dp"
         android:textColor="@android:color/white"
         android:textSize="@dimen/_11sp" />
 

@@ -63,7 +63,9 @@ public class GalleryDetailImageAdapter extends PagerAdapter {
             Utility.universalImageLoaderPicLoading(image_view,
                     "", null, R.drawable.gallery_place_holder);
         }
-        tv_title.setTypeface(Utility.getOpenSansRegular(context));
+        tv_title.setTypeface(Utility.getOpenSansLight(context));
+        tv_description.setTypeface(Utility.getOpenSansLight(context));
+        tv_source.setTypeface(Utility.getOpenSansLight(context));
         tv_title.setText(galleryImageViewModels.get(position).getTitle());
         tv_description.setText(galleryImageViewModels.get(position).getDescription());
         tv_source.setText(galleryImageViewModels.get(position).getSource());

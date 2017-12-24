@@ -25,6 +25,8 @@
             android:layout_centerVertical="true"
             android:drawableStart="@drawable/back_arrow"
             android:paddingStart="@dimen/_10dp"
+            android:textSize="@dimen/_28sp"
+            android:layout_marginStart="@dimen/_5dp"
             android:textColor="@color/color_white"
             android:textStyle="bold" />
 
@@ -37,6 +39,7 @@
             android:layout_toRightOf="@+id/tv_notification_arrow_back_icon"
             android:gravity="center"
             android:text="@string/menu_icon"
+            android:visibility="gone"
             android:textColor="@color/color_white"
             android:textSize="@dimen/_18sp"
             android:textStyle="bold" />

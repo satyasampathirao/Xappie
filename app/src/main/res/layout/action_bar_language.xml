@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:text="@string/arrow_circle"
             android:textColor="@color/color_white"
             android:textSize="@dimen/_20sp" />
@@ -37,6 +37,7 @@
             android:layout_toRightOf="@+id/tv_languages_arrow_back_icon"
             android:gravity="center"
             android:text="@string/menu_icon"
+            android:visibility="gone"
             android:textColor="@color/color_white"
             android:textSize="@dimen/_18sp" />
 

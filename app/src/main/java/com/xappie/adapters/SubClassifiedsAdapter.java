@@ -63,7 +63,7 @@ public class SubClassifiedsAdapter extends BaseAdapter {
             mClassifiedsGridHolder = new SubClassifiedsAdapter.ClassifiedsGridHolder();
             mClassifiedsGridHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_list);
 
-            mClassifiedsGridHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
+            mClassifiedsGridHolder.tv_title.setTypeface(Utility.getOpenSansRegular(mDashBoardActivity));
 
             convertView.setTag(mClassifiedsGridHolder);
         } else {

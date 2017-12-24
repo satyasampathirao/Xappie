@@ -40,6 +40,8 @@
         android:layout_below="@+id/ll_country_list"
         android:layout_width="match_parent"
         android:background="@color/white"
+        android:padding="@dimen/_15dp"
+        android:dividerHeight="@dimen/_0.5dp"
         android:layout_height="match_parent" />
 
 

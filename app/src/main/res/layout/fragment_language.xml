@@ -10,6 +10,8 @@
         android:id="@+id/language_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:dividerHeight="@dimen/_0.5dp"
+        android:padding="@dimen/_15dp"
         android:layout_below="@+id/tool_bar_language" />
 
 </RelativeLayout>

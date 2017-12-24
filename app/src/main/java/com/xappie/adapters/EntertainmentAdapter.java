@@ -31,6 +31,7 @@ public class EntertainmentAdapter extends BaseAdapter {
     private ArrayList<EntertainmentModel> entertainmentModels;
     private Typeface mOpenSansBoldTypeface;
     private Typeface mOpenSansRegularTypeface;
+    private Typeface mOpenSansLightTypeface;
 
     public EntertainmentAdapter(DashBoardActivity mDashBoardActivity, ArrayList<EntertainmentModel> entertainmentModels) {
         this.mDashBoardActivity = mDashBoardActivity;
@@ -38,6 +39,7 @@ public class EntertainmentAdapter extends BaseAdapter {
         this.entertainmentModels = entertainmentModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(mDashBoardActivity);
+        mOpenSansLightTypeface = Utility.getOpenSansLight(mDashBoardActivity);
     }
 
     @Override
@@ -67,9 +69,9 @@ public class EntertainmentAdapter extends BaseAdapter {
             mEntertainmentHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             mEntertainmentHolder.tv_posted_by = (TextView) convertView.findViewById(R.id.tv_posted_by);
 
-            mEntertainmentHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
-            mEntertainmentHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
-            mEntertainmentHolder.tv_posted_by.setTypeface(mOpenSansRegularTypeface);
+            mEntertainmentHolder.tv_title.setTypeface(mOpenSansLightTypeface);
+            mEntertainmentHolder.tv_time.setTypeface(mOpenSansLightTypeface);
+            mEntertainmentHolder.tv_posted_by.setTypeface(mOpenSansLightTypeface);
 
             convertView.setTag(mEntertainmentHolder);
         } else {

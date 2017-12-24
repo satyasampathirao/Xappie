@@ -29,6 +29,7 @@ public class FindJobsListAdapter extends BaseAdapter
     private ArrayList<JobsModel> jobsModels;
     private Typeface mOpenSansBoldTypeface;
     private Typeface mOpenSansRegularTypeface;
+    private Typeface mOpenSansLightTypeface;
 
     public FindJobsListAdapter(DashBoardActivity mDashBoardActivity, ArrayList<JobsModel> jobsModels) {
         this.mDashBoardActivity = mDashBoardActivity;
@@ -36,6 +37,7 @@ public class FindJobsListAdapter extends BaseAdapter
         this.jobsModels = jobsModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(mDashBoardActivity);
+        mOpenSansLightTypeface = Utility.getOpenSansLight(mDashBoardActivity);
     }
 
     @Override
@@ -65,11 +67,13 @@ public class FindJobsListAdapter extends BaseAdapter
             mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_positions);
             mClassifiedsListHolder.tv_positions_nbr = (TextView) convertView.findViewById(R.id.tv_positions_nbr);
             mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_company_name);
+            mClassifiedsListHolder.view = (View) convertView.findViewById(R.id.view_job);
 
-            mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
-            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_title.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.view.setVisibility(View.GONE);
 
             convertView.setTag(mClassifiedsListHolder);
         } else {
@@ -114,6 +118,7 @@ public class FindJobsListAdapter extends BaseAdapter
         TextView tv_location;
         TextView tv_positions_nbr;
         ImageView img_logo;
+        View view;
     }
 }
 

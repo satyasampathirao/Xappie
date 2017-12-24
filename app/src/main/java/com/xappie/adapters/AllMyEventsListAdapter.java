@@ -29,6 +29,7 @@ public class AllMyEventsListAdapter extends BaseAdapter {
     private ArrayList<EventsModel> eventsModels;
     private Typeface mOpenSansBoldTypeface;
     private Typeface mOpenSansRegularTypeface;
+    private Typeface mOpenSansLightTypeface;
 
     public AllMyEventsListAdapter(DashBoardActivity mDashBoardActivity, ArrayList<EventsModel> eventsModels) {
         this.mDashBoardActivity = mDashBoardActivity;
@@ -36,6 +37,7 @@ public class AllMyEventsListAdapter extends BaseAdapter {
         this.eventsModels = eventsModels;
         mOpenSansBoldTypeface = Utility.getOpenSansBold(mDashBoardActivity);
         mOpenSansRegularTypeface = Utility.getOpenSansRegular(mDashBoardActivity);
+        mOpenSansLightTypeface = Utility.getOpenSansLight(mDashBoardActivity);
     }
 
     @Override
@@ -65,9 +67,9 @@ public class AllMyEventsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
 
-            mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
-            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_title.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansLightTypeface);
             mClassifiedsListHolder.tv_location.setVisibility(View.GONE);
 
             convertView.setTag(mClassifiedsListHolder);
