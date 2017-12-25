@@ -2,95 +2,101 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/tour_screen_four"
     android:orientation="vertical">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_30dp"
-        android:layout_marginBottom="@dimen/_30dp"
-        android:layout_marginEnd="@dimen/_40dp"
-        android:layout_marginStart="@dimen/_40dp"
-        android:minHeight="@dimen/_200dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/white_space" />
-
-    <TextView
-        android:id="@+id/tv_thats_it"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/thats_it"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_17sp"
-        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/_2dp"
-        android:paddingTop="@dimen/_2dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_time_to_be_e"
+            android:id="@+id/tv_alerts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center"
+            android:text="@string/alerts"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sp" />
+
+
+        <TextView
+            android:id="@+id/tv_notification_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_65dp"
             android:gravity="center"
-            android:text="@string/time_to_be_e"
-            android:textColor="@color/dark_gray"
+            android:text="@string/notifications_icon"
+            android:textColor="@color/white"
+            android:textSize="70sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_menu_pre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center"
+            android:text="@string/menu_preferences"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_22sp" />
+
+        <TextView
+            android:id="@+id/tv_are_you_missing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_65dp"
+            android:gravity="center"
+            android:text="@string/are_you_missing"
+            android:textColor="@color/white"
             android:textSize="@dimen/_15sp" />
 
         <TextView
-            android:id="@+id/tv_x"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_we_send"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/x"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/we_send_alerts"
+            android:textColor="@color/white"
             android:textSize="@dimen/_15sp" />
 
         <TextView
-            android:id="@+id/tv_tra_h"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_events_hosted"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/tra_h"
-            android:textColor="@color/dark_gray"
+            android:text="@string/events_hosted"
+            android:textColor="@color/white"
             android:textSize="@dimen/_15sp" />
 
         <TextView
-            android:id="@+id/tv_appy"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_customize_based"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/appy"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/customize_based"
+            android:textColor="@color/white"
             android:textSize="@dimen/_15sp" />
 
-        <TextView
-            android:id="@+id/tv_through_xappie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/through_xappie"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/_15sp" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_continue"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/red_rectangular_bg"
-        android:ems="10"
+        android:id="@+id/tv_alerts_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_30dp"
+        android:layout_marginEnd="@dimen/_15dp"
+        android:layout_marginStart="@dimen/_15dp"
+        android:background="@drawable/edit_text_bg_rectangle"
         android:gravity="center"
-        android:text="@string/continue_text"
-        android:textColor="@color/white"
+        android:padding="@dimen/_10dp"
+        android:text="@string/next"
+        android:textColor="#6DEE98"
         android:textSize="@dimen/_18sp" />
+
 
 </LinearLayout>

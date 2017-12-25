@@ -1,7 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/add_new_event_gray"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
@@ -9,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/classifieds_top"
+        android:id="@+id/ll_job"
         android:orientation="vertical">
 
         <include
@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:layout_below="@+id/ll_job"
         android:descendantFocusability="blocksDescendants"
         android:orientation="horizontal">
 
@@ -124,14 +125,18 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1dp"
+        android:id="@+id/view"
         android:layout_marginTop="@dimen/_2dp"
+        android:layout_below="@+id/ll_layout"
+        android:layout_marginEnd="@dimen/_15dp"
+        android:layout_marginStart="@dimen/_15dp"
         android:background="@color/light_gray" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_layout">
+        android:layout_below="@id/view">
 
         <LinearLayout
             android:id="@+id/ll_header"
@@ -225,24 +230,30 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_submit_resume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_20dp"
-                android:layout_marginTop="@dimen/_18dp"
-                android:background="@drawable/red_rectangular_bg"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/submit_resume"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_18sp" />
-
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btn_submit_resume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:background="@drawable/red_rectangular_bg"
+        android:text="@string/submit_resume"
+        android:textAllCaps="false"
+        android:layout_marginStart="@dimen/_15dp"
+        android:layout_marginEnd="@dimen/_15dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sp" />
 
-</LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

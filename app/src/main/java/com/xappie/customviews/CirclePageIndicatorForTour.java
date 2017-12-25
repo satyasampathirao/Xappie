@@ -107,7 +107,7 @@ public class CirclePageIndicatorForTour extends View implements PageIndicator {
         /*mPaintFill.setColor(a.getColor(
                 R.styleable.CirclePageIndicator_fillColor, Color.DKGRAY));*/
         mPaintFill.setColor(a.getColor(
-                R.styleable.CirclePageIndicator_fillColor, Utility.getColor(context, R.color.dark_gray)));
+                R.styleable.CirclePageIndicator_fillColor, Utility.getColor(context, R.color.white)));
         mRadius = a.getDimension(R.styleable.CirclePageIndicator_radiuss,
                 defaultRadius);
         mSnap = a.getBoolean(R.styleable.CirclePageIndicator_snap, defaultSnap);

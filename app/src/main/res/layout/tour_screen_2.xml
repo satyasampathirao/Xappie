@@ -1,121 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/tour_screen_two"
     android:orientation="vertical">
 
-    <ImageView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_25dp"
-        android:layout_marginBottom="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_40dp"
-        android:layout_marginStart="@dimen/_40dp"
-        android:minHeight="@dimen/_200dp"
-        android:contentDescription="@string/xappie_tour"
-        android:scaleType="fitCenter"
-        android:src="@drawable/allu_arjun" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:scaleType="center"
-        android:contentDescription="@string/location"
-       android:src="@drawable/location_intro" />
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center"
+            android:text="@string/city_and_lang"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sp" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_65dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/tv_location_icon"
+                    android:text="@string/location_icon"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="70sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:id="@+id/tv_location"
+                    android:textSize="@dimen/_24sp"
+                    android:text="@string/location"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/tv_language_icon"
+                android:text="@string/language_icon"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="70sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:id="@+id/tv_language"
+                    android:textSize="@dimen/_24sp"
+                    android:text="@string/language"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_simply_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_75dp"
+            android:gravity="center"
+            android:text="@string/simply_select"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sp" />
+
+        <TextView
+            android:id="@+id/tv_the_customized"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/the_customized"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sp" />
+
+        <TextView
+            android:id="@+id/tv_you_can_always"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/you_can_always"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sp" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_location"
-        android:gravity="center"
-        android:text="@string/location"
-        android:textAllCaps="true"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_3dp"
-        android:gravity="center"
-        android:id="@+id/tv_location_set"
-        android:text="@string/this_is_where"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_13sp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_5dp"
-        android:contentDescription="@string/notification"
-        android:scaleType="center"
-        android:src="@drawable/notification_intro" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        android:text="@string/notification"
-        android:id="@+id/tv_notification"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_16sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_3dp"
-        android:gravity="center"
-        android:id="@+id/tv_notification_set"
-        android:text="@string/place_to_set"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_13sp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_5dp"
-        android:contentDescription="@string/preferences"
-        android:scaleType="center"
-        android:src="@drawable/language_intro" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="@string/preferences"
-        android:textAllCaps="true"
-        android:id="@+id/tv_preference"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_16sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_3dp"
-        android:gravity="center"
-        android:id="@+id/tv_preference_set"
-        android:text="@string/set_your_language"
-        android:layout_marginBottom="@dimen/_20dp"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_13sp" />
-
-
+        android:layout_marginBottom="@dimen/_30dp"
+        android:layout_marginEnd="@dimen/_15dp"
+        android:layout_marginStart="@dimen/_15dp"
+        android:text="@string/next"
+        android:textSize="@dimen/_18sp"
+        android:id="@+id/tv_next"
+        android:padding="@dimen/_10dp"
+        android:textColor="#35D4EE"
+        android:background="@drawable/edit_text_bg_rectangle"
+        android:gravity="center" />
 </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>

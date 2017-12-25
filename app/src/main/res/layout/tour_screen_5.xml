@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tour_screen_five"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_services"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:gravity="center"
+            android:text="@string/services"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sp" />
+
+        <TextView
+            android:id="@+id/tv_enjoy_the_services"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_45dp"
+            android:layout_marginStart="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:gravity="center"
+            android:text="@string/enjoy_the_services"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_entertainment_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/entertainment"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_top_stories_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/top_stories"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:textColor="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_gallery_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gallery"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_videos_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/videos"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_events_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/events"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:textColor="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_jobs_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/jobs"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_classifieds_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/classifieds"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_chit_chat_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chit_chat"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/coming_soon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:textColor="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_communication_icon"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_bg"
+                    android:gravity="center"
+                    android:text="@string/calendar_icon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/communities"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/coming_soon"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:drawablePadding="@dimen/_5dp"
+            android:drawableStart="@drawable/gallery"
+            android:drawableTint="@color/white"
+            android:gravity="center"
+            android:text="mobile alerts on local deals and coupons"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sp" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_you_got_it"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_30dp"
+        android:layout_marginEnd="@dimen/_15dp"
+        android:layout_marginStart="@dimen/_15dp"
+        android:background="@drawable/edit_text_bg_rectangle"
+        android:gravity="center"
+        android:padding="@dimen/_10dp"
+        android:text="@string/you_got_it"
+        android:textColor="#B27AFF"
+        android:textSize="@dimen/_18sp" />
+
+</LinearLayout>

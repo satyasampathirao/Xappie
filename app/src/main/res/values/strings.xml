@@ -287,6 +287,38 @@
     <string name="address_icon">&#xE0C8;</string>
     <string name="three_dots">&#xE5D4;</string>
     <string name="about">About</string>
+    <string name="discover">Discover</string>
+    <string name="xappie_is_the">Xappie is the only mobile app for Indians</string>
+    <string name="which_provides">which provides all the required information at</string>
+    <string name="one_place">one place about your city and language</string>
+    <string name="selected">selected</string>
+    <string name="its">It\'s</string>
+    <string name="Local">Local</string>
+    <string name="simple">Simple</string>
+    <string name="customizable">Customizable</string>
+    <string name="free"><![CDATA[& Free]]></string>
+    <string name="lets_start">LET\'S START</string>
+    <string name="city_and_lang">City and Language</string>
+    <string name="next">next</string>
+    <string name="simply_select">Simply select the Location and Language for</string>
+    <string name="the_customized">the customized information to be displayed.</string>
+    <string name="you_can_always">You can always change it as required.</string>
+    <string name="menu_preferences">Menu - Preferences - Customize</string>
+    <string name="tired_of_viewing">Tired of viewing unnecessary information?</string>
+    <string name="xappie_alows">Xappie allows you to customize homepage</string>
+    <string name="based_on">based on your interests. Once set they</string>
+    <string name="remain_for">remain for every visit</string>
+    <string name="alerts">Alerts</string>
+    <string name="are_you_missing">Are you missing latest updates in your locality?</string>
+    <string name="we_send_alerts">We send alerts on local deals, coupons,</string>
+    <string name="events_hosted">events hosted in your city. You can always</string>
+    <string name="customize_based">customize based on your interests.</string>
+    <string name="you_got_it">You Got It</string>
+    <string name="services">Services</string>
+    <string name="enjoy_the_services">Enjoy the services for your locality and language. Please share your feedback for improvements</string>
+    <string name="chit_chat">Chit-Chat</string>
+    <string name="coming_soon">(coming soon)</string>
+    <string name="communities">Communities</string>
 
 
 </resources>

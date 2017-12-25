@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -6,7 +6,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/classifieds_top">
+        android:background="@drawable/classifieds_top"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_xappie_tour"
@@ -36,15 +37,16 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/mViewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content" />
 
     <com.xappie.customviews.CirclePageIndicatorForTour
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingBottom="20dp"
-        android:paddingTop="@dimen/_2dp" />
+        android:layout_alignBottom="@id/mViewPager"
+        android:layout_marginBottom="@dimen/_110dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="@dimen/_5dp" />
 
-</LinearLayout>
+
+</RelativeLayout>
