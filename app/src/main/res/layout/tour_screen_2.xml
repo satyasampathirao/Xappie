@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:id="@+id/tv_location"
-                    android:textSize="@dimen/_24sp"
+                    android:textSize="@dimen/_22sp"
                     android:text="@string/location"/>
 
             </LinearLayout>
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:id="@+id/tv_language"
-                    android:textSize="@dimen/_24sp"
+                    android:textSize="@dimen/_22sp"
                     android:text="@string/language"/>
 
             </LinearLayout>

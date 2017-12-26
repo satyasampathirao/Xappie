@@ -43,7 +43,7 @@
             android:gravity="center"
             android:text="@string/menu_preferences"
             android:textColor="@color/white"
-            android:textSize="@dimen/_22sp" />
+            android:textSize="@dimen/_20sp" />
 
         <TextView
             android:id="@+id/tv_menu_section"

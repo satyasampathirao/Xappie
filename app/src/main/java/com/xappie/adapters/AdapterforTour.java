@@ -205,6 +205,10 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
                 TextView tv_classifieds_icon = (TextView) mView.findViewById(R.id.tv_classifieds_icon);
                 TextView tv_chit_chat_icon = (TextView) mView.findViewById(R.id.tv_chit_chat_icon);
                 TextView tv_communication_icon = (TextView) mView.findViewById(R.id.tv_communication_icon);
+                TextView tv_mic_icon = (TextView) mView.findViewById(R.id.tv_mic_icon);
+                TextView tv_improve = (TextView) mView.findViewById(R.id.tv_improve);
+                TextView tv_please_share = (TextView) mView.findViewById(R.id.tv_please_share);
+                TextView tv_mobile_alert = (TextView) mView.findViewById(R.id.tv_mobile_alert);
 
                 tv_you_got_it.setTypeface(Utility.getOpenSansBold(mContext));
                 tv_enjoy_the_services.setTypeface(Utility.getOpenSansRegular(mContext));
@@ -217,8 +221,12 @@ public class AdapterforTour extends PagerAdapter implements OnClickListener {
                 tv_gallery_icon.setTypeface(Utility.getFontAwesomeWebFont(mContext));
                 tv_top_stories_icon.setTypeface(Utility.getFontAwesomeWebFont(mContext));
                 tv_entertainment_icon.setTypeface(Utility.getFontAwesomeWebFont(mContext));
-                
+                tv_mic_icon.setTypeface(Utility.getFontAwesomeWebFont(mContext));
+                tv_improve.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_please_share.setTypeface(Utility.getOpenSansRegular(mContext));
                 tv_services.setTypeface(Utility.getOpenSansRegular(mContext));
+                tv_mobile_alert.setTypeface(Utility.getOpenSansRegular(mContext));
+
                 tv_you_got_it.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {

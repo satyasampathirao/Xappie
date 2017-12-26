@@ -41,9 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10dp"
             android:gravity="center"
-            android:text="@string/menu_preferences"
+            android:text="@string/menu_preferences_notify"
             android:textColor="@color/white"
-            android:textSize="@dimen/_22sp" />
+            android:textSize="@dimen/_20sp" />
 
         <TextView
             android:id="@+id/tv_are_you_missing"

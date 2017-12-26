@@ -304,6 +304,7 @@
     <string name="the_customized">the customized information to be displayed.</string>
     <string name="you_can_always">You can always change it as required.</string>
     <string name="menu_preferences">Menu - Preferences - Customize</string>
+    <string name="menu_preferences_notify">Menu - Preferences - Notifications</string>
     <string name="tired_of_viewing">Tired of viewing unnecessary information?</string>
     <string name="xappie_alows">Xappie allows you to customize homepage</string>
     <string name="based_on">based on your interests. Once set they</string>
@@ -315,10 +316,20 @@
     <string name="customize_based">customize based on your interests.</string>
     <string name="you_got_it">You Got It</string>
     <string name="services">Services</string>
-    <string name="enjoy_the_services">Enjoy the services for your locality and language. Please share your feedback for improvements</string>
+    <string name="enjoy_the_services">Enjoy the services for your locality and </string>
+    <string name="please_share">language. Please share your feedback for</string>
+    <string name="improvements">improvements.</string>
     <string name="chit_chat">Chit-Chat</string>
     <string name="coming_soon">(coming soon)</string>
     <string name="communities">Communities</string>
-
-
+    <string name="chit_chat_icon">&#xf0e6;</string>
+    <string name="mic_icon">&#xf0a1;</string>
+    <string name="mobile_alerts">mobile alerts on local deals and coupons</string>
+    <string name="video_icon">&#xf1c8;</string>
+    <string name="entertainment_icon">&#xf008;</string>
+    <string name="gallerys_icon">&#xf1c5;</string>
+    <string name="top_stories_icon">&#xf0f6;</string>
+    <string name="jobs_icon">&#xf2bc;</string>
+    <string name="communities_icon">&#xf0c0;</string>
+    <string name="classifieds_icon">&#xf1e7;</string>
 </resources>

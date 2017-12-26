@@ -76,7 +76,7 @@
             android:layout_marginStart="@dimen/_30dp"
             android:text="@string/Local"
             android:textColor="@color/white"
-            android:textSize="@dimen/_27sp" />
+            android:textSize="@dimen/_28sp" />
 
         <TextView
             android:id="@+id/tv_simple"
@@ -85,7 +85,7 @@
             android:layout_marginStart="@dimen/_30dp"
             android:text="@string/simple"
             android:textColor="@color/white"
-            android:textSize="@dimen/_27sp" />
+            android:textSize="@dimen/_28sp" />
 
         <TextView
             android:id="@+id/tv_customizable"
@@ -94,7 +94,7 @@
             android:layout_marginStart="@dimen/_30dp"
             android:text="@string/customizable"
             android:textColor="@color/white"
-            android:textSize="@dimen/_27sp" />
+            android:textSize="@dimen/_28sp" />
 
         <TextView
             android:id="@+id/tv_free"
@@ -103,7 +103,7 @@
             android:layout_marginStart="@dimen/_30dp"
             android:text="@string/free"
             android:textColor="@color/white"
-            android:textSize="@dimen/_27sp" />
+            android:textSize="@dimen/_28sp" />
     </LinearLayout>
 
     <TextView
