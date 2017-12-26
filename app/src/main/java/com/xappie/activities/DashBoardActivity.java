@@ -83,6 +83,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
     private ImageUploadModel mImageUploadModel;
 
     private ImageView img_user_image;
+    private TextView tv_first_last;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -242,6 +243,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
         });
         View header = navigationView.getHeaderView(0);
         img_user_image = (ImageView) header.findViewById(R.id.img_user_image);
+        tv_first_last = (TextView) header.findViewById(R.id.tv_first_last);
         TextView tv_edit = (TextView) header.findViewById(R.id.tv_edit);
         TextView tv_sign_in_to_xappie = (TextView) header.findViewById(R.id.tv_sign_in_to_xappie);
         tv_sign_in_to_xappie.setTypeface(Utility.getOpenSansBold(this));
@@ -274,13 +276,31 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
             } else
                 txt_hello.setText(Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_FIRST_NAME)
                         + " " + Utility.getSharedPrefStringData(DashBoardActivity.this, Constants.SIGN_UP_LAST_NAME));
-            if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_PHOTO)))
+            Utility.setThemeColorToBackground(img_user_image, this);
+
+            if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_PHOTO))) {
                 Picasso.with(this).load(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_PHOTO))
                         .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .networkPolicy(NetworkPolicy.NO_CACHE)
                         .placeholder(Utility.getDrawable(this, R.drawable.avatar_image))
                         .transform(new CircleTransform()).into(img_user_image);
-
+                tv_first_last.setVisibility(View.GONE);
+            } else {
+                if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_FIRST_NAME))) {
+                    tv_first_last.setText(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_FIRST_NAME).substring(0, 1));
+                } else {
+                    tv_first_last.setText("XP");
+                }
+                if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_LAST_NAME))) {
+                    tv_first_last.setText(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_FIRST_NAME).substring(0, 1)
+                           + Utility.getSharedPrefStringData(this, Constants.SIGN_UP_LAST_NAME).substring(0, 1));
+                }
+                tv_first_last.setVisibility(View.VISIBLE);
+                Picasso.with(this).load("asdasda")
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .transform(new CircleTransform()).into(img_user_image);
+            }
         } else {
             img_user_image.setImageDrawable(Utility.getDrawable(this, R.drawable.avatar_image));
             tv_sign_in_to_xappie.setVisibility(View.VISIBLE);

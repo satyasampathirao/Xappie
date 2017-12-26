@@ -9,8 +9,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -41,7 +44,6 @@ import com.xappie.R;
 import com.xappie.fragments.AllEventsListFragment;
 import com.xappie.fragments.ClassifiedsListFragment;
 import com.xappie.fragments.FindJobsListFragment;
-import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
 
 import org.apache.http.HttpEntity;
@@ -75,6 +77,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Shankar on 6/29/2017.
@@ -900,4 +903,19 @@ public class Utility {
         return result;
     }
 
+    /**
+     * Set Theme Color To View Background
+     */
+    public static void setThemeColorToBackground(View view, Context context) {
+        try {
+            ((GradientDrawable) view.getBackground()).setColor(getThemeColor(context));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private static int getThemeColor(Context mContext) {
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        return color;
+    }
 }

@@ -61,7 +61,8 @@ public class EventGoingGridAdapter extends BaseAdapter {
             mEventGoingGridHolder = new EventGoingGridAdapter.EventGoingGridHolder();
             mEventGoingGridHolder.img_topic = (ImageView) convertView.findViewById(R.id.img_topic);
             mEventGoingGridHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
-
+            mEventGoingGridHolder.tv_first_last = (TextView) convertView.findViewById(R.id.tv_first_last);
+            Utility.setThemeColorToBackground(mEventGoingGridHolder.img_topic, mDashBoardActivity);
             mEventGoingGridHolder.tv_name.setTypeface(mOpenSansBoldTypeface);
 
             convertView.setTag(mEventGoingGridHolder);
@@ -71,18 +72,27 @@ public class EventGoingGridAdapter extends BaseAdapter {
 
         WhoIsGoingModel eventGoingModel = whoIsGoingModels.get(position);
         mEventGoingGridHolder.tv_name.setText(eventGoingModel.getFirst_name());
-        if (!Utility.isValueNullOrEmpty(eventGoingModel.getPhoto()))
+        if (!Utility.isValueNullOrEmpty(eventGoingModel.getPhoto())) {
+            mEventGoingGridHolder.tv_first_last.setVisibility(View.GONE);
             Picasso.with(mDashBoardActivity).load(eventGoingModel.getPhoto())
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
                     .placeholder(Utility.getDrawable(mDashBoardActivity, R.drawable.avatar_image))
                     .transform(new CircleTransform()).into(mEventGoingGridHolder.img_topic);
-        else {
-
+        } else {
+            mEventGoingGridHolder.tv_first_last.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(eventGoingModel.getFirst_name())) {
+                mEventGoingGridHolder.tv_first_last.setText(eventGoingModel.getFirst_name().substring(0, 1));
+            } else {
+                mEventGoingGridHolder.tv_first_last.setText("XP");
+            }
+            if (!Utility.isValueNullOrEmpty(eventGoingModel.getLast_name())) {
+                mEventGoingGridHolder.tv_first_last.setText(eventGoingModel.getFirst_name().substring(0, 1)
+                        + "" + eventGoingModel.getLast_name().substring(0, 1));
+            }
             Picasso.with(mDashBoardActivity).load("asdasda")
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE)
-                    .placeholder(Utility.getDrawable(mDashBoardActivity, R.drawable.avatar_image))
                     .transform(new CircleTransform()).into(mEventGoingGridHolder.img_topic);
         }
 
@@ -91,6 +101,7 @@ public class EventGoingGridAdapter extends BaseAdapter {
 
     private class EventGoingGridHolder {
         TextView tv_name;
+        TextView tv_first_last;
         ImageView img_topic;
     }
 }
