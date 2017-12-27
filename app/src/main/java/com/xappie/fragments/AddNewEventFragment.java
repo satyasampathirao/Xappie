@@ -5,12 +5,15 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -266,7 +269,8 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
      */
     @OnClick(R.id.btn_upload)
     void eventDialog() {
-        showEventDialog();
+        //  showEventDialog();
+        showPickAlert();
     }
 
     private static int mStartYear;
@@ -570,4 +574,32 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         mYourFile = new File(path);
         edt_upload_image.setText(mYourFile.getName());
     }
+
+    private void showPickAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mParent);
+        alertDialogBuilder.setMessage("Take Photo");
+        alertDialogBuilder.setPositiveButton("Gallery",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        showEventDialog();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Camera",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        captureFile();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void captureFile() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mParent.startActivityForResult(intent, Constants.FROM_POST_FORUM_ADD_EVENT_CAMERA_ID);
+    }
+
+
 }

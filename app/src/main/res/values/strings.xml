@@ -337,4 +337,6 @@
     <string name="deals">Deals / Coupons</string>
     <string name="select_city_metro">Select City / Metro Area</string>
     <string name="select_locality">Select Locality</string>
+
+    <string name="data">data</string>
 </resources>

@@ -4,10 +4,13 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -15,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -259,7 +263,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
             @Override
             public void onClick(View view) {
                 drawerLayout.closeDrawers();
-                showEditDialog();
+                showPickAlert();
             }
         });
 
@@ -293,7 +297,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 }
                 if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_LAST_NAME))) {
                     tv_first_last.setText(Utility.getSharedPrefStringData(this, Constants.SIGN_UP_FIRST_NAME).substring(0, 1)
-                           + Utility.getSharedPrefStringData(this, Constants.SIGN_UP_LAST_NAME).substring(0, 1));
+                            + Utility.getSharedPrefStringData(this, Constants.SIGN_UP_LAST_NAME).substring(0, 1));
                 }
                 tv_first_last.setVisibility(View.VISIBLE);
                 Picasso.with(this).load("asdasda")
@@ -375,6 +379,33 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
     }
 
 
+    private void showPickAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(DashBoardActivity.this);
+        alertDialogBuilder.setMessage("Take Photo");
+        alertDialogBuilder.setPositiveButton("Gallery",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        showEditDialog();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Camera",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        captureFile();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void captureFile() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        this.startActivityForResult(intent, Constants.FROM_POST_FORUM_HOME_CAMERA_ID);
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.FROM_POST_FORUM_GALLERY_ID) {
@@ -409,6 +440,19 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 Uri selectedImageUri = data.getData();
                 String path = FilePath.getPath(this, selectedImageUri);
                 ApplyJobsFragment.getInstance().updateFile(path);
+            }
+        } else if (requestCode == Constants.FROM_POST_FORUM_ADD_EVENT_CAMERA_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bitmap bmp = (Bitmap) data.getExtras().get(Utility.getResourcesString(this, R.string.data));
+                String selectedImgPath = Utility.saveBitmap(bmp);
+                AddNewEventFragment.getInstance().updateFile(selectedImgPath);
+            }
+        } else if (requestCode == Constants.FROM_POST_FORUM_HOME_CAMERA_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bitmap bmp = (Bitmap) data.getExtras().get(Utility.getResourcesString(this, R.string.data));
+                String selectedImgPath = Utility.saveBitmap(bmp);
+                mSelectedFile = new File(selectedImgPath);
+                updateImageToServer();
             }
         }
     }

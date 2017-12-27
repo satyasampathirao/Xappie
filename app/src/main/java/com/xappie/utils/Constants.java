@@ -87,6 +87,9 @@ public class Constants {
     public static final int FROM_POST_FORUM_ADD_CLASSIFIEDS_ID = 992;
     public static final int FROM_POSTING_LOGO_FILE_ID = 790;
 
+    public static final int FROM_POST_FORUM_ADD_EVENT_CAMERA_ID = 994;
+    public static final int FROM_POST_FORUM_HOME_CAMERA_ID = 995;
+
     public static final int FROM_FILE_ID = 690;
 
     public static final String IS_RESUME = "is_resume";

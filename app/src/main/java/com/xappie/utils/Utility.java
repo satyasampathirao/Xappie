@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -64,6 +65,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -947,5 +949,36 @@ public class Utility {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
         return color;
+    }
+
+    public static String saveBitmap(Bitmap finalBitmap) {
+
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/Xappie");
+        if (myDir.exists()) {
+            boolean status = myDir.delete();
+            Log.v("FOLDER:--", "FOLDER STATUS:" + status);
+        } else {
+            boolean status = myDir.mkdirs();
+            Log.v("FOLDER:--", "FOLDER STATUS:" + status);
+        }
+
+        String ts = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+        String fName = "Photo_" + ts + ".jpg";
+        File file = new File(myDir, fName);
+        if (file.exists()) {
+            boolean status = file.delete();
+            Log.v("DELETE:--", "DELETE STATUS:" + status);
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file.getAbsolutePath();
     }
 }
