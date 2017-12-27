@@ -857,6 +857,36 @@ public class Utility {
         return outputDateStr;
     }
 
+    public static String displayDate(String sDate) {
+        //2017-12-27 22:42:00
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd ", Locale.getDefault());
+        Date date;
+        String outputDateStr = "";
+        try {
+            date = inputFormat.parse(sDate);
+            outputDateStr = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
+    }
+
+    public static String displayTime(String sDate) {
+        //2017-12-27 22:42:00
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:MM aa", Locale.getDefault());
+        Date date;
+        String outputDateStr = "";
+        try {
+            date = inputFormat.parse(sDate);
+            outputDateStr = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
+    }
+
     public static String readDateFormat(String str_date) {
 
         SimpleDateFormat readFormat = new SimpleDateFormat("yyyy-mm-dd");

@@ -195,8 +195,6 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_address.setTypeface(mTypefaceOpenSansRegular);
         tv_end_date_time.setTypeface(mTypefaceOpenSansRegular);
         tv_start_time.setTypeface(mTypefaceOpenSansRegular);
-        tv_start_time.setPaintFlags(tv_start_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv_end_time.setPaintFlags(tv_end_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_end_time.setTypeface(mTypefaceOpenSansRegular);
 
         tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansRegular);
@@ -434,16 +432,20 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         if (!Utility.isValueNullOrEmpty(eventsModel.getStart_time())) {
            // tv_date_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
                //     + eventsModel.getStart_time().substring(11, 16).toUpperCase());
-            tv_date_time.setText(Utility.displayDateFormat(eventsModel.getStart_time().toUpperCase()));
+            tv_date_time.setText(Utility.displayDate(eventsModel.getStart_time().toUpperCase()));
+            tv_start_time.setText(Utility.displayTime(eventsModel.getStart_time()));
         } else {
             tv_date_time.setVisibility(View.GONE);
+            tv_start_time.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(eventsModel.getEnd_time()))
         {
-            tv_end_date_time.setText(Utility.displayDateFormat(eventsModel.getEnd_time().toUpperCase()));
+            tv_end_date_time.setText(Utility.displayDate(eventsModel.getEnd_time().toUpperCase()));
+            tv_end_time.setText(Utility.displayTime(eventsModel.getEnd_time()));
         }
         else {
             tv_end_date_time.setVisibility(View.GONE);
+            tv_end_time.setVisibility(View.GONE);
         }
 
         if (!Utility.isValueNullOrEmpty(eventsModel.getDress_code())) {

@@ -17,7 +17,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="83dp"
             android:background="@drawable/top_bg"
             android:theme="@style/AppTheme.AppBarOverlay"
             android:visibility="visible">
@@ -25,7 +25,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="43dp"
                 android:contentInsetEnd="0dp"
                 android:contentInsetLeft="0dp"
                 android:contentInsetRight="0dp"
@@ -104,7 +104,7 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_43dp"
+                android:layout_height="@dimen/_40dp"
                 android:background="@color/twenty_percent_black"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
@@ -113,7 +113,7 @@
                 <LinearLayout
                     android:id="@+id/layout_topics"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_43dp"
+                    android:layout_height="@dimen/_40dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal" />
             </HorizontalScrollView>

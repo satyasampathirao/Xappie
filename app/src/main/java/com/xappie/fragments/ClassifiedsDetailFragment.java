@@ -225,16 +225,16 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
 
 
         tv_date.setTypeface(mTypefaceOpenSansRegular);
-        tv_post_title.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_post_title.setTypeface(mTypefaceOpenSansRegular);
         tv_topic_details.setTypeface(mTypefaceOpenSansRegular);
-        tv_price.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_price.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_person_name.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_person_name.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_phone.setTypeface(Utility.getOpenSansBold(mParent));
-        tv_email.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_phone.setTypeface(mTypefaceOpenSansRegular);
+        tv_email.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_address.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_address.setTypeface(mTypefaceOpenSansRegular);
 
         tv_person_icon.setTypeface(mTypefaceMaterialIcon);
         tv_email_icon.setTypeface(mTypefaceMaterialIcon);
@@ -247,7 +247,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         tv_close_icon.setTypeface(mTypefaceMaterialIcon);
 
 
-        tv_website.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_website.setTypeface(mTypefaceOpenSansRegular);
     }
 
     @OnClick({R.id.tv_notification_arrow_back_icon,

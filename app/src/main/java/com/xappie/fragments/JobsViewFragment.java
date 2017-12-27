@@ -187,19 +187,19 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
 
         tv_all_over.setTypeface(mTypefaceOpenSansRegular);
         tv_company_details.setTypeface(mTypefaceOpenSansRegular);
-        tv_company_name.setTypeface(mTypefaceOpenSansBold);
+        tv_company_name.setTypeface(mTypefaceOpenSansRegular);
         tv_date.setTypeface(mTypefaceOpenSansRegular);
-        tv_job_address.setTypeface(mTypefaceOpenSansBold);
+        tv_job_address.setTypeface(mTypefaceOpenSansRegular);
         tv_job_address_details.setTypeface(mTypefaceOpenSansRegular);
-        tv_job_description.setTypeface(mTypefaceOpenSansBold);
+        tv_job_description.setTypeface(mTypefaceOpenSansRegular);
         tv_job_description_details.setTypeface(mTypefaceOpenSansRegular);
         tv_job_role.setTypeface(mTypefaceOpenSansRegular);
-        tv_job_role_head.setTypeface(mTypefaceOpenSansBold);
+        tv_job_role_head.setTypeface(mTypefaceOpenSansRegular);
         tv_no.setTypeface(mTypefaceOpenSansRegular);
         tv_noof_positions.setTypeface(mTypefaceOpenSansRegular);
         tv_published_date.setTypeface(mTypefaceOpenSansRegular);
-        tv_text_header.setTypeface(mTypefaceOpenSansBold);
-        btn_submit_resume.setTypeface(mTypefaceOpenSansBold);
+        tv_text_header.setTypeface(mTypefaceOpenSansRegular);
+        btn_submit_resume.setTypeface(mTypefaceOpenSansRegular);
         getJobsData();
     }
 
