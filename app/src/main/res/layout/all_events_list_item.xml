@@ -81,6 +81,7 @@
                     android:layout_marginRight="@dimen/_25dp"
                     android:alpha="0.8"
                     android:text="@string/icon_share"
+                    android:visibility="gone"
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/_18sp" />
             </LinearLayout>
