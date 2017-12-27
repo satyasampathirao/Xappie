@@ -35,12 +35,9 @@ public class PreferenceFragment extends Fragment {
     /**
      * Gallery Toolbar
      */
-    @BindView(R.id.tv_languages_arrow_back_icon)
-    TextView tv_languages_arrow_back_icon;
-    @BindView(R.id.tv_languages_menu_icon)
-    TextView tv_languages_menu_icon;
 
-    @BindView(R.id.tv_languages)
+
+    @BindView(R.id.tv_title)
     TextView tv_title;
     @BindView(R.id.tv_location_icon)
     TextView tv_location_icon;
@@ -58,6 +55,8 @@ public class PreferenceFragment extends Fragment {
     TextView tv_language;
     @BindView(R.id.tv_customization)
     TextView tv_customization;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
 
 
 
@@ -102,8 +101,6 @@ public class PreferenceFragment extends Fragment {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
         tv_title.setText(Utility.getResourcesString(mParent, R.string.preferences));
@@ -117,14 +114,14 @@ public class PreferenceFragment extends Fragment {
         tv_customization.setTypeface(mTypefaceOpenSansRegular);
         tv_notification.setTypeface(mTypefaceOpenSansRegular);
         tv_location.setTypeface(mTypefaceOpenSansRegular);
-
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
     }
 
     /**
      * This method is used for back from the fragment
      */
-    @OnClick({R.id.tv_languages_arrow_back_icon, R.id.tv_languages_menu_icon})
+    @OnClick(R.id.tv_back)
     void backToTheHome() {
         mParent.onBackPressed();
     }

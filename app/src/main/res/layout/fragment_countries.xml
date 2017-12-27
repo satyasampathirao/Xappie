@@ -1,47 +1,49 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.xappie.fragments.CountriesFragment">
+    android:background="@color/white"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ll_country_list"
-        android:background="@drawable/top_bg"
-        android:orientation="vertical">
-
-    <include layout="@layout/action_bar_countries"
-    android:id="@+id/tool_bar_countries"/>
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:background="@color/twenty_percent_black"
-    android:layout_height="@dimen/_43dp"
-    android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/tv_select_country"
-        android:layout_marginStart="@dimen/_20dp"
+        android:orientation="horizontal"
+        android:id="@+id/ll_lan"
         android:layout_marginTop="@dimen/_10dp"
-        android:text="@string/select_countries"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_15sp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/close_icon"
+            android:textSize="@dimen/_24sp"
+            android:id="@+id/tv_back"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            android:layout_height="wrap_content" />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/location"
+            android:textSize="@dimen/_22sp"
+            android:id="@+id/tv_location"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 
     <ListView
         android:id="@+id/country_list_view"
-        android:layout_below="@+id/ll_country_list"
+        android:layout_below="@+id/ll_lan"
+        android:layout_marginTop="@dimen/_15dp"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:padding="@dimen/_15dp"
-        android:dividerHeight="@dimen/_0.5dp"
+        android:dividerHeight="@dimen/_15dp"
+        android:divider="@null"
         android:layout_height="match_parent" />
 
 

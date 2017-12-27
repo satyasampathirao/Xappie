@@ -187,20 +187,20 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_date_calendar_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
-        tv_event_name.setTypeface(mTypefaceOpenSansBold);
-        tv_date_time.setTypeface(mTypefaceOpenSansBold);
+        tv_event_name.setTypeface(mTypefaceOpenSansRegular);
+        tv_date_time.setTypeface(mTypefaceOpenSansRegular);
         tv_dress_code.setPaintFlags(tv_dress_code.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_dress_code.setTypeface(mTypefaceOpenSansRegular);
-        tv_dress_code_value.setTypeface(mTypefaceOpenSansBold);
+        tv_dress_code_value.setTypeface(mTypefaceOpenSansRegular);
         tv_address.setTypeface(mTypefaceOpenSansRegular);
-        tv_end_date_time.setTypeface(mTypefaceOpenSansBold);
-        tv_start_time.setTypeface(mTypefaceOpenSansBold);
+        tv_end_date_time.setTypeface(mTypefaceOpenSansRegular);
+        tv_start_time.setTypeface(mTypefaceOpenSansRegular);
         tv_start_time.setPaintFlags(tv_start_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_end_time.setPaintFlags(tv_end_time.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv_end_time.setTypeface(mTypefaceOpenSansBold);
+        tv_end_time.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansBold);
-        tv_total_cost.setTypeface(mTypefaceOpenSansBold);
+        tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansRegular);
+        tv_total_cost.setTypeface(mTypefaceOpenSansRegular);
         tv_details.setTypeface(mTypefaceOpenSansRegular);
         tv_a_weekly_desi.setTypeface(mTypefaceOpenSansRegular);
 

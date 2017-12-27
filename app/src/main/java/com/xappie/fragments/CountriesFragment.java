@@ -50,18 +50,12 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceOpenSansBold;
 
 
-    @BindView(R.id.tv_countries_arrow_back_icon)
-    TextView tv_countries_arrow_back_icon;
-    @BindView(R.id.tv_countries_menu_icon)
-    TextView tv_countries_menu_icon;
-    @BindView(R.id.tv_countries)
+
+    @BindView(R.id.tv_location)
     TextView tv_countries;
-    @BindView(R.id.tv_notifications_icon)
-    TextView tv_notification_icon;
-    @BindView(R.id.tv_language_icon)
-    TextView tv_language_icon;
-    @BindView(R.id.tv_select_country)
-    TextView tv_select_country;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
+
 
     @BindView(R.id.country_list_view)
     ListView country_list_item;
@@ -106,11 +100,7 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         tv_countries.setTypeface(mTypefaceOpenSansRegular);
-        tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_select_country.setTypeface(mTypefaceOpenSansRegular);
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         getCountriesList();
     }
@@ -146,20 +136,11 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
         }
     }
 
-    @OnClick({R.id.tv_countries_arrow_back_icon, R.id.tv_countries_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateToBack() {
         mParent.onBackPressed();
     }
 
-    @OnClick(R.id.tv_notifications_icon)
-    public void navigateToNotification() {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_language_icon)
-    public void navigateToLanguage() {
-        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
-    }
 
     @OnItemClick(R.id.country_list_view)
     void onItemClick(int position) {

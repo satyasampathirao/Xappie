@@ -30,7 +30,7 @@
             android:gravity="center"
             android:text="@string/xappie_is_the"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_swipe"
@@ -39,7 +39,7 @@
             android:gravity="center"
             android:text="@string/which_provides"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_one_place"
@@ -48,7 +48,7 @@
             android:gravity="center"
             android:text="@string/one_place"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_selected"
@@ -57,7 +57,7 @@
             android:gravity="center"
             android:text="@string/selected"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_its"

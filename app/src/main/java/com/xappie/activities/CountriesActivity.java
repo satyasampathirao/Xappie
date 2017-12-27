@@ -40,18 +40,12 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
     private Typeface mTypefaceFontAwesomeWebFont;
 
 
-    @BindView(R.id.tv_countries_arrow_back_icon)
-    TextView tv_countries_arrow_back_icon;
-    @BindView(R.id.tv_countries_menu_icon)
-    TextView tv_countries_menu_icon;
-    @BindView(R.id.tv_countries)
+    @BindView(R.id.tv_location)
     TextView tv_countries;
-    @BindView(R.id.tv_notifications_icon)
-    TextView tv_notification_icon;
-    @BindView(R.id.tv_language_icon)
-    TextView tv_language_icon;
-    @BindView(R.id.tv_select_country)
-    TextView tv_select_country;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
+
+
 
     @BindView(R.id.country_list_view)
     ListView country_list_item;
@@ -81,15 +75,7 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(this);
 
         tv_countries.setTypeface(mTypefaceOpenSansRegular);
-        tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_select_country.setTypeface(mTypefaceOpenSansRegular);
-
-        tv_notification_icon.setVisibility(View.GONE);
-        tv_language_icon.setVisibility(View.GONE);
-        tv_countries_menu_icon.setVisibility(View.GONE);
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(this));
 
         getCountriesList();
     }
@@ -129,7 +115,7 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
     }
 
 
-    @OnClick({R.id.tv_countries_arrow_back_icon, R.id.tv_countries_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateToBack() {
         onBackPressed();
     }

@@ -47,26 +47,11 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
     private CoordinatorLayout.LayoutParams mParams;
 
 
-    @BindView(R.id.tv_countries_arrow_back_icon)
-    TextView tv_countries_arrow_back_icon;
-    @BindView(R.id.tv_countries_menu_icon)
-    TextView tv_countries_menu_icon;
-    @BindView(R.id.tv_cities)
-    TextView tv_cities;
-    @BindView(R.id.tv_notifications_icon)
-    TextView tv_notification_icon;
-    @BindView(R.id.tv_language_icon)
-    TextView tv_language_icon;
-    @BindView(R.id.tv_country_name)
-    TextView tv_country_name;
-    @BindView(R.id.tv_state_name)
-    TextView tv_state_name;
-    @BindView(R.id.tv_arrow_right_icon)
-    TextView tv_arrow_right_icon;
-    @BindView(R.id.tv_arrow_right_icon_two)
-    TextView tv_arrow_right_icon_two;
-    @BindView(R.id.tv_city_name)
-    TextView tv_city_name;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
+    @BindView(R.id.tv_location)
+    TextView tv_location;
+
     @BindView(R.id.city_list_view)
     ListView city_list_view;
 
@@ -130,22 +115,8 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_cities.setTypeface(mTypefaceOpenSansRegular);
-        tv_cities.setText(Utility.getResourcesString(mParent, R.string.cities));
-        tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_arrow_right_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_arrow_right_icon_two.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_city_name.setTypeface(mTypefaceOpenSansRegular);
-        tv_state_name.setTypeface(mTypefaceOpenSansRegular);
-        tv_country_name.setTypeface(mTypefaceOpenSansRegular);
-
-        tv_country_name.setText(mSelectedCountryName);
-        tv_state_name.setText(mSelectedStateName);
-
-        tv_city_name.setText(Utility.getResourcesString(mParent, R.string.select_city));
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_location.setTypeface(mTypefaceOpenSansRegular);
 
         getCitiesList();
     }
@@ -181,20 +152,11 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
     }
 
 
-    @OnClick({R.id.tv_countries_arrow_back_icon, R.id.tv_countries_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateToBack() {
         mParent.onBackPressed();
     }
 
-    @OnClick(R.id.tv_notifications_icon)
-    public void navigateNotification() {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_language_icon)
-    public void navigateLanguage() {
-        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
-    }
 
     @OnItemClick(R.id.city_list_view)
     void onItemClick(int position) {

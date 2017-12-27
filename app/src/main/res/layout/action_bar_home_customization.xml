@@ -29,17 +29,6 @@
             android:textColor="@color/color_white"
             android:textSize="@dimen/_28sp" />
 
-        <TextView
-            android:id="@+id/tv_preference"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_10dp"
-            android:layout_toRightOf="@+id/tv_home_customization_arrow_back_icon"
-            android:gravity="center"
-            android:text="@string/preferences"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/_15sp" />
 
         <TextView
             android:id="@+id/tv_home_page"

@@ -35,17 +35,17 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
 
     public static final String TAG = LanguageActivity.class.getSimpleName();
 
-    @BindView(R.id.tv_languages_arrow_back_icon)
-    TextView tv_languages_arrow_back_icon;
-    @BindView(R.id.tv_languages_menu_icon)
-    TextView tv_languages_menu_icon;
-    @BindView(R.id.tv_languages)
-    TextView tv_languages;
+
     @BindView(R.id.language_list_item)
     ListView language_list_item;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
+    @BindView(R.id.tv_language)
+    TextView tv_language;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
+    private Typeface mTypefaceMaterialIcon;
 
     private LanguageListModel mLanguageListModel;
 
@@ -74,13 +74,11 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(this);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(this);
+        mTypefaceMaterialIcon = Utility.getMaterialIconsRegular(this);
 
-        tv_languages.setTypeface(mTypefaceOpenSansRegular);
-        tv_languages_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_languages_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_languages_menu_icon.setVisibility(View.INVISIBLE);
-        tv_languages_arrow_back_icon.setVisibility(View.GONE);
-        tv_languages.setTypeface(mTypefaceFontAwesomeWebFont);
+
+        tv_language.setTypeface(mTypefaceOpenSansRegular);
+        tv_back.setTypeface(mTypefaceMaterialIcon);
 
         getLanguagesData();
     }
@@ -104,7 +102,7 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
 
     }
 
-    @OnClick({R.id.tv_languages_arrow_back_icon, R.id.tv_languages_menu_icon})
+    @OnClick( R.id.tv_back)
     public void navigateBack() {
         this.onBackPressed();
     }

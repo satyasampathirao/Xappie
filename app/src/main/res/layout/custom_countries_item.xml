@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/gray_round_border"
     android:gravity="center_vertical"
     android:padding="@dimen/_5dp">
 
@@ -11,6 +11,9 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:contentDescription="@string/app_name"
+        android:layout_marginStart="@dimen/_5dp"
+        android:layout_marginBottom="@dimen/_3dp"
+        android:layout_marginTop="@dimen/_3dp"
         android:src="@drawable/xappie_place_" />
 
     <TextView

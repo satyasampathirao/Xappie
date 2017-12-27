@@ -4,20 +4,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xappie.fragments.NotificationsSettingsFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/ll_lan"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_height="wrap_content">
 
-    <include layout="@layout/action_bar_notifications"
-        android:id="@+id/tool_bar_notification_settings"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/close_icon"
+            android:textSize="@dimen/_24sp"
+            android:id="@+id/tv_back"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/notifications"
+            android:textSize="@dimen/_22sp"
+            android:id="@+id/tv_notification"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/scroll_view_settings"
-        android:layout_below="@+id/tool_bar_notification_settings"
+        android:layout_below="@+id/ll_lan"
+        android:layout_marginTop="@dimen/_15dp"
         android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:id="@+id/linear_allow"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_allow"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginTop="@dimen/_15dp"
+                android:textColor="@color/color_black"
+                android:layout_weight="1"
+                android:text="@string/allow_notifications"
+                android:textSize="@dimen/_13sp"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:theme="@style/SCBSwitch"
+                android:layout_marginBottom="@dimen/_15dp"
+                android:layout_marginEnd="@dimen/_25dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:id="@+id/switch_button_allow" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/light_gray"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_choose"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginTop="@dimen/_15dp"
+                android:layout_marginBottom="@dimen/_15dp"
+                android:textColor="@color/color_black"
+                android:layout_weight="1"
+                android:text="@string/choose_sub"
+                android:textSize="@dimen/_13sp"/>
+
+
+        </LinearLayout>
+
+
 
 
         <LinearLayout
@@ -57,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
 
@@ -97,7 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
 
@@ -138,7 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
         <LinearLayout
@@ -178,7 +262,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
         <LinearLayout
@@ -217,7 +301,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
         <LinearLayout
@@ -256,7 +340,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
         <LinearLayout
@@ -295,7 +379,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
         <LinearLayout
@@ -335,19 +419,61 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_marginEnd="@dimen/_5dp"
-            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:background="@color/light_gray" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:id="@+id/linear_deals"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_deals"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginTop="@dimen/_15dp"
+                android:textColor="@color/color_black"
+                android:layout_weight="1"
+                android:text="@string/deals"
+                android:textSize="@dimen/_13sp"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:theme="@style/SCBSwitch"
+                android:layout_marginBottom="@dimen/_15dp"
+                android:layout_marginEnd="@dimen/_25dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:id="@+id/switch_button_deals" />
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_deals"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_0.5dp"
+            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:layout_marginTop="@dimen/_5dp"
             android:background="@color/light_gray" />
 
 
         <Button
             android:id="@+id/b_notification_settings_update"
-            android:layout_width="@dimen/_320dp"
+            android:layout_width="@dimen/_160dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginStart="@dimen/_18dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginTop="@dimen/_20dp"
-            android:background="@drawable/red_rectangular_bg"
+            android:background="@drawable/home_page_border"
             android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="@color/white"

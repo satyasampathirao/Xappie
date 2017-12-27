@@ -37,12 +37,11 @@ public class HomePageCustomizationFragment extends Fragment {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    @BindView(R.id.tv_home_customization_arrow_back_icon)
-    TextView tv_home_customization_arrow_back_icon;
-    @BindView(R.id.tv_preference)
-    TextView tv_preference;
+
     @BindView(R.id.tv_home_page)
     TextView tv_home_page;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
 
     @BindView(R.id.tv_discussions)
     TextView tv_discussions;
@@ -60,6 +59,8 @@ public class HomePageCustomizationFragment extends Fragment {
     TextView tv_classifieds;
     @BindView(R.id.tv_jobs)
     TextView tv_jobs;
+    @BindView(R.id.tv_submit)
+    TextView tv_submit;
 
 
     @BindView(R.id.switch_button_jobs)
@@ -114,11 +115,10 @@ public class HomePageCustomizationFragment extends Fragment {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_home_customization_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_preference.setTypeface(mTypefaceOpenSansRegular);
         tv_home_page.setTypeface(mTypefaceOpenSansRegular);
 
         tv_classifieds.setTypeface(mTypefaceOpenSansRegular);
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_discussions.setTypeface(mTypefaceOpenSansRegular);
         tv_entertainment.setTypeface(mTypefaceOpenSansRegular);
         tv_events.setTypeface(mTypefaceOpenSansRegular);
@@ -126,6 +126,7 @@ public class HomePageCustomizationFragment extends Fragment {
         tv_text_gallery.setTypeface(mTypefaceOpenSansRegular);
         tv_videos.setTypeface(mTypefaceOpenSansRegular);
         tv_top_stories.setTypeface(mTypefaceOpenSansRegular);
+        tv_submit.setTypeface(mTypefaceOpenSansRegular);
         getHomePageContents();
     }
 
@@ -158,7 +159,7 @@ public class HomePageCustomizationFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.tv_home_customization_arrow_back_icon, R.id.tv_preference})
+    @OnClick(R.id.tv_back)
     public void navigateBack() {
         mParent.onBackPressed();
     }

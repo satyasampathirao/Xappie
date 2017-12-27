@@ -460,10 +460,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
                     if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage())) {
                         Utility.universalImageLoaderPicLoading(img_gallery_image,
-                                mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage(), null, R.drawable.xappie_place_holder);
+                                mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage(), null, R.drawable.xappie_place_);
                     } else {
                         Utility.universalImageLoaderPicLoading(img_gallery_image,
-                                "", null, R.drawable.xappie_place_holder);
+                                "", null, R.drawable.xappie_place_);
                     }
                     tv_classified_name.setTypeface(Utility.getOpenSansLight(mParent));
                     tv_time.setTypeface(Utility.getOpenSansLight(mParent));
@@ -890,10 +890,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
                     if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getImage())) {
                         Utility.universalImageLoaderPicLoading(img_gallery_image,
-                                mHomePageEventsAdsBannersModel.getEventsModels().get(i).getImage(), null, R.drawable.xappie_place_holder);
+                                mHomePageEventsAdsBannersModel.getEventsModels().get(i).getImage(), null, R.drawable.xappie_place_);
                     } else {
                         Utility.universalImageLoaderPicLoading(img_gallery_image,
-                                "", null, R.drawable.xappie_place_holder);
+                                "", null, R.drawable.xappie_place_);
                     }
 
                     tv_title.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getName());

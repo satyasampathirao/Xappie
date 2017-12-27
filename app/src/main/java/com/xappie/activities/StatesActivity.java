@@ -37,22 +37,11 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
 
-    @BindView(R.id.tv_countries_arrow_back_icon)
-    TextView tv_countries_arrow_back_icon;
-    @BindView(R.id.tv_countries_menu_icon)
-    TextView tv_countries_menu_icon;
-    @BindView(R.id.tv_cities)
-    TextView tv_cities;
-    @BindView(R.id.tv_notifications_icon)
-    TextView tv_notification_icon;
-    @BindView(R.id.tv_language_icon)
-    TextView tv_language_icon;
-    @BindView(R.id.tv_country_name)
-    TextView tv_country_name;
-    @BindView(R.id.tv_arrow_right_icon)
-    TextView tv_arrow_right_icon;
-    @BindView(R.id.tv_city_name)
-    TextView tv_city_name;
+   @BindView(R.id.tv_back)
+   TextView tv_back;
+   @BindView(R.id.tv_location)
+   TextView tv_location;
+
     @BindView(R.id.city_list_view)
     ListView city_list_view;
 
@@ -87,22 +76,8 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(this);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(this);
 
-        tv_cities.setTypeface(mTypefaceOpenSansRegular);
-        tv_cities.setText(Utility.getResourcesString(this, R.string.states));
-        tv_countries_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_countries_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notification_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_arrow_right_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_city_name.setTypeface(mTypefaceOpenSansRegular);
-        tv_country_name.setTypeface(mTypefaceOpenSansRegular);
-        tv_country_name.setText(mSelectedCountryName);
-
-        tv_city_name.setText(Utility.getResourcesString(this, R.string.select_state));
-
-        tv_notification_icon.setVisibility(View.GONE);
-        tv_language_icon.setVisibility(View.GONE);
-        tv_countries_menu_icon.setVisibility(View.GONE);
+       tv_back.setTypeface(Utility.getMaterialIconsRegular(this));
+       tv_location.setTypeface(mTypefaceOpenSansRegular);
 
         getStatesList();
     }
@@ -145,7 +120,7 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
         }
     }
 
-    @OnClick({R.id.tv_countries_arrow_back_icon, R.id.tv_countries_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateToBack() {
         onBackPressed();
     }

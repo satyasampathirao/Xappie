@@ -1,11 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/ll_events"
         android:background="@drawable/classifieds_top"
         android:orientation="vertical">
 
@@ -17,12 +17,13 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_below="@+id/ll_events"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_150dp"
             android:orientation="vertical">
 
             <ImageView
@@ -265,6 +266,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
+        android:background="#CCffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_60dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -351,6 +355,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#CCffffff"
         android:gravity="center">
 
         <TextView
@@ -367,4 +373,4 @@
             android:textSize="@dimen/_18sp" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

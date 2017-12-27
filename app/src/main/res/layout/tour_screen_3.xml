@@ -53,7 +53,7 @@
             android:gravity="center"
             android:text="@string/tired_of_viewing"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_menu_jobs"
@@ -62,7 +62,7 @@
             android:gravity="center"
             android:text="@string/xappie_alows"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_based_on"
@@ -71,7 +71,7 @@
             android:gravity="center"
             android:text="@string/based_on"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_remain"
@@ -80,7 +80,7 @@
             android:gravity="center"
             android:text="@string/remain_for"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
     </LinearLayout>
 

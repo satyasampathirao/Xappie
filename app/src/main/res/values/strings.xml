@@ -303,7 +303,7 @@
     <string name="simply_select">Simply select the Location and Language for</string>
     <string name="the_customized">the customized information to be displayed.</string>
     <string name="you_can_always">You can always change it as required.</string>
-    <string name="menu_preferences">Menu - Preferences - Customize</string>
+    <string name="menu_preferences">Menu - Preferences - Homepage</string>
     <string name="menu_preferences_notify">Menu - Preferences - Notifications</string>
     <string name="tired_of_viewing">Tired of viewing unnecessary information?</string>
     <string name="xappie_alows">Xappie allows you to customize homepage</string>
@@ -332,4 +332,9 @@
     <string name="jobs_icon">&#xf2bc;</string>
     <string name="communities_icon">&#xf0c0;</string>
     <string name="classifieds_icon">&#xf1e7;</string>
+    <string name="allow_notifications">Allow Notifications</string>
+    <string name="choose_sub">Choose sub catagories to get notified</string>
+    <string name="deals">Deals / Coupons</string>
+    <string name="select_city_metro">Select City / Metro Area</string>
+    <string name="select_locality">Select Locality</string>
 </resources>

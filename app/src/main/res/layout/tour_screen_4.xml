@@ -53,7 +53,7 @@
             android:gravity="center"
             android:text="@string/are_you_missing"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_we_send"
@@ -62,7 +62,7 @@
             android:gravity="center"
             android:text="@string/we_send_alerts"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_events_hosted"
@@ -71,7 +71,7 @@
             android:gravity="center"
             android:text="@string/events_hosted"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
         <TextView
             android:id="@+id/tv_customize_based"
@@ -80,7 +80,7 @@
             android:gravity="center"
             android:text="@string/customize_based"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_16sp" />
 
     </LinearLayout>
 

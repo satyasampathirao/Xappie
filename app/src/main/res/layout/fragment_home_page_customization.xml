@@ -2,32 +2,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/tool_bar_home_customization"
-        layout="@layout/action_bar_home_customization" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/ll_lan"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/close_icon"
+            android:textSize="@dimen/_24sp"
+            android:id="@+id/tv_back"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/home_page"
+            android:textSize="@dimen/_22sp"
+            android:id="@+id/tv_home_page"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scroll_view_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tool_bar_home_customization">
+        android:layout_marginTop="@dimen/_15dp"
+        android:layout_below="@+id/ll_lan">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_home_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_gray"
-                android:gravity="start"
-                android:paddingBottom="@dimen/_10dp"
-                android:paddingEnd="@dimen/_5dp"
-                android:paddingStart="@dimen/_5dp"
-                android:paddingTop="@dimen/_10dp"
-                android:text="@string/home_message" />
 
             <LinearLayout
                 android:id="@+id/linear_discussions"
@@ -319,6 +337,23 @@
                 android:layout_marginStart="@dimen/_10dp"
                 android:background="@color/light_gray" />
 
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/tv_submit"
+                android:textSize="@dimen/_20sp"
+                android:padding="@dimen/_15dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:background="@drawable/home_page_border"/>
+
         </LinearLayout>
+
+
     </ScrollView>
 </RelativeLayout>
