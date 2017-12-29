@@ -465,8 +465,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                         Utility.universalImageLoaderPicLoading(img_gallery_image,
                                 "", null, R.drawable.xappie_place_);
                     }
-                    tv_classified_name.setTypeface(Utility.getOpenSansLight(mParent));
-                    tv_time.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_classified_name.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
 
                     tv_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getCategory());
                     tv_title.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getTitle());
@@ -474,9 +474,9 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
                     tv_posted_by.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice());
                     tv_sub_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getSub_category());
-                    tv_title.setTypeface(Utility.getOpenSansLight(mParent));
-                    tv_sub_classified_name.setTypeface(Utility.getOpenSansLight(mParent));
-                    tv_posted_by.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_sub_classified_name.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
 
 
                     if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getBannersModels().get(i).getRecordedDate())) {
@@ -897,11 +897,11 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     }
 
                     tv_title.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getName());
-                    tv_title.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
                     tv_time.setText(Utility.readDateFormat(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getStart_time()).toUpperCase());
-                    tv_time.setTypeface(Utility.getOpenSansLight(mParent));
-                    tv_posted.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_posted.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getLocation());
 
                     ll.setId(i);
@@ -957,12 +957,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     }
 
                     tv_title.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getTitle());
-                    tv_title.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
                     tv_time.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getPositions());
-                    tv_time.setTypeface(Utility.getOpenSansLight(mParent));
-                    tv_posted.setTypeface(Utility.getOpenSansLight(mParent));
-                    tv_positions.setTypeface(Utility.getOpenSansLight(mParent));
+                    tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_posted.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_positions.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany());
 
                     ll.setId(i);
@@ -1325,7 +1325,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             tv_title.setText(topStoriesModels.get(i).getTitle());
             tv_posted_by.setText(topStoriesModels.get(i).getSource());
-            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
+            tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
             tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
@@ -1382,7 +1382,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             tv_title.setText(mHomePageContentModel.getEntertainmentModels().get(i).getTitle());
             tv_posted_by.setText(mHomePageContentModel.getEntertainmentModels().get(i).getSource());
-            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
+            tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
             if (!Utility.isValueNullOrEmpty(topStoriesModels.get(i).getRecordedDate())) {
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -1434,7 +1434,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.videos_item, null);
             ImageView img_video_image = (ImageView) ll.findViewById(R.id.img_video_image);
             TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            tv_title.setTypeface(Utility.getOpenSansLight(mParent));
+            tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
             tv_title.setText(videosData.get(i).getTitle());
             if (!Utility.isValueNullOrEmpty(videosData.get(i).getThumb_nail()))

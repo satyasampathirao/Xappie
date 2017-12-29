@@ -14,7 +14,7 @@
         android:paddingStart="@dimen/_12dp"
         android:text="@string/app_name"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/_12sp" />
+        android:textSize="@dimen/_13sp" />
 
     <View
         android:id="@+id/view"

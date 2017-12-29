@@ -846,8 +846,8 @@ public class Utility {
 
     public static String displayDateFormat(String sDate) {
         //2017-11-10 22:42:00
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM, HH:MM aa", Locale.getDefault());
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy ", Locale.getDefault());
         Date date;
         String outputDateStr = "";
         try {
@@ -861,8 +861,8 @@ public class Utility {
 
     public static String displayDate(String sDate) {
         //2017-12-27 22:42:00
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd ", Locale.getDefault());
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEE, MMM dd yyyy", Locale.getDefault());
         Date date;
         String outputDateStr = "";
         try {
@@ -876,8 +876,8 @@ public class Utility {
 
     public static String displayTime(String sDate) {
         //2017-12-27 22:42:00
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:MM aa", Locale.getDefault());
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm aa", Locale.getDefault());
         Date date;
         String outputDateStr = "";
         try {
@@ -891,7 +891,7 @@ public class Utility {
 
     public static String readDateFormat(String str_date) {
 
-        SimpleDateFormat readFormat = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat readFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat writeFormat = new SimpleDateFormat("dd MMM");
         Date date = null;
         try {

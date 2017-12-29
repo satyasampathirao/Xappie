@@ -167,7 +167,7 @@
 
     <string name="event_name">Event Name</string>
     <string name="date_time_hint">24 Jun, 10:00 pm</string>
-    <string name="dress_code_with_colon">Dress Code:</string>
+    <string name="dress_code_with_colon">Dress Code</string>
     <string name="restrictions">Restrictions</string>
     <string name="event_tag_line_text_comes_here">Event tag line text comes here</string>
     <string name="total_cost">Ticket Cost :</string>

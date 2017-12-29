@@ -39,18 +39,12 @@ public class MyProfileFragment extends Fragment {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    @BindView(R.id.tv_my_arrow_back_icon)
-    TextView tv_my_arrow_back_icon;
-    @BindView(R.id.tv_my_menu_icon)
-    TextView tv_my_menu_icon;
+
     @BindView(R.id.tv_my_profile)
     TextView tv_my_profile;
-    @BindView(R.id.tv_my_language_icon)
-    TextView tv_my_language_icon;
-    @BindView(R.id.tv_my_notifications_icon)
-    TextView tv_my_notifications_icon;
-    @BindView(R.id.tv_my_location_icon)
-    TextView tv_my_location_icon;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
+
     @BindView(R.id.tv_ravi_profile_name)
     TextView tv_ravi_profile_name;
     @BindView(R.id.tv_ravi_hyd)
@@ -121,11 +115,7 @@ public class MyProfileFragment extends Fragment {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_my_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_my_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_my_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_my_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_my_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_my_profile.setTypeface(mTypefaceOpenSansRegular);
         tv_ravi_profile_name.setTypeface(mTypefaceOpenSansRegular);
         tv_ravi_hyd.setTypeface(mTypefaceOpenSansRegular);
@@ -168,23 +158,9 @@ public class MyProfileFragment extends Fragment {
         Utility.navigateDashBoardFragment(new EditProfileFragment(), EditProfileFragment.TAG, null, mParent);
     }
 
-    @OnClick({R.id.tv_my_arrow_back_icon, R.id.tv_my_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateBack() {
         mParent.onBackPressed();
     }
 
-    @OnClick(R.id.tv_my_notifications_icon)
-    public void navigateToNotification() {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_my_language_icon)
-    public void navigateLanguage() {
-        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_my_location_icon)
-    public void navigateLocation() {
-        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
-    }
 }

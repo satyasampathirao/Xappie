@@ -62,7 +62,7 @@ public class VideosGridAdapter extends BaseAdapter {
             mVideosGridHolder.img_video = (ImageView) convertView.findViewById(R.id.img_video);
             mVideosGridHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
 
-            mVideosGridHolder.tv_title.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
+            mVideosGridHolder.tv_title.setTypeface(Utility.getOpenSansRegular(mDashBoardActivity));
 
             convertView.setTag(mVideosGridHolder);
         } else {

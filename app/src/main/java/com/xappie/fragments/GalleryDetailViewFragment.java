@@ -170,7 +170,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
 
-        tv_header_title.setTypeface(mTypefaceOpenSansBold);
+        tv_header_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_written_by.setTypeface(mTypefaceOpenSansRegular);
         tv_time.setTypeface(mTypefaceOpenSansRegular);
@@ -178,11 +178,11 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         tv_description.setTypeface(mTypefaceOpenSansLight);
         tv_next_news.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_next_news_header_title.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_next_news_header_title.setTypeface(mTypefaceOpenSansRegular);
         tv_next_icon.setTypeface(mTypefaceMaterialIcons);
 
-        tv_more_topics.setTypeface(mTypefaceMaterialIcons);
-        tv_more.setTypeface(mTypefaceMaterialIcons);
+        tv_more_topics.setTypeface(mTypefaceOpenSansRegular);
+        tv_more.setTypeface(mTypefaceOpenSansRegular);
         getDetailViewData();
     }
 

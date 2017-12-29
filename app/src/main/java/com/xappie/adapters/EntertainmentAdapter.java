@@ -69,9 +69,9 @@ public class EntertainmentAdapter extends BaseAdapter {
             mEntertainmentHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             mEntertainmentHolder.tv_posted_by = (TextView) convertView.findViewById(R.id.tv_posted_by);
 
-            mEntertainmentHolder.tv_title.setTypeface(mOpenSansLightTypeface);
-            mEntertainmentHolder.tv_time.setTypeface(mOpenSansLightTypeface);
-            mEntertainmentHolder.tv_posted_by.setTypeface(mOpenSansLightTypeface);
+            mEntertainmentHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
+            mEntertainmentHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
+            mEntertainmentHolder.tv_posted_by.setTypeface(mOpenSansRegularTypeface);
 
             convertView.setTag(mEntertainmentHolder);
         } else {

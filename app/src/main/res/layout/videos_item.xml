@@ -34,6 +34,6 @@
         android:padding="@dimen/_4dp"
         android:textColor="@color/color_black"
         android:text="@string/app_name"
-        android:textSize="@dimen/_11sp" />
+        android:textSize="@dimen/_12sp" />
 
 </LinearLayout>

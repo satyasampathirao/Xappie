@@ -468,7 +468,7 @@
 
         <Button
             android:id="@+id/b_notification_settings_update"
-            android:layout_width="@dimen/_160dp"
+            android:layout_width="@dimen/_180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"

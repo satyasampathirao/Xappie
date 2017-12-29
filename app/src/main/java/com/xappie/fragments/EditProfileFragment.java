@@ -43,18 +43,11 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    @BindView(R.id.tv_edit_arrow_back_icon)
-    TextView tv_edit_arrow_back_icon;
-    @BindView(R.id.tv_edit_menu_icon)
-    TextView tv_edit_menu_icon;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
     @BindView(R.id.tv_edit_profile)
     TextView tv_edit_profile;
-    @BindView(R.id.tv_edit_language_icon)
-    TextView tv_edit_language_icon;
-    @BindView(R.id.tv_edit_notifications_icon)
-    TextView tv_edit_notifications_icon;
-    @BindView(R.id.tv_edit_location_icon)
-    TextView tv_edit_location_icon;
+
     @BindView(R.id.tv_edit_profile_full_name)
     TextView tv_edit_profile_full_name;
     @BindView(R.id.edit_text_full_name)
@@ -123,11 +116,7 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_edit_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_edit_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_edit_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_edit_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_edit_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_edit_profile.setTypeface(mTypefaceOpenSansRegular);
         tv_edit_profile_full_name.setTypeface(mTypefaceOpenSansRegular);
         edit_text_full_name.setTypeface(mTypefaceOpenSansRegular);
@@ -190,26 +179,10 @@ public class EditProfileFragment extends Fragment implements IAsyncCaller {
         return isValid;
     }
 
-    @OnClick({R.id.tv_edit_arrow_back_icon, R.id.tv_edit_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateBackMyProfile() {
         mParent.onBackPressed();
     }
-
-    @OnClick(R.id.tv_edit_notifications_icon)
-    public void navigateNotifications() {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_edit_language_icon)
-    public void navigateLanguage() {
-        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_edit_location_icon)
-    public void navigateLocation() {
-        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
-    }
-
 
     @Override
     public void onComplete(Model model) {

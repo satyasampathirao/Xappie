@@ -599,7 +599,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                     "", null, R.drawable.xappie_place_holder);
         }
         tv_gallery_first_item.setText(mGalleryLatestModel.getLatestGalleryList().get(0).getTitle());
-        tv_gallery_first_item.setTypeface(Utility.getOpenSansLight(mParent));
+        tv_gallery_first_item.setTypeface(Utility.getOpenSansRegular(mParent));
         rl_header_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -617,7 +617,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_1.setText(mGalleryLatestModel.getLatestGalleryList().get(1).getTitle());
-            gallery_txt_topic_1.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_1.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -636,7 +636,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_2.setText(mGalleryLatestModel.getLatestGalleryList().get(2).getTitle());
-            gallery_txt_topic_2.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_2.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -655,7 +655,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_3.setText(mGalleryLatestModel.getLatestGalleryList().get(3).getTitle());
-            gallery_txt_topic_3.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_3.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -674,7 +674,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_4.setText(mGalleryLatestModel.getLatestGalleryList().get(4).getTitle());
-            gallery_txt_topic_4.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_4.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -694,7 +694,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             tv_gallery_first_item_2.setText(mGalleryLatestModel.getLatestGalleryList().get(5).getTitle());
-            tv_gallery_first_item_2.setTypeface(Utility.getOpenSansLight(mParent));
+            tv_gallery_first_item_2.setTypeface(Utility.getOpenSansRegular(mParent));
 
             rl_header_layout_2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -714,7 +714,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_5.setText(mGalleryLatestModel.getLatestGalleryList().get(6).getTitle());
-            gallery_txt_topic_5.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_5.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -734,7 +734,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_6.setText(mGalleryLatestModel.getLatestGalleryList().get(7).getTitle());
-            gallery_txt_topic_6.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_6.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_6.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -754,7 +754,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_7.setText(mGalleryLatestModel.getLatestGalleryList().get(8).getTitle());
-            gallery_txt_topic_7.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_7.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_7.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -773,7 +773,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             gallery_txt_topic_8.setText(mGalleryLatestModel.getLatestGalleryList().get(9).getTitle());
-            gallery_txt_topic_8.setTypeface(Utility.getOpenSansLight(mParent));
+            gallery_txt_topic_8.setTypeface(Utility.getOpenSansRegular(mParent));
 
             ll_gallery_item_8.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -799,7 +799,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actress_txt_topic_1.setText(mGalleryModel.getActressGalleryList().get(0).getName());
-            actress_txt_topic_1.setTypeface(mTypefaceOpenSansLight);
+            actress_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -817,7 +817,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actress_txt_topic_2.setText(mGalleryModel.getActressGalleryList().get(1).getName());
-            actress_txt_topic_2.setTypeface(mTypefaceOpenSansLight);
+            actress_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -835,7 +835,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actress_txt_topic_3.setText(mGalleryModel.getActressGalleryList().get(2).getName());
-            actress_txt_topic_3.setTypeface(mTypefaceOpenSansLight);
+            actress_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -853,7 +853,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actress_txt_topic_4.setText(mGalleryModel.getActressGalleryList().get(3).getName());
-            actress_txt_topic_4.setTypeface(mTypefaceOpenSansLight);
+            actress_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -872,7 +872,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actress_txt_topic_5.setText(mGalleryModel.getActressGalleryList().get(4).getName());
-            actress_txt_topic_5.setTypeface(mTypefaceOpenSansLight);
+            actress_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_actress_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -906,7 +906,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actors_txt_topic_1.setText(mGalleryModel.getActorsGalleryList().get(0).getName());
-            actors_txt_topic_1.setTypeface(mTypefaceOpenSansLight);
+            actors_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -924,7 +924,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actors_txt_topic_2.setText(mGalleryModel.getActorsGalleryList().get(1).getName());
-            actors_txt_topic_2.setTypeface(mTypefaceOpenSansLight);
+            actors_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -942,7 +942,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actors_txt_topic_3.setText(mGalleryModel.getActorsGalleryList().get(2).getName());
-            actors_txt_topic_3.setTypeface(mTypefaceOpenSansLight);
+            actors_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -960,7 +960,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actors_txt_topic_4.setText(mGalleryModel.getActorsGalleryList().get(3).getName());
-            actors_txt_topic_4.setTypeface(mTypefaceOpenSansLight);
+            actors_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -979,7 +979,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             actors_txt_topic_5.setText(mGalleryModel.getActorsGalleryList().get(4).getName());
-            actors_txt_topic_5.setTypeface(mTypefaceOpenSansLight);
+            actors_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_actors_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1003,7 +1003,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             movies_txt_topic_1.setText(mGalleryModel.getMoviesGalleryList().get(0).getName());
-            movies_txt_topic_1.setTypeface(mTypefaceOpenSansLight);
+            movies_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1021,7 +1021,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             movies_txt_topic_2.setText(mGalleryModel.getMoviesGalleryList().get(1).getName());
-            movies_txt_topic_2.setTypeface(mTypefaceOpenSansLight);
+            movies_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1039,7 +1039,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             movies_txt_topic_3.setText(mGalleryModel.getMoviesGalleryList().get(2).getName());
-            movies_txt_topic_3.setTypeface(mTypefaceOpenSansLight);
+            movies_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1057,7 +1057,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             movies_txt_topic_4.setText(mGalleryModel.getMoviesGalleryList().get(3).getName());
-            movies_txt_topic_4.setTypeface(mTypefaceOpenSansLight);
+            movies_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1076,7 +1076,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             movies_txt_topic_5.setText(mGalleryModel.getMoviesGalleryList().get(4).getName());
-            movies_txt_topic_5.setTypeface(mTypefaceOpenSansLight);
+            movies_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_movies_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1100,7 +1100,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             events_txt_topic_1.setText(mGalleryModel.getEventsGalleryList().get(0).getName());
-            events_txt_topic_1.setTypeface(mTypefaceOpenSansLight);
+            events_txt_topic_1.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1118,7 +1118,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             events_txt_topic_2.setText(mGalleryModel.getEventsGalleryList().get(1).getName());
-            events_txt_topic_2.setTypeface(mTypefaceOpenSansLight);
+            events_txt_topic_2.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1136,7 +1136,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             events_txt_topic_3.setText(mGalleryModel.getEventsGalleryList().get(2).getName());
-            events_txt_topic_3.setTypeface(mTypefaceOpenSansLight);
+            events_txt_topic_3.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1154,7 +1154,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             events_txt_topic_4.setText(mGalleryModel.getEventsGalleryList().get(3).getName());
-            events_txt_topic_4.setTypeface(mTypefaceOpenSansLight);
+            events_txt_topic_4.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1173,7 +1173,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
                         "", null, R.drawable.xappie_place_holder);
             }
             events_txt_topic_5.setText(mGalleryModel.getEventsGalleryList().get(4).getName());
-            events_txt_topic_5.setTypeface(mTypefaceOpenSansLight);
+            events_txt_topic_5.setTypeface(mTypefaceOpenSansRegular);
             ll_events_item_5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

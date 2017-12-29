@@ -69,10 +69,10 @@ public class FindJobsListAdapter extends BaseAdapter
             mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_company_name);
             mClassifiedsListHolder.view = (View) convertView.findViewById(R.id.view_job);
 
-            mClassifiedsListHolder.tv_title.setTypeface(mOpenSansLightTypeface);
-            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansLightTypeface);
-            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansLightTypeface);
-            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.view.setVisibility(View.GONE);
 
             convertView.setTag(mClassifiedsListHolder);

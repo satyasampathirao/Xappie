@@ -2,15 +2,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/tool_bar_notification"
-        layout="@layout/action_bar_notifications" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/ll_lan"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/close_icon"
+            android:textSize="@dimen/_24sp"
+            android:id="@+id/tv_back"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/notifications"
+            android:textSize="@dimen/_22sp"
+            android:id="@+id/tv_notification"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_notification_settings_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_25dp"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:layout_alignParentEnd="true"
+            android:text="@string/settings_icon"
+            android:textSize="@dimen/_20sp" />
+
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/notification_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tool_bar_notification"
+        android:layout_below="@+id/ll_lan"
+        android:layout_marginTop="@dimen/_15dp"
         android:divider="@null"
         android:dividerHeight="0dp" />
 

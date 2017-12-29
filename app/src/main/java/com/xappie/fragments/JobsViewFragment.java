@@ -58,8 +58,9 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_noof_positions;
     @BindView(R.id.tv_no)
     TextView tv_no;
-    @BindView(R.id.tv_published_date)
-    TextView tv_published_date;
+    @BindView(R.id.tv_date_icon)
+    TextView tv_date_icon;
+
     @BindView(R.id.tv_date)
     TextView tv_date;
     @BindView(R.id.tv_job_role_head)
@@ -79,7 +80,7 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_job_address_details)
     TextView tv_job_address_details;
     @BindView(R.id.btn_submit_resume)
-    Button btn_submit_resume;
+    TextView btn_submit_resume;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
@@ -103,6 +104,11 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+
+    @BindView(R.id.tv_loc_icon)
+    TextView tv_loc_icon;
+    @BindView(R.id.tv_person_icon)
+    TextView tv_person_icon;
 
     private View rootView;
 
@@ -197,9 +203,11 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
         tv_job_role_head.setTypeface(mTypefaceOpenSansRegular);
         tv_no.setTypeface(mTypefaceOpenSansRegular);
         tv_noof_positions.setTypeface(mTypefaceOpenSansRegular);
-        tv_published_date.setTypeface(mTypefaceOpenSansRegular);
         tv_text_header.setTypeface(mTypefaceOpenSansRegular);
         btn_submit_resume.setTypeface(mTypefaceOpenSansRegular);
+        tv_date_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_loc_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_person_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
         getJobsData();
     }
 
@@ -269,9 +277,10 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
         }
 
         if (!Utility.isValueNullOrEmpty(jobsModel.getRecordedDate())) {
-            tv_date.setText(Utility.readDateFormat(jobsModel.getRecordedDate().toUpperCase()));
+            tv_date.setText(Utility.displayDateFormat(jobsModel.getRecordedDate().toUpperCase()));
         } else {
             tv_date.setVisibility(View.GONE);
+            tv_date_icon.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(jobsModel.getRole())) {
             tv_job_role.setText(jobsModel.getRole());

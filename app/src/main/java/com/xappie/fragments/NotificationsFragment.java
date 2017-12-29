@@ -33,16 +33,13 @@ public class NotificationsFragment extends Fragment {
 
     public static final String TAG = NotificationsFragment.class.getSimpleName();
 
-    @BindView(R.id.tv_notification_arrow_back_icon)
-    TextView tv_notification_arrow_back_icon;
-    @BindView(R.id.tv_notification_menu_icon)
-    TextView tv_notification_menu_icon;
+
     @BindView(R.id.tv_notification)
     TextView tv_notification;
     @BindView(R.id.tv_notification_settings_icon)
     TextView tv_notification_settings_icon;
-    @BindView(R.id.tv_settings)
-    TextView tv_settings;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
 
     @BindView(R.id.notification_list_item)
     ListView notification_list_item;
@@ -92,11 +89,10 @@ public class NotificationsFragment extends Fragment {
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
-        tv_notification_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+
         tv_notification_settings_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
         tv_notification.setTypeface(mTypefaceOpenSansRegular);
-        tv_settings.setTypeface(mTypefaceOpenSansRegular);
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
 
         notification_list_item.setAdapter(new NotificationListAdapter(mParent, getSampleData()));
     }
@@ -113,12 +109,12 @@ public class NotificationsFragment extends Fragment {
         return notificationsListModels;
     }
 
-    @OnClick({R.id.tv_notification_settings_icon,R.id.tv_settings})
+    @OnClick({R.id.tv_notification_settings_icon})
     public void navigateNotificationsSettings() {
         Utility.navigateDashBoardFragment(new NotificationsSettingsFragment(), NotificationsSettingsFragment.TAG, null, mParent);
     }
 
-    @OnClick({R.id.tv_notification_arrow_back_icon,R.id.tv_notification_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateToBack()
     {
         mParent.onBackPressed();

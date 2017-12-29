@@ -44,18 +44,11 @@ public class AccountSettingFragment extends Fragment implements IAsyncCaller {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    @BindView(R.id.tv_account_arrow_back_icon)
-    TextView tv_account_arrow_back_icon;
-    @BindView(R.id.tv_account_menu_icon)
-    TextView tv_account_menu_icon;
+    @BindView(R.id.tv_back)
+    TextView tv_back;
     @BindView(R.id.tv_account_settings)
     TextView tv_account_settings;
-    @BindView(R.id.tv_account_language_icon)
-    TextView tv_account_language_icon;
-    @BindView(R.id.tv_account_notifications_icon)
-    TextView tv_account_notifications_icon;
-    @BindView(R.id.tv_account_location_icon)
-    TextView tv_account_location_icon;
+
     @BindView(R.id.tv_email_id)
     TextView tv_email_id;
     @BindView(R.id.tv_email)
@@ -120,11 +113,7 @@ public class AccountSettingFragment extends Fragment implements IAsyncCaller {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
-        tv_account_arrow_back_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_account_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_account_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_account_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
-        tv_account_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+        tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_account_settings.setTypeface(mTypefaceOpenSansRegular);
         tv_email_id.setTypeface(mTypefaceOpenSansRegular);
         tv_email.setTypeface(mTypefaceOpenSansRegular);
@@ -140,24 +129,9 @@ public class AccountSettingFragment extends Fragment implements IAsyncCaller {
     }
 
 
-    @OnClick({R.id.tv_account_arrow_back_icon, R.id.tv_account_menu_icon})
+    @OnClick(R.id.tv_back)
     public void navigateBack() {
         mParent.onBackPressed();
-    }
-
-    @OnClick(R.id.tv_account_notifications_icon)
-    public void navigateNotification() {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_account_language_icon)
-    public void navigateLanguage() {
-        Utility.navigateDashBoardFragment(new LanguageFragment(), LanguageFragment.TAG, null, mParent);
-    }
-
-    @OnClick(R.id.tv_account_location_icon)
-    public void navigateLocation() {
-        Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
     /**

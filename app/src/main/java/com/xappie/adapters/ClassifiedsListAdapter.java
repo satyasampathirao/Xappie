@@ -73,9 +73,9 @@ public class ClassifiedsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_dots = (TextView) convertView.findViewById(R.id.tv_dots);
             mClassifiedsListHolder.tv_dots.setVisibility(View.GONE);
 
-            mClassifiedsListHolder.tv_title.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
-            mClassifiedsListHolder.tv_time.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
-            mClassifiedsListHolder.tv_posted_by.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
+            mClassifiedsListHolder.tv_title.setTypeface(Utility.getOpenSansRegular(mDashBoardActivity));
+            mClassifiedsListHolder.tv_time.setTypeface(Utility.getOpenSansRegular(mDashBoardActivity));
+            mClassifiedsListHolder.tv_posted_by.setTypeface(Utility.getOpenSansRegular(mDashBoardActivity));
             mClassifiedsListHolder.tv_calendar_icon.setTypeface(mFontAwesome);
             mClassifiedsListHolder.tv_price_icon.setTypeface(mMaterialIcon);
 

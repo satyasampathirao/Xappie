@@ -30,7 +30,7 @@
             android:paddingStart="@dimen/_10dp"
             android:text="@string/_1day"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_15sp" />
+            android:textSize="@dimen/_12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:paddingStart="@dimen/_10dp"
                 android:text="@string/_1day"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_12sp" />
+                android:textSize="@dimen/_11sp" />
 
             <TextView
                 android:id="@+id/tv_source"
@@ -61,7 +61,7 @@
                 android:paddingStart="@dimen/_10dp"
                 android:text="@string/_1day"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/_11sp" />
+                android:textSize="@dimen/_10sp" />
         </LinearLayout>
 
 

@@ -27,9 +27,10 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:paddingEnd="@dimen/_10dp"
+                android:paddingTop="@dimen/_5dp"
                 android:paddingStart="@dimen/_10dp"
                 android:textColor="@color/gallery_header_color"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_17sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,6 +75,8 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_10dp"
                 android:paddingTop="@dimen/_15dp"
+                android:typeface="monospace"
+                android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/gallery_header_color"
                 android:textSize="@dimen/_15sp" />
 
@@ -115,7 +118,7 @@
                         android:paddingEnd="@dimen/_10dp"
                         android:paddingStart="@dimen/_10dp"
                         android:textColor="@color/gallery_header_color"
-                        android:textSize="@dimen/_18sp" />
+                        android:textSize="@dimen/_15sp" />
 
                     <TextView
                         android:id="@+id/tv_next_icon"

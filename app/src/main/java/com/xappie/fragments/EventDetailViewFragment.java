@@ -189,7 +189,6 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
 
         tv_event_name.setTypeface(mTypefaceOpenSansRegular);
         tv_date_time.setTypeface(mTypefaceOpenSansRegular);
-        tv_dress_code.setPaintFlags(tv_dress_code.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_dress_code.setTypeface(mTypefaceOpenSansRegular);
         tv_dress_code_value.setTypeface(mTypefaceOpenSansRegular);
         tv_address.setTypeface(mTypefaceOpenSansRegular);

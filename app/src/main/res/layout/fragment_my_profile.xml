@@ -2,15 +2,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/tool_bar_my_profile"
-        layout="@layout/action_bar_my_profile" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/ll_lan"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/close_icon"
+            android:textSize="@dimen/_24sp"
+            android:id="@+id/tv_back"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/my_profile"
+            android:textSize="@dimen/_22sp"
+            android:id="@+id/tv_my_profile"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_my_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tool_bar_my_profile">
+        android:layout_marginTop="@dimen/_15dp"
+        android:layout_below="@+id/ll_lan">
 
         <ImageView
             android:id="@+id/img_ravi_image"
@@ -27,7 +54,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:layout_toRightOf="@+id/img_ravi_image"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/orange"
             android:textSize="@dimen/_18sp" />
 
         <TextView
@@ -79,7 +106,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_toRightOf="@+id/tv_name_dot"
             android:maxLines="1"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/black"
             android:textSize="@dimen/_15sp" />
 
         <View
@@ -121,7 +148,7 @@
             android:layout_marginEnd="@dimen/_5dp"
             android:layout_toRightOf="@+id/tv_display_name_dot"
             android:maxLines="1"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/black"
             android:textSize="@dimen/_15sp" />
 
 
@@ -165,7 +192,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_toRightOf="@+id/tv_email_dots"
             android:maxLines="1"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/black"
             android:textSize="@dimen/_15sp" />
 
 
@@ -208,7 +235,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:layout_toRightOf="@+id/tv_mobile_dots"
             android:maxLines="1"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/black"
             android:textSize="@dimen/_15sp" />
 
         <View
@@ -221,13 +248,16 @@
 
         <Button
             android:id="@+id/b_edit_profile"
-            android:layout_width="@dimen/_320dp"
+            android:layout_width="@dimen/_180dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_mobile"
             android:layout_marginEnd="@dimen/_20dp"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_20dp"
-            android:background="@drawable/red_rectangular_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/home_page_border"
             android:text="@string/edit_profile"
             android:textAllCaps="false"
             android:textColor="@color/white"

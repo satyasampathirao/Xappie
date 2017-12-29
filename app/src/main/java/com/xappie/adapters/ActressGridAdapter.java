@@ -61,7 +61,7 @@ public class ActressGridAdapter extends BaseAdapter {
             mActressGridHolder.img_topic = (ImageView) convertView.findViewById(R.id.img_topic);
             mActressGridHolder.tv_related_title = (TextView) convertView.findViewById(R.id.tv_related_title);
 
-            mActressGridHolder.tv_related_title.setTypeface(Utility.getOpenSansLight(mDashBoardActivity));
+            mActressGridHolder.tv_related_title.setTypeface(Utility.getOpenSansRegular(mDashBoardActivity));
 
             convertView.setTag(mActressGridHolder);
         } else {
