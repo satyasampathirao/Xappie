@@ -64,7 +64,7 @@
             android:layout_alignStart="@+id/tv_ravi_profile_name"
             android:layout_below="@+id/tv_ravi_profile_name"
             android:layout_marginTop="@dimen/_5dp"
-            android:textSize="@dimen/_16sp" />
+            android:textSize="@dimen/_14sp" />
 
     </RelativeLayout>
 
@@ -74,7 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relative_my_profile"
-        android:layout_marginTop="@dimen/_10dp">
+        android:layout_marginTop="@dimen/_15dp">
 
 
         <TextView
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_40dp"
-            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_8dp"
             android:layout_toRightOf="@+id/tv_full_name"
             android:text="@string/text_colon"
             android:textSize="@dimen/_20sp" />
@@ -114,7 +114,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_below="@+id/tv_profile_full_name"
-            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:background="@color/light_gray" />
 
         <TextView
@@ -133,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/tv_name_dot"
             android:layout_below="@+id/view_profile_ravi_full_name"
-            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_8dp"
             android:layout_toRightOf="@+id/tv_display_name"
             android:text="@string/text_colon"
             android:textSize="@dimen/_20sp" />
@@ -157,7 +158,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_below="@+id/tv_profile_display_name"
-            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:background="@color/light_gray" />
 
 
@@ -177,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/tv_name_dot"
             android:layout_below="@+id/view_profile_ravi_display_name"
-            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_8dp"
             android:layout_toRightOf="@+id/tv_email"
             android:text="@string/text_colon"
             android:textSize="@dimen/_20sp" />
@@ -201,7 +203,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_below="@+id/tv_email"
-            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:background="@color/light_gray" />
 
         <TextView
@@ -220,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@id/tv_name_dot"
             android:layout_below="@+id/view_email"
-            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_8dp"
             android:layout_toRightOf="@+id/tv_mobile_no"
             android:text="@string/text_colon"
             android:textSize="@dimen/_20sp" />
@@ -243,7 +246,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0.5dp"
             android:layout_below="@+id/tv_mobile_no"
-            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_15dp"
             android:background="@color/light_gray" />
 
         <Button

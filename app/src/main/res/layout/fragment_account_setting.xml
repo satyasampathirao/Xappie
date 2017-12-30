@@ -51,15 +51,17 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/email_id"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14sp" />
 
         <TextView
             android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_320dp"
+            android:layout_height="@dimen/_45dp"
             android:layout_marginStart="@dimen/_18dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:textColor="@color/colorPrimary"
+            android:paddingTop="@dimen/_10dp"
+            android:background="@drawable/gray_round_border"
             android:paddingLeft="@dimen/_20dp"
             android:textSize="@dimen/_15sp" />
 
@@ -71,6 +73,7 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/old_password"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14sp" />
 
         <EditText
@@ -79,7 +82,7 @@
             android:layout_height="@dimen/_45dp"
             android:layout_marginStart="@dimen/_18dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:background="@drawable/edit_text_bg_rectangle"
+            android:background="@drawable/gray_round_border"
             android:cursorVisible="false"
             android:hint="@string/xxxxxx"
             android:inputType="textPassword"
@@ -93,6 +96,7 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/new_password"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14sp" />
 
         <EditText
@@ -101,7 +105,7 @@
             android:layout_height="@dimen/_45dp"
             android:layout_marginStart="@dimen/_18dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:background="@drawable/edit_text_bg_rectangle"
+            android:background="@drawable/gray_round_border"
             android:cursorVisible="false"
             android:hint="@string/xxxxxx"
             android:inputType="textPassword"
@@ -115,6 +119,7 @@
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_15dp"
             android:text="@string/re_enter_new_password"
+            android:textColor="@color/black"
             android:textSize="@dimen/_14sp" />
 
         <EditText
@@ -123,7 +128,7 @@
             android:layout_height="@dimen/_45dp"
             android:layout_marginStart="@dimen/_18dp"
             android:layout_marginTop="@dimen/_10dp"
-            android:background="@drawable/edit_text_bg_rectangle"
+            android:background="@drawable/gray_round_border"
             android:cursorVisible="false"
             android:hint="@string/xxxxxx"
             android:inputType="textPassword"

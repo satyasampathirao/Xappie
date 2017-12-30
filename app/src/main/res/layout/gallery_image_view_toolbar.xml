@@ -39,7 +39,7 @@
             android:gravity="center"
             android:text="@string/gallery"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/_18sp" />
+            android:textSize="@dimen/_12sp" />
 
         <TextView
             android:id="@+id/tv_page_no"
@@ -51,8 +51,8 @@
             android:gravity="center"
             android:longClickable="false"
             android:maxLines="1"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/_18sp" />
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/_12sp" />
 
         <TextView
             android:id="@+id/tv_share_icon"

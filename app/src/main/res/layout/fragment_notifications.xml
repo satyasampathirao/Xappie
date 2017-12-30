@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_lan"
         android:layout_marginTop="@dimen/_15dp"
-        android:divider="@null"
+        android:paddingStart="@dimen/_10dp"
         android:dividerHeight="0dp" />
 
 </RelativeLayout>

@@ -35,6 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -48,7 +49,7 @@
                 android:paddingStart="@dimen/_10dp"
                 android:text="@string/_1day"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_11sp" />
+                android:textSize="@dimen/_10sp" />
 
             <TextView
                 android:id="@+id/tv_source"

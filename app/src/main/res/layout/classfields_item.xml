@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="215dp"
-    android:background="@drawable/classifieds_border"
+    android:background="@drawable/events_border"
     android:padding="@dimen/_3dp"
     android:layout_height="wrap_content">
 
