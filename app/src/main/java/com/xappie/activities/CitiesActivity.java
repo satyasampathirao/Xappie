@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,7 +37,6 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
-
 
     @BindView(R.id.tv_back)
     TextView tv_back;
@@ -117,14 +115,20 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
             if (model instanceof StatesListModel) {
                 mStatesListModel = (StatesListModel) model;
                 if (mStatesListModel.getStateModels().size() == 0) {
-                    Utility.showToastMessage(CitiesActivity.this, Utility.getResourcesString(CitiesActivity.this, R.string.no_states_found));
+                    Utility.showToastMessage(CitiesActivity.this, Utility.getResourcesString(CitiesActivity.this, R.string.no_cities_found));
                 } else {
                     stateModels = mStatesListModel.getStateModels();
                     statesListAdapter = new StatesListAdapter(CitiesActivity.this, mStatesListModel.getStateModels());
                     city_list_view.setAdapter(statesListAdapter);
                 }
             } else if (model instanceof DeviceTokenUpdateModel) {
-                Intent intent = new Intent(CitiesActivity.this, DashBoardActivity.class);
+                Intent intent = new Intent(CitiesActivity.this, LocalitiesActivity.class);
+                intent.putExtra(Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
+                intent.putExtra(Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
+                intent.putExtra(Constants.SELECTED_STATE_ID, mSelectedStateId);
+                intent.putExtra(Constants.SELECTED_STATE_NAME, mSelectedStateName);
+                intent.putExtra(Constants.SELECTED_CITY_ID, Utility.getSharedPrefStringData(CitiesActivity.this, Constants.SELECTED_CITY_ID));
+                intent.putExtra(Constants.SELECTED_CITY_NAME, Utility.getSharedPrefStringData(CitiesActivity.this, Constants.SELECTED_CITY_NAME));
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

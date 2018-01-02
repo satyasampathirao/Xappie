@@ -46,6 +46,9 @@
             android:name=".activities.CitiesActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activities.LocalitiesActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activities.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -35,6 +35,8 @@ public class Constants {
     public static final String SELECTED_STATE_NAME = "SELECTED_STATE_NAME";
     public static final String SELECTED_CITY_ID = "SELECTED_CITY_ID";
     public static final String SELECTED_CITY_NAME = "SELECTED_CITY_NAME";
+    public static final String SELECTED_LOCALITY_ID = "SELECTED_LOCALITY_ID";
+    public static final String SELECTED_LOCALITY_NAME = "SELECTED_LOCALITY_NAME";
 
     public static final String SELECTED_DETAIL_VIEW_ID = "SELECTED_DETAIL_VIEW_ID";
     public static final String SELECTED_DETAIL_VIEW_FROM = "SELECTED_DETAIL_VIEW_FROM";
