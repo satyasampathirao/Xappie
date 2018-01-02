@@ -235,7 +235,7 @@ public class TopStoriesFragment extends Fragment implements IAsyncCaller, AbsLis
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_ID, mTopStoriesListModel.getEntertainmentModels().get(position).getId());
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
-        bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, getMoreTopicsList(position));
+        bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST, mTopStoriesListModel.getEntertainmentModels());
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
                 mParent);
     }

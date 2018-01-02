@@ -110,8 +110,11 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     private Typeface mTypefaceOpenSansLight;
 
     private String mSelectedId = "";
+    private ArrayList<EntertainmentModel> allEntertainmentModels;
     private ArrayList<EntertainmentModel> entertainmentModels;
     private EntertainmentTopStoriesDetailModel entertainmentTopStoriesDetailModel;
+
+    private int mPosition = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +126,8 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         Bundle bundle = getArguments();
         if (bundle.containsKey(Constants.SELECTED_DETAIL_VIEW_ID)) {
             mSelectedId = bundle.getString(Constants.SELECTED_DETAIL_VIEW_ID);
-            entertainmentModels = (ArrayList<EntertainmentModel>) bundle.getSerializable(Constants.SELECTED_MORE_TOPICS_LIST);
+            mPosition = bundle.getInt(Constants.SELECTED_DETAIL_VIEW_POSITION);
+            allEntertainmentModels = (ArrayList<EntertainmentModel>) bundle.getSerializable(Constants.SELECTED_MORE_TOPICS_LIST);
         }
     }
 
@@ -148,6 +152,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
 
     private void initUI() {
         setTypeFace();
+        entertainmentModels = Utility.getMoreTopicsList(clickedItemPosition(mSelectedId), allEntertainmentModels);
     }
 
     /**
@@ -237,6 +242,17 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         Utility.navigateDashBoardFragment(new CountriesFragment(), CountriesFragment.TAG, null, mParent);
     }
 
+    private int clickedItemPosition(String id) {
+        int clickedPosition = -1;
+        for (int i = 0; i < allEntertainmentModels.size(); i++) {
+            if (allEntertainmentModels.get(i).getId().equalsIgnoreCase(id)) {
+                clickedPosition = i;
+                break;
+            }
+        }
+        return clickedPosition;
+    }
+
     /**
      * Set Related Data
      */
@@ -281,6 +297,8 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
                         int pos = v.getId();
                         mSelectedId = entertainmentModels.get(pos).getId();
                         getDetailViewData();
+                        entertainmentModels = Utility.getMoreTopicsList(clickedItemPosition(mSelectedId), allEntertainmentModels);
+                        setRelatedTopics();
                     }
                 });
 
