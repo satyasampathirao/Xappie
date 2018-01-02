@@ -90,6 +90,7 @@ public class Constants {
     public static final int FROM_POST_FORUM_ADD_CLASSIFIEDS_ID = 992;
     public static final int FROM_POSTING_LOGO_FILE_ID = 790;
 
+    public static final int FROM_POST_FORUM_ADD_CLASSIFIEDS_CAMERA_ID = 996;
     public static final int FROM_POST_FORUM_ADD_EVENT_CAMERA_ID = 994;
     public static final int FROM_POST_FORUM_HOME_CAMERA_ID = 995;
 

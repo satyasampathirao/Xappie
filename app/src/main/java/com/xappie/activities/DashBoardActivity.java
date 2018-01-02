@@ -447,6 +447,12 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 String selectedImgPath = Utility.saveBitmap(bmp);
                 AddNewEventFragment.getInstance().updateFile(selectedImgPath);
             }
+        }  else if (requestCode == Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_CAMERA_ID) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bitmap bmp = (Bitmap) data.getExtras().get(Utility.getResourcesString(this, R.string.data));
+                String selectedImgPath = Utility.saveBitmap(bmp);
+                ClassifiedsAddFragment.getInstance().updateFile(selectedImgPath);
+            }
         } else if (requestCode == Constants.FROM_POST_FORUM_HOME_CAMERA_ID) {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bmp = (Bitmap) data.getExtras().get(Utility.getResourcesString(this, R.string.data));

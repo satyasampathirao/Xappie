@@ -1,22 +1,32 @@
 package com.xappie.fragments;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.CircleTransform;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.AddClassifiedModel;
 import com.xappie.models.ClassifiedUpdateModel;
@@ -30,6 +40,7 @@ import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -71,9 +82,14 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     Button btn_submit;
     @BindView(R.id.btn_upload)
     Button btn_upload;
+
+    @BindView(R.id.ll_images_layout)
+    LinearLayout ll_images_layout;
+
     public static File mYourFile;
 
     private Typeface mTypefaceOpenSansRegular;
+    private Typeface mTypefacematerialRegular;
     private Typeface mTypefaceOpenSansBold;
     private AddClassifiedModel addClassifiedModel;
     private ClassifiedsModel classifiedsModel;
@@ -82,6 +98,9 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
 
     private String mCat_Id;
     private String mSubId;
+
+    private ArrayList<String> photosNames;
+    private ArrayList<File> photosFiles;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
 
@@ -114,6 +133,8 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_classifieds_add, container, false);
         ButterKnife.bind(this, rootView);
+        photosNames = new ArrayList<>();
+        photosFiles = new ArrayList<>();
         return rootView;
     }
 
@@ -125,6 +146,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
 
     private void initUI() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
+        mTypefacematerialRegular = Utility.getMaterialIconsRegular(mParent);
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
         edt_title.setTypeface(mTypefaceOpenSansRegular);
@@ -177,7 +199,33 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
 
     @OnClick(R.id.btn_upload)
     void eventDialog() {
-        showEventDialog();
+        showPickAlert();
+    }
+
+    private void showPickAlert() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mParent);
+        alertDialogBuilder.setMessage("Take Photo");
+        alertDialogBuilder.setPositiveButton("Gallery",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        showEventDialog();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Camera",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        captureFile();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void captureFile() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mParent.startActivityForResult(intent, Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_CAMERA_ID);
     }
 
     private void showEventDialog() {
@@ -320,5 +368,63 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     public void updateFile(String path) {
         mYourFile = new File(path);
         edt_upload_image.setText(mYourFile.getName());
+
+        if (photosNames.size() < 5) {
+            ll_images_layout.setVisibility(View.VISIBLE);
+            photosNames.add(mYourFile.getName());
+            photosFiles.add(mYourFile);
+            updateUi();
+        } else
+            Utility.showToastMessage(mParent, "You already added Five, Remove and and new one");
+    }
+
+    private void updateUi() {
+        ll_images_layout.removeAllViews();
+        for (int i = 0; i < photosFiles.size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.classifieds_images_item, null);
+            LinearLayout classifieds_plus_item = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.classifieds_plus_item, null);
+            TextView add_icon = classifieds_plus_item.findViewById(R.id.add_icon);
+
+            ImageView img_video_image = ll.findViewById(R.id.img_video_image);
+            TextView img_close = ll.findViewById(R.id.img_close);
+
+            img_close.setTypeface(mTypefacematerialRegular);
+            add_icon.setTypeface(mTypefacematerialRegular);
+            String decodedImgUri = Uri.fromFile(new File(photosFiles.get(i).getPath())).toString();
+            if (!Utility.isValueNullOrEmpty(decodedImgUri))
+                Picasso.with(mParent).load(decodedImgUri)
+                        .resize(300, 300)
+                        .placeholder(Utility.getDrawable(mParent, R.drawable.xappie_place_holder))
+                        .into(img_video_image);
+            else {
+                Utility.universalImageLoaderPicLoading(img_video_image,
+                        "", null, R.drawable.xappie_place_holder);
+            }
+            img_close.setId(i);
+            img_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = view.getId();
+                    photosNames.remove(position);
+                    photosFiles.remove(position);
+                    updateUi();
+                }
+            });
+
+            classifieds_plus_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPickAlert();
+                }
+            });
+
+            ll_images_layout.addView(ll);
+            if (photosFiles.size() == 5) {
+
+            } else {
+                if (i + 1 == photosFiles.size())
+                    ll_images_layout.addView(classifieds_plus_item);
+            }
+        }
     }
 }

@@ -340,4 +340,6 @@
     <string name="select_locality">Select Locality</string>
 
     <string name="data">data</string>
+
+    <string name="add_icon">&#xE145;</string>
 </resources>
