@@ -534,8 +534,10 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             //if (model.isStatus()) {
             if (model instanceof AddEventModel) {
                 addEventModel = (AddEventModel) model;
-                Utility.showToastMessage(mParent, addEventModel.getMessage());
+                //Utility.showToastMessage(mParent, addEventModel.getMessage());
+                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
                 clearData();
+                EventsFragment.tv_my_events.performClick();
             } else if (model instanceof EventsModel) {
                 eventsModel = (EventsModel) model;
                 setPreData();

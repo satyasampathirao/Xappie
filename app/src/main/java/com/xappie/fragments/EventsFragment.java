@@ -56,10 +56,10 @@ public class EventsFragment extends Fragment {
 
     @BindView(R.id.tv_all_events)
     TextView tv_all_events;
+
+    public static TextView tv_my_events;
     @BindView(R.id.tv_add_new_event)
     TextView tv_add_new_event;
-    @BindView(R.id.tv_my_events)
-    TextView tv_my_events;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
@@ -103,6 +103,7 @@ public class EventsFragment extends Fragment {
     }
 
     private void initUI() {
+        tv_my_events = rootView.findViewById(R.id.tv_my_events);
         setTypeFace();
     }
 
