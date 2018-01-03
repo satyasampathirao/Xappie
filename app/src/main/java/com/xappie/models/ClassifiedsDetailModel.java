@@ -32,6 +32,7 @@ public class ClassifiedsDetailModel extends Model implements Serializable {
     private String approvedBy;
     private String approvedOn;
     private List<Images> images;
+    private String locality;
 
     public String getId() {
         return id;
@@ -217,4 +218,11 @@ public class ClassifiedsDetailModel extends Model implements Serializable {
         this.images = images;
     }
 
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
 }

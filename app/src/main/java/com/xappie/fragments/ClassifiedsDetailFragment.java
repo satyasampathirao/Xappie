@@ -140,6 +140,8 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     LinearLayout ll_website;
     @BindView(R.id.ll_address)
     LinearLayout ll_address;
+    @BindView(R.id.tv_locality)
+    TextView tv_locality;
 
     @BindView(R.id.tv_close_icon)
     TextView tv_close_icon;
@@ -245,6 +247,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         email_icon.setTypeface(mTypefaceMaterialIcon);
         phone_icon.setTypeface(mTypefaceMaterialIcon);
         tv_close_icon.setTypeface(mTypefaceMaterialIcon);
+        tv_locality.setTypeface(mTypefaceOpenSansRegular);
 
 
         tv_website.setTypeface(mTypefaceOpenSansRegular);
@@ -334,7 +337,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     private void setClasifiedsData() {
 
         if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getRecordedDate())) {
-            tv_date.setText(Utility.readDateFormat(classifiedsDetailModel.getRecordedDate()));
+            tv_date.setText("Posted On" + Utility.displayDateFormat(classifiedsDetailModel.getRecordedDate()));
         } else {
             tv_date.setVisibility(View.GONE);
         }
@@ -342,6 +345,11 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
             tv_post_title.setText(classifiedsDetailModel.getTitle());
         } else {
             tv_post_title.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getLocality())) {
+            tv_locality.setText(classifiedsDetailModel.getLocality());
+        } else {
+            tv_locality.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getPrice())) {
             tv_price.setText(classifiedsDetailModel.getPrice());
