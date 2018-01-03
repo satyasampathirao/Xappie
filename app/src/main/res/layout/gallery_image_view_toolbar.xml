@@ -61,7 +61,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/_10dp"
             android:gravity="center_vertical"
-            android:text="@string/share_icon"
+            android:text="@string/icon_share"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_20sp" />
 

@@ -151,10 +151,14 @@ public class HomePageCustomizationFragment extends Fragment {
                 switch_button_videos.setChecked(true);
             } else if (namesAfterSplit[i].equalsIgnoreCase("galleries")) {
                 sw_button_gallery.setChecked(true);
-            } else if (namesAfterSplit[i].equalsIgnoreCase("galleries")) {
-                sw_button_gallery.setChecked(true);
-            } else if (namesAfterSplit[i].equalsIgnoreCase("events")) {
+            }  else if (namesAfterSplit[i].equalsIgnoreCase("events")) {
                 sw_button_events.setChecked(true);
+            }
+            else if (namesAfterSplit[i].equalsIgnoreCase("Classifieds")) {
+                sw_button_classifieds.setChecked(true);
+            }
+            else if (namesAfterSplit[i].equalsIgnoreCase("jobs")) {
+                sw_button_jobs.setChecked(true);
             }
         }
     }
@@ -194,6 +198,15 @@ public class HomePageCustomizationFragment extends Fragment {
         changePreferenceSettings("events", isChecked);
     }
 
+    @OnCheckedChanged(R.id.switch_button_classifieds)
+    void ClassifiedsPreferenceChange(boolean isChecked) {
+        changePreferenceSettings("classifieds", isChecked);
+    }
+
+    @OnCheckedChanged(R.id.switch_button_jobs)
+    void jobsPreferenceChange(boolean isChecked) {
+        changePreferenceSettings("jobs", isChecked);
+    }
     /**
      * This is the universal method for the preferences
      */
@@ -252,7 +265,14 @@ public class HomePageCustomizationFragment extends Fragment {
             Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS, eventString);
         }
 
+
+    }
+
+    @OnClick(R.id.tv_submit)
+    public void updateHome()
+    {
         HomeFragment.getInstance().updateData();
+
     }
 
 }

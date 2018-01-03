@@ -137,7 +137,7 @@ public class PreferenceFragment extends Fragment {
 
     void navigateToNotifications()
     {
-        Utility.navigateDashBoardFragment(new NotificationsFragment(), NotificationsFragment.TAG, null, mParent);
+        Utility.navigateDashBoardFragment(new NotificationsSettingsFragment(), NotificationsSettingsFragment.TAG, null, mParent);
     }
 
     @OnClick ({R.id.tv_language_icon,R.id.tv_language})

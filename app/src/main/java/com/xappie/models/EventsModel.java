@@ -28,6 +28,7 @@ public class EventsModel extends Model implements Serializable {
     private String recordedDate;
     private String recordedType;
     private String going;
+    private String locality;
 
     public String getId() {
         return id;
@@ -187,5 +188,13 @@ public class EventsModel extends Model implements Serializable {
 
     public void setGoing(String going) {
         this.going = going;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
     }
 }
