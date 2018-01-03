@@ -89,6 +89,7 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
     private ArrayList<EntertainmentModel> entertainmentModels;
     private LanguageModel languageModel;
     private EntertainmentAdapter entertainmentAdapter;
+    EntertainmentListModel mEntertainmentListModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -236,7 +237,7 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
         bundle.putString(Constants.SELECTED_DETAIL_VIEW_FROM, TAG);
         bundle.putInt(Constants.SELECTED_DETAIL_VIEW_POSITION, position);
         bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST,
-                entertainmentModels);
+                mEntertainmentListModel.getEntertainmentModels());
         //bundle.putSerializable(Constants.SELECTED_MORE_TOPICS_LIST,
         //  entertainmentModels);
         Utility.navigateDashBoardFragment(new GalleryDetailViewFragment(), GalleryDetailViewFragment.TAG, bundle,
@@ -263,7 +264,7 @@ public class EntertainmentFragment extends Fragment implements IAsyncCaller, Abs
                     getEntertainmentData("" + 1);
                 }
             } else if (model instanceof EntertainmentListModel) {
-                EntertainmentListModel mEntertainmentListModel = (EntertainmentListModel) model;
+                mEntertainmentListModel = (EntertainmentListModel) model;
                 if (entertainmentModels == null) {
                     if (mEntertainmentListModel.getEntertainmentModels() == null) {
                         tv_no_data_found.setVisibility(View.VISIBLE);
