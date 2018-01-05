@@ -2,9 +2,11 @@ package com.xappie.fragments;
 
 
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.activities.BaseActivity;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.GalleryDetailImageAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
@@ -28,7 +31,13 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -145,12 +154,12 @@ public class GalleryImageViewFragment extends Fragment implements IAsyncCaller {
             @Override
             public void onClick(View view) {
                 String url = mGalleryImageViewListModel.getGalleryImageViewModels().get(mImagePos).getImage();
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                Uri screenshotUri = Uri.parse(url);
-
-                sharingIntent.setType("image/*");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_STREAM, screenshotUri);
-                startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                share.putExtra(Intent.EXTRA_SUBJECT, mGalleryImageViewListModel.getGalleryImageViewModels().get(mImagePos).getTitle());
+                share.putExtra(Intent.EXTRA_TEXT, url);
+                startActivity(Intent.createChooser(share, "Share link!"));
             }
         });
     }
@@ -196,5 +205,58 @@ public class GalleryImageViewFragment extends Fragment implements IAsyncCaller {
 
             }
         });
+    }
+
+
+    private static Intent generateCustomChooserIntent(BaseActivity parent,
+                                                      Intent prototype, String[] forbiddenChoices) {
+
+        List<Intent> targetedShareIntents = new ArrayList<>();
+        List<HashMap<String, String>> intentMetaInfo = new ArrayList<>();
+        Intent chooserIntent;
+
+        Intent dummy = new Intent(prototype.getAction());
+        dummy.setType(prototype.getType());
+        List<ResolveInfo> resInfo = parent.getPackageManager().queryIntentActivities(dummy, 0);
+
+        if (!resInfo.isEmpty()) {
+            for (ResolveInfo resolveInfo : resInfo) {
+                if (resolveInfo.activityInfo == null || Arrays.asList(forbiddenChoices).contains(resolveInfo.activityInfo.packageName))
+                    continue;
+
+                HashMap<String, String> info = new HashMap<>();
+                info.put("packageName", resolveInfo.activityInfo.packageName);
+                info.put("className", resolveInfo.activityInfo.name);
+                info.put("simpleName", String.valueOf(resolveInfo.activityInfo.
+                        loadLabel(parent.getPackageManager())));
+                intentMetaInfo.add(info);
+            }
+
+            if (!intentMetaInfo.isEmpty()) {
+                // sorting for nice readability
+                Collections.sort(intentMetaInfo, new Comparator<HashMap<String, String>>() {
+                    @Override
+                    public int compare(HashMap<String, String> map, HashMap<String, String> map2) {
+                        return map.get("simpleName").compareTo(map2.get("simpleName"));
+                    }
+                });
+
+                // create the custom intent list
+                for (HashMap<String, String> metaInfo : intentMetaInfo) {
+                    Intent targetedShareIntent = (Intent) prototype.clone();
+                    targetedShareIntent.setPackage(metaInfo.get("packageName"));
+                    targetedShareIntent.setClassName(metaInfo.get("packageName"), metaInfo.get("className"));
+                    targetedShareIntents.add(targetedShareIntent);
+                }
+
+                chooserIntent = Intent.createChooser(targetedShareIntents.remove(
+                        targetedShareIntents.size() - 1), "Share");
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                        targetedShareIntents.toArray(new Parcelable[]{}));
+                return chooserIntent;
+            }
+        }
+
+        return Intent.createChooser(prototype, "Share");
     }
 }

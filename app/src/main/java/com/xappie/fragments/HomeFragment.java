@@ -1,8 +1,6 @@
 package com.xappie.fragments;
 
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.activities.VideoViewActivity;
@@ -29,10 +26,8 @@ import com.xappie.adapters.AdsPagerAdapter;
 import com.xappie.adapters.HomeViewPagerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.customviews.TouchImageView;
 import com.xappie.interfaces.IHomeCustomization;
 import com.xappie.models.ClassifiedsListModel;
-import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.EventsListModel;
@@ -968,14 +963,14 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
                     RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
                     LinearLayout view = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.view, null);
-                    ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
-                    TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-                    TextView tv_classified_name = (TextView) ll.findViewById(R.id.tv_classified_name);
-                    TextView tv_calendar_icon = (TextView) ll.findViewById(R.id.tv_calendar_icon);
-                    TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
-                    TextView tv_price_icon = (TextView) ll.findViewById(R.id.tv_price_icon);
-                    TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
-                    TextView tv_sub_classified_name = (TextView) ll.findViewById(R.id.tv_sub_classified_name);
+                    ImageView img_gallery_image = ll.findViewById(R.id.img_gallery_image);
+                    TextView tv_title = ll.findViewById(R.id.tv_title);
+                    TextView tv_classified_name = ll.findViewById(R.id.tv_classified_name);
+                    TextView tv_calendar_icon = ll.findViewById(R.id.tv_calendar_icon);
+                    TextView tv_time = ll.findViewById(R.id.tv_time);
+                    TextView tv_price_icon = ll.findViewById(R.id.tv_price_icon);
+                    TextView tv_posted_by = ll.findViewById(R.id.tv_posted_by);
+                    TextView tv_sub_classified_name = ll.findViewById(R.id.tv_sub_classified_name);
 
                     if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage())) {
                         Utility.universalImageLoaderPicLoading(img_gallery_image,
@@ -998,7 +993,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
 
 
-                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getBannersModels().get(i).getRecordedDate())) {
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getRecordedDate())) {
                         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         PrettyTime prettyTime = new PrettyTime();
                         Date date;
