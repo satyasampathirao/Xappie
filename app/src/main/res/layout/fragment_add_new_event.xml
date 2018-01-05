@@ -325,6 +325,29 @@
                 android:textSize="@dimen/_15sp" />
 
             <EditText
+                android:id="@+id/edt_select_locality"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45dp"
+                android:layout_marginEnd="@dimen/_12dp"
+                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="@drawable/white_corners"
+                android:drawableEnd="@drawable/drop_down_arrow"
+                android:drawableRight="@drawable/drop_down_arrow"
+                android:ellipsize="end"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/select_locality"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingStart="@dimen/_10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/_15sp" />
+
+            <EditText
                 android:id="@+id/edt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

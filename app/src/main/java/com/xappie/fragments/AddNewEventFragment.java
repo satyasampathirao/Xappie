@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -21,26 +22,33 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.adapters.SpinnerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.AddEventModel;
 import com.xappie.models.EventUpdateModel;
 import com.xappie.models.EventsModel;
+import com.xappie.models.LocalityListModel;
+import com.xappie.models.LocalityModel;
 import com.xappie.models.Model;
+import com.xappie.models.SpinnerModel;
 import com.xappie.parser.AddEventSuccessParser;
 import com.xappie.parser.EventUpdateParser;
 import com.xappie.parser.EventsDetailParser;
+import com.xappie.parser.LocalityParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 
@@ -89,6 +97,8 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
 
     @BindView(R.id.edt_name_of_the_location)
     EditText edt_name_of_the_location;
+    @BindView(R.id.edt_select_locality)
+    EditText edt_select_locality;
     @BindView(R.id.edt_address)
     EditText edt_address;
 
@@ -105,6 +115,8 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     private EventsModel eventsModel;
     private EventUpdateModel eventUpdateModel;
     private String mID;
+    private LocalityListModel mLocalityListModel;
+    private ArrayList<LocalityModel> localityModels;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
 
@@ -167,7 +179,28 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             btn_submit.setText("Update");
             getEventDetails();
         }
+
+        getLocalitiesList();
     }
+
+    /**
+     * This method is used to get the localities list from the server
+     */
+    private void getLocalitiesList() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            LocalityParser localityParser = new LocalityParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_LOCALITIES + "/" + Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID), linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, localityParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * This method is used to get event details
@@ -227,6 +260,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
                 paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
                 paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
                 paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+                paramMap.put("locality", getLocalityId(edt_select_locality.getText().toString()));
                 if (mYourFile != null) {
                     paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
                     paramMap.put("photo_name", edt_upload_image.getText().toString());
@@ -252,6 +286,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
                 paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
                 paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
                 paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+                paramMap.put("locality", getLocalityId(edt_select_locality.getText().toString()));
                 paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
                 paramMap.put("photo_name", edt_upload_image.getText().toString());
                 AddEventSuccessParser mAddEventSuccessParser = new AddEventSuccessParser();
@@ -545,6 +580,16 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
                 eventUpdateModel = (EventUpdateModel) model;
                 Utility.showToastMessage(mParent, eventUpdateModel.getMessage());
                 mParent.onBackPressed();
+            } else if (model instanceof LocalityListModel) {
+                mLocalityListModel = (LocalityListModel) model;
+                if (mLocalityListModel.getLocalityModels().size() == 0) {
+                    Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.no_localities_found));
+                    Intent intent = new Intent(mParent, DashBoardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else {
+                    localityModels = mLocalityListModel.getLocalityModels();
+                }
             }
             //}
         }
@@ -601,6 +646,51 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     private void captureFile() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         mParent.startActivityForResult(intent, Constants.FROM_POST_FORUM_ADD_EVENT_CAMERA_ID);
+    }
+
+    private String getLocalityId(String s) {
+        String mLocalityId = "";
+        for (int i = 0; i < localityModels.size(); i++) {
+            if (localityModels.get(i).getName().equals(s)) {
+                mLocalityId = localityModels.get(i).getId();
+            }
+        }
+        return mLocalityId;
+    }
+
+    @OnClick(R.id.edt_select_locality)
+    void setDataToTheSpinner() {
+        if (localityModels != null && localityModels.size() > 0)
+            showSpinnerDialog(mParent, "Select Locality", edt_select_locality, mLocalityListModel.getSpinnerModels(), 1);
+    }
+
+    private void showSpinnerDialog(DashBoardActivity mParent, String title, final EditText edt_locality, ArrayList<SpinnerModel> spinnerModels, final int id) {
+        android.app.AlertDialog.Builder builderSingle = new android.app.AlertDialog.Builder(mParent);
+
+        /*CUSTOM TITLE*/
+        LayoutInflater inflater = (LayoutInflater) mParent.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.layout_alert_dialog_title, null);
+        TextView tv_title = (TextView) view.findViewById(R.id.tv_alert_dialog_title);
+        RelativeLayout dialog_back_ground = (RelativeLayout) view.findViewById(R.id.dialog_back_ground);
+        dialog_back_ground.setBackgroundColor(mParent.getResources().getColor(R.color.colorPrimary));
+        tv_title.setText(title);
+        tv_title.setTextColor(mParent.getResources().getColor(R.color.blackColor));
+        builderSingle.setCustomTitle(view);
+
+
+        final SpinnerAdapter adapter = new SpinnerAdapter(mParent, spinnerModels);
+        builderSingle.setAdapter(adapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SpinnerModel mData = (SpinnerModel) adapter.getItem(which);
+                        if (id == 1) {
+                            String text = mData.getTitle();
+                            edt_locality.setText(text);
+                        }
+                    }
+                });
+        builderSingle.show();
     }
 
 
