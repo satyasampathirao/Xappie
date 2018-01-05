@@ -118,6 +118,7 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", stateModel.getId());
             linkedHashMap.put("cat_id", mId);
             linkedHashMap.put("sub_cat_id", mSubId);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);

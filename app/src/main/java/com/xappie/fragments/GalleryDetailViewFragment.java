@@ -106,8 +106,8 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     @BindView(R.id.ll_related_topics)
     LinearLayout ll_related_topics;
 
-    @BindView(R.id.b_notification_settings_update)
-    Button b_notification_settings_update;
+    @BindView(R.id.b_read_more)
+    TextView b_read_more;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
@@ -194,7 +194,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
 
         tv_more_topics.setTypeface(mTypefaceOpenSansRegular);
         tv_more.setTypeface(mTypefaceOpenSansRegular);
-        b_notification_settings_update.setTypeface(mTypefaceOpenSansRegular);
+        b_read_more.setTypeface(mTypefaceOpenSansRegular);
         getDetailViewData();
     }
 
@@ -347,7 +347,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
             view_dot.setVisibility(View.GONE);
         }
 
-        b_notification_settings_update.setOnClickListener(new View.OnClickListener() {
+        b_read_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getWeblink())) {

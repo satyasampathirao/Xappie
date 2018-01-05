@@ -1,7 +1,9 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -139,6 +141,18 @@ public class GalleryImageViewFragment extends Fragment implements IAsyncCaller {
         tv_page_no.setTypeface(mTypefaceOpenSansRegular);
         tv_share_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
+        tv_share_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = mGalleryImageViewListModel.getGalleryImageViewModels().get(mImagePos).getImage();
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                Uri screenshotUri = Uri.parse(url);
+
+                sharingIntent.setType("image/*");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_STREAM, screenshotUri);
+                startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+            }
+        });
     }
 
 

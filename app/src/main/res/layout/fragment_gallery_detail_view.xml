@@ -81,17 +81,19 @@
                 android:textSize="@dimen/_15sp" />
 
 
-            <Button
-                android:id="@+id/b_notification_settings_update"
-                android:layout_width="@dimen/_150dp"
+            <TextView
+                android:id="@+id/b_read_more"
+                android:layout_width="@dimen/_140dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/_5dp"
                 android:layout_marginStart="@dimen/_15dp"
-                android:background="@drawable/home_page_border"
-                android:text="Read More"
+                android:paddingTop="@dimen/_10dp"
+                android:paddingBottom="@dimen/_10dp"
+                android:background="@drawable/bordr_text"
+                android:text="@string/read_more"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/orange"
                 android:layout_marginBottom="@dimen/_25dp"
                 android:textSize="@dimen/_17sp" />
 

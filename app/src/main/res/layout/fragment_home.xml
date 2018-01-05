@@ -444,7 +444,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical" />
+                    android:dividerPadding="@dimen/_4dp"
+                    android:orientation="horizontal" />
+
             </HorizontalScrollView>
             <LinearLayout
                 android:id="@+id/ll_no_data_classified"
@@ -462,7 +464,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20dp"
-                    android:text="@string/no_events_found"
+                    android:text="@string/no_classifieds_found"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_25sp" />
             </LinearLayout>

@@ -31,6 +31,8 @@ import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.customviews.TouchImageView;
 import com.xappie.interfaces.IHomeCustomization;
+import com.xappie.models.ClassifiedsListModel;
+import com.xappie.models.ClassifiedsModel;
 import com.xappie.models.EntertainmentListModel;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.EventsListModel;
@@ -47,6 +49,7 @@ import com.xappie.models.StateModel;
 import com.xappie.models.StatesListModel;
 import com.xappie.models.TopStoriesListModel;
 import com.xappie.models.VideosModel;
+import com.xappie.parser.ClassifiedsParser;
 import com.xappie.parser.EntertainmentParser;
 import com.xappie.parser.EventsListParser;
 import com.xappie.parser.HomePageAdsEventsBannerParser;
@@ -239,6 +242,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     @BindView(R.id.ll_classifieds)
     LinearLayout ll_classifieds;
 
+
+    @BindView(R.id.ll_no_data_classified)
+    LinearLayout ll_no_data_classified;
+    @BindView(R.id.tv_no_data_classified)
+    TextView tv_no_data_classified;
+
     /**
      * Jobs View Ids
      */
@@ -276,6 +285,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     private StateModel stateModel;
     private EventsListModel eventsListModel;
     private JobsListModel jobsListModel;
+    private ClassifiedsListModel classifiedsListModel;
 
     private static IHomeCustomization iHomeCustomization;
 
@@ -818,7 +828,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 mHomePageEventsAdsBannersModel = (HomePageEventsAdsBannersModel) model;
                 setAdsData();
                 setDataToEvents();
-                setClassifiedsData();
+                setDataToClassifieds();
                 setDataToJobs();
             } else if (model instanceof TopStoriesListModel) {
                 mTopStoriesListModel = (TopStoriesListModel) model;
@@ -848,6 +858,19 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 } else {
                     ll_no_data_event.setVisibility(View.VISIBLE);
                     ll_events.setVisibility(View.GONE);
+                }
+            } else if (model instanceof ClassifiedsListModel) {
+                classifiedsListModel = (ClassifiedsListModel) model;
+                if (classifiedsListModel.getClassifiedsModels().size() > 0) {
+                    ll_no_data_classified.setVisibility(View.GONE);
+                    ll_classifieds.setVisibility(View.VISIBLE);
+                    if (mHomePageEventsAdsBannersModel != null) {
+                        mHomePageEventsAdsBannersModel.setClassifiedsModel(classifiedsListModel.getClassifiedsModels());
+                        setDataToClassifieds();
+                    }
+                } else {
+                    ll_no_data_classified.setVisibility(View.VISIBLE);
+                    ll_classifieds.setVisibility(View.GONE);
                 }
             } else if (model instanceof JobsListModel) {
                 jobsListModel = (JobsListModel) model;
@@ -926,6 +949,93 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_events.setVisibility(View.GONE);
             hs_events_inner_layout.setVisibility(View.GONE);
             ll_events.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void setDataToClassifieds() {
+        if (mHomePageEventsAdsBannersModel != null
+                && mHomePageEventsAdsBannersModel.getClassifiedsModel() != null
+                && mHomePageEventsAdsBannersModel.getClassifiedsModel().size() > 0) {
+            setClassifiedFilters();
+            ll_classifieds.removeAllViews();
+            if (mHomePageEventsAdsBannersModel.getClassifiedsModel().size() > 0) {
+                rl_classifieds_heading.setVisibility(View.VISIBLE);
+                hs_classifieds.setVisibility(View.VISIBLE);
+                hs_classifieds_inner_layout.setVisibility(View.VISIBLE);
+
+                for (int i = 0; i < mHomePageEventsAdsBannersModel.getClassifiedsModel().size() && i < 7; i++) {
+
+                    RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
+                    LinearLayout view = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.view, null);
+                    ImageView img_gallery_image = (ImageView) ll.findViewById(R.id.img_gallery_image);
+                    TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
+                    TextView tv_classified_name = (TextView) ll.findViewById(R.id.tv_classified_name);
+                    TextView tv_calendar_icon = (TextView) ll.findViewById(R.id.tv_calendar_icon);
+                    TextView tv_time = (TextView) ll.findViewById(R.id.tv_time);
+                    TextView tv_price_icon = (TextView) ll.findViewById(R.id.tv_price_icon);
+                    TextView tv_posted_by = (TextView) ll.findViewById(R.id.tv_posted_by);
+                    TextView tv_sub_classified_name = (TextView) ll.findViewById(R.id.tv_sub_classified_name);
+
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage())) {
+                        Utility.universalImageLoaderPicLoading(img_gallery_image,
+                                mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getImage(), null, R.drawable.xappie_place_);
+                    } else {
+                        Utility.universalImageLoaderPicLoading(img_gallery_image,
+                                "", null, R.drawable.xappie_place_);
+                    }
+                    tv_classified_name.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+
+                    tv_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getCategory());
+                    tv_title.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getTitle());
+                    tv_calendar_icon.setTypeface(Utility.getFontAwesomeWebFont(mParent));
+                    tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+                    tv_posted_by.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice());
+                    tv_sub_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getSub_category());
+                    tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_sub_classified_name.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
+
+
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getBannersModels().get(i).getRecordedDate())) {
+                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        PrettyTime prettyTime = new PrettyTime();
+                        Date date;
+                        String outputDateStr = "";
+                        try {
+                            date = inputFormat.parse(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getRecordedDate());
+                            outputDateStr = prettyTime.format(date);
+                            tv_time.setText(outputDateStr);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    ll.setId(i);
+                    ll.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int position = view.getId();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.CLASSIFIEDS_ID, mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getId());
+                            Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle, mParent);
+                        }
+                    });
+                    ll_classifieds.addView(view);
+                    ll_classifieds.addView(ll);
+                }
+            }
+            rl_classifieds_heading.setVisibility(View.VISIBLE);
+            hs_classifieds.setVisibility(View.VISIBLE);
+            hs_classifieds_inner_layout.setVisibility(View.VISIBLE);
+            ll_classifieds.setVisibility(View.VISIBLE);
+        } else {
+            rl_classifieds_heading.setVisibility(View.GONE);
+            hs_classifieds.setVisibility(View.GONE);
+            hs_classifieds_inner_layout.setVisibility(View.GONE);
+            ll_classifieds.setVisibility(View.GONE);
         }
     }
 
@@ -1142,6 +1252,27 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         }
     }
 
+    private void getClassifiedsData(String pageNo) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            //linkedHashMap.put("type", "Public");
+            linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+            linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+            linkedHashMap.put("city", stateModel.getId());
+            linkedHashMap.put(Constants.PAGE_NO, pageNo);
+            linkedHashMap.put(Constants.PAGE_SIZE, "7");
+            ClassifiedsParser eventsListParser = new ClassifiedsParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_CLASSIFIEDS, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void getJobsData(String pageNo) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
@@ -1197,6 +1328,41 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             }
 
             ll_languages_layout_events.addView(ll);
+        }
+    }
+
+
+    private void setClassifiedFilters() {
+        ll_languages_layout_classifieds.removeAllViews();
+        for (int i = 0; i < mStatesListModel.getStateModels().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.language_item, null);
+            TextView tv_type = (TextView) ll.findViewById(R.id.tv_language_name);
+            View view = (View) ll.findViewById(R.id.view);
+            tv_type.setText(mStatesListModel.getStateModels().get(i).getName());
+            tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
+            tv_type.setTypeface(Utility.getOpenSansRegular(mParent));
+
+            tv_type.setId(i);
+            tv_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = v.getId();
+                    stateModel = mStatesListModel.getStateModels().get(pos);
+                    setClassifiedFilters();
+                    getClassifiedsData("" + 1);
+                }
+            });
+
+            if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
+                view.setVisibility(View.VISIBLE);
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+
+            } else {
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
+                view.setVisibility(View.GONE);
+            }
+
+            ll_languages_layout_classifieds.addView(ll);
         }
     }
 
