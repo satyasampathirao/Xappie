@@ -33,6 +33,7 @@ public class EntertainmentTopStoriesDetailParser implements Parser<Model> {
             entertainmentModel.setBanner_image(jsonObject.optString("banner_image"));
             entertainmentModel.setStatus(jsonObject.optString("status"));
             entertainmentModel.setNews_status(jsonObject.optString("news_status"));
+            entertainmentModel.setWeblink(jsonObject.optString("weblink"));
             entertainmentModel.setRecordedBy(jsonObject.optString("recordedBy"));
             entertainmentModel.setRecordedDate(jsonObject.optString("recordedDate"));
             mEntertainmentTopStoriesDetailModel.setmCurrentDetailModel(entertainmentModel);

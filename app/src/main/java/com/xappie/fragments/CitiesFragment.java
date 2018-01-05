@@ -15,13 +15,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
+import com.xappie.activities.CitiesActivity;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.StatesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.DeviceTokenUpdateModel;
 import com.xappie.models.Model;
 import com.xappie.models.StateModel;
 import com.xappie.models.StatesListModel;
+import com.xappie.parser.DeviceTokenUpdateParser;
 import com.xappie.parser.StatesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -196,5 +199,26 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
         bundle.putString(Constants.SELECTED_CITY_NAME,mStatesListModel.getStateModels().get(position).getName());
 
         Utility.navigateDashBoardFragment(new LocalitiesFragment(), LocalitiesFragment.TAG, bundle, mParent);
+        updateDeviceData();
+    }
+
+    private void updateDeviceData() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("device_type", Constants.DEVICE_TYPE);
+        paramMap.put("token", Utility.getSharedPrefStringData(mParent, Constants.KEY_FCM_TOKEN));
+        paramMap.put("country", mSelectedCountryId);
+        paramMap.put("state", mSelectedStateId);
+        paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        paramMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
+        paramMap.put("modules", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+        paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+
+        DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                R.string.please_wait), false,
+                APIConstants.UPDATE_DEVICE_PREFERENCE, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
+        Utility.execute(serverIntractorAsync);
     }
 }

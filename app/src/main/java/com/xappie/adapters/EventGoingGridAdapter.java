@@ -63,7 +63,7 @@ public class EventGoingGridAdapter extends BaseAdapter {
             mEventGoingGridHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             mEventGoingGridHolder.tv_first_last = (TextView) convertView.findViewById(R.id.tv_first_last);
             Utility.setThemeColorToBackground(mEventGoingGridHolder.img_topic, mDashBoardActivity);
-            mEventGoingGridHolder.tv_name.setTypeface(mOpenSansBoldTypeface);
+            mEventGoingGridHolder.tv_name.setTypeface(Utility.getOpenSansRegular(mDashBoardActivity));
 
             convertView.setTag(mEventGoingGridHolder);
         } else {

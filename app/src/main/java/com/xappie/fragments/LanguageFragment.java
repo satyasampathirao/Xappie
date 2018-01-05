@@ -19,9 +19,11 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.LanguagesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.DeviceTokenUpdateModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
+import com.xappie.parser.DeviceTokenUpdateParser;
 import com.xappie.parser.LanguageParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -157,8 +159,28 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID, mLanguageListModel.getLanguageModels().get(position).getId());
         Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
         startActivity(dashBoardIntent);
+        updateDeviceData();
     }
 
+    private void updateDeviceData() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("device_type", Constants.DEVICE_TYPE);
+        paramMap.put("token", Utility.getSharedPrefStringData(mParent, Constants.KEY_FCM_TOKEN));
+        paramMap.put("country", Utility.getSharedPrefStringData(mParent,Constants.SELECTED_COUNTRY_ID));
+        paramMap.put("state", Utility.getSharedPrefStringData(mParent,Constants.SELECTED_STATE_ID));
+        paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        paramMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
+        paramMap.put("modules", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+        paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+
+        DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                R.string.please_wait), false,
+                APIConstants.UPDATE_DEVICE_PREFERENCE, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
+        Utility.execute(serverIntractorAsync);
+    }
 
     @OnClick(R.id.tv_back)
     public void navigateBack() {

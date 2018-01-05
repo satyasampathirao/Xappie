@@ -2,7 +2,9 @@ package com.xappie.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -11,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -103,6 +106,9 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     @BindView(R.id.ll_related_topics)
     LinearLayout ll_related_topics;
 
+    @BindView(R.id.b_notification_settings_update)
+    Button b_notification_settings_update;
+
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
     private Typeface mTypefaceMaterialIcons;
@@ -188,6 +194,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
 
         tv_more_topics.setTypeface(mTypefaceOpenSansRegular);
         tv_more.setTypeface(mTypefaceOpenSansRegular);
+        b_notification_settings_update.setTypeface(mTypefaceOpenSansRegular);
         getDetailViewData();
     }
 
@@ -339,6 +346,20 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
             tv_written_by.setVisibility(View.GONE);
             view_dot.setVisibility(View.GONE);
         }
+
+        b_notification_settings_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getWeblink())) {
+                    Intent webIntent = new Intent();
+                    webIntent.setAction(Intent.ACTION_VIEW);
+                    webIntent.setData(Uri.parse(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getWeblink()));
+                    mParent.startActivity(webIntent);
+                } else {
+                    Utility.showToastMessage(mParent, "Web Link is empty");
+                }
+            }
+        });
 
         if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedDate())) {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

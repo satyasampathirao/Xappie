@@ -20,6 +20,7 @@ public class EntertainmentModel implements Serializable {
     private String source;
     private String recordedBy;
     private String recordedDate;
+    private String weblink;
 
     public String getId() {
         return id;
@@ -115,5 +116,13 @@ public class EntertainmentModel implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getWeblink() {
+        return weblink;
+    }
+
+    public void setWeblink(String weblink) {
+        this.weblink = weblink;
     }
 }
