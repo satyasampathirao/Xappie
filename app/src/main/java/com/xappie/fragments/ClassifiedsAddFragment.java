@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -10,42 +11,57 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.adapters.SpinnerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
-import com.xappie.customviews.CircleTransform;
+import com.xappie.customviews.CustomProgressDialog;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.AddClassifiedModel;
 import com.xappie.models.ClassifiedUpdateModel;
-import com.xappie.models.ClassifiedsModel;
+import com.xappie.models.ClassifiedsDetailModel;
+import com.xappie.models.IAmGoingModel;
+import com.xappie.models.Images;
+import com.xappie.models.LocalityListModel;
+import com.xappie.models.LocalityModel;
 import com.xappie.models.Model;
-import com.xappie.parser.ClassifiedSuccessParser;
+import com.xappie.models.SpinnerModel;
 import com.xappie.parser.ClassifiedUpdateParser;
 import com.xappie.parser.ClassifiedsDetailParser;
+import com.xappie.parser.IAmGoingParser;
+import com.xappie.parser.LocalityParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 /**
  * Created by Shankar on 11/21/2017.
@@ -66,6 +82,9 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     EditText edt_cost;
     @BindView(R.id.tv_contact_details)
     TextView tv_contact_details;
+
+    @BindView(R.id.edt_locality)
+    EditText edt_locality;
 
     @BindView(R.id.edt_name)
     EditText edt_name;
@@ -92,7 +111,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     private Typeface mTypefacematerialRegular;
     private Typeface mTypefaceOpenSansBold;
     private AddClassifiedModel addClassifiedModel;
-    private ClassifiedsModel classifiedsModel;
+    private ClassifiedsDetailModel classifiedsModel;
     private ClassifiedUpdateModel classifiedUpdateModel;
     private String mID;
 
@@ -103,6 +122,9 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     private ArrayList<File> photosFiles;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
+    private CustomProgressDialog customProgressDialog;
+    private LocalityListModel mLocalityListModel;
+    private ArrayList<LocalityModel> localityModels;
 
     public static IUpdateSelectedFile getInstance() {
         return iUpdateSelectedFile;
@@ -126,6 +148,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         } else {
             mID = "";
         }
+        customProgressDialog = new CustomProgressDialog(mParent);
     }
 
     @Override
@@ -167,7 +190,29 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             btn_submit.setText("Update");
             getClassifiedDetails();
         }
+
+        getLocalitiesList();
     }
+
+
+    /**
+     * This method is used to get the localities list from the server
+     */
+    private void getLocalitiesList() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            LocalityParser localityParser = new LocalityParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_LOCALITIES + "/" + Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID), linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, localityParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void getClassifiedDetails() {
         try {
@@ -194,6 +239,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             edt_mobile.setText(classifiedsModel.getMobile());
             edt_email.setText(classifiedsModel.getEmail());
             edt_address.setText(classifiedsModel.getAddress());
+            updateEditUi();
         }
     }
 
@@ -239,59 +285,156 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     void submitDetails() {
         if (isValidFields()) {
             if (!Utility.isValueNullOrEmpty(mID)) {
-                LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
-                paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-                paramMap.put("id", mID);
-                paramMap.put("cat_id", classifiedsModel.getCat_id());
-                paramMap.put("sub_cat_id", mSubId);
-                paramMap.put("title", edt_title.getText().toString());
-                paramMap.put("description", edt_description.getText().toString());
-                paramMap.put("price", edt_cost.getText().toString());
-                paramMap.put("name", edt_name.getText().toString());
-                paramMap.put("mobile", edt_mobile.getText().toString());
-                paramMap.put("email", edt_email.getText().toString());
-                paramMap.put("address", edt_address.getText().toString());
-                paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
-                paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
-                paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
-                if (mYourFile != null) {
-                    paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
-                    paramMap.put("photo_name", edt_upload_image.getText().toString());
-                }
-                ClassifiedUpdateParser classifiedUpdateParser = new ClassifiedUpdateParser();
-                ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
-                        R.string.please_wait), true,
-                        APIConstants.UPDATE_CLASSIFIED, paramMap,
-                        APIConstants.REQUEST_TYPE.POST, this, classifiedUpdateParser);
-                Utility.execute(serverIntractorAsync);
+                customProgressDialog.showProgress("");
+                updateClassifieds();
             } else {
-                LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
-                paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
-                paramMap.put("cat_id", mCat_Id);
-                paramMap.put("sub_cat_id", mSubId);
-                paramMap.put("title", edt_title.getText().toString());
-                paramMap.put("description", edt_description.getText().toString());
-                paramMap.put("price", edt_cost.getText().toString());
-                paramMap.put("name", edt_name.getText().toString());
-                paramMap.put("mobile", edt_mobile.getText().toString());
-                paramMap.put("email", edt_email.getText().toString());
-                paramMap.put("address", edt_address.getText().toString());
-                paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
-                paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
-                paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
-                if (mYourFile != null) {
-                    paramMap.put("photo", Utility.convertFileToByteArray(mYourFile));
-                    paramMap.put("photo_name", edt_upload_image.getText().toString());
-                }
-                ClassifiedSuccessParser classifiedSuccessParser = new ClassifiedSuccessParser();
-                ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
-                        R.string.please_wait), true,
-                        APIConstants.ADD_CLASSIFIED, paramMap,
-                        APIConstants.REQUEST_TYPE.POST, this, classifiedSuccessParser);
-                Utility.execute(serverIntractorAsync);
-
+                customProgressDialog.showProgress("");
+                addClassifieds();
             }
         }
+    }
+
+    public static String getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
+
+    public void updateClassifieds() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        for (int i = 0; i < classifiedsModel.getImages().size(); i++) {
+            if (!classifiedsModel.getImages().get(i).getImage().contains("http")) {
+                File file = new File(classifiedsModel.getImages().get(i).getImage());
+                if (file.exists()) {
+                    if (getMimeType(classifiedsModel.getImages().get(i).getImage()) != null) {
+                        final MediaType MEDIA_TYPE = MediaType.parse(getMimeType(file.getPath()));
+                        builder.addFormDataPart("photo[]", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+                    } else {
+                        Utility.showToastMessage(mParent, "File has some problem, Remove and select again");
+                    }
+                } else {
+                    Log.d(TAG, "file not exist ");
+                }
+            }
+        }
+
+        builder.addFormDataPart(Constants.API_KEY, Constants.API_KEY_VALUE);
+        builder.addFormDataPart("id", mID);
+        builder.addFormDataPart("cat_id", classifiedsModel.getCat_id());
+        builder.addFormDataPart("sub_cat_id", classifiedsModel.getSub_cat_id());
+        builder.addFormDataPart("title", edt_title.getText().toString());
+        builder.addFormDataPart("description", edt_description.getText().toString());
+        builder.addFormDataPart("price", edt_cost.getText().toString());
+        builder.addFormDataPart("name", edt_name.getText().toString());
+        builder.addFormDataPart("mobile", edt_mobile.getText().toString());
+        builder.addFormDataPart("email", edt_email.getText().toString());
+        builder.addFormDataPart("address", edt_address.getText().toString());
+        builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        builder.addFormDataPart("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+        builder.addFormDataPart("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        builder.addFormDataPart("locality", getLocalityId(edt_locality.getText().toString()));
+
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.UPDATE_CLASSIFIED)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                Utility.showToastMessage(mParent, "Your classified is uploaded successfully and is in pending for Approval");
+                mParent.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clearData();
+                        ClassifiedsTabFragment.tv_my_classifieds.performClick();
+                    }
+                });
+            }
+        });
+    }
+
+    public void addClassifieds() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        for (int i = 0; i < photosFiles.size(); i++) {
+            File file = new File(photosFiles.get(i).getPath());
+            if (file.exists()) {
+                final MediaType MEDIA_TYPE = MediaType.parse(getMimeType(photosFiles.get(i).getPath()));
+                builder.addFormDataPart("photo[]", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+            } else {
+                Log.d(TAG, "file not exist ");
+            }
+        }
+
+
+        builder.addFormDataPart(Constants.API_KEY, Constants.API_KEY_VALUE);
+        builder.addFormDataPart("cat_id", mCat_Id);
+        builder.addFormDataPart("sub_cat_id", mSubId);
+        builder.addFormDataPart("title", edt_title.getText().toString());
+        builder.addFormDataPart("description", edt_description.getText().toString());
+        builder.addFormDataPart("price", edt_cost.getText().toString());
+        builder.addFormDataPart("name", edt_name.getText().toString());
+        builder.addFormDataPart("mobile", edt_mobile.getText().toString());
+        builder.addFormDataPart("email", edt_email.getText().toString());
+        builder.addFormDataPart("address", edt_address.getText().toString());
+        builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        builder.addFormDataPart("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+        builder.addFormDataPart("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        builder.addFormDataPart("locality", getLocalityId(edt_locality.getText().toString()));
+
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.ADD_CLASSIFIED)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                Utility.showToastMessage(mParent, "Your classified is uploaded successfully and is in pending for Approval");
+                mParent.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clearData();
+                        ClassifiedsTabFragment.tv_my_classifieds.performClick();
+                    }
+                });
+            }
+        });
     }
 
     private boolean isValidFields() {
@@ -307,6 +450,10 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         } else if (Utility.isValueNullOrEmpty(edt_cost.getText().toString())) {
             Utility.setSnackBar(mParent, edt_cost, "If cost is not there mention it as Zero");
             edt_cost.requestFocus();
+            isValid = false;
+        } else if (Utility.isValueNullOrEmpty(edt_locality.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_locality, "Please select locality");
+            edt_locality.requestFocus();
             isValid = false;
         } else if (Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
             Utility.setSnackBar(mParent, edt_upload_image, "Please choose classified image");
@@ -340,16 +487,73 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
                 addClassifiedModel = (AddClassifiedModel) model;
                 Utility.showToastMessage(mParent, addClassifiedModel.getMsg());
                 clearData();
-            } else if (model instanceof ClassifiedsModel) {
-                classifiedsModel = (ClassifiedsModel) model;
+            } else if (model instanceof ClassifiedsDetailModel) {
+                classifiedsModel = (ClassifiedsDetailModel) model;
                 setPreData();
             } else if (model instanceof ClassifiedUpdateModel) {
                 classifiedUpdateModel = (ClassifiedUpdateModel) model;
                 Utility.showToastMessage(mParent, classifiedUpdateModel.getMessage());
                 mParent.onBackPressed();
+            } else if (model instanceof LocalityListModel) {
+                mLocalityListModel = (LocalityListModel) model;
+                if (mLocalityListModel.getLocalityModels().size() == 0) {
+                    Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.no_localities_found));
+                    Intent intent = new Intent(mParent, DashBoardActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                } else {
+                    localityModels = mLocalityListModel.getLocalityModels();
+                }
+            } else if (model instanceof IAmGoingModel) {
+                Utility.showToastMessage(mParent, "Image deleted");
             }
         }
 
+    }
+
+    private String getLocalityId(String s) {
+        String mLocalityId = "";
+        for (int i = 0; i < localityModels.size(); i++) {
+            if (localityModels.get(i).getName().equals(s)) {
+                mLocalityId = localityModels.get(i).getId();
+            }
+        }
+        return mLocalityId;
+    }
+
+    @OnClick(R.id.edt_locality)
+    void setDataToTheSpinner() {
+        if (localityModels != null && localityModels.size() > 0)
+            showSpinnerDialog(mParent, "Select Locality", edt_locality, mLocalityListModel.getSpinnerModels(), 1);
+    }
+
+    private void showSpinnerDialog(DashBoardActivity mParent, String title, final EditText edt_locality, ArrayList<SpinnerModel> spinnerModels, final int id) {
+        android.app.AlertDialog.Builder builderSingle = new android.app.AlertDialog.Builder(mParent);
+
+        /*CUSTOM TITLE*/
+        LayoutInflater inflater = (LayoutInflater) mParent.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.layout_alert_dialog_title, null);
+        TextView tv_title = (TextView) view.findViewById(R.id.tv_alert_dialog_title);
+        RelativeLayout dialog_back_ground = (RelativeLayout) view.findViewById(R.id.dialog_back_ground);
+        dialog_back_ground.setBackgroundColor(mParent.getResources().getColor(R.color.colorPrimary));
+        tv_title.setText(title);
+        tv_title.setTextColor(mParent.getResources().getColor(R.color.blackColor));
+        builderSingle.setCustomTitle(view);
+
+
+        final SpinnerAdapter adapter = new SpinnerAdapter(mParent, spinnerModels);
+        builderSingle.setAdapter(adapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SpinnerModel mData = (SpinnerModel) adapter.getItem(which);
+                        if (id == 1) {
+                            String text = mData.getTitle();
+                            edt_locality.setText(text);
+                        }
+                    }
+                });
+        builderSingle.show();
     }
 
     private void clearData() {
@@ -357,11 +561,14 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         edt_description.setText("");
         edt_upload_image.setText("");
         mYourFile = null;
+        photosNames = new ArrayList<>();
+        photosFiles = new ArrayList<>();
         edt_cost.setText("");
         edt_name.setText("");
         edt_email.setText("");
         edt_mobile.setText("");
         edt_address.setText("");
+        ll_images_layout.removeAllViews();
     }
 
     @Override
@@ -369,13 +576,107 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         mYourFile = new File(path);
         edt_upload_image.setText(mYourFile.getName());
 
-        if (photosNames.size() < 5) {
-            ll_images_layout.setVisibility(View.VISIBLE);
-            photosNames.add(mYourFile.getName());
-            photosFiles.add(mYourFile);
-            updateUi();
-        } else
-            Utility.showToastMessage(mParent, "You already added Five, Remove and and new one");
+        if (!Utility.isValueNullOrEmpty(mID)) {
+            if (classifiedsModel.getImages().size() < 5) {
+                ll_images_layout.setVisibility(View.VISIBLE);
+                Images images = new Images();
+                images.setImage(path);
+                classifiedsModel.getImages().add(images);
+                updateEditUi();
+            } else
+                Utility.showToastMessage(mParent, "You already added Five, Remove and and new one");
+        } else {
+            if (photosNames.size() < 5) {
+                ll_images_layout.setVisibility(View.VISIBLE);
+                photosNames.add(mYourFile.getName());
+                photosFiles.add(mYourFile);
+                updateUi();
+            } else
+                Utility.showToastMessage(mParent, "You already added Five, Remove and and new one");
+        }
+    }
+
+    private void updateEditUi() {
+        ll_images_layout.removeAllViews();
+        for (int i = 0; i < classifiedsModel.getImages().size(); i++) {
+            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.classifieds_images_item, null);
+            LinearLayout classifieds_plus_item = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.classifieds_plus_item, null);
+            TextView add_icon = classifieds_plus_item.findViewById(R.id.add_icon);
+
+            ImageView img_video_image = ll.findViewById(R.id.img_video_image);
+            TextView img_close = ll.findViewById(R.id.img_close);
+
+            img_close.setTypeface(mTypefacematerialRegular);
+            add_icon.setTypeface(mTypefacematerialRegular);
+            if (classifiedsModel.getImages().get(i).getImage().contains("http")) {
+                if (!Utility.isValueNullOrEmpty(classifiedsModel.getImages().get(i).getImage()))
+                    Picasso.with(mParent).load(classifiedsModel.getImages().get(i).getImage())
+                            .resize(300, 300)
+                            .placeholder(Utility.getDrawable(mParent, R.drawable.xappie_place_holder))
+                            .into(img_video_image);
+                else {
+                    Utility.universalImageLoaderPicLoading(img_video_image,
+                            "", null, R.drawable.xappie_place_holder);
+                }
+            } else {
+                String decodedImgUri = Uri.fromFile(new File(classifiedsModel.getImages().get(i).getImage())).toString();
+                if (!Utility.isValueNullOrEmpty(decodedImgUri))
+                    Picasso.with(mParent).load(decodedImgUri)
+                            .resize(300, 300)
+                            .placeholder(Utility.getDrawable(mParent, R.drawable.xappie_place_holder))
+                            .into(img_video_image);
+                else {
+                    Utility.universalImageLoaderPicLoading(img_video_image,
+                            "", null, R.drawable.xappie_place_holder);
+                }
+            }
+            img_close.setId(i);
+            img_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = view.getId();
+                    Images images = classifiedsModel.getImages().get(position);
+                    classifiedsModel.getImages().remove(position);
+                    if (images.getImage().contains("http")) {
+                        deleteFromServer(images.getId());
+                    }
+                    updateEditUi();
+                }
+            });
+
+            classifieds_plus_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPickAlert();
+                }
+            });
+
+            ll_images_layout.addView(ll);
+            if (photosFiles.size() == 5) {
+
+            } else {
+                if (i + 1 == photosFiles.size())
+                    ll_images_layout.addView(classifieds_plus_item);
+            }
+        }
+    }
+
+    /**
+     * This method is used to delete image from the server
+     */
+    private void deleteFromServer(String delete_id) {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+            IAmGoingParser eventsListParser = new IAmGoingParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.DELETE_CLASSIFIED_IMAGE + delete_id, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.GET, this, eventsListParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateUi() {

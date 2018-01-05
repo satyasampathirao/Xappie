@@ -58,8 +58,8 @@ public class ClassifiedsTabFragment extends Fragment {
     TextView tv_all_classifieds;
     @BindView(R.id.tv_add_classified)
     TextView tv_add_classified;
-    @BindView(R.id.tv_my_classifieds)
-    TextView tv_my_classifieds;
+
+    public static TextView tv_my_classifieds;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
@@ -89,6 +89,7 @@ public class ClassifiedsTabFragment extends Fragment {
             appBarLayout.setVisibility(View.GONE);
         }
         View rootView = inflater.inflate(R.layout.fragment_classifieds_tab, container, false);
+        tv_my_classifieds = rootView.findViewById(R.id.tv_my_classifieds);
         ButterKnife.bind(this, rootView);
         return rootView;
     }

@@ -44,6 +44,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                         || mUrl.contains(APIConstants.GET_EVENT_DETAILS)
                         || mUrl.contains(APIConstants.GET_MY_CLASSIFIEDS)
                         || mUrl.contains(APIConstants.DELETE_CLASSIFIED)
+                        || mUrl.contains(APIConstants.DELETE_CLASSIFIED_IMAGE)
                         || mUrl.contains(APIConstants.DELETE_EVENT)
                         || mUrl.contains(APIConstants.MY_APPLIED_JOBS_URL)
                         || mUrl.contains(APIConstants.APPLY_JOB)
