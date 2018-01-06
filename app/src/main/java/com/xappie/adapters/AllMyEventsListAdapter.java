@@ -70,7 +70,7 @@ public class AllMyEventsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansLightTypeface);
             mClassifiedsListHolder.tv_time.setTypeface(mOpenSansLightTypeface);
             mClassifiedsListHolder.tv_location.setTypeface(mOpenSansLightTypeface);
-            mClassifiedsListHolder.tv_location.setVisibility(View.GONE);
+
 
             convertView.setTag(mClassifiedsListHolder);
         } else {
@@ -80,7 +80,7 @@ public class AllMyEventsListAdapter extends BaseAdapter {
         EventsModel eventsModel = eventsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(eventsModel.getName());
-        mClassifiedsListHolder.tv_location.setText(eventsModel.getCity());
+        mClassifiedsListHolder.tv_location.setText(eventsModel.getLocality());
         mClassifiedsListHolder.tv_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
                 + eventsModel.getStart_time().substring(11, 16).toUpperCase());
 

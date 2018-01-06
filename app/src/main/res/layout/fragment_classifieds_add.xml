@@ -51,13 +51,14 @@
                 android:gravity="top"
                 android:hint="@string/description"
                 android:imeOptions="actionNext"
-                android:inputType="text|textCapSentences"
-                android:maxLines="1"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="4"
+                android:singleLine="true"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
-                android:singleLine="true"
+
                 android:textSize="@dimen/_18sp" />
 
             <View
