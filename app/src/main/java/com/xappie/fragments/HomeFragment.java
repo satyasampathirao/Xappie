@@ -918,7 +918,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_time.setText(Utility.readDateFormat(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getStart_time()).toUpperCase());
                     tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted.setTypeface(Utility.getOpenSansRegular(mParent));
-                    tv_posted.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getLocation());
+                    tv_posted.setText(mHomePageEventsAdsBannersModel.getEventsModels().get(i).getLocality());
 
                     ll.setId(i);
                     ll.setOnClickListener(new View.OnClickListener() {
@@ -1048,7 +1048,6 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     ImageView img_news_item = (ImageView) ll.findViewById(R.id.img_logo);
                     TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
                     TextView tv_positions = (TextView) ll.findViewById(R.id.tv_positions);
-                    TextView tv_time = (TextView) ll.findViewById(R.id.tv_positions_nbr);
                     TextView tv_posted = (TextView) ll.findViewById(R.id.tv_company_name);
 
                     if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany_logo())) {
@@ -1062,8 +1061,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_title.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getTitle());
                     tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
-                    tv_time.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getPositions());
-                    tv_time.setTypeface(Utility.getOpenSansRegular(mParent));
+                    tv_positions.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getLocality());
                     tv_posted.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_positions.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany());
@@ -1214,7 +1212,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             if (languageModel != null && mLanguageListModel.getLanguageModels().get(i).getId() == languageModel.getId()) {
                 view.setVisibility(View.VISIBLE);
-                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.view_color));
             } else {
                 view.setVisibility(View.GONE);
             }
@@ -1315,7 +1313,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
                 view.setVisibility(View.VISIBLE);
-                tv_type.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.view_color));
 
             } else {
                 tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
@@ -1350,7 +1348,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
                 view.setVisibility(View.VISIBLE);
-                tv_type.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.view_color));
 
             } else {
                 tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
@@ -1384,7 +1382,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             if (mStatesListModel != null && mStatesListModel.getStateModels().get(i).getId() == stateModel.getId()) {
                 view.setVisibility(View.VISIBLE);
-                tv_type.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+                tv_type.setTextColor(Utility.getColor(mParent, R.color.view_color));
             } else {
                 tv_type.setTextColor(Utility.getColor(mParent, R.color.black));
                 view.setVisibility(View.GONE);
@@ -1419,7 +1417,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
             if (languageModel != null && mLanguageListModel.getLanguageModels().get(i).getId() == languageModel.getId()) {
                 view.setVisibility(View.VISIBLE);
-                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.text_language_color));
+                tv_language_name.setTextColor(Utility.getColor(mParent, R.color.view_color));
             } else {
                 view.setVisibility(View.GONE);
             }

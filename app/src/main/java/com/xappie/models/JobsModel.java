@@ -26,6 +26,7 @@ public class JobsModel extends Model implements Serializable {
     private String description;
     private String isResume;
     private String address;
+    private String locality;
 
     public String getUrl() {
         return url;
@@ -177,5 +178,13 @@ public class JobsModel extends Model implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
     }
 }

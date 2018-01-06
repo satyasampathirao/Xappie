@@ -29,6 +29,9 @@ public class EventsModel extends Model implements Serializable {
     private String recordedType;
     private String going;
     private String locality;
+    private String facebook;
+    private String website;
+    private String booking_url;
 
     public String getId() {
         return id;
@@ -196,5 +199,29 @@ public class EventsModel extends Model implements Serializable {
 
     public void setLocality(String locality) {
         this.locality = locality;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getBooking_url() {
+        return booking_url;
+    }
+
+    public void setBooking_url(String booking_url) {
+        this.booking_url = booking_url;
     }
 }

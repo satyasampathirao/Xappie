@@ -69,7 +69,7 @@
                     android:alpha="0.8"
                     android:text="@string/posted_by"
                     android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/_10sp" />
+                    android:textSize="@dimen/_11sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

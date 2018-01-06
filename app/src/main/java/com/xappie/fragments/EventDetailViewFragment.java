@@ -4,6 +4,7 @@ package com.xappie.fragments;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -102,7 +103,18 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_price_icon)
     TextView tv_price_icon;
 
-
+    @BindView(R.id.tv_web_site)
+    TextView tv_web_site;
+    @BindView(R.id.tv_website_link)
+    TextView tv_website_link;
+    @BindView(R.id.tv_facebook_icon)
+    TextView tv_facebook_icon;
+    @BindView(R.id.tv_fb_url)
+    TextView tv_fb_url;
+    @BindView(R.id.tv_tickets)
+    TextView tv_tickets;
+    @BindView(R.id.tv_locality)
+    TextView tv_locality;
     @BindView(R.id.btn_i_am_going)
     TextView btn_i_am_going;
     @BindView(R.id.btn_may_be)
@@ -186,6 +198,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_date_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_date_calendar_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_facebook_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_event_name.setTypeface(mTypefaceOpenSansRegular);
         tv_date_time.setTypeface(mTypefaceOpenSansRegular);
@@ -195,6 +208,11 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         tv_end_date_time.setTypeface(mTypefaceOpenSansRegular);
         tv_start_time.setTypeface(mTypefaceOpenSansRegular);
         tv_end_time.setTypeface(mTypefaceOpenSansRegular);
+        tv_fb_url.setTypeface(mTypefaceOpenSansRegular);
+        tv_locality.setTypeface(mTypefaceOpenSansRegular);
+        tv_tickets.setTypeface(mTypefaceOpenSansRegular);
+        tv_web_site.setTypeface(mTypefaceOpenSansRegular);
+        tv_website_link.setTypeface(mTypefaceOpenSansRegular);
 
         tv_event_tag_line_text_comes_here.setTypeface(mTypefaceOpenSansRegular);
         tv_total_cost.setTypeface(mTypefaceOpenSansRegular);
@@ -456,18 +474,69 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
         if (!Utility.isValueNullOrEmpty(eventsModel.getCost())) {
             tv_total_cost.setText(eventsModel.getCost());
         } else {
-
+                 tv_total_cost.setVisibility(View.GONE);
+                 tv_price_icon.setVisibility(View.GONE);
         }
 
         if (!Utility.isValueNullOrEmpty(eventsModel.getAddress())) {
             tv_address.setText(eventsModel.getAddress());
         } else {
             tv_address.setVisibility(View.GONE);
+            tv_date_location_icon.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(eventsModel.getDescription())) {
             tv_details.setText(eventsModel.getDescription());
         } else {
             tv_details.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getWebsite())) {
+            tv_website_link.setText(eventsModel.getWebsite());
+            tv_website_link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent webIntent = new Intent();
+                    webIntent.setAction(Intent.ACTION_VIEW);
+                    webIntent.setData(Uri.parse(eventsModel.getWebsite()));
+                    mParent.startActivity(webIntent);
+                }
+            });
+        } else {
+            tv_web_site.setVisibility(View.GONE);
+            tv_website_link.setVisibility(View.GONE);
+        }
+
+        if (!Utility.isValueNullOrEmpty(eventsModel.getFacebook())) {
+            tv_fb_url.setText(eventsModel.getFacebook());
+            tv_fb_url.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent webIntent = new Intent();
+                    webIntent.setAction(Intent.ACTION_VIEW);
+                    webIntent.setData(Uri.parse(eventsModel.getFacebook()));
+                    mParent.startActivity(webIntent);
+                }
+            });
+        } else {
+            tv_fb_url.setVisibility(View.GONE);
+            tv_facebook_icon.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getLocality())) {
+            tv_locality.setText(eventsModel.getLocality());
+        } else {
+            tv_locality.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(eventsModel.getBooking_url())) {
+            tv_tickets.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent webIntent = new Intent();
+                    webIntent.setAction(Intent.ACTION_VIEW);
+                    webIntent.setData(Uri.parse(eventsModel.getBooking_url()));
+                    mParent.startActivity(webIntent);
+                }
+            });
+        } else {
+            tv_tickets.setVisibility(View.GONE);
         }
 
         if (Utility.isValueNullOrEmpty(eventsModel.getGoing())) {

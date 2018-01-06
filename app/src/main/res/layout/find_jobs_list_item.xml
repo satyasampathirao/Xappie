@@ -11,17 +11,22 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="@dimen/_5dp">
+        android:paddingBottom="@dimen/_5dp"
+        android:paddingEnd="@dimen/_8dp"
+        android:paddingStart="@dimen/_8dp"
+        android:paddingTop="@dimen/_5dp">
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_5dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/xappie_place_" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -29,12 +34,12 @@
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginStart="@dimen/_10dp"
-                android:layout_marginTop="@dimen/_5dp"
+                android:layout_height="50dp"
+                android:paddingTop="@dimen/_3dp"
+                android:paddingBottom="@dimen/_3dp"
+                android:paddingStart="@dimen/_5dp"
+                android:paddingEnd="@dimen/_5dp"
                 android:ellipsize="end"
-                android:gravity="start"
                 android:maxLines="2"
                 android:text="@string/app_name"
                 android:textColor="@color/color_black"
@@ -44,40 +49,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_1dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_positions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10dp"
                     android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_15dp"
-                    android:text="@string/positions"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/_10sp" />
-
-                <TextView
-                    android:id="@+id/tv_positions_nbr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_15dp"
                     android:text=""
+                    android:layout_weight="1"
                     android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/_10sp" />
+                    android:textSize="@dimen/_11sp" />
 
                 <TextView
                     android:id="@+id/tv_company_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_25dp"
-                    android:layout_marginStart="@dimen/_25dp"
-                    android:layout_marginTop="@dimen/_15dp"
-                    android:drawablePadding="@dimen/_3dp"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_25dp"
+                    android:alpha="0.8"
                     android:text=""
                     android:maxLines="1"
                     android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/_10sp" />
+                    android:textSize="@dimen/_11sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -88,6 +84,6 @@
         android:layout_height="0.3dp"
         android:id="@+id/view_job"
         android:layout_marginBottom="@dimen/_5dp"
-        android:layout_marginTop="@dimen/_5dp"
+        android:layout_marginTop="@dimen/_2dp"
         android:background="@color/light_gray" />
     </LinearLayout>

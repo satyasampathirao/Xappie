@@ -347,19 +347,21 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
             view_dot.setVisibility(View.GONE);
         }
 
-        b_read_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getWeblink())) {
+        if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getWeblink())) {
+            b_read_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     Intent webIntent = new Intent();
                     webIntent.setAction(Intent.ACTION_VIEW);
                     webIntent.setData(Uri.parse(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getWeblink()));
                     mParent.startActivity(webIntent);
-                } else {
-                    Utility.showToastMessage(mParent, "Web Link is empty");
                 }
-            }
-        });
+            });
+
+        } else {
+                    b_read_more.setVisibility(View.GONE);
+                }
+
 
         if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedDate())) {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -62,15 +62,12 @@ public class AllMyJobsListAdapter extends BaseAdapter {
             mClassifiedsListHolder = new AllMyJobsListAdapter.ClassifiedsListHolder();
             mClassifiedsListHolder.img_logo = convertView.findViewById(R.id.img_logo);
             mClassifiedsListHolder.tv_title = convertView.findViewById(R.id.tv_title);
-            mClassifiedsListHolder.tv_time = convertView.findViewById(R.id.tv_positions);
-            mClassifiedsListHolder.tv_location = convertView.findViewById(R.id.tv_company_name);
-            mClassifiedsListHolder.tv_positions_nbr = convertView.findViewById(R.id.tv_positions_nbr);
+            mClassifiedsListHolder.tv_positions = convertView.findViewById(R.id.tv_positions);
             mClassifiedsListHolder.tv_company_name = convertView.findViewById(R.id.tv_company_name);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
-            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_company_name.setTypeface(mOpenSansRegularTypeface);
 
             convertView.setTag(mClassifiedsListHolder);
         } else {
@@ -80,8 +77,7 @@ public class AllMyJobsListAdapter extends BaseAdapter {
         JobsModel jobsModel = jobsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(jobsModel.getTitle());
-        mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.positions).toUpperCase());
-        mClassifiedsListHolder.tv_positions_nbr.setText(jobsModel.getPositions());
+        mClassifiedsListHolder.tv_positions.setText(jobsModel.getLocality());
         mClassifiedsListHolder.tv_company_name.setText(jobsModel.getCompany().toUpperCase());
 
         if (!Utility.isValueNullOrEmpty(jobsModel.getCompany_logo())) {
@@ -98,10 +94,8 @@ public class AllMyJobsListAdapter extends BaseAdapter {
 
     private class ClassifiedsListHolder {
         TextView tv_title;
-        TextView tv_time;
-        TextView tv_positions_nbr;
+        TextView tv_positions;
         TextView tv_company_name;
-        TextView tv_location;
         ImageView img_logo;
     }
 }

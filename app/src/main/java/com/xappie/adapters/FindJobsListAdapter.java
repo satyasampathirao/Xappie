@@ -64,15 +64,13 @@ public class FindJobsListAdapter extends BaseAdapter
             mClassifiedsListHolder = new FindJobsListAdapter.ClassifiedsListHolder();
             mClassifiedsListHolder.img_logo = (ImageView) convertView.findViewById(R.id.img_logo);
             mClassifiedsListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
-            mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_positions);
-            mClassifiedsListHolder.tv_positions_nbr = (TextView) convertView.findViewById(R.id.tv_positions_nbr);
-            mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_company_name);
+            mClassifiedsListHolder.tv_positions = (TextView) convertView.findViewById(R.id.tv_positions);
+            mClassifiedsListHolder.tv_company_name = (TextView) convertView.findViewById(R.id.tv_company_name);
             mClassifiedsListHolder.view = (View) convertView.findViewById(R.id.view_job);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_time.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_positions_nbr.setTypeface(mOpenSansRegularTypeface);
-            mClassifiedsListHolder.tv_location.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_company_name.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.view.setVisibility(View.GONE);
 
             convertView.setTag(mClassifiedsListHolder);
@@ -83,9 +81,8 @@ public class FindJobsListAdapter extends BaseAdapter
         final JobsModel jobsModel = jobsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(jobsModel.getTitle());
-        mClassifiedsListHolder.tv_time.setText(Utility.getResourcesString(mDashBoardActivity, R.string.positions).toUpperCase());
-        mClassifiedsListHolder.tv_positions_nbr.setText(jobsModel.getPositions());
-        mClassifiedsListHolder.tv_location.setText(jobsModel.getCompany());
+        mClassifiedsListHolder.tv_positions.setText(jobsModel.getLocality());
+        mClassifiedsListHolder.tv_company_name.setText(jobsModel.getCompany());
 
         if (!Utility.isValueNullOrEmpty(jobsModel.getCompany_logo())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
@@ -114,9 +111,8 @@ public class FindJobsListAdapter extends BaseAdapter
 
     private class ClassifiedsListHolder {
         TextView tv_title;
-        TextView tv_time;
-        TextView tv_location;
-        TextView tv_positions_nbr;
+        TextView tv_positions;
+        TextView tv_company_name;
         ImageView img_logo;
         View view;
     }
