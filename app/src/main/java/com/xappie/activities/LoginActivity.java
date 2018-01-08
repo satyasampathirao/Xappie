@@ -70,6 +70,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
+    public static final String TAG = LoginActivity.class.getSimpleName();
     @BindView(R.id.btn_check)
     Button btn_check;
 
@@ -131,6 +132,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     private void initUI() {

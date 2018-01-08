@@ -94,6 +94,7 @@ public class EventsGoingMaybeGoingFragment extends Fragment implements IAsyncCal
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        Utility.sendGoogleAnalytics(mParent, TAG);
         if (getArguments() != null && getArguments().containsKey(Constants.EVENT_ID)) {
             mId = getArguments().getString(Constants.EVENT_ID);
         }

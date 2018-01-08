@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ResetPasswordActivity extends BaseActivity implements IAsyncCaller {
+    public static final String TAG = ResetPasswordActivity.class.getSimpleName();
 
     @BindView(R.id.relativeLayout_reset_password)
     RelativeLayout relativeLayout_reset_password;
@@ -54,6 +55,7 @@ public class ResetPasswordActivity extends BaseActivity implements IAsyncCaller 
         setContentView(R.layout.activity_reset_password);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     private void initUI() {

@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ForgotPasswordActivity extends BaseActivity implements IAsyncCaller {
+    public static final String TAG = ForgotPasswordActivity.class.getSimpleName();
     @BindView(R.id.relativeLayout_forgot_password)
     RelativeLayout rl_forgot_password;
     @BindView(R.id.tv_forgot_password)
@@ -47,6 +48,7 @@ public class ForgotPasswordActivity extends BaseActivity implements IAsyncCaller
         setContentView(R.layout.activity_forgot_password);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     private void initUI() {

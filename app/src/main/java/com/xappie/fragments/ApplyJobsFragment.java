@@ -82,6 +82,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
         Bundle bundle = getArguments();
         id = bundle.getString("id");
         isResume = bundle.getString(Constants.IS_RESUME);
+        Utility.sendGoogleAnalytics(mParent, TAG);
     }
 
     @Override

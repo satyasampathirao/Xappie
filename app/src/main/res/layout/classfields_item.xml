@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/calendar_icon"
+            android:text="@string/location_icon"
             android:textColor="@color/dark_gray"
             android:layout_marginStart="@dimen/_5dp"
             android:textSize="@dimen/_13sp"

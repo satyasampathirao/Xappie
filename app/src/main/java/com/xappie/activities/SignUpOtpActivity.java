@@ -28,6 +28,8 @@ import butterknife.OnClick;
 
 public class SignUpOtpActivity extends BaseActivity implements IAsyncCaller {
 
+    public static final String TAG = SignUpOtpActivity.class.getSimpleName();
+
     @BindView(R.id.btn_check)
     Button btn_check;
 
@@ -80,6 +82,7 @@ public class SignUpOtpActivity extends BaseActivity implements IAsyncCaller {
         setContentView(R.layout.activity_sign_up_otp);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     private void initUI() {

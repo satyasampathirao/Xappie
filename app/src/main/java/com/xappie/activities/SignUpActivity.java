@@ -70,6 +70,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 public class SignUpActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
+    public static final String TAG = SignUpActivity.class.getSimpleName();
 
     private CallbackManager callbackManager;
     private String mFaceBookUniqueId = "";
@@ -130,6 +131,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     private void initUI() {

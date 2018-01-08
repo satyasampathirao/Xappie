@@ -118,7 +118,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         iUpdateSelectedFile = this;
-
+        Utility.sendGoogleAnalytics(mParent, TAG);
         if (getArguments() != null && getArguments().containsKey(Constants.JOBS_CATEGORY_ID)) {
             mCat_Id = getArguments().getString(Constants.JOBS_CATEGORY_ID);
         }
@@ -409,7 +409,8 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
                     categoryModel = (CategoryModel) model;
                 } else if (model instanceof JobPostingModel) {
                     jobPostingModel = (JobPostingModel) model;
-                    Utility.showToastMessage(getActivity(), jobPostingModel.getMessage());
+                   // Utility.showToastMessage(getActivity(), jobPostingModel.getMessage());
+                    Utility.showToastMessage(mParent, "Your jobPost is uploaded successfully and is in pending for Approval");
                     clearData();
                 }
                 else if (model instanceof JobsModel) {

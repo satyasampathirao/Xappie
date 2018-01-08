@@ -135,6 +135,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         iUpdateSelectedFile = this;
+        Utility.sendGoogleAnalytics(mParent, TAG);
 
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mCat_Id = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);

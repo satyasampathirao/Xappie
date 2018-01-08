@@ -68,6 +68,7 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mId = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
             mSubId = getArguments().getString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID);
+            Utility.sendGoogleAnalytics(mParent, TAG);
         }
     }
 

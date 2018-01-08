@@ -60,6 +60,7 @@ public class AllEventsListFragment extends Fragment implements IAsyncCaller {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
+        Utility.sendGoogleAnalytics(mParent, TAG);
     }
 
     @Override

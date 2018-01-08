@@ -60,6 +60,7 @@ public class StatesActivity extends BaseActivity implements IAsyncCaller {
         setContentView(R.layout.fragment_states);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     /**

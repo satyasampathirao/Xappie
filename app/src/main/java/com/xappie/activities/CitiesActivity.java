@@ -63,6 +63,7 @@ public class CitiesActivity extends BaseActivity implements IAsyncCaller {
         setContentView(R.layout.fragment_cities);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     /**

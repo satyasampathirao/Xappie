@@ -59,6 +59,7 @@ public class LanguageActivity extends BaseActivity implements IAsyncCaller {
         setContentView(R.layout.fragment_language);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     /**

@@ -122,6 +122,7 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
         if (getArguments() != null && getArguments().containsKey(Constants.JOBS_ID)) {
             mId = getArguments().getString(Constants.JOBS_ID);
         }
+        Utility.sendGoogleAnalytics(mParent, TAG);
     }
 
     @Override

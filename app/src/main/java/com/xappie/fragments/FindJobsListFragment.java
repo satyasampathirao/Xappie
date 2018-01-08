@@ -72,6 +72,7 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         Bundle bundle = getArguments();
+        Utility.sendGoogleAnalytics(mParent, TAG);
         if (bundle != null) {
             if (bundle.containsKey(Constants.FILTER_CATEGORY)) {
                 mFilterCategory = bundle.getString(Constants.FILTER_CATEGORY);

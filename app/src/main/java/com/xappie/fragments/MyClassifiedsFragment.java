@@ -66,7 +66,7 @@ public class MyClassifiedsFragment extends Fragment implements IAsyncCaller {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
-
+        Utility.sendGoogleAnalytics(mParent, TAG);
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mCat_Id = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
         }

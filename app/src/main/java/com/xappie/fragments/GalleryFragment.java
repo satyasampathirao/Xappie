@@ -332,6 +332,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        Utility.sendGoogleAnalytics(mParent, TAG);
     }
 
     @Override

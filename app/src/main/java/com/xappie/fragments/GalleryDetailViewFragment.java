@@ -129,6 +129,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        Utility.sendGoogleAnalytics(mParent, TAG);
         Bundle bundle = getArguments();
         if (bundle.containsKey(Constants.SELECTED_DETAIL_VIEW_ID)) {
             mSelectedId = bundle.getString(Constants.SELECTED_DETAIL_VIEW_ID);

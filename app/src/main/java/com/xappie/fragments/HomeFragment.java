@@ -992,21 +992,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_sub_classified_name.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
-
-
-                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getRecordedDate())) {
-                        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        PrettyTime prettyTime = new PrettyTime();
-                        Date date;
-                        String outputDateStr = "";
-                        try {
-                            date = inputFormat.parse(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getRecordedDate());
-                            outputDateStr = prettyTime.format(date);
-                            tv_time.setText(outputDateStr);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    tv_time.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getLocality());
 
 
                     ll.setId(i);

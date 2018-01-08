@@ -129,6 +129,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         super.onCreate(savedInstanceState);
         mParent = (DashBoardActivity) getActivity();
         iUpdateSelectedFile = this;
+        Utility.sendGoogleAnalytics(mParent, TAG);
         if (getArguments() != null && getArguments().containsKey(Constants.EVENT_ID)) {
             mID = getArguments().getString(Constants.EVENT_ID);
         } else {

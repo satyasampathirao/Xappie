@@ -60,6 +60,7 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.fragment_countries);
         ButterKnife.bind(this);
+        Utility.sendGoogleAnalytics(this, TAG);
         initUI();
     }
 

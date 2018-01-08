@@ -99,6 +99,7 @@ public class HomePageCustomizationFragment extends Fragment implements IAsyncCal
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
+        Utility.sendGoogleAnalytics(mParent, TAG);
     }
 
 
@@ -279,6 +280,8 @@ public class HomePageCustomizationFragment extends Fragment implements IAsyncCal
     @OnClick(R.id.tv_submit)
     public void updateHome() {
         updateDeviceData();
+        Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
+        startActivity(dashBoardIntent);
     }
 
     private void updateDeviceData() {

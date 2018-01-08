@@ -63,6 +63,7 @@ public class LocalitiesActivity extends BaseActivity implements IAsyncCaller {
         setContentView(R.layout.fragment_cities);
         ButterKnife.bind(this);
         initUI();
+        Utility.sendGoogleAnalytics(this, TAG);
     }
 
     /**
@@ -84,6 +85,7 @@ public class LocalitiesActivity extends BaseActivity implements IAsyncCaller {
 
         tv_back.setTypeface(Utility.getMaterialIconsRegular(this));
         tv_location.setTypeface(mTypefaceOpenSansRegular);
+        tv_location.setText("Locality");
 
         getLocalitiesList();
     }
