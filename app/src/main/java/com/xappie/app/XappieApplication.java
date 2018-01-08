@@ -5,6 +5,8 @@ import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -12,6 +14,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
+import com.xappie.R;
 
 /**
  * Created by Shankar on 2/7/2017.
@@ -23,10 +26,14 @@ public class XappieApplication extends MultiDexApplication {
     private static final String TWITTER_KEY = "hUXcPocxvhNKULzPsXH7npqYM";
     private static final String TWITTER_SECRET = "fy89ShuBq1FPseHdtIGwgFNOFrdZJwr1mRiUslcLnqNgmQb9m2";
 
+    private static GoogleAnalytics sAnalytics;
+    private static Tracker sTracker;
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+        sAnalytics = GoogleAnalytics.getInstance(this);
         initImageLoader(getApplicationContext());
         TwitterConfig config = new TwitterConfig.Builder(this)
                 .twitterAuthConfig(new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET))
@@ -57,6 +64,20 @@ public class XappieApplication extends MultiDexApplication {
 
         // Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(config.build());
+    }
+
+    /**
+     * Gets the default {@link Tracker} for this {@link XappieApplication}.
+     *
+     * @return tracker
+     */
+    synchronized public Tracker getDefaultTracker() {
+        // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+        if (sTracker == null) {
+            sTracker = sAnalytics.newTracker(R.xml.global_tracker);
+        }
+
+        return sTracker;
     }
 
     public static Context getAppContext() {

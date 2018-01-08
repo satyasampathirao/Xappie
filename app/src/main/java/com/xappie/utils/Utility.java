@@ -37,11 +37,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.xappie.R;
+import com.xappie.activities.BaseActivity;
+import com.xappie.app.XappieApplication;
 import com.xappie.fragments.AllEventsListFragment;
 import com.xappie.fragments.ClassifiedsListFragment;
 import com.xappie.fragments.FindJobsListFragment;
@@ -945,6 +949,7 @@ public class Utility {
             e.printStackTrace();
         }
     }
+
     private static int getThemeColor(Context mContext) {
         Random rnd = new Random();
         int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
@@ -980,5 +985,14 @@ public class Utility {
             e.printStackTrace();
         }
         return file.getAbsolutePath();
+    }
+
+    public static void sendGoogleAnalytics(BaseActivity mParent, String tag) {
+        Tracker mTracker;
+        XappieApplication application = (XappieApplication) mParent.getApplication();
+        mTracker = application.getDefaultTracker();
+
+        mTracker.setScreenName(tag);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }

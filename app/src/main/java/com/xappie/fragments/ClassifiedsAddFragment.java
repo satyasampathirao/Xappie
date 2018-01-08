@@ -376,6 +376,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     public void addClassifieds() {
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
+        Utility.showLog("size length", "" + photosFiles.size());
         for (int i = 0; i < photosFiles.size(); i++) {
             File file = new File(photosFiles.get(i).getPath());
             if (file.exists()) {

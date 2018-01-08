@@ -297,6 +297,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         mFrameLayout = (FrameLayout) getActivity().findViewById(R.id.content_frame);
         mParams = (CoordinatorLayout.LayoutParams) mFrameLayout.getLayoutParams();
         iHomeCustomization = this;
+        Utility.sendGoogleAnalytics(mParent, TAG);
     }
 
 
