@@ -151,6 +151,8 @@ public class LocalitiesFragment extends Fragment implements IAsyncCaller {
                 mLocalityListModel = (LocalityListModel) model;
                 if (mLocalityListModel.getLocalityModels().size() == 0) {
                     Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.no_localities_found));
+                    Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LOCALITY_ID, "");
+                    Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LOCALITY_NAME, "");
                     Intent intent = new Intent(mParent, DashBoardActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);

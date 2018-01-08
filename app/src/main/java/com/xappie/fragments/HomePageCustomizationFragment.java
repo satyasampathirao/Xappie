@@ -1,6 +1,7 @@
 package com.xappie.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -15,11 +16,19 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.activities.LocalitiesActivity;
+import com.xappie.aynctaskold.IAsyncCaller;
+import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.DeviceTokenUpdateModel;
+import com.xappie.models.Model;
+import com.xappie.parser.DeviceTokenUpdateParser;
+import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +38,7 @@ import butterknife.OnClick;
 /**
  * Created by Shankar 04/09/2017
  */
-public class HomePageCustomizationFragment extends Fragment {
+public class HomePageCustomizationFragment extends Fragment implements IAsyncCaller {
 
     public static final String TAG = HomePageCustomizationFragment.class.getSimpleName();
     private DashBoardActivity mParent;
@@ -151,13 +160,11 @@ public class HomePageCustomizationFragment extends Fragment {
                 switch_button_videos.setChecked(true);
             } else if (namesAfterSplit[i].equalsIgnoreCase("galleries")) {
                 sw_button_gallery.setChecked(true);
-            }  else if (namesAfterSplit[i].equalsIgnoreCase("events")) {
+            } else if (namesAfterSplit[i].equalsIgnoreCase("events")) {
                 sw_button_events.setChecked(true);
-            }
-            else if (namesAfterSplit[i].equalsIgnoreCase("Classifieds")) {
+            } else if (namesAfterSplit[i].equalsIgnoreCase("Classifieds")) {
                 sw_button_classifieds.setChecked(true);
-            }
-            else if (namesAfterSplit[i].equalsIgnoreCase("jobs")) {
+            } else if (namesAfterSplit[i].equalsIgnoreCase("jobs")) {
                 sw_button_jobs.setChecked(true);
             }
         }
@@ -207,6 +214,7 @@ public class HomePageCustomizationFragment extends Fragment {
     void jobsPreferenceChange(boolean isChecked) {
         changePreferenceSettings("jobs", isChecked);
     }
+
     /**
      * This is the universal method for the preferences
      */
@@ -269,10 +277,41 @@ public class HomePageCustomizationFragment extends Fragment {
     }
 
     @OnClick(R.id.tv_submit)
-    public void updateHome()
-    {
-        HomeFragment.getInstance().updateData();
-
+    public void updateHome() {
+        updateDeviceData();
     }
 
+    private void updateDeviceData() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("device_type", Constants.DEVICE_TYPE);
+        paramMap.put("token", Utility.getSharedPrefStringData(mParent, Constants.KEY_FCM_TOKEN));
+        paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+        paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LOCALITY_ID)))
+            paramMap.put("locality", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LOCALITY_ID));
+        paramMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
+        paramMap.put("modules", Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS)
+                + "," + "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS));
+        paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+
+        DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                R.string.please_wait), false,
+                APIConstants.UPDATE_DEVICE_PREFERENCE, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
+        Utility.execute(serverIntractorAsync);
+    }
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof DeviceTokenUpdateModel) {
+                HomeFragment.getInstance().updateData();
+                Utility.showToastMessage(mParent, "Updated successfully");
+            }
+        }
+    }
 }
