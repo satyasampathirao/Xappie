@@ -15,13 +15,14 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
-import com.xappie.activities.LocalitiesActivity;
 import com.xappie.adapters.LocalityListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.DeviceTokenUpdateModel;
 import com.xappie.models.LocalityListModel;
 import com.xappie.models.LocalityModel;
 import com.xappie.models.Model;
+import com.xappie.parser.DeviceTokenUpdateParser;
 import com.xappie.parser.LocalityParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -128,8 +129,7 @@ public class LocalitiesFragment extends Fragment implements IAsyncCaller {
         getLocalitiesList();
     }
 
-    private void getLocalitiesList()
-    {
+    private void getLocalitiesList() {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
@@ -159,6 +159,10 @@ public class LocalitiesFragment extends Fragment implements IAsyncCaller {
                     localityListAdapter = new LocalityListAdapter(mParent, mLocalityListModel.getLocalityModels());
                     city_list_view.setAdapter(localityListAdapter);
                 }
+            } else if (model instanceof DeviceTokenUpdateModel) {
+                Intent intent = new Intent(mParent, DashBoardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         }
     }
@@ -199,10 +203,33 @@ public class LocalitiesFragment extends Fragment implements IAsyncCaller {
             Utility.setSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS, Constants.EVENTS_CLASSIFIEDS_JOBS);
         }
 
-        Intent intent = new Intent(mParent, DashBoardActivity.class);
+       /* Intent intent = new Intent(mParent, DashBoardActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        startActivity(intent);*/
+        updateDeviceData();
 
     }
 
+    private void updateDeviceData() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("device_type", Constants.DEVICE_TYPE);
+        paramMap.put("token", Utility.getSharedPrefStringData(mParent, Constants.KEY_FCM_TOKEN));
+        paramMap.put("country", mSelectedCountryId);
+        paramMap.put("state", mSelectedStateId);
+        paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        paramMap.put("locality", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LOCALITY_ID));
+        paramMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
+        paramMap.put("modules", Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS)
+                + "," + "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS));
+        paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+
+        DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
+                R.string.please_wait), false,
+                APIConstants.UPDATE_DEVICE_PREFERENCE, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
+        Utility.execute(serverIntractorAsync);
     }
+}

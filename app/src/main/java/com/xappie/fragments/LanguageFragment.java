@@ -134,6 +134,9 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
                 languageModels = mLanguageListModel.getLanguageModels();
                 languagesListAdapter = new LanguagesListAdapter(mParent, languageModels);
                 language_list_item.setAdapter(languagesListAdapter);
+            } else if (model instanceof DeviceTokenUpdateModel) {
+                Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
+                startActivity(dashBoardIntent);
             }
         }
     }
@@ -154,11 +157,9 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
         languageModel.setmSelected(true);
         languagesListAdapter.notifyDataSetChanged();
 
-
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE, mLanguageListModel.getLanguageModels().get(position).getName());
         Utility.setSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID, mLanguageListModel.getLanguageModels().get(position).getId());
-        Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
-        startActivity(dashBoardIntent);
+
         updateDeviceData();
     }
 
@@ -167,16 +168,20 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
         paramMap.put("device_type", Constants.DEVICE_TYPE);
         paramMap.put("token", Utility.getSharedPrefStringData(mParent, Constants.KEY_FCM_TOKEN));
-        paramMap.put("country", Utility.getSharedPrefStringData(mParent,Constants.SELECTED_COUNTRY_ID));
-        paramMap.put("state", Utility.getSharedPrefStringData(mParent,Constants.SELECTED_STATE_ID));
+        paramMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        paramMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
         paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LOCALITY_ID)))
+            paramMap.put("locality", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LOCALITY_ID));
         paramMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
-        paramMap.put("modules", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+        paramMap.put("modules", Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS)
+                + "," + "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS));
         paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
 
         DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
         ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(mParent, Utility.getResourcesString(mParent,
-                R.string.please_wait), false,
+                R.string.please_wait), true,
                 APIConstants.UPDATE_DEVICE_PREFERENCE, paramMap,
                 APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
         Utility.execute(serverIntractorAsync);

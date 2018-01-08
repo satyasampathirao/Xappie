@@ -15,6 +15,7 @@ import com.xappie.models.DeviceTokenUpdateModel;
 import com.xappie.models.LocalityListModel;
 import com.xappie.models.LocalityModel;
 import com.xappie.models.Model;
+import com.xappie.parser.DeviceTokenUpdateParser;
 import com.xappie.parser.LocalityParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -170,11 +171,31 @@ public class LocalitiesActivity extends BaseActivity implements IAsyncCaller {
             Utility.setSharedPrefStringData(this, Constants.HOME_PAGE_EVENTS_CONTENTS, Constants.EVENTS_CLASSIFIEDS_JOBS);
         }
 
-        Intent intent = new Intent(LocalitiesActivity.this, DashBoardActivity.class);
+     /*   Intent intent = new Intent(LocalitiesActivity.this, DashBoardActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-
+        startActivity(intent);*/
+        updateDeviceData();
     }
 
+    private void updateDeviceData() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("device_type", Constants.DEVICE_TYPE);
+        paramMap.put("token", Utility.getSharedPrefStringData(LocalitiesActivity.this, Constants.KEY_FCM_TOKEN));
+        paramMap.put("country", mSelectedCountryId);
+        paramMap.put("state", mSelectedStateId);
+        paramMap.put("city", Utility.getSharedPrefStringData(this, Constants.SELECTED_CITY_ID));
+        paramMap.put("locality", Utility.getSharedPrefStringData(this, Constants.SELECTED_LOCALITY_ID));
+        paramMap.put("language", Utility.getSharedPrefStringData(this, Constants.SELECTED_LANGUAGE_ID));
+        paramMap.put("modules", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+        paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+
+        DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                R.string.please_wait), false,
+                APIConstants.UPDATE_DEVICE_PREFERENCE, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
+        Utility.execute(serverIntractorAsync);
+    }
 
 }

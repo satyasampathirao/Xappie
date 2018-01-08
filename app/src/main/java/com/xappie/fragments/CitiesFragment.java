@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xappie.R;
-import com.xappie.activities.CitiesActivity;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.StatesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
@@ -150,6 +149,15 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
                     statesListAdapter = new StatesListAdapter(mParent, mStatesListModel.getStateModels());
                     city_list_view.setAdapter(statesListAdapter);
                 }
+            } else if (model instanceof DeviceTokenUpdateModel) {
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
+                bundle.putString(Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
+                bundle.putString(Constants.SELECTED_STATE_ID, mSelectedStateId);
+                bundle.putString(Constants.SELECTED_STATE_NAME, mSelectedStateName);
+                bundle.putString(Constants.SELECTED_CITY_ID, Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+                bundle.putString(Constants.SELECTED_CITY_NAME, Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_NAME));
+                Utility.navigateDashBoardFragment(new LocalitiesFragment(), LocalitiesFragment.TAG, bundle, mParent);
             }
         }
     }
@@ -190,15 +198,6 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent); */
 
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
-        bundle.putString(Constants.SELECTED_COUNTRY_ID, mSelectedCountryId);
-        bundle.putString(Constants.SELECTED_STATE_ID, mSelectedStateId);
-        bundle.putString(Constants.SELECTED_STATE_NAME, mSelectedStateName);
-        bundle.putString(Constants.SELECTED_CITY_ID,mStatesListModel.getStateModels().get(position).getId());
-        bundle.putString(Constants.SELECTED_CITY_NAME,mStatesListModel.getStateModels().get(position).getName());
-
-        Utility.navigateDashBoardFragment(new LocalitiesFragment(), LocalitiesFragment.TAG, bundle, mParent);
         updateDeviceData();
     }
 
@@ -210,8 +209,11 @@ public class CitiesFragment extends Fragment implements IAsyncCaller {
         paramMap.put("country", mSelectedCountryId);
         paramMap.put("state", mSelectedStateId);
         paramMap.put("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        paramMap.put("locality", "");
         paramMap.put("language", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID));
-        paramMap.put("modules", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+        paramMap.put("modules", Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_CONTENTS)
+                + "," + "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS));
         paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
 
         DeviceTokenUpdateParser mDeviceTokenUpdateParser = new DeviceTokenUpdateParser();
