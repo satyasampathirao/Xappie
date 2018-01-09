@@ -39,7 +39,7 @@ public class JobsFragment extends Fragment {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    private LinearLayout layout_tabs;
+    public static LinearLayout layout_tabs;
 
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
@@ -171,6 +171,7 @@ public class JobsFragment extends Fragment {
                                 Intent intent = new Intent(mParent, LoginActivity.class);
                                 startActivity(intent);
                             } else {
+                                layout_tabs.callOnClick();
                                 Utility.navigateAllJobsFragment(new JobsAppliedFragment(), JobsAppliedFragment.TAG, null, mParent);
                             }
                             break;

@@ -218,6 +218,7 @@ public class VideosFragment extends Fragment implements IAsyncCaller, AbsListVie
                     int pos = v.getId();
                     languageModel = mLanguageListModel.getLanguageModels().get(pos);
                     setLanguages();
+                    videosModels= null;
                     videoTypeModel = null;
                     videosGridAdapter = null;
                     endScroll = false;
