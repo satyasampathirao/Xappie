@@ -71,5 +71,6 @@ public class APIConstants {
     public static String APPLY_JOB = BASE_URL + "apply_job";
     public static String UPDATE_JOB = BASE_URL + "update_job";
     public static String UPDATE_DEVICE = BASE_URL + "update_device";
+    public static String UPDATE_PREFERENCE = BASE_URL + "update_preference";
     public static String UPDATE_DEVICE_PREFERENCE = BASE_URL + "update_device_preference";
 }

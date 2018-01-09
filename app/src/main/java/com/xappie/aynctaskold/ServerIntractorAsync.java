@@ -76,6 +76,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                         || mUrl.contains(APIConstants.ADD_CLASSIFIED)
                         || mUrl.contains(APIConstants.UPDATE_CLASSIFIED)
                         || mUrl.contains(APIConstants.UPDATE_DEVICE)
+                        || mUrl.contains(APIConstants.UPDATE_PREFERENCE)
                         || mUrl.contains(APIConstants.UPDATE_JOB)
                         ) {
                     mResponse = Utility.httpPostRequestToServerWithHeaderCookies(mUrl,

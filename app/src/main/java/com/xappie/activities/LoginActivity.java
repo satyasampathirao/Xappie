@@ -46,10 +46,11 @@ import com.twitter.sdk.android.core.services.AccountService;
 import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.models.DevicePreferencesUpdateModel;
 import com.xappie.models.DeviceTokenUpdateModel;
-import com.xappie.models.JobPostingModel;
 import com.xappie.models.LoginModel;
 import com.xappie.models.Model;
+import com.xappie.parser.DevicePreferencesUpdateParser;
 import com.xappie.parser.DeviceTokenUpdateParser;
 import com.xappie.parser.LoginParser;
 import com.xappie.utils.APIConstants;
@@ -446,11 +447,38 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                     Utility.showToastMessage(LoginActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
                 }
             } else if (model instanceof DeviceTokenUpdateModel) {
+               /* Intent signUpIntent = new Intent(this, DashBoardActivity.class);
+                startActivity(signUpIntent);
+                LoginActivity.this.finish();*/
+                updateLoggedUserPreferences();
+            } else if (model instanceof DevicePreferencesUpdateModel) {
                 Intent signUpIntent = new Intent(this, DashBoardActivity.class);
                 startActivity(signUpIntent);
                 LoginActivity.this.finish();
             }
         }
+    }
+
+    private void updateLoggedUserPreferences() {
+        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+        paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
+        paramMap.put("country", Utility.getSharedPrefStringData(this, Constants.SELECTED_COUNTRY_ID));
+        paramMap.put("state", Utility.getSharedPrefStringData(this, Constants.SELECTED_STATE_ID));
+        paramMap.put("city", Utility.getSharedPrefStringData(this, Constants.SELECTED_CITY_ID));
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.SELECTED_LOCALITY_ID)))
+            paramMap.put("locality", Utility.getSharedPrefStringData(this, Constants.SELECTED_LOCALITY_ID));
+        paramMap.put("language", Utility.getSharedPrefStringData(this, Constants.SELECTED_LANGUAGE_ID));
+        paramMap.put("modules", Utility.getSharedPrefStringData(this, Constants.HOME_PAGE_CONTENTS)
+                + "," + "ads,banners," + Utility.getSharedPrefStringData(this, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                + Utility.getSharedPrefStringData(this, Constants.HOME_PAGE_JOBS_CONTENTS));
+        paramMap.put("notifications", Constants.HOME_PAGE_CONTENTS_DATA + "," + Constants.EVENTS_CLASSIFIEDS_JOBS);
+
+        DevicePreferencesUpdateParser mDevicePreferencesUpdateParser = new DevicePreferencesUpdateParser();
+        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
+                R.string.please_wait), true,
+                APIConstants.UPDATE_PREFERENCE, paramMap,
+                APIConstants.REQUEST_TYPE.POST, this, mDevicePreferencesUpdateParser);
+        Utility.execute(serverIntractorAsync);
     }
 
     @Override
