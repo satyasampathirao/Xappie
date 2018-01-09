@@ -91,7 +91,7 @@ public class NotificationsFragment extends Fragment {
         mTypefaceOpenSansBold = Utility.getOpenSansBold(mParent);
 
 
-        tv_notification_settings_icon.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
+        tv_notification_settings_icon.setTypeface(Utility.getFontAwesomeWebFont(getActivity()));
         tv_notification.setTypeface(mTypefaceOpenSansRegular);
         tv_back.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
 
