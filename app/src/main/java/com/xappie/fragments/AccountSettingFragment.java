@@ -1,7 +1,6 @@
 package com.xappie.fragments;
 
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -70,7 +69,6 @@ public class AccountSettingFragment extends Fragment implements IAsyncCaller {
     Button btn_update;
 
     private Typeface mTypefaceOpenSansRegular;
-    private Typeface mTypefaceFontAwesomeWebFont;
 
     private SignupLoginSuccessModel mSignupLoginSuccessModel;
 
@@ -108,11 +106,21 @@ public class AccountSettingFragment extends Fragment implements IAsyncCaller {
      */
     private void initUI() {
         setTypeFace();
+        if (!Utility.getSharedPrefStringData(mParent, Constants.AUTH_TYPE).equalsIgnoreCase(Constants.XAPPIE)) {
+            btn_update.setVisibility(View.GONE);
+            edit_re_enter_new_password.setFocusable(false);
+            tv_re_enter_new_password.setFocusable(false);
+            edit_new_password.setFocusable(false);
+        } else {
+            btn_update.setVisibility(View.VISIBLE);
+            edit_re_enter_new_password.setFocusable(true);
+            tv_re_enter_new_password.setFocusable(true);
+            edit_new_password.setFocusable(true);
+        }
     }
 
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
-        mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
 
         tv_back.setTypeface(Utility.getMaterialIconsRegular(mParent));
         tv_account_settings.setTypeface(mTypefaceOpenSansRegular);
