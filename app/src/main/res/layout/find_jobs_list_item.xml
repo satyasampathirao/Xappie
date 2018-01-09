@@ -52,16 +52,33 @@
                 android:layout_marginTop="@dimen/_1dp"
                 android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_pos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:text="@string/location_icon"
+                    android:textColor="@color/light_yellow"
+                    android:textSize="@dimen/_11sp" />
+
                 <TextView
                     android:id="@+id/tv_positions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginStart="@dimen/_5dp"
                     android:text=""
-                    android:layout_weight="1"
-                    android:textColor="@color/dark_gray"
+                    android:maxLines="1"
+                    android:textColor="@color/light_yellow"
                     android:textSize="@dimen/_11sp" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_company_name"

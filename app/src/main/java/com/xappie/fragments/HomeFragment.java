@@ -987,12 +987,25 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_title.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getTitle());
                     tv_calendar_icon.setTypeface(Utility.getFontAwesomeWebFont(mParent));
                     tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-                    tv_posted_by.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice());
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice()))
+                    {
+                        tv_posted_by.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice());
+                    }
+                    else {
+                        tv_posted_by.setVisibility(View.GONE);
+                        tv_price_icon.setVisibility(View.GONE);
+                    }
                     tv_sub_classified_name.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getSub_category());
                     tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_sub_classified_name.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
-                    tv_time.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getLocality());
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getLocality()))
+                    {
+                        tv_time.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getLocality());
+                    }
+                    else {
+                        tv_calendar_icon.setVisibility(View.GONE);
+                    }
 
 
                     ll.setId(i);
@@ -1036,6 +1049,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
                     TextView tv_positions = (TextView) ll.findViewById(R.id.tv_positions);
                     TextView tv_posted = (TextView) ll.findViewById(R.id.tv_company_name);
+                    TextView tv_pos = (TextView) ll.findViewById(R.id.tv_pos);
 
                     if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany_logo())) {
                         Utility.universalImageLoaderPicLoading(img_news_item,
@@ -1048,7 +1062,16 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_title.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getTitle());
                     tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
 
-                    tv_positions.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getLocality());
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getLocality()))
+                    {
+                        tv_positions.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getLocality());
+                        tv_pos.setTypeface(Utility.getFontAwesomeWebFont(mParent));
+                    }
+                    else {
+                        tv_pos.setVisibility(View.GONE);
+                        tv_positions.setVisibility(View.GONE);
+                    }
+
                     tv_posted.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_positions.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getCompany());
