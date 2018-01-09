@@ -412,7 +412,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
                    // Utility.showToastMessage(getActivity(), jobPostingModel.getMessage());
                     Utility.showToastMessage(mParent, "Your jobPost is uploaded successfully and is in pending for Approval");
                     clearData();
-                    JobsFragment.layout_tabs.performClick();
+                    JobsFragment.tv_my_posts.performClick();
                 }
                 else if (model instanceof JobsModel) {
                     jobsModel = (JobsModel) model;

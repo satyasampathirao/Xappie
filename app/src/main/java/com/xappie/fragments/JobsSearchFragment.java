@@ -146,9 +146,9 @@ public class JobsSearchFragment extends Fragment implements IAsyncCaller {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.FILTER_CATEGORY, getCategoryId(et_select_job_category.getText().toString()));
         bundle.putString(Constants.FILTER_FROM, Constants.FILTER);
-        bundle.putString(Constants.FILTER_CITY, et_city.getText().toString());
-        bundle.putString(Constants.FILTER_STATE, et_state.getText().toString());
-        bundle.putString(Constants.FILTER_COUNTRY, et_country.getText().toString());
+        bundle.putString(Constants.FILTER_CITY, getCityId(et_city.getText().toString()));
+        bundle.putString(Constants.FILTER_STATE, getStateId(et_state.getText().toString()));
+        bundle.putString(Constants.FILTER_COUNTRY, getCountryId(et_country.getText().toString()));
         bundle.putString(Constants.FILTER_SEARCH, edt_company_name.getText().toString());
         Utility.navigateAllJobsFragment(new FindJobsListFragment(), FindJobsListFragment.TAG, bundle, mParent);
     }

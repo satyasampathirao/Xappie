@@ -25,7 +25,69 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:orientation="horizontal" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_find_jobs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:text="@string/find_jobs"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_13sp" />
+
+                <TextView
+                    android:id="@+id/tv_post_job"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:text="@string/post_job"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_13sp" />
+
+                <TextView
+                    android:id="@+id/tv_my_posts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:text="@string/my_posts"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_13sp" />
+
+                <TextView
+                    android:id="@+id/tv_jobs_applied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:text="@string/jobs_applied"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_13sp" />
+
+                <TextView
+                    android:id="@+id/tv_jobs_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:paddingStart="@dimen/_10dp"
+                    android:text="@string/jobs_search"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_13sp" />
+
+            </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>
 

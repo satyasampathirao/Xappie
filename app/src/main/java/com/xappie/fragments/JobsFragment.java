@@ -1,11 +1,9 @@
 package com.xappie.fragments;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xappie.R;
@@ -39,8 +36,6 @@ public class JobsFragment extends Fragment {
     private FrameLayout mFrameLayout;
     private CoordinatorLayout.LayoutParams mParams;
 
-    public static LinearLayout layout_tabs;
-
     @BindView(R.id.tv_notification_arrow_back_icon)
     TextView tv_notification_arrow_back_icon;
     @BindView(R.id.tv_notification_menu_icon)
@@ -54,6 +49,18 @@ public class JobsFragment extends Fragment {
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+
+
+    @BindView(R.id.tv_find_jobs)
+    TextView tv_find_jobs;
+    @BindView(R.id.tv_post_job)
+    TextView tv_post_job;
+
+    public static TextView tv_my_posts;
+    @BindView(R.id.tv_jobs_applied)
+    TextView tv_jobs_applied;
+    @BindView(R.id.tv_jobs_search)
+    TextView tv_jobs_search;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
@@ -87,7 +94,7 @@ public class JobsFragment extends Fragment {
 
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_jobs, container, false);
-        layout_tabs = (LinearLayout) rootView.findViewById(R.id.layout_tabs);
+        tv_my_posts = rootView.findViewById(R.id.tv_my_posts);
         ButterKnife.bind(this, rootView);
         initUI();
         return rootView;
@@ -101,7 +108,6 @@ public class JobsFragment extends Fragment {
 
     private void initUI() {
         setTypeFace();
-        setDataToHomeTabs();
     }
 
     private void setTypeFace() {
@@ -123,67 +129,49 @@ public class JobsFragment extends Fragment {
 
     }
 
-    private int selected_position = 0;
+    @OnClick(R.id.tv_find_jobs)
+    void navigateFindJobs() {
+        Utility.navigateAllJobsFragment(new FindJobsListFragment(), FindJobsListFragment.TAG, null, mParent);
+    }
 
-    private void setDataToHomeTabs() {
-        layout_tabs.removeAllViews();
-        for (int i = 0; i < getTabNames().size(); i++) {
-            @SuppressLint("InflateParams")
-            LinearLayout ll = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.textview_layout, null);
-            TextView tv_title = (TextView) ll.findViewById(R.id.tv_title);
-            tv_title.setText(getTabNames().get(i));
-            /*if (i == selected_position) {
-                tv_title.setTypeface(Utility.getOpenSansBold(mParent));
-            } else {
-                tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
-            }*/
-            tv_title.setId(i);
-            tv_title.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos = view.getId();
-                    selected_position = pos;
-                    switch (selected_position) {
-                        case 0:
-                            Utility.navigateAllJobsFragment(new FindJobsListFragment(), FindJobsListFragment.TAG, null, mParent);
-                            break;
-                        case 1:
-                            if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-                                Utility.showToastMessage(mParent, "To post a Job, Login First");
-                                Intent intent = new Intent(mParent, LoginActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Utility.navigateAllJobsFragment(new PostJobFragment(), PostJobFragment.TAG, null, mParent);
-                            }
-                            break;
-                        case 2:
-                            if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-                                Utility.showToastMessage(mParent, "To get your posted jobs, Login First");
-                                Intent intent = new Intent(mParent, LoginActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Utility.navigateAllJobsFragment(new AllMyJobsFragment(), AllMyJobsFragment.TAG, null, mParent);
-                            }
-                            break;
-                        case 3:
-                            if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-                                Utility.showToastMessage(mParent, "To get your Applied jobs, Login First");
-                                Intent intent = new Intent(mParent, LoginActivity.class);
-                                startActivity(intent);
-                            } else {
-                                layout_tabs.callOnClick();
-                                Utility.navigateAllJobsFragment(new JobsAppliedFragment(), JobsAppliedFragment.TAG, null, mParent);
-                            }
-                            break;
-                        case 4:
-                            Utility.navigateAllJobsFragment(new JobsSearchFragment(), JobsSearchFragment.TAG, null, mParent);
-                            break;
-                    }
-                }
-            });
-            layout_tabs.addView(ll);
+    @OnClick(R.id.tv_post_job)
+    void navigatePostJobs() {
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "To post a Job, Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Utility.navigateAllJobsFragment(new PostJobFragment(), PostJobFragment.TAG, null, mParent);
         }
     }
+
+    @OnClick(R.id.tv_my_posts)
+    void navigateMyPostJobs() {
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "To get your posted jobs, Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Utility.navigateAllJobsFragment(new AllMyJobsFragment(), AllMyJobsFragment.TAG, null, mParent);
+        }
+    }
+
+    @OnClick(R.id.tv_jobs_applied)
+    void navigateJobsApplied() {
+        if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
+            Utility.showToastMessage(mParent, "To get your Applied jobs, Login First");
+            Intent intent = new Intent(mParent, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Utility.navigateAllJobsFragment(new JobsAppliedFragment(), JobsAppliedFragment.TAG, null, mParent);
+        }
+    }
+
+    @OnClick(R.id.tv_jobs_search)
+    void navigateJobsSearch() {
+        Utility.navigateAllJobsFragment(new JobsSearchFragment(), JobsSearchFragment.TAG, null, mParent);
+    }
+
 
     private ArrayList<String> getTabNames() {
         ArrayList<String> mTabNames = new ArrayList<>();
