@@ -11,7 +11,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:contentDescription="@string/app_name"
-        android:layout_marginStart="@dimen/_5dp"
+        android:layout_marginStart="@dimen/_15dp"
         android:layout_marginBottom="@dimen/_3dp"
         android:layout_marginTop="@dimen/_3dp"
         android:src="@drawable/xappie_place_" />

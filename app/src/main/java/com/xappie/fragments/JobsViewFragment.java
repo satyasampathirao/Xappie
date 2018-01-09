@@ -267,7 +267,9 @@ public class JobsViewFragment extends Fragment implements IAsyncCaller {
         }
 
         if (!Utility.isValueNullOrEmpty(jobsModel.getCity())) {
-            tv_all_over.setText(jobsModel.getCity());
+            //tv_all_over.setText(jobsModel.getCity());
+            tv_all_over.setVisibility(View.GONE);
+            tv_loc_icon.setVisibility(View.GONE);
         } else {
             tv_all_over.setVisibility(View.GONE);
         }

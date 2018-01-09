@@ -348,7 +348,8 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
             tv_post_title.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(classifiedsDetailModel.getLocality())) {
-            tv_locality.setText(classifiedsDetailModel.getLocality());
+            //tv_locality.setText(classifiedsDetailModel.getLocality());
+            tv_locality.setVisibility(View.GONE);
         } else {
             tv_locality.setVisibility(View.GONE);
         }

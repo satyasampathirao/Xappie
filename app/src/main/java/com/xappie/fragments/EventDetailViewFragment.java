@@ -521,8 +521,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_fb_url.setVisibility(View.GONE);
             tv_facebook_icon.setVisibility(View.GONE);
         }
-        if (!Utility.isValueNullOrEmpty(eventsModel.getLocality())) {
-            tv_locality.setText(eventsModel.getLocality());
+        if (!Utility.isValueNullOrEmpty(eventsModel.getLocation())) {
+            tv_locality.setText(eventsModel.getLocation());
         } else {
             tv_locality.setVisibility(View.GONE);
         }
