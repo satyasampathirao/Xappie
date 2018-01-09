@@ -83,7 +83,15 @@ public class AllEventsListAdapter extends BaseAdapter {
         final EventsModel eventsModel = eventsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(eventsModel.getName());
-        mClassifiedsListHolder.tv_location.setText(eventsModel.getLocality());
+
+        if (!Utility.isValueNullOrEmpty(eventsModel.getLocality()))
+        {
+            mClassifiedsListHolder.tv_location.setText(eventsModel.getLocality());
+        }
+        else {
+            mClassifiedsListHolder.tv_location.setVisibility(View.GONE);
+        }
+
         mClassifiedsListHolder.tv_time.setText(Utility.readDateFormat(eventsModel.getStart_time().substring(0, 10)).toUpperCase() + " "
                + eventsModel.getStart_time().substring(11, 16).toUpperCase());
       //  mClassifiedsListHolder.tv_time.setText(Utility.displayDateFormat(eventsModel.getStart_time().toUpperCase()));
