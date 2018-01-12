@@ -57,9 +57,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/calendar_icon"
+                    android:text="@string/location_icon"
                     android:textColor="@color/dark_gray"
-                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_marginStart="@dimen/_5dp"
+                    android:paddingStart="@dimen/_5dp"
                     android:textSize="@dimen/_13sp"
                     android:textStyle="bold" />
 
@@ -68,12 +69,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10dp"
-                    android:layout_marginStart="@dimen/_1dp"
+                    android:layout_marginStart="@dimen/_3dp"
                     android:layout_weight="1"
                     android:layout_gravity="center"
+                    android:maxLines="1"
                     android:alpha="0.8"
-                    android:text="@string/_1day"
-                    android:textColor="@color/dark_gray"
+                    android:text=""
                     android:textSize="@dimen/_10sp" />
 
                 <TextView
