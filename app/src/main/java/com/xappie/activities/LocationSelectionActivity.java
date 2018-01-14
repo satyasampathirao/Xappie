@@ -143,6 +143,7 @@ public class LocationSelectionActivity extends BaseActivity implements IAsyncCal
                 mLocalityId = mLocalityListModel.getLocalityModels().get(i).getId();
             }
         }
+        Utility.showLog("Testing", "" + mLocalityId);
         return mLocalityId;
     }
 
@@ -279,8 +280,9 @@ public class LocationSelectionActivity extends BaseActivity implements IAsyncCal
                 Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_NAME, mSelectedCountryName);
                 Utility.setSharedPrefStringData(this, Constants.SELECTED_STATE_ID, getStateId(et_state.getText().toString()));
                 Utility.setSharedPrefStringData(this, Constants.SELECTED_STATE_NAME, et_state.getText().toString());
-                Utility.setSharedPrefStringData(this, Constants.SELECTED_CITY_ID, getStateId(et_city.getText().toString()));
+                Utility.setSharedPrefStringData(this, Constants.SELECTED_CITY_ID, getCityId(et_city.getText().toString()));
                 Utility.setSharedPrefStringData(this, Constants.SELECTED_CITY_NAME, et_city.getText().toString());
+
 
                 Utility.setSharedPrefStringData(this, Constants.SELECTED_LOCALITY_ID, getLocalityId(et_locality.getText().toString()));
                 Utility.setSharedPrefStringData(this, Constants.SELECTED_LOCALITY_NAME, et_locality.getText().toString());

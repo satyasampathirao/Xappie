@@ -236,7 +236,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             edt_start_time.setText(eventsModel.getStart_time().substring(11, eventsModel.getStart_time().length() - 3));
             edt_end_date.setText(eventsModel.getEnd_time().substring(0, 10));
             edt_end_time.setText(eventsModel.getEnd_time().substring(11, eventsModel.getStart_time().length() - 3));
-            edt_name_of_the_location.setText(eventsModel.getCity());
+            edt_name_of_the_location.setText(eventsModel.getLocalityname());
             edt_address.setText(eventsModel.getAddress());
         }
     }

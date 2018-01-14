@@ -33,6 +33,11 @@ public class EventsModel extends Model implements Serializable {
     private String website;
     private String booking_url;
 
+    private String state_name;
+    private String country_name;
+    private String city_name;
+    private String localityname;
+
     public String getId() {
         return id;
     }
@@ -223,5 +228,37 @@ public class EventsModel extends Model implements Serializable {
 
     public void setBooking_url(String booking_url) {
         this.booking_url = booking_url;
+    }
+
+    public String getState_name() {
+        return state_name;
+    }
+
+    public void setState_name(String state_name) {
+        this.state_name = state_name;
+    }
+
+    public String getCountry_name() {
+        return country_name;
+    }
+
+    public void setCountry_name(String country_name) {
+        this.country_name = country_name;
+    }
+
+    public String getCity_name() {
+        return city_name;
+    }
+
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
+    }
+
+    public String getLocalityname() {
+        return localityname;
+    }
+
+    public void setLocalityname(String localityname) {
+        this.localityname = localityname;
     }
 }
