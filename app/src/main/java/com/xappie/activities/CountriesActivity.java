@@ -46,7 +46,6 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
     TextView tv_back;
 
 
-
     @BindView(R.id.country_list_view)
     ListView country_list_item;
 
@@ -137,7 +136,7 @@ public class CountriesActivity extends BaseActivity implements IAsyncCaller {
         countriesListModel.setmSelected(true);
         countriesListAdapter.notifyDataSetChanged();
 
-        Intent intent = new Intent(CountriesActivity.this, StatesActivity.class);
+        Intent intent = new Intent(CountriesActivity.this, LocationSelectionActivity.class);
         intent.putExtra(Constants.SELECTED_COUNTRY_ID, mCountriesListModel.getCountriesModels().get(position).getId());
         intent.putExtra(Constants.SELECTED_COUNTRY_NAME, mCountriesListModel.getCountriesModels().get(position).getCountry_name());
         startActivity(intent);

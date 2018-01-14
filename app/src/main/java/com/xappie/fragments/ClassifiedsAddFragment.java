@@ -457,7 +457,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             Utility.setSnackBar(mParent, edt_locality, "Please select locality");
             edt_locality.requestFocus();
             isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
+        } else if (Utility.isValueNullOrEmpty(mID) && Utility.isValueNullOrEmpty(edt_upload_image.getText().toString())) {
             Utility.setSnackBar(mParent, edt_upload_image, "Please choose classified image");
             edt_upload_image.requestFocus();
             isValid = false;
