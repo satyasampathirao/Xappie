@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.adapters.AdapterforTour;
 import com.xappie.customviews.CirclePageIndicatorForTour;
-import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
@@ -31,6 +30,7 @@ public class AppTourActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_tour_activity);
+        Utility.setTranslateStatusBar(this);
         ButterKnife.bind(this);
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
         cri = (CirclePageIndicatorForTour) findViewById(R.id.indicator);

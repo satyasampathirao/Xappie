@@ -61,5 +61,6 @@
     <color name="red">#ce384c</color>
     <color name="orange_text">#FABAB0</color>
     <color name="orange">#FB6A57</color>
+    <color name="transparent">#0000ffff</color>
 
 </resources>
