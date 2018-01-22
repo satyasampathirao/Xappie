@@ -50,7 +50,6 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceOpenSansBold;
 
 
-
     @BindView(R.id.tv_location)
     TextView tv_countries;
     @BindView(R.id.tv_back)
@@ -160,7 +159,7 @@ public class CountriesFragment extends Fragment implements IAsyncCaller {
         bundle.putString(Constants.SELECTED_COUNTRY_ID, mCountriesListModel.getCountriesModels().get(position).getId());
         bundle.putString(Constants.SELECTED_COUNTRY_NAME, mCountriesListModel.getCountriesModels().get(position).getCountry_name());
 
-        Utility.navigateDashBoardFragment(new StatesFragment(), StatesFragment.TAG, bundle, mParent);
+        Utility.navigateDashBoardFragment(new LocationSelectionFragment(), LocationSelectionFragment.TAG, bundle, mParent);
 
     }
 }
