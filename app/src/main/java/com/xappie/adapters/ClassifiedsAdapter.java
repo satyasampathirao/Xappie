@@ -1,9 +1,8 @@
 package com.xappie.adapters;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.customviews.RoundedCornersTransformation;
-import com.xappie.fragments.ClassifiedsFragment;
-import com.xappie.fragments.ClassifiedsListFragment;
-import com.xappie.fragments.ClassifiedsTabFragment;
 import com.xappie.fragments.SubClassifiedsFragment;
 import com.xappie.models.ClassifiedsModel;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Shankar on 26/07/2017
@@ -60,7 +55,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
         return i;
     }
 
-  // @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    // @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         ClassifiedsAdapter.ClassifiedsGridHolder mClassifiedsGridHolder = null;
@@ -68,11 +63,13 @@ public class ClassifiedsAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.classfields_grid_item,
                     null);
             mClassifiedsGridHolder = new ClassifiedsAdapter.ClassifiedsGridHolder();
-            mClassifiedsGridHolder.img_gallery_image = (ImageView) convertView.findViewById(R.id.img_gallery_image);
-            mClassifiedsGridHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
+            mClassifiedsGridHolder.img_gallery_image = convertView.findViewById(R.id.img_gallery_image);
+            mClassifiedsGridHolder.tv_title = convertView.findViewById(R.id.tv_title);
+            mClassifiedsGridHolder.image_rectangle = convertView.findViewById(R.id.image_rectangle);
 
             mClassifiedsGridHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
-          //  mClassifiedsGridHolder.img_gallery_image.setClipToOutline(true);
+            mClassifiedsGridHolder.image_rectangle.setColorFilter(getColor(), android.graphics.PorterDuff.Mode.MULTIPLY);
+            //  mClassifiedsGridHolder.img_gallery_image.setClipToOutline(true);
 
             convertView.setTag(mClassifiedsGridHolder);
         } else {
@@ -82,21 +79,15 @@ public class ClassifiedsAdapter extends BaseAdapter {
         final ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
         mClassifiedsGridHolder.tv_title.setText(classifiedsModel.getName());
         if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
-
-
-          Picasso.with(mDashBoardActivity).load(classifiedsModel.getImage())
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
-                    .placeholder(Utility.getDrawable(mDashBoardActivity, R.color.twenty_percent_red))
-                    .transform(new RoundedCornersTransformation(15,15)).into(mClassifiedsGridHolder.img_gallery_image);
-           mClassifiedsGridHolder.img_gallery_image.setAlpha(220);
-
-
+            Picasso.with(mDashBoardActivity).load(classifiedsModel.getImage())
+                    .placeholder(Utility.getDrawable(mDashBoardActivity, R.color.white))
+                    .resize(Utility.getDeviceWidth(mDashBoardActivity) / 2, 400)
+                    .transform(new RoundedCornersTransformation(16, 16))
+                    .into(mClassifiedsGridHolder.img_gallery_image);
+            //mClassifiedsGridHolder.img_gallery_image.setAlpha(220);
         } else {
-
             Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
                     "", null, R.color.twenty_percent_red);
-
         }
 
         convertView.setId(position);
@@ -106,7 +97,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
                 int position = v.getId();
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, classifiedsModels.get(position).getId());
-                bundle.putString("Name",classifiedsModel.getName());
+                bundle.putString("Name", classifiedsModel.getName());
                 Utility.navigateDashBoardFragment(new SubClassifiedsFragment(), SubClassifiedsFragment.TAG, bundle, mDashBoardActivity);
             }
         });
@@ -117,5 +108,12 @@ public class ClassifiedsAdapter extends BaseAdapter {
     private class ClassifiedsGridHolder {
         TextView tv_title;
         ImageView img_gallery_image;
+        ImageView image_rectangle;
+    }
+
+    private int getColor() {
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        return color;
     }
 }

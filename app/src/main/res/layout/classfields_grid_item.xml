@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:padding="@dimen/_3dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_3dp">
 
     <ImageView
         android:id="@+id/img_gallery_image"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@color/twenty_percent_red" />
+        android:layout_height="@dimen/_100dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_fifty" />
+
+    <ImageView
+        android:id="@+id/image_rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_93dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/_4dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_fifty" />
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:layout_marginStart="@dimen/_10dp"
         android:padding="@dimen/_10dp"
         android:text="@string/auto_mobiles"
         android:textColor="@android:color/white"

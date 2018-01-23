@@ -20,21 +20,15 @@ import com.xappie.adapters.ClassifiedsAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ClassifiedsListModel;
-import com.xappie.models.ClassifiedsModel;
-import com.xappie.models.EntertainmentListModel;
-import com.xappie.models.EntertainmentModel;
-import com.xappie.models.LanguageListModel;
 import com.xappie.models.Model;
 import com.xappie.models.StateModel;
 import com.xappie.models.StatesListModel;
 import com.xappie.parser.ClassifiedsParser;
-import com.xappie.parser.EventsListParser;
 import com.xappie.parser.StatesParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -205,13 +199,11 @@ public class ClassifiedsFragment extends Fragment implements IAsyncCaller {
         if (model != null) {
             if (model instanceof ClassifiedsListModel) {
                 classifiedsListModel = (ClassifiedsListModel) model;
-                if (classifiedsListModel != null && classifiedsListModel.getClassifiedsModels().size()> 0)
-                {
+                if (classifiedsListModel != null && classifiedsListModel.getClassifiedsModels().size() > 0) {
                     grid_view.setVisibility(View.VISIBLE);
                     ll_no_data.setVisibility(View.GONE);
                     setClasifiedsData();
-                }
-                else {
+                } else {
                     grid_view.setVisibility(View.GONE);
                     ll_no_data.setVisibility(View.VISIBLE);
                 }

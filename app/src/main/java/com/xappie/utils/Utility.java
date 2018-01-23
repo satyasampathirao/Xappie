@@ -30,6 +30,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -1014,4 +1015,23 @@ public class Utility {
             window.setStatusBarColor(getColor(context, R.color.transparent));
         }
     }
+
+    /**
+     * GET THE DEVICE WIDTH
+     **/
+    public static int getDeviceWidth(Context context) {
+        DisplayMetrics dm = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
+    }
+
+    /**
+     * GET THE DEVICE HEIGHT
+     **/
+    public static int getDeviceHeight(Context context) {
+        DisplayMetrics dm = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+        return dm.heightPixels;
+    }
+
 }
