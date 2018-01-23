@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
         android:contentDescription="@string/app_name"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginBottom="@dimen/_3dp"
