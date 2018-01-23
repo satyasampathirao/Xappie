@@ -68,7 +68,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
             mClassifiedsGridHolder.image_rectangle = convertView.findViewById(R.id.image_rectangle);
 
             mClassifiedsGridHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
-            mClassifiedsGridHolder.image_rectangle.setColorFilter(getColor(), android.graphics.PorterDuff.Mode.MULTIPLY);
+
             //  mClassifiedsGridHolder.img_gallery_image.setClipToOutline(true);
 
             convertView.setTag(mClassifiedsGridHolder);
@@ -85,6 +85,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
                     .transform(new RoundedCornersTransformation(16, 16))
                     .into(mClassifiedsGridHolder.img_gallery_image);
             //mClassifiedsGridHolder.img_gallery_image.setAlpha(220);
+            mClassifiedsGridHolder.img_gallery_image.setColorFilter(getColor(), android.graphics.PorterDuff.Mode.MULTIPLY);
         } else {
             Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
                     "", null, R.color.twenty_percent_red);

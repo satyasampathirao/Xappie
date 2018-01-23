@@ -19,6 +19,7 @@
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/_4dp"
         android:scaleType="fitXY"
+        android:visibility="gone"
         android:src="@drawable/image_fifty" />
 
     <TextView
