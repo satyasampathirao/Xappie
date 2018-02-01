@@ -84,7 +84,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
                     .resize(Utility.getDeviceWidth(mDashBoardActivity) / 2, 400)
                     .transform(new RoundedCornersTransformation(16, 16))
                     .into(mClassifiedsGridHolder.img_gallery_image);
-            //mClassifiedsGridHolder.img_gallery_image.setAlpha(220);
+            mClassifiedsGridHolder.img_gallery_image.setAlpha(190);
             mClassifiedsGridHolder.img_gallery_image.setColorFilter(getColor(), android.graphics.PorterDuff.Mode.MULTIPLY);
         } else {
             Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
