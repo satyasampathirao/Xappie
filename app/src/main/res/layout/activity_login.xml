@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_0dp"
             android:layout_weight="50"
-            android:background="@drawable/top_bg"
+            android:background="@drawable/login_bg"
             android:orientation="vertical">
 
             <LinearLayout

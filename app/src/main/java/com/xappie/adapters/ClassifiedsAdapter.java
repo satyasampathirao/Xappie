@@ -84,7 +84,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
                     .resize(Utility.getDeviceWidth(mDashBoardActivity) / 2, 400)
                     .transform(new RoundedCornersTransformation(16, 16))
                     .into(mClassifiedsGridHolder.img_gallery_image);
-            mClassifiedsGridHolder.img_gallery_image.setAlpha(190);
+           // mClassifiedsGridHolder.img_gallery_image.setAlpha(200);
             mClassifiedsGridHolder.img_gallery_image.setColorFilter(getColor(), android.graphics.PorterDuff.Mode.MULTIPLY);
         } else {
             Utility.universalImageLoaderPicLoading(mClassifiedsGridHolder.img_gallery_image,
@@ -114,7 +114,7 @@ public class ClassifiedsAdapter extends BaseAdapter {
 
     private int getColor() {
         Random rnd = new Random();
-        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+        int color = Color.argb(190, rnd.nextInt(250), rnd.nextInt(253), rnd.nextInt(256));
         return color;
     }
 }
