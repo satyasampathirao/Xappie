@@ -107,4 +107,6 @@ public class Constants {
     public static final String FILTER_COUNTRY = "FILTER_COUNTRY";
 
     public static final String DEVICE_TYPE = "android";
+
+    public static final String ALLOW_NOTIFICATIONS = "ALLOW_NOTIFICATIONS";
 }

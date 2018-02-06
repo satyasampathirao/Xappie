@@ -18,10 +18,12 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -136,9 +138,18 @@ public class NotificationsSettingsFragment extends Fragment {
     }
 
     private void initUI() {
-
         setTypeFace();
     }
+
+    @OnCheckedChanged(R.id.switch_button_allow)
+    void ClassifiedsPreferenceChange(boolean isChecked) {
+        if (isChecked) {
+            Utility.setSharedPrefBooleanData(mParent, Constants.ALLOW_NOTIFICATIONS, true);
+        } else {
+            Utility.setSharedPrefBooleanData(mParent, Constants.ALLOW_NOTIFICATIONS, false);
+        }
+    }
+
     private void setTypeFace() {
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
@@ -160,6 +171,7 @@ public class NotificationsSettingsFragment extends Fragment {
         tv_deals.setTypeface(mTypefaceOpenSansRegular);
         btn_notification_settings_update.setTypeface(mTypefaceOpenSansRegular);
     }
+
     @OnClick(R.id.tv_back)
     public void navigateBack() {
         mParent.onBackPressed();
