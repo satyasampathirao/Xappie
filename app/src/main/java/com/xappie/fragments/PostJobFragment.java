@@ -445,7 +445,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
             edt_company_logo.setText(jobsModel.getCompany_logo());
             edt_company_name.setText(jobsModel.getCompany());
             edt_job_description.setText(jobsModel.getDescription());
-            edt_job_location.setText(jobsModel.getCity());
+            edt_job_location.setText(jobsModel.getAddress());
             edt_job_role.setText(jobsModel.getRole());
             edt_no_of_positions.setText(jobsModel.getPositions());
             edt_job_title.setText(jobsModel.getTitle());

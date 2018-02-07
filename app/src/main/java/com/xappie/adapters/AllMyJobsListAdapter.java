@@ -64,6 +64,7 @@ public class AllMyJobsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_title = convertView.findViewById(R.id.tv_title);
             mClassifiedsListHolder.tv_positions = convertView.findViewById(R.id.tv_positions);
             mClassifiedsListHolder.tv_company_name = convertView.findViewById(R.id.tv_company_name);
+            mClassifiedsListHolder.tv_pos = convertView.findViewById(R.id.tv_pos);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
             mClassifiedsListHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
@@ -77,8 +78,16 @@ public class AllMyJobsListAdapter extends BaseAdapter {
         JobsModel jobsModel = jobsModels.get(position);
         // mClassifiedsListHolder.tv_title.setText(entertainmentModel.getTitle());
         mClassifiedsListHolder.tv_title.setText(jobsModel.getTitle());
-        mClassifiedsListHolder.tv_positions.setText(jobsModel.getLocality());
         mClassifiedsListHolder.tv_company_name.setText(jobsModel.getCompany().toUpperCase());
+
+        if (!Utility.isValueNullOrEmpty(jobsModel.getLocality()))
+        {
+            mClassifiedsListHolder.tv_positions.setText(jobsModel.getLocality());
+            mClassifiedsListHolder.tv_pos.setTypeface(Utility.getFontAwesomeWebFont(mDashBoardActivity));
+        }
+        else {
+            mClassifiedsListHolder.tv_pos.setVisibility(View.GONE);
+        }
 
         if (!Utility.isValueNullOrEmpty(jobsModel.getCompany_logo())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,
@@ -97,5 +106,6 @@ public class AllMyJobsListAdapter extends BaseAdapter {
         TextView tv_positions;
         TextView tv_company_name;
         ImageView img_logo;
+        TextView tv_pos;
     }
 }
