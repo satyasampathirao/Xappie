@@ -91,8 +91,20 @@ public class AllMyClassifiedsListAdapter extends BaseAdapter {
 
         final ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
         mClassifiedsListHolder.tv_title.setText(classifiedsModel.getTitle());
-        mClassifiedsListHolder.tv_time.setText(Utility.readDateFormat(classifiedsModel.getRecordedDate()));
-        mClassifiedsListHolder.tv_posted_by.setText(classifiedsModel.getPrice());
+        if (!Utility.isValueNullOrEmpty(classifiedsModel.getState()))
+        {
+            mClassifiedsListHolder.tv_time.setText(classifiedsModel.getState());
+        }
+        else {
+            mClassifiedsListHolder.tv_calendar_icon.setVisibility(View.GONE);
+        }
+        if (!Utility.isValueNullOrEmpty(classifiedsModel.getPrice()))
+        {
+            mClassifiedsListHolder.tv_posted_by.setText(classifiedsModel.getPrice());
+        }
+        else {
+            mClassifiedsListHolder.tv_price_icon.setVisibility(View.GONE);
+        }
 
         if (!Utility.isValueNullOrEmpty(classifiedsModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mClassifiedsListHolder.img_logo,

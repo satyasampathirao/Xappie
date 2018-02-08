@@ -95,7 +95,7 @@
                     android:layout_marginRight="@dimen/_25dp"
                     android:layout_gravity="center"
                     android:alpha="0.8"
-                    android:text="250$"
+                    android:text=""
                     android:textColor="@color/text_upload_color"
                     android:textSize="@dimen/_10sp" />
             </LinearLayout>

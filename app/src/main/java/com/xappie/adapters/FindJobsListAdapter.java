@@ -72,6 +72,7 @@ public class FindJobsListAdapter extends BaseAdapter
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_company_name.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_pos.setTypeface(Utility.getFontAwesomeWebFont(mDashBoardActivity));
             mClassifiedsListHolder.view.setVisibility(View.GONE);
 
             convertView.setTag(mClassifiedsListHolder);
@@ -85,10 +86,10 @@ public class FindJobsListAdapter extends BaseAdapter
         if (!Utility.isValueNullOrEmpty(jobsModel.getLocality()))
         {
             mClassifiedsListHolder.tv_positions.setText(jobsModel.getLocality());
-            mClassifiedsListHolder.tv_pos.setTypeface(Utility.getFontAwesomeWebFont(mDashBoardActivity));
         }
         else {
             mClassifiedsListHolder.tv_pos.setVisibility(View.GONE);
+            mClassifiedsListHolder.tv_positions.setVisibility(View.GONE);
         }
 
         mClassifiedsListHolder.tv_company_name.setText(jobsModel.getCompany());
