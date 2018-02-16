@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.SpinnerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.CustomProgressDialog;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.CategoryModel;
 import com.xappie.models.JobPostingModel;
@@ -41,12 +43,19 @@ import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,6 +117,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
 
     private File yourFile;
     private static IUpdateSelectedFile iUpdateSelectedFile;
+    private CustomProgressDialog customProgressDialog;
 
     public static IUpdateSelectedFile getInstance() {
         return iUpdateSelectedFile;
@@ -146,6 +156,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
     }
 
     private void initUI() {
+        customProgressDialog = new CustomProgressDialog(mParent);
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
 
         edt_job_title.setTypeface(mTypefaceOpenSansRegular);
@@ -262,11 +273,167 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         return isValidated;
     }
 
-    @OnClick(R.id.btn_submit)
+   /* @OnClick(R.id.btn_submit)
     public void navigateSubmit() {
         if (isValidFields()) {
             postJobInServer();
         }
+    }*/
+
+    @OnClick(R.id.btn_submit)
+    void submitDetails() {
+        if (isValidFields()) {
+            if (!Utility.isValueNullOrEmpty(mID)) {
+                customProgressDialog.showProgress("");
+                updateJobs();
+            } else {
+                customProgressDialog.showProgress("");
+                addJobs();
+            }
+        }
+    }
+
+    private void updateJobs() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (yourFile != null) {
+            File file = new File(yourFile.getPath());
+            if (file.exists()) {
+                final MediaType MEDIA_TYPE = MediaType.parse(Utility.getMimeType(yourFile.getPath()));
+                builder.addFormDataPart("logo", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+            } else {
+                Log.d(TAG, "file not exist ");
+            }
+        }
+        builder.addFormDataPart(Constants.API_KEY, Constants.API_KEY_VALUE);
+        builder.addFormDataPart("id", mID);
+        builder.addFormDataPart("title", edt_job_title.getText().toString());
+        builder.addFormDataPart("position", edt_no_of_positions.getText().toString());
+        builder.addFormDataPart("role", edt_job_role.getText().toString());
+        builder.addFormDataPart("company_name", edt_company_name.getText().toString());
+        //paramMap.put("website", edt_website.getText().toString());
+        builder.addFormDataPart("eligible", edt_eligibility.getText().toString());
+        //paramMap.put("exp", edt_experience.getText().toString());
+        builder.addFormDataPart("description", edt_job_description.getText().toString());
+        builder.addFormDataPart("category", getCategoryId(et_job_category.getText().toString()));
+        builder.addFormDataPart("address", edt_job_location.getText().toString());
+
+        if (rb_yes_send.isChecked()) {
+            builder.addFormDataPart("resume", "1");
+            builder.addFormDataPart("email", edt_yes_email.getText().toString());
+        } else {
+            builder.addFormDataPart("resume", "0");
+            builder.addFormDataPart("email", "");
+        }
+        builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        builder.addFormDataPart("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+        builder.addFormDataPart("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.UPDATE_JOB)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                String jsonData = response.body().string();
+                Utility.showLog("jsondata", "" + jsonData);
+                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                mParent.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clearData();
+                        JobsFragment.tv_my_posts.performClick();
+                    }
+                });
+            }
+        });
+    }
+
+    private void addJobs() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (yourFile != null) {
+            File file = new File(yourFile.getPath());
+            if (file.exists()) {
+                final MediaType MEDIA_TYPE = MediaType.parse(Utility.getMimeType(yourFile.getPath()));
+                builder.addFormDataPart("logo", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+            } else {
+                Log.d(TAG, "file not exist ");
+            }
+        }
+        builder.addFormDataPart(Constants.API_KEY, Constants.API_KEY_VALUE);
+        builder.addFormDataPart("title", edt_job_title.getText().toString());
+        builder.addFormDataPart("position", edt_no_of_positions.getText().toString());
+        builder.addFormDataPart("role", edt_job_role.getText().toString());
+        builder.addFormDataPart("company_name", edt_company_name.getText().toString());
+        //paramMap.put("website", edt_website.getText().toString());
+        builder.addFormDataPart("eligible", edt_eligibility.getText().toString());
+        //paramMap.put("exp", edt_experience.getText().toString());
+        builder.addFormDataPart("description", edt_job_description.getText().toString());
+        builder.addFormDataPart("category", getCategoryId(et_job_category.getText().toString()));
+        builder.addFormDataPart("address", edt_job_location.getText().toString());
+
+        if (rb_yes_send.isChecked()) {
+            builder.addFormDataPart("resume", "1");
+            builder.addFormDataPart("email", edt_yes_email.getText().toString());
+        } else {
+            builder.addFormDataPart("resume", "0");
+            builder.addFormDataPart("email", "");
+        }
+        builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        builder.addFormDataPart("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+        builder.addFormDataPart("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.POST_JOB_URL)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                String jsonData = response.body().string();
+                Utility.showLog("jsondata", "" + jsonData);
+                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                mParent.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clearData();
+                        JobsFragment.tv_my_posts.performClick();
+                    }
+                });
+            }
+        });
     }
 
     private void postJobInServer() {

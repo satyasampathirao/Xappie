@@ -41,8 +41,6 @@ import com.xappie.models.LocalityListModel;
 import com.xappie.models.LocalityModel;
 import com.xappie.models.Model;
 import com.xappie.models.SpinnerModel;
-import com.xappie.parser.AddEventSuccessParser;
-import com.xappie.parser.EventUpdateParser;
 import com.xappie.parser.EventsDetailParser;
 import com.xappie.parser.LocalityParser;
 import com.xappie.utils.APIConstants;
@@ -419,7 +417,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         RequestBody requestBody = builder.build();
 
         Request request = new Request.Builder()
-                .url(APIConstants.ADD_EVENT)
+                .url(APIConstants.UPDATE_EVENT)
                 .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
                 .post(requestBody)
                 .build();
