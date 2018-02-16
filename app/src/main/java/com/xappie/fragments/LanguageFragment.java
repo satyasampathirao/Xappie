@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
+import com.xappie.adapters.LanguageFragmentAdapter;
 import com.xappie.adapters.LanguagesListAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
@@ -58,7 +59,7 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
     private Typeface mTypefaceMaterialIcon;
 
     private ArrayList<LanguageModel> languageModels;
-    private LanguagesListAdapter languagesListAdapter;
+    private LanguageFragmentAdapter languagesListAdapter;
 
     private DashBoardActivity mParent;
     private AppBarLayout appBarLayout;
@@ -133,7 +134,7 @@ public class LanguageFragment extends Fragment implements IAsyncCaller {
             if (model instanceof LanguageListModel) {
                 mLanguageListModel = (LanguageListModel) model;
                 languageModels = mLanguageListModel.getLanguageModels();
-                languagesListAdapter = new LanguagesListAdapter(mParent, languageModels);
+                languagesListAdapter = new LanguageFragmentAdapter(mParent, languageModels);
                 language_list_item.setAdapter(languagesListAdapter);
             } else if (model instanceof DeviceTokenUpdateModel) {
                 Intent dashBoardIntent = new Intent(getActivity(), DashBoardActivity.class);
