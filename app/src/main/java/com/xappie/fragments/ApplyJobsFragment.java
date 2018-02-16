@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.CustomProgressDialog;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.ApplyJobsModel;
 import com.xappie.models.Model;
@@ -25,12 +27,22 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +81,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+    private CustomProgressDialog customProgressDialog;
 
     public static IUpdateSelectedFile getInstance() {
         return iUpdateSelectedFile;
@@ -97,6 +110,8 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
     }
 
     private void initUI() {
+
+        customProgressDialog = new CustomProgressDialog(mParent);
 
         mTypefaceOpenSansRegular = Utility.getOpenSansRegular(mParent);
         mTypefaceFontAwesomeWebFont = Utility.getFontAwesomeWebFont(mParent);
@@ -174,7 +189,65 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
     }
 
     private void applyJob() {
-        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (yourFile != null) {
+            File file = new File(yourFile.getPath());
+            if (file.exists()) {
+                final MediaType MEDIA_TYPE = MediaType.parse(Utility.getMimeType(yourFile.getPath()));
+                builder.addFormDataPart("resume", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+            } else {
+                Log.d(TAG, "file not exist ");
+            }
+        }
+        builder.addFormDataPart(Constants.API_KEY, Constants.API_KEY_VALUE);
+        builder.addFormDataPart("message", et_cover_letter.getText().toString());
+        builder.addFormDataPart("job_id", id);
+        builder.addFormDataPart("status", "1");
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.APPLY_JOB)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                final String jsonData = response.body().string();
+
+                mParent.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utility.showLog("jsondata", "" + jsonData);
+                        try {
+                            JSONObject mJSONObject = new JSONObject(jsonData);
+                            Utility.showToastMessage(mParent, mJSONObject.optString("msg"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        mParent.onBackPressed();
+                    }
+                });
+            }
+        });
+
+
+       /* LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
         paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
         paramMap.put("message", et_cover_letter.getText().toString());
         paramMap.put("file", Utility.convertFileToByteArray(yourFile));
@@ -189,7 +262,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
                 paramMap,
                 APIConstants.REQUEST_TYPE.POST,
                 this, applyJobsParser);
-        Utility.execute(serverIntractorAsync);
+        Utility.execute(serverIntractorAsync);*/
     }
 
     private void applyJobZero() {
