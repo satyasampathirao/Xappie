@@ -16,6 +16,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.xappie.activities.DashBoardActivity;
 import com.xappie.adapters.SpinnerAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
+import com.xappie.customviews.CustomProgressDialog;
 import com.xappie.interfaces.IUpdateSelectedFile;
 import com.xappie.models.AddEventModel;
 import com.xappie.models.EventUpdateModel;
@@ -48,6 +50,7 @@ import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
@@ -55,6 +58,12 @@ import java.util.LinkedHashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 /**
  * Created by Shankar on 7/28/2017.
@@ -119,6 +128,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     private ArrayList<LocalityModel> localityModels;
 
     private static IUpdateSelectedFile iUpdateSelectedFile;
+    private CustomProgressDialog customProgressDialog;
 
     public static IUpdateSelectedFile getInstance() {
         return iUpdateSelectedFile;
@@ -135,6 +145,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         } else {
             mID = "";
         }
+        customProgressDialog = new CustomProgressDialog(mParent);
     }
 
     @Override
@@ -246,6 +257,20 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     void submitDetails() {
         if (isValidFields()) {
             if (!Utility.isValueNullOrEmpty(mID)) {
+                customProgressDialog.showProgress("");
+                updateEvents();
+            } else {
+                customProgressDialog.showProgress("");
+                addEvents();
+            }
+        }
+    }
+
+
+   /* @OnClick(R.id.btn_submit)
+    void submitDetails() {
+        if (isValidFields()) {
+            if (!Utility.isValueNullOrEmpty(mID)) {
                 LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
                 paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
                 paramMap.put("id", mID);
@@ -298,6 +323,132 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
                 Utility.execute(serverIntractorAsync);
             }
         }
+    }*/
+
+
+    public void addEvents() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (mYourFile != null) {
+            File file = new File(mYourFile.getPath());
+            if (file.exists()) {
+                final MediaType MEDIA_TYPE = MediaType.parse(Utility.getMimeType(mYourFile.getPath()));
+                builder.addFormDataPart("event_image", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+            } else {
+                Log.d(TAG, "file not exist ");
+            }
+        }
+        builder.addFormDataPart(Constants.API_KEY, Constants.API_KEY_VALUE);
+        builder.addFormDataPart("name", edt_name_of_the_event.getText().toString());
+        builder.addFormDataPart("tag", edt_tag_line.getText().toString());
+        builder.addFormDataPart("description", edt_description.getText().toString());
+        builder.addFormDataPart("cost", edt_cost.getText().toString());
+        builder.addFormDataPart("dresscode", edt_dress_code.getText().toString());
+        builder.addFormDataPart("starttime", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
+        builder.addFormDataPart("endtime", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
+        builder.addFormDataPart("location", edt_name_of_the_location.getText().toString());
+        builder.addFormDataPart("address", edt_address.getText().toString());
+        builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        builder.addFormDataPart("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+        builder.addFormDataPart("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        builder.addFormDataPart("locality", getLocalityId(edt_select_locality.getText().toString()));
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.ADD_EVENT)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                String jsonData = response.body().string();
+                Utility.showLog("jsondata", "" + jsonData);
+                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                mParent.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clearData();
+                        EventsFragment.tv_my_events.performClick();
+                    }
+                });
+            }
+        });
+    }
+
+    public void updateEvents() {
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (mYourFile != null) {
+            File file = new File(mYourFile.getPath());
+            if (file.exists()) {
+                final MediaType MEDIA_TYPE = MediaType.parse(Utility.getMimeType(mYourFile.getPath()));
+                builder.addFormDataPart("event_image", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+            } else {
+                Log.d(TAG, "file not exist ");
+            }
+        }
+        builder.addFormDataPart(Constants.API_KEY, Constants.API_KEY_VALUE);
+        builder.addFormDataPart("id", mID);
+        builder.addFormDataPart("name", edt_name_of_the_event.getText().toString());
+        builder.addFormDataPart("tag", edt_tag_line.getText().toString());
+        builder.addFormDataPart("description", edt_description.getText().toString());
+        builder.addFormDataPart("cost", edt_cost.getText().toString());
+        builder.addFormDataPart("dresscode", edt_dress_code.getText().toString());
+        builder.addFormDataPart("starttime", edt_start_date.getText().toString() + " " + edt_start_time.getText().toString());
+        builder.addFormDataPart("endtime", edt_end_date.getText().toString() + " " + edt_end_time.getText().toString());
+        builder.addFormDataPart("location", edt_name_of_the_location.getText().toString());
+        builder.addFormDataPart("address", edt_address.getText().toString());
+        builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
+        builder.addFormDataPart("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
+        builder.addFormDataPart("city", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
+        builder.addFormDataPart("locality", getLocalityId(edt_select_locality.getText().toString()));
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.ADD_EVENT)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(mParent, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                mParent.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        clearData();
+                        EventsFragment.tv_my_events.performClick();
+                    }
+                });
+            }
+        });
     }
 
     /**
