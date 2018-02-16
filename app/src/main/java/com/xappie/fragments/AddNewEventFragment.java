@@ -47,6 +47,9 @@ import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -437,10 +440,18 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
                 customProgressDialog.dismissProgress();
-                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                final String jsonData = response.body().string();
                 mParent.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Utility.showLog("jsondata", "" + jsonData);
+                        try {
+                            JSONObject mJSONObject = new JSONObject(jsonData);
+                            //Utility.showToastMessage(mParent, mJSONObject.optString("msg"));
+                            Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         clearData();
                         EventsFragment.tv_my_events.performClick();
                     }
