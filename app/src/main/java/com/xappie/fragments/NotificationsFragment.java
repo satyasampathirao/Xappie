@@ -40,6 +40,8 @@ public class NotificationsFragment extends Fragment {
     TextView tv_notification_settings_icon;
     @BindView(R.id.tv_back)
     TextView tv_back;
+    @BindView(R.id.no_notifications)
+    TextView no_notifications;
 
     @BindView(R.id.notification_list_item)
     ListView notification_list_item;
@@ -94,8 +96,9 @@ public class NotificationsFragment extends Fragment {
         tv_notification_settings_icon.setTypeface(Utility.getFontAwesomeWebFont(getActivity()));
         tv_notification.setTypeface(mTypefaceOpenSansRegular);
         tv_back.setTypeface(Utility.getMaterialIconsRegular(getActivity()));
-
+        no_notifications.setTypeface(mTypefaceOpenSansRegular);
         notification_list_item.setAdapter(new NotificationListAdapter(mParent, getSampleData()));
+        notification_list_item.setVisibility(View.GONE);
     }
     private ArrayList<NotificationsListModel> getSampleData() {
         ArrayList<NotificationsListModel> notificationsListModels = new ArrayList<>();

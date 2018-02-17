@@ -54,4 +54,14 @@
         android:paddingStart="@dimen/_10dp"
         android:dividerHeight="0dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/_20sp"
+        android:id="@+id/no_notifications"
+        android:textColor="@color/black"
+        android:text="@string/no_Notifications_found"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>
