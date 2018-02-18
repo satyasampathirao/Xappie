@@ -6,7 +6,7 @@ package com.xappie.utils;
 
 public class Constants {
     // Log message On or Off
-    public static final boolean logMessageOnOrOff = true;
+    public static final boolean logMessageOnOrOff = false;
 
     public static int SPLASH_TIME_OUT = 3000;
 

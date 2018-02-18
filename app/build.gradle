@@ -13,10 +13,10 @@ apply plugin: 'io.fabric'
 android {
     signingConfigs {
         config {
-            keyAlias 'nevexa digital private limited'
-            keyPassword 'KW@2017!#'
-            storeFile file('E:\\KapuWelfare\\KapuKeystore\\kwa.jks')
-            storePassword 'KW@2017!#'
+            keyAlias 'Nevexa Digital Private Limited'
+            keyPassword 'XAP@2018!#'
+            storeFile file('E:\\Xappie\\KapuKeystore\\Xappie.jks')
+            storePassword 'XAP@2018!#'
         }
     }
     compileSdkVersion 27
@@ -38,7 +38,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            debuggable true;
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
