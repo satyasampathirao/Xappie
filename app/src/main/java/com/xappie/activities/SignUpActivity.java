@@ -479,4 +479,10 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                 APIConstants.REQUEST_TYPE.POST, this, imageUpdateParser);
         Utility.execute(serverIntractorAsync);
     }
+
+    @OnClick(R.id.tv_privacy)
+    void navigatePrivacyPolicy() {
+        Intent intent = new Intent(this, PrivacyPolicyActivity.class);
+        startActivity(intent);
+    }
 }

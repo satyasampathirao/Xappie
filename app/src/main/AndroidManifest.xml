@@ -117,6 +117,7 @@
         <activity
             android:name=".activities.LocationSelectionActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activities.PrivacyPolicyActivity"></activity>
     </application>
 
 </manifest>

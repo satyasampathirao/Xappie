@@ -503,4 +503,10 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                 APIConstants.REQUEST_TYPE.POST, this, mDeviceTokenUpdateParser);
         Utility.execute(serverIntractorAsync);
     }
+
+    @OnClick(R.id.tv_privacy)
+    void navigatePrivacyPolicy() {
+        Intent intent = new Intent(this, PrivacyPolicyActivity.class);
+        startActivity(intent);
+    }
 }
