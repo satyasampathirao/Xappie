@@ -206,7 +206,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/by_logging_agree"
+                android:text="@string/by_signing_up"
                 android:textColor="@color/dark_gray"
                 android:textSize="@dimen/_14sp" />
 
@@ -219,25 +219,15 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_14sp" />
 
-            <TextView
-                android:id="@+id/tv_and"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/and"
-                android:textColor="@color/dark_gray"
-                android:textSize="@dimen/_14sp" />
-
-            <TextView
-                android:id="@+id/tv_privacy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:lines="2"
-                android:text="@string/privacy_policy"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_14sp" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/tv_privacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/privacy_policy"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_14sp" />
 
     </LinearLayout>
 

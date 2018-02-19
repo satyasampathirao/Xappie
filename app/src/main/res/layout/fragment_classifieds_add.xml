@@ -181,18 +181,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:background="@drawable/header_bg"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_contact_details"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_40dp"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|center"
                     android:paddingEnd="@dimen/_10dp"
                     android:paddingStart="@dimen/_10dp"
                     android:text="@string/contact_details"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/orange"
                     android:textSize="@dimen/_18sp" />
             </LinearLayout>
 
@@ -264,6 +265,33 @@
                 android:hint="@string/email"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingStart="@dimen/_10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/_18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:background="@color/dark_gray" />
+            <EditText
+                android:id="@+id/edt_website"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45dp"
+                android:layout_marginEnd="@dimen/_12dp"
+                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:hint="@string/_website"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLength="10"
                 android:maxLines="1"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"

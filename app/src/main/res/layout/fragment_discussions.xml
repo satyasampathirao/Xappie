@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/ll_discussions"
         android:background="@drawable/classifieds_top"
         android:orientation="vertical">
 
@@ -22,13 +23,23 @@
         android:layout_height="match_parent"
         android:numColumns="2" />
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/ll_discussions"
+        android:background="@color/very_light_white"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:layout_marginStart="@dimen/_20sp"
         android:weightSum="4"
-        android:background="@drawable/bordr_text"
+        android:background="@drawable/gray_round_border"
         android:layout_marginEnd="@dimen/_20sp"
         android:layout_height="wrap_content">
         <TextView
@@ -36,53 +47,48 @@
             android:text="@string/topics"
            android:paddingTop="@dimen/_10dp"
             android:layout_weight="1"
+            android:id="@+id/tv_topics"
             android:gravity="center"
             android:textSize="@dimen/_14sp"
             android:paddingBottom="@dimen/_10dp"
             android:background="@drawable/discussions_shape"
             android:textColor="@color/white"
             android:layout_height="wrap_content" />
-        <View
-            android:layout_width="@dimen/_0.5dp"
-            android:background="@color/dark_gray"
-            android:layout_height="match_parent"/>
+
         <TextView
             android:layout_width="0dp"
             android:text="@string/trending"
             android:paddingTop="@dimen/_10dp"
             android:layout_weight="1"
-            android:layout_marginStart="@dimen/_2dp"
             android:gravity="center"
             android:textSize="@dimen/_14sp"
+            android:id="@+id/tv_trending"
+            android:background="@drawable/discussion_square"
             android:paddingBottom="@dimen/_10dp"
             android:textColor="@color/black"
             android:layout_height="wrap_content" />
-        <View
-            android:layout_width="@dimen/_0.5dp"
-            android:background="@color/dark_gray"
-            android:layout_height="match_parent"/>
+
 
         <TextView
             android:layout_width="0dp"
             android:text="@string/_new"
             android:paddingTop="@dimen/_10dp"
             android:layout_weight="1"
-            android:layout_marginStart="@dimen/_2dp"
             android:gravity="center"
+            android:id="@+id/tv_new"
             android:textSize="@dimen/_14sp"
             android:paddingBottom="@dimen/_10dp"
+            android:background="@drawable/discussion_square"
             android:textColor="@color/black"
             android:layout_height="wrap_content" />
-        <View
-            android:layout_width="@dimen/_0.5dp"
-            android:background="@color/dark_gray"
-            android:layout_height="match_parent"/>
+
         <TextView
             android:layout_width="0dp"
             android:text="@string/pinned"
             android:paddingTop="@dimen/_10dp"
             android:layout_weight="1"
-            android:layout_marginStart="@dimen/_2dp"
+            android:id="@+id/tv_pinned"
+            android:background="@drawable/discussions_white"
             android:gravity="center"
             android:textSize="@dimen/_14sp"
             android:paddingBottom="@dimen/_10dp"
@@ -94,16 +100,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_10dp"
+        android:id="@+id/tv_coming_soon"
+        android:layout_marginTop="@dimen/_20dp"
         android:text="@string/_coming_soon"
-        android:textSize="@dimen/_20sp"
+        android:textSize="@dimen/_24sp"
         android:textColor="@color/orange"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/tv_ready"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:gravity="center"
         android:text="@string/we_are_working"
         android:textColor="@color/black"
@@ -140,7 +147,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -151,20 +158,21 @@
             android:layout_weight="1"
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
+            android:id="@+id/first_time"
             android:text="@string/first_time_in_city"
             android:padding="@dimen/_10sp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
+            android:id="@+id/sports"
             android:text="@string/sports"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -172,7 +180,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -185,25 +193,26 @@
             android:textSize="@dimen/_12sp"
             android:text="@string/places_to"
             android:padding="@dimen/_10sp"
+            android:id="@+id/place_to_visit"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
+            android:id="@+id/crypto_currency"
             android:text="@string/cryptocurrency"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -215,26 +224,27 @@
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
             android:text="@string/Residential"
+            android:id="@+id/residential"
             android:padding="@dimen/_10sp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
+            android:id="@+id/stock_market"
             android:text="@string/stock_market"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -247,25 +257,26 @@
             android:textSize="@dimen/_12sp"
             android:text="@string/schools"
             android:padding="@dimen/_10sp"
+            android:id="@+id/schools"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
+            android:id="@+id/health"
             android:text="@string/health"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -277,26 +288,27 @@
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
             android:text="@string/immigration"
+            android:id="@+id/immigration"
             android:padding="@dimen/_10sp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
+            android:id="@+id/kids_talent"
             android:text="@string/kids"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -309,8 +321,9 @@
             android:textSize="@dimen/_12sp"
             android:text="@string/travel_companion"
             android:padding="@dimen/_10sp"
+            android:id="@+id/travel_companion"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
@@ -318,16 +331,16 @@
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
             android:text="@string/cuisines"
+            android:id="@+id/cuisines"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -340,8 +353,9 @@
             android:textSize="@dimen/_12sp"
             android:text="@string/University"
             android:padding="@dimen/_10sp"
+            android:id="@+id/university"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
@@ -349,16 +363,17 @@
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
             android:text="@string/Real_estates"
+            android:id="@+id/real_estate"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_15dp"
+        android:layout_marginBottom="@dimen/_35dp"
         android:weightSum="2"
         android:layout_marginStart="@dimen/_15dp"
         android:layout_marginEnd="@dimen/_15dp"
@@ -370,9 +385,10 @@
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
             android:text="@string/politics"
+            android:id="@+id/politics"
             android:padding="@dimen/_10sp"
             android:layout_marginEnd="@dimen/_20dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
@@ -380,11 +396,15 @@
             android:textColor="@color/orange"
             android:textSize="@dimen/_12sp"
             android:text="@string/movies"
+            android:id="@+id/movies"
             android:padding="@dimen/_10sp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:background="@drawable/bordr_text"
+            android:background="@drawable/discussions_text_bg"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-</LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

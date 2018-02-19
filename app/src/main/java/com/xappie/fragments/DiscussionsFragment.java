@@ -53,6 +53,56 @@ public class DiscussionsFragment extends Fragment {
     TextView tv_notifications_icon;
     @BindView(R.id.tv_language_icon)
     TextView tv_language_icon;
+    @BindView(R.id.tv_ready)
+    TextView tv_ready;
+    @BindView(R.id.tv_swipe)
+    TextView tv_swipe;
+    @BindView(R.id.tv_one_place)
+    TextView tv_one_place;
+    @BindView(R.id.tv_selected)
+    TextView tv_selected;
+    @BindView(R.id.tv_topics)
+    TextView tv_topics;
+    @BindView(R.id.tv_trending)
+    TextView tv_trending;
+    @BindView(R.id.tv_new)
+    TextView tv_new;
+    @BindView(R.id.tv_pinned)
+    TextView tv_pinned;
+    @BindView(R.id.tv_coming_soon)
+    TextView tv_coming_soon;
+    @BindView(R.id.first_time)
+    TextView first_time;
+    @BindView(R.id.sports)
+    TextView sports;
+    @BindView(R.id.place_to_visit)
+    TextView place_to_visit;
+    @BindView(R.id.crypto_currency)
+    TextView crypto_currency;
+    @BindView(R.id.residential)
+    TextView residential;
+    @BindView(R.id.stock_market)
+    TextView stock_market;
+    @BindView(R.id.schools)
+    TextView schools;
+    @BindView(R.id.health)
+    TextView health;
+    @BindView(R.id.immigration)
+    TextView immigration;
+    @BindView(R.id.kids_talent)
+    TextView kids_talent;
+    @BindView(R.id.travel_companion)
+    TextView travel_companion;
+    @BindView(R.id.cuisines)
+    TextView cuisines;
+    @BindView(R.id.university)
+    TextView university;
+    @BindView(R.id.real_estate)
+    TextView real_estate;
+    @BindView(R.id.politics)
+    TextView politics;
+    @BindView(R.id.movies)
+    TextView movies;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
@@ -111,6 +161,32 @@ public class DiscussionsFragment extends Fragment {
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
+
+        tv_selected.setTypeface(Utility.getOpenSansLight(mParent));
+        tv_ready.setTypeface(Utility.getOpenSansLight(mParent));
+        tv_swipe.setTypeface(Utility.getOpenSansLight(mParent));
+        tv_one_place.setTypeface(Utility.getOpenSansLight(mParent));
+        tv_coming_soon.setTypeface(mTypefaceOpenSansRegular);
+        movies.setTypeface(mTypefaceOpenSansRegular);
+        university.setTypeface(mTypefaceOpenSansRegular);
+        cuisines.setTypeface(mTypefaceOpenSansRegular);
+        travel_companion.setTypeface(mTypefaceOpenSansRegular);
+        kids_talent.setTypeface(mTypefaceOpenSansRegular);
+        immigration.setTypeface(mTypefaceOpenSansRegular);
+        health.setTypeface(mTypefaceOpenSansRegular);
+        stock_market.setTypeface(mTypefaceOpenSansRegular);
+        residential.setTypeface(mTypefaceOpenSansRegular);
+        real_estate.setTypeface(mTypefaceOpenSansRegular);
+        crypto_currency.setTypeface(mTypefaceOpenSansRegular);
+        place_to_visit.setTypeface(mTypefaceOpenSansRegular);
+        sports.setTypeface(mTypefaceOpenSansRegular);
+        schools.setTypeface(mTypefaceOpenSansRegular);
+        first_time.setTypeface(mTypefaceOpenSansRegular);
+        tv_pinned.setTypeface(mTypefaceOpenSansRegular);
+        tv_topics.setTypeface(mTypefaceOpenSansRegular);
+        tv_trending.setTypeface(mTypefaceOpenSansRegular);
+        tv_new.setTypeface(mTypefaceOpenSansRegular);
+        politics.setTypeface(mTypefaceOpenSansRegular);
 
         setGridViewData();
     }

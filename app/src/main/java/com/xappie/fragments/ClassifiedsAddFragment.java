@@ -96,6 +96,8 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     EditText edt_address;
     @BindView(R.id.edt_upload_image)
     EditText edt_upload_image;
+    @BindView(R.id.edt_website)
+    EditText edt_website;
 
     @BindView(R.id.btn_submit)
     Button btn_submit;
@@ -182,6 +184,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         edt_name.setTypeface(mTypefaceOpenSansRegular);
         edt_mobile.setTypeface(mTypefaceOpenSansRegular);
         edt_email.setTypeface(mTypefaceOpenSansRegular);
+        edt_website.setTypeface(mTypefaceOpenSansRegular);
         edt_address.setTypeface(mTypefaceOpenSansRegular);
         edt_upload_image.setTypeface(mTypefaceOpenSansRegular);
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
@@ -240,6 +243,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             edt_mobile.setText(classifiedsModel.getMobile());
             edt_email.setText(classifiedsModel.getEmail());
             edt_address.setText(classifiedsModel.getAddress());
+            edt_website.setText(classifiedsModel.getWebsite());
             updateEditUi();
         }
     }
@@ -332,6 +336,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         builder.addFormDataPart("price", edt_cost.getText().toString());
         builder.addFormDataPart("name", edt_name.getText().toString());
         builder.addFormDataPart("mobile", edt_mobile.getText().toString());
+        builder.addFormDataPart("website", edt_website.getText().toString());
         builder.addFormDataPart("email", edt_email.getText().toString());
         builder.addFormDataPart("address", edt_address.getText().toString());
         builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
@@ -397,6 +402,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         builder.addFormDataPart("price", edt_cost.getText().toString());
         builder.addFormDataPart("name", edt_name.getText().toString());
         builder.addFormDataPart("mobile", edt_mobile.getText().toString());
+        builder.addFormDataPart("website", edt_website.getText().toString());
         builder.addFormDataPart("email", edt_email.getText().toString());
         builder.addFormDataPart("address", edt_address.getText().toString());
         builder.addFormDataPart("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
@@ -473,7 +479,11 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             Utility.setSnackBar(mParent, edt_email, "Please Enter Email");
             edt_email.requestFocus();
             isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_address.getText().toString())) {
+        } else if (Utility.isValueNullOrEmpty(edt_website.getText().toString())) {
+            Utility.setSnackBar(mParent, edt_website, "Please Enter website");
+            edt_website.requestFocus();
+            isValid = false;
+        }else if (Utility.isValueNullOrEmpty(edt_address.getText().toString())) {
             Utility.setSnackBar(mParent, edt_address, "Please Enter Address");
             edt_address.requestFocus();
             isValid = false;
@@ -569,6 +579,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         edt_name.setText("");
         edt_email.setText("");
         edt_mobile.setText("");
+        edt_website.setText("");
         edt_address.setText("");
         ll_images_layout.removeAllViews();
     }

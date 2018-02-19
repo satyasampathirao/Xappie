@@ -12,7 +12,9 @@
 
     <color name="white">#ffffff</color>
     <color name="light_gray">#c2c2c2</color>
+    <color name="light_view_gray">#FBFBFB</color>
     <color name="very_light_gray">#FCFCFC</color>
+    <color name="very_light_white">#F5F5F5</color>
     <color name="dark_gray">#808c8c8c</color>
     <color name="light_white">#F1F1F1</color>
     <color name="color_black">#000000</color>

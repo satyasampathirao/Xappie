@@ -15,7 +15,7 @@
             android:background="@color/colorAccent"
             android:gravity="center"
             android:minHeight="@dimen/_50dp"
-            android:text="@string/privacy_policy"
+            android:text="@string/privacy"
             android:textColor="@color/white"
             android:textSize="@dimen/_18sp"
             android:textStyle="bold" />
@@ -33,6 +33,6 @@
             android:paddingTop="@dimen/_10dp"
             android:text="@string/privacy_policy_data"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/_20sp" />
+            android:textSize="@dimen/_15sp" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

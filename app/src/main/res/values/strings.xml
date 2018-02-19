@@ -43,10 +43,12 @@
     <string name="trouble_getting_in">Trouble getting in ?</string>
     <string name="show">Show</string>
     <string name="check_icon">&#xE5CA;</string>
-    <string name="by_logging_agree">By Logging in you agree to our" "</string>
-    <string name="t_c"><![CDATA[T&C]]></string>
-    <string name="and"> " "and</string>
-    <string name="privacy_policy"> " "Privacy Policy</string>
+    <string name="by_logging_agree">By Logging in, you agree to our" "</string>
+    <string name="by_signing_up">By Signing up, you agree to our" "</string>
+    <string name="t_c"><![CDATA[Terms & Conditions]]></string>
+    <string name="and"> " "&amp; </string>
+    <string name="privacy_policy"> <![CDATA[& Privacy Policy]]></string>
+    <string name="privacy">Privacy Policy</string>
     <string name="or_sign_social">Or, Sign in with your Social accounts</string>
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
@@ -268,7 +270,7 @@
     <string name="all_classifieds">ALL CLASSIFIEDS</string>
     <string name="add_classified">ADD CLASSIFIED</string>
     <string name="my_classifieds">MY CLASSIFIEDS</string>
-    <string name="contact_details">Contact Details</string>
+    <string name="contact_details"> - Contact Details - </string>
     <string name="name">Name</string>
     <string name="no_jobs_found">No Jobs Found</string>
     <string name="custom_notification">Custom Notification</string>
@@ -348,7 +350,7 @@
     <string name="tickets">Tickets</string>
     <string name="facebook_icon">&#xf082;</string>
     <string name="sliders">&#xf1de;</string>
-    <string name="topics">topics</string>
+    <string name="topics">Topics</string>
     <string name="pinned">Pinned</string>
     <string name="_new">New</string>
     <string name="trending">Trending</string>

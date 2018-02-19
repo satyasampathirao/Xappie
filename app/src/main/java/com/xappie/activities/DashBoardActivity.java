@@ -645,28 +645,28 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
 
                             break;
                         case 1:
-                            Utility.navigateDashBoardFragment(new DiscussionsFragment(), DiscussionsFragment.TAG, null, DashBoardActivity.this);
+                            Utility.navigateDashBoardFragment(new JobsFragment(), JobsFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 2:
-                            Utility.navigateDashBoardFragment(new EntertainmentFragment(), EntertainmentFragment.TAG, null, DashBoardActivity.this);
-                            break;
-                        case 3:
-                            Utility.navigateDashBoardFragment(new TopStoriesFragment(), TopStoriesFragment.TAG, null, DashBoardActivity.this);
-                            break;
-                        case 4:
-                            Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
-                            break;
-                        case 5:
-                            Utility.navigateDashBoardFragment(new VideosFragment(), VideosFragment.TAG, null, DashBoardActivity.this);
-                            break;
-                        case 6:
-                            Utility.navigateDashBoardFragment(new EventsFragment(), EventsFragment.TAG, null, DashBoardActivity.this);
-                            break;
-                        case 7:
                             Utility.navigateDashBoardFragment(new ClassifiedsFragment(), ClassifiedsFragment.TAG, null, DashBoardActivity.this);
                             break;
+                        case 3:
+                            Utility.navigateDashBoardFragment(new EventsFragment(), EventsFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 4:
+                            Utility.navigateDashBoardFragment(new VideosFragment(), VideosFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 5:
+                            Utility.navigateDashBoardFragment(new GalleryFragment(), GalleryFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 6:
+                            Utility.navigateDashBoardFragment(new TopStoriesFragment(), TopStoriesFragment.TAG, null, DashBoardActivity.this);
+                            break;
+                        case 7:
+                            Utility.navigateDashBoardFragment(new EntertainmentFragment(), EntertainmentFragment.TAG, null, DashBoardActivity.this);
+                            break;
                         case 8:
-                            Utility.navigateDashBoardFragment(new JobsFragment(), JobsFragment.TAG, null, DashBoardActivity.this);
+                            Utility.navigateDashBoardFragment(new DiscussionsFragment(), DiscussionsFragment.TAG, null, DashBoardActivity.this);
                             break;
                         case 9:
                             break;
@@ -681,14 +681,15 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
     private ArrayList<String> getTabNames() {
         ArrayList<String> mTabNames = new ArrayList<>();
         mTabNames.add(Utility.getResourcesString(this, R.string.home).toUpperCase());
-        mTabNames.add(Utility.getResourcesString(this, R.string.discussions).toUpperCase());
-        mTabNames.add(Utility.getResourcesString(this, R.string.entertainment).toUpperCase());
-        mTabNames.add(Utility.getResourcesString(this, R.string.top_stories).toUpperCase());
-        mTabNames.add(Utility.getResourcesString(this, R.string.gallery).toUpperCase());
-        mTabNames.add(Utility.getResourcesString(this, R.string.videos).toUpperCase());
-        mTabNames.add(Utility.getResourcesString(this, R.string.events).toUpperCase());
-        mTabNames.add(Utility.getResourcesString(this, R.string.classifieds).toUpperCase());
         mTabNames.add(Utility.getResourcesString(this, R.string.jobs).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.classifieds).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.events).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.videos).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.gallery).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.top_stories).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.entertainment).toUpperCase());
+        mTabNames.add(Utility.getResourcesString(this, R.string.discussions).toUpperCase());
+
         return mTabNames;
     }
 

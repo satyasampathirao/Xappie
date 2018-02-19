@@ -103,8 +103,6 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     TextView tv_by_logging_agree;
     @BindView(R.id.tv_t_c)
     TextView tv_t_c;
-    @BindView(R.id.tv_and)
-    TextView tv_and;
     @BindView(R.id.tv_privacy)
     TextView tv_privacy;
     @BindView(R.id.tv_or_sign_social)
@@ -147,7 +145,6 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         chb_sign_up.setTypeface(Utility.getOpenSansRegular(this));
         tv_by_logging_agree.setTypeface(Utility.getOpenSansRegular(this));
         tv_t_c.setTypeface(Utility.getOpenSansRegular(this));
-        tv_and.setTypeface(Utility.getOpenSansRegular(this));
         tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
         tv_or_sign_social.setTypeface(Utility.getOpenSansRegular(this));
 

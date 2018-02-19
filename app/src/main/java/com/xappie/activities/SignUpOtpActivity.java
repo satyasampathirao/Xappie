@@ -61,8 +61,6 @@ public class SignUpOtpActivity extends BaseActivity implements IAsyncCaller {
     TextView tv_by_logging_agree;
     @BindView(R.id.tv_t_c)
     TextView tv_t_c;
-    @BindView(R.id.tv_and)
-    TextView tv_and;
     @BindView(R.id.tv_privacy)
     TextView tv_privacy;
 
@@ -100,7 +98,6 @@ public class SignUpOtpActivity extends BaseActivity implements IAsyncCaller {
         radio_button_female.setTypeface(Utility.getOpenSansRegular(this));
         tv_by_logging_agree.setTypeface(Utility.getOpenSansRegular(this));
         tv_t_c.setTypeface(Utility.getOpenSansRegular(this));
-        tv_and.setTypeface(Utility.getOpenSansRegular(this));
         tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
 
         intent = getIntent();

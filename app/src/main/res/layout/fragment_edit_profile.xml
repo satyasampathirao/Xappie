@@ -126,7 +126,7 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:background="@drawable/gray_round_border"
                 android:gravity="center_vertical"
-                android:hint="@string/ravi_email"
+                android:hint=""
                 android:paddingEnd="@dimen/_20dp"
                 android:paddingStart="@dimen/_20dp"
                 android:textSize="@dimen/_15sp" />
