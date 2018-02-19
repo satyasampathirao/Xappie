@@ -15,7 +15,8 @@ public class APIConstants {
 
     public static String ERROR_MESSAGE = "We could not process your request at this time. Please try again later.";
 
-    public static String BASE_URL = "http://test.xappie.com/api/";
+    //public static String BASE_URL = "http://test.xappie.com/api/";
+    public static String BASE_URL = "http://xappie.com/api/";
     public static String GET_LANGUAGES = BASE_URL + "get_languages";
     public static String GET_COUNTRIES = BASE_URL + "get_countries";
     public static String GET_STATES = BASE_URL + "get_states";
