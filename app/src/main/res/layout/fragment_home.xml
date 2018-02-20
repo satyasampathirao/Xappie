@@ -134,7 +134,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/ads_pager"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_95dp"
+                android:layout_height="@dimen/_100dp"
                 android:layout_marginStart="@dimen/_10dp"
                 android:background="@android:color/white" />
 

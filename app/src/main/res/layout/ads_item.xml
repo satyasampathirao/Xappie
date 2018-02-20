@@ -7,9 +7,9 @@
 
     <ImageView
         android:id="@+id/img_ad_image"
-        android:layout_width="@dimen/_155dp"
-        android:layout_height="@dimen/_85dp"
-        android:scaleType="centerCrop"
+        android:layout_width="@dimen/_160dp"
+        android:layout_height="@dimen/_90dp"
+        android:scaleType="fitXY"
         android:src="@drawable/ads" />
 
 </LinearLayout>

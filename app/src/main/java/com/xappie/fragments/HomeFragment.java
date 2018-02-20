@@ -388,7 +388,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put(Constants.PAGE_NO, "1");
-            linkedHashMap.put(Constants.PAGE_SIZE, "7");
+            linkedHashMap.put(Constants.PAGE_SIZE, "10");
             linkedHashMap.put("modules", "ads,banners," + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS) + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS));
             linkedHashMap.put("country", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_COUNTRY_ID));
             linkedHashMap.put("state", Utility.getSharedPrefStringData(mParent, Constants.SELECTED_STATE_ID));
@@ -896,7 +896,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 hs_events.setVisibility(View.VISIBLE);
                 hs_events_inner_layout.setVisibility(View.VISIBLE);
 
-                for (int i = 0; i < mHomePageEventsAdsBannersModel.getEventsModels().size() && i < 7; i++) {
+                for (int i = 0; i < mHomePageEventsAdsBannersModel.getEventsModels().size() && i < 10; i++) {
 
                     RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.events_item, null);
                     LinearLayout view = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.view, null);
@@ -960,7 +960,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                 hs_classifieds.setVisibility(View.VISIBLE);
                 hs_classifieds_inner_layout.setVisibility(View.VISIBLE);
 
-                for (int i = 0; i < mHomePageEventsAdsBannersModel.getClassifiedsModel().size() && i < 7; i++) {
+                for (int i = 0; i < mHomePageEventsAdsBannersModel.getClassifiedsModel().size() && i < 10; i++) {
 
                     RelativeLayout ll = (RelativeLayout) mParent.getLayoutInflater().inflate(R.layout.classfields_item, null);
                     LinearLayout view = (LinearLayout) mParent.getLayoutInflater().inflate(R.layout.view, null);
