@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/add_new_event_gray"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/_5dp">
 
@@ -19,10 +19,10 @@
                 android:id="@+id/edt_job_title"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:hint="@string/job_title"
                 android:imeOptions="actionNext"
@@ -30,18 +30,24 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
                 android:textSize="@dimen/_15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_no_of_positions"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:hint="@string/_no_of_positions"
                 android:imeOptions="actionNext"
@@ -51,18 +57,24 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
                 android:textSize="@dimen/_15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_job_role"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:hint="@string/job_role"
                 android:imeOptions="actionNext"
@@ -70,18 +82,24 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
                 android:textSize="@dimen/_15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_company_name"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:hint="@string/_company_name"
                 android:imeOptions="actionNext"
@@ -89,17 +107,23 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
                 android:textSize="@dimen/_15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_10dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -107,8 +131,8 @@
                     android:id="@+id/edt_company_logo"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.6"
-                    android:background="@drawable/white_corners"
+                    android:layout_weight="0.9"
+                    android:background="@android:color/transparent"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:hint="@string/company_logo"
@@ -116,28 +140,36 @@
                     android:paddingEnd="@dimen/_10dp"
                     android:paddingLeft="@dimen/_10dp"
                     android:paddingRight="@dimen/_10dp"
-                    android:paddingStart="@dimen/_10dp"
+                    android:paddingStart="@dimen/_2dp"
                     android:textSize="@dimen/_15sp" />
 
-                <Button
+                <TextView
                     android:id="@+id/btn_upload"
                     android:layout_width="@dimen/_0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.4"
-                    android:background="@drawable/red_rectangular_bg"
-                    android:text="@string/upload"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:textSize="@dimen/_24sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/red_corners_dark"
+                    android:text="@string/upload_icon"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
             <EditText
                 android:id="@+id/edt_website"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:hint="@string/_website"
                 android:imeOptions="actionNext"
@@ -145,7 +177,7 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
                 android:textSize="@dimen/_15sp"
                 android:visibility="gone" />
@@ -193,10 +225,10 @@
                 android:id="@+id/edt_job_location"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:hint="@string/_job_location"
                 android:imeOptions="actionNext"
@@ -204,18 +236,24 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
                 android:textSize="@dimen/_15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_job_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:gravity="top"
                 android:hint="@string/job_description"
@@ -225,10 +263,15 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:paddingTop="@dimen/_10dp"
                 android:textSize="@dimen/_15sp" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <TextView
                 android:id="@+id/tv_mention_publish_date"
@@ -236,31 +279,64 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_30dp"
                 android:layout_marginTop="@dimen/_5dp"
+                android:visibility="gone"
                 android:text="@string/mention_publish_date" />
+            <EditText
+                android:id="@+id/edt_job_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
+                android:layout_marginTop="@dimen/_15dp"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:hint="@string/address"
+                android:imeOptions="actionNext"
+                android:maxLines="3"
+                android:minHeight="@dimen/_100dp"
+                android:paddingEnd="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
+                android:paddingTop="@dimen/_10dp"
+                android:textSize="@dimen/_15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/et_job_category"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
-                android:background="@drawable/white_corners"
-                android:drawableEnd="@drawable/drop_down_arrow"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/drop_down_color_arrow"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:hint="@string/job_category"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:textSize="@dimen/_15sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <TextView
                 android:id="@+id/tv_resume_required"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_15dp"
                 android:text="@string/resume_required"
                 android:textSize="@dimen/_14sp" />
@@ -270,7 +346,7 @@
                 android:id="@+id/radio_group_resume"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:orientation="vertical">
 
                 <RadioButton
@@ -294,35 +370,43 @@
                 android:id="@+id/edt_yes_email"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50dp"
-                android:layout_marginEnd="@dimen/_20dp"
-                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_10dp"
-                android:background="@drawable/white_corners"
+                android:background="@android:color/transparent"
                 android:hint="@string/email"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
                 android:textSize="@dimen/_15sp"
                 android:visibility="gone" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:id="@+id/view_email"
+                android:visibility="gone"
+                android:background="@color/light_gray" />
 
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="@dimen/_200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_35dp"
                 android:layout_marginStart="@dimen/_20dp"
                 android:layout_marginTop="@dimen/_20dp"
-                android:background="@drawable/red_corners_dark"
+                android:background="@drawable/home_page_border"
                 android:gravity="center"
                 android:text="@string/submit"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_16sp" />
 
         </LinearLayout>
 

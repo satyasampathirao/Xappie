@@ -75,7 +75,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
     @BindView(R.id.edt_company_logo)
     EditText edt_company_logo;
     @BindView(R.id.btn_upload)
-    Button btn_upload;
+    TextView btn_upload;
     @BindView(R.id.edt_website)
     EditText edt_website;
     @BindView(R.id.edt_eligibility)
@@ -101,6 +101,10 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
     RadioButton rb_no_send;
     @BindView(R.id.edt_yes_email)
     EditText edt_yes_email;
+    @BindView(R.id.edt_job_address)
+    EditText edt_job_address;
+    @BindView(R.id.view_email)
+    View view_email;
 
     @BindView(R.id.btn_submit)
     Button btn_submit;
@@ -168,9 +172,10 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         edt_job_description.setTypeface(mTypefaceOpenSansRegular);
         edt_job_location.setTypeface(mTypefaceOpenSansRegular);
         edt_no_of_positions.setTypeface(mTypefaceOpenSansRegular);
+        edt_job_address.setTypeface(mTypefaceOpenSansRegular);
         edt_website.setTypeface(mTypefaceOpenSansRegular);
         edt_job_role.setTypeface(mTypefaceOpenSansRegular);
-        btn_upload.setTypeface(mTypefaceOpenSansRegular);
+        btn_upload.setTypeface(Utility.getMaterialIconsRegular(mParent));
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
         rb_no_send.setTypeface(mTypefaceOpenSansRegular);
         rb_yes_send.setTypeface(mTypefaceOpenSansRegular);
@@ -182,8 +187,10 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     edt_yes_email.setVisibility(View.VISIBLE);
+                    view_email.setVisibility(View.VISIBLE);
                 } else {
                     edt_yes_email.setVisibility(View.GONE);
+                    view_email.setVisibility(View.GONE);
                 }
             }
         });
@@ -261,6 +268,9 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         } else if (Utility.isValueNullOrEmpty(edt_job_description.getText().toString().trim())) {
             Utility.setSnackBar(mParent, edt_job_description, "Please Job Description");
             edt_job_description.requestFocus();
+        }  else if (Utility.isValueNullOrEmpty(edt_job_address.getText().toString().trim())) {
+            Utility.setSnackBar(mParent, edt_job_address, "Please Job Address");
+            edt_job_address.requestFocus();
         } else if (Utility.isValueNullOrEmpty(et_job_category.getText().toString().trim())) {
             Utility.setSnackBar(mParent, et_job_category, "Please Select Category");
             et_job_category.requestFocus();
@@ -315,8 +325,9 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         builder.addFormDataPart("eligible", edt_eligibility.getText().toString());
         //paramMap.put("exp", edt_experience.getText().toString());
         builder.addFormDataPart("description", edt_job_description.getText().toString());
+        builder.addFormDataPart("address", edt_job_address.getText().toString());
         builder.addFormDataPart("category", getCategoryId(et_job_category.getText().toString()));
-        builder.addFormDataPart("address", edt_job_location.getText().toString());
+        builder.addFormDataPart("city_name", edt_job_location.getText().toString());
 
         if (rb_yes_send.isChecked()) {
             builder.addFormDataPart("resume", "1");
@@ -353,7 +364,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
                 customProgressDialog.dismissProgress();
                 String jsonData = response.body().string();
                 Utility.showLog("jsondata", "" + jsonData);
-                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                Utility.showToastMessage(mParent, "Your job is uploaded successfully and is in pending for Approval");
                 mParent.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -386,8 +397,9 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         builder.addFormDataPart("eligible", edt_eligibility.getText().toString());
         //paramMap.put("exp", edt_experience.getText().toString());
         builder.addFormDataPart("description", edt_job_description.getText().toString());
+        builder.addFormDataPart("address", edt_job_address.getText().toString());
         builder.addFormDataPart("category", getCategoryId(et_job_category.getText().toString()));
-        builder.addFormDataPart("address", edt_job_location.getText().toString());
+        builder.addFormDataPart("city_name", edt_job_location.getText().toString());
 
         if (rb_yes_send.isChecked()) {
             builder.addFormDataPart("resume", "1");
@@ -424,7 +436,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
                 customProgressDialog.dismissProgress();
                 String jsonData = response.body().string();
                 Utility.showLog("jsondata", "" + jsonData);
-                Utility.showToastMessage(mParent, "Your event is uploaded successfully and is in pending for Approval");
+                Utility.showToastMessage(mParent, "Your job is uploaded successfully and is in pending for Approval");
                 mParent.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -602,6 +614,7 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
         edt_job_role.setText("");
         edt_job_location.setText("");
         edt_job_description.setText("");
+        edt_job_address.setText("");
         edt_company_name.setText("");
         edt_company_logo.setText("");
     }
@@ -612,7 +625,8 @@ public class PostJobFragment extends Fragment implements IAsyncCaller, IUpdateSe
             edt_company_logo.setText(jobsModel.getCompany_logo());
             edt_company_name.setText(jobsModel.getCompany());
             edt_job_description.setText(jobsModel.getDescription());
-            edt_job_location.setText(jobsModel.getAddress());
+            edt_job_address.setText(jobsModel.getAddress());
+            edt_job_location.setText(jobsModel.getCity_name());
             edt_job_role.setText(jobsModel.getRole());
             edt_no_of_positions.setText(jobsModel.getPositions());
             edt_job_title.setText(jobsModel.getTitle());

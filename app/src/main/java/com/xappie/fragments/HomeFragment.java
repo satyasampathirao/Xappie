@@ -214,6 +214,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     LinearLayout ll_no_data_event;
     @BindView(R.id.tv_no_data_event)
     TextView tv_no_data_event;
+    @BindView(R.id.tv_no_data_event_icon)
+    TextView tv_no_data_event_icon;
 
     /**
      * Classifieds View Ids
@@ -240,8 +242,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
 
     @BindView(R.id.ll_no_data_classified)
     LinearLayout ll_no_data_classified;
-    @BindView(R.id.tv_no_data_classified)
+    @BindView(R.id.tv_no_data_classifieds)
     TextView tv_no_data_classified;
+    @BindView(R.id.tv_no_data_classifieds_icon)
+    TextView tv_no_data_classifieds_icon;
 
     /**
      * Jobs View Ids
@@ -267,6 +271,8 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     LinearLayout ll_no_data_jobs;
     @BindView(R.id.tv_no_data_jobs)
     TextView tv_no_data_jobs;
+    @BindView(R.id.tv_no_data_jobs_icon)
+    TextView tv_no_data_jobs_icon;
 
 
     private LanguageListModel mLanguageListModel;
@@ -654,6 +660,12 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
         tv_jobs.setTypeface(Utility.getOpenSansBold(mParent));
         tv_jobs.setText(tv_jobs.getText().toString().toUpperCase());
         tv_jobs_more.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_no_data_event_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_no_data_classifieds_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_no_data_jobs_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_no_data_event.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_no_data_classified.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_no_data_jobs.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
     private void setAdsData() {
@@ -886,10 +898,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
     }
 
     private void setDataToEvents() {
+        setEventsFilters();
         if (mHomePageEventsAdsBannersModel != null
                 && mHomePageEventsAdsBannersModel.getEventsModels() != null
                 && mHomePageEventsAdsBannersModel.getEventsModels().size() > 0) {
-            setEventsFilters();
             ll_events.removeAllViews();
             if (mHomePageEventsAdsBannersModel.getEventsModels().size() > 0) {
                 rl_events_heading.setVisibility(View.VISIBLE);
@@ -941,19 +953,20 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_events_inner_layout.setVisibility(View.VISIBLE);
             ll_events.setVisibility(View.VISIBLE);
         } else {
-            rl_events_heading.setVisibility(View.GONE);
-            hs_events.setVisibility(View.GONE);
+            rl_events_heading.setVisibility(View.VISIBLE);
+            hs_events.setVisibility(View.VISIBLE);
             hs_events_inner_layout.setVisibility(View.GONE);
             ll_events.setVisibility(View.GONE);
+            ll_no_data_event.setVisibility(View.VISIBLE);
         }
     }
 
 
     private void setDataToClassifieds() {
+        setClassifiedFilters();
         if (mHomePageEventsAdsBannersModel != null
                 && mHomePageEventsAdsBannersModel.getClassifiedsModel() != null
                 && mHomePageEventsAdsBannersModel.getClassifiedsModel().size() > 0) {
-            setClassifiedFilters();
             ll_classifieds.removeAllViews();
             if (mHomePageEventsAdsBannersModel.getClassifiedsModel().size() > 0) {
                 rl_classifieds_heading.setVisibility(View.VISIBLE);
@@ -1027,18 +1040,19 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_classifieds_inner_layout.setVisibility(View.VISIBLE);
             ll_classifieds.setVisibility(View.VISIBLE);
         } else {
-            rl_classifieds_heading.setVisibility(View.GONE);
-            hs_classifieds.setVisibility(View.GONE);
+            rl_classifieds_heading.setVisibility(View.VISIBLE);
+            hs_classifieds.setVisibility(View.VISIBLE);
             hs_classifieds_inner_layout.setVisibility(View.GONE);
             ll_classifieds.setVisibility(View.GONE);
+            ll_no_data_classified.setVisibility(View.VISIBLE);
         }
     }
 
     private void setDataToJobs() {
+        setJobsFilters();
         if (mHomePageEventsAdsBannersModel != null
                 && mHomePageEventsAdsBannersModel.getJobsModels() != null
                 && mHomePageEventsAdsBannersModel.getJobsModels().size() > 0) {
-            setJobsFilters();
             ll_jobs.removeAllViews();
             if (mHomePageEventsAdsBannersModel.getJobsModels().size() > 0) {
                 rl_jobs.setVisibility(View.VISIBLE);
@@ -1095,9 +1109,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_jobs.setVisibility(View.VISIBLE);
             ll_jobs.setVisibility(View.VISIBLE);
         } else {
-            rl_jobs.setVisibility(View.GONE);
-            hs_jobs.setVisibility(View.GONE);
+            rl_jobs.setVisibility(View.VISIBLE);
+            hs_jobs.setVisibility(View.VISIBLE);
             ll_jobs.setVisibility(View.GONE);
+            ll_no_data_jobs.setVisibility(View.VISIBLE);
         }
     }
 

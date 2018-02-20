@@ -37,7 +37,7 @@
         android:layout_marginStart="@dimen/_10dp"
         android:gravity="center"
         android:text="@string/done_icon"
-        android:textColor="@color/dialogAccept"
+        android:textColor="@color/orange"
         android:textSize="@dimen/_20sp" />
 
 </LinearLayout>

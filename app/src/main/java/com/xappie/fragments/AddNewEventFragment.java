@@ -116,7 +116,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
     @BindView(R.id.btn_submit)
     Button btn_submit;
     @BindView(R.id.btn_upload)
-    Button btn_upload;
+    TextView btn_upload;
 
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceOpenSansBold;
@@ -186,7 +186,7 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         edt_address.setTypeface(mTypefaceOpenSansRegular);
 
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
-        btn_upload.setTypeface(mTypefaceOpenSansRegular);
+        btn_upload.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         if (!Utility.isValueNullOrEmpty(mID)) {
             btn_submit.setText("Update");

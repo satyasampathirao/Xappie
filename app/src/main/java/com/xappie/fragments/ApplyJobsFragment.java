@@ -54,7 +54,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
     private View rootView;
     private EditText et_cover_letter;
     private EditText edt_upload_resume;
-    private Button btn_upload;
+    private TextView btn_upload;
     private Button bt_apply;
 
     private String id = "";
@@ -121,7 +121,7 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.jobs));
+        tv_title.setText(Utility.getResourcesString(mParent, R.string.apply_job));
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -138,8 +138,9 @@ public class ApplyJobsFragment extends Fragment implements View.OnClickListener,
             ll_upload_resume.setVisibility(View.VISIBLE);
         }
 
-        btn_upload = (Button) rootView.findViewById(R.id.btn_upload);
+        btn_upload = (TextView) rootView.findViewById(R.id.btn_upload);
         bt_apply = (Button) rootView.findViewById(R.id.btn_apply);
+        btn_upload.setTypeface(Utility.getMaterialIconsRegular(mParent));
         btn_upload.setOnClickListener(this);
         bt_apply.setOnClickListener(this);
     }

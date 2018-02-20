@@ -102,7 +102,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     @BindView(R.id.btn_submit)
     Button btn_submit;
     @BindView(R.id.btn_upload)
-    Button btn_upload;
+    TextView btn_upload;
 
     @BindView(R.id.ll_images_layout)
     LinearLayout ll_images_layout;
@@ -179,7 +179,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         edt_description.setTypeface(mTypefaceOpenSansRegular);
         edt_cost.setTypeface(mTypefaceOpenSansRegular);
 
-        tv_contact_details.setTypeface(mTypefaceOpenSansRegular);
+        tv_contact_details.setTypeface(mTypefaceOpenSansBold);
 
         edt_name.setTypeface(mTypefaceOpenSansRegular);
         edt_mobile.setTypeface(mTypefaceOpenSansRegular);
@@ -188,7 +188,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
         edt_address.setTypeface(mTypefaceOpenSansRegular);
         edt_upload_image.setTypeface(mTypefaceOpenSansRegular);
         btn_submit.setTypeface(mTypefaceOpenSansRegular);
-        btn_upload.setTypeface(mTypefaceOpenSansRegular);
+        btn_upload.setTypeface(mTypefacematerialRegular);
 
         if (!Utility.isValueNullOrEmpty(mID)) {
             btn_submit.setText("Update");

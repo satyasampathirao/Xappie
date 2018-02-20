@@ -39,7 +39,6 @@
         android:layout_marginTop="@dimen/_20dp"
         android:layout_marginStart="@dimen/_20sp"
         android:weightSum="4"
-        android:background="@drawable/gray_round_border"
         android:layout_marginEnd="@dimen/_20sp"
         android:layout_height="wrap_content">
         <TextView

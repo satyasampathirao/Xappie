@@ -192,6 +192,8 @@
     <string name="my_posts">MY POSTS</string>
     <string name="jobs_applied">APPLIED JOBS</string>
     <string name="jobs_search">SEARCH JOBS</string>
+    <string name="upload_icon">&#xE2C3;</string>
+    <string name="no_events_icon">&#xE880;</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

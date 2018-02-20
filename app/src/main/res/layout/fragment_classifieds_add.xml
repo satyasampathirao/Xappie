@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
@@ -16,8 +17,8 @@
                 android:id="@+id/edt_title"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -28,23 +29,23 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_description"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -57,23 +58,22 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
-
-                android:textSize="@dimen/_18sp" />
+                android:paddingStart="@dimen/_2dp"
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_cost"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -85,26 +85,26 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_locality"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:background="@android:color/transparent"
-                android:drawableEnd="@drawable/drop_down_arrow"
+                android:drawableEnd="@drawable/drop_down_color_arrow"
                 android:ellipsize="end"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -116,22 +116,22 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:orientation="horizontal"
                 android:weightSum="1">
@@ -140,7 +140,7 @@
                     android:id="@+id/edt_upload_image"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.9"
                     android:background="@android:color/transparent"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
@@ -149,21 +149,28 @@
                     android:paddingEnd="@dimen/_10dp"
                     android:paddingLeft="@dimen/_10dp"
                     android:paddingRight="@dimen/_10dp"
-                    android:paddingStart="@dimen/_10dp"
-                    android:textSize="@dimen/_18sp" />
+                    android:paddingStart="@dimen/_2dp"
+                    android:textSize="@dimen/_15sp" />
 
-                <Button
+                <TextView
                     android:id="@+id/btn_upload"
                     android:layout_width="@dimen/_0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:background="@drawable/red_corners_dark"
-                    android:text="@string/upload"
-                    android:textAllCaps="false"
+                    android:text="@string/upload_icon"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_18sp" />
+                    android:textSize="@dimen/_24sp" />
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -194,15 +201,15 @@
                     android:paddingStart="@dimen/_10dp"
                     android:text="@string/contact_details"
                     android:textColor="@color/orange"
-                    android:textSize="@dimen/_18sp" />
+                    android:textSize="@dimen/_15sp" />
             </LinearLayout>
 
             <EditText
                 android:id="@+id/edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -213,23 +220,23 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -241,24 +248,24 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
 
             <EditText
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -269,22 +276,22 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
             <EditText
                 android:id="@+id/edt_website"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -296,23 +303,23 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <EditText
                 android:id="@+id/edt_address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100dp"
-                android:layout_marginEnd="@dimen/_12dp"
-                android:layout_marginStart="@dimen/_12dp"
+                android:layout_marginEnd="@dimen/_15dp"
+                android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
@@ -323,30 +330,30 @@
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_2dp"
                 android:singleLine="true"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_15sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1dp"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_marginRight="@dimen/_10dp"
-                android:background="@color/dark_gray" />
+                android:layout_height="@dimen/_0.5dp"
+                android:layout_marginLeft="@dimen/_15dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:background="@color/light_gray" />
 
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="@dimen/_200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_35dp"
                 android:layout_marginTop="@dimen/_18dp"
-                android:background="@drawable/red_corners_dark"
+                android:background="@drawable/home_page_border"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/submit"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_18sp" />
+                android:textSize="@dimen/_16sp" />
 
         </LinearLayout>
 
