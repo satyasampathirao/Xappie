@@ -68,11 +68,14 @@ public class FindJobsListAdapter extends BaseAdapter
             mClassifiedsListHolder.tv_pos = (TextView) convertView.findViewById(R.id.tv_pos);
             mClassifiedsListHolder.tv_company_name = (TextView) convertView.findViewById(R.id.tv_company_name);
             mClassifiedsListHolder.view = (View) convertView.findViewById(R.id.view_job);
+            mClassifiedsListHolder.tv_dots = convertView.findViewById(R.id.tv_dots);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_company_name.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_pos.setTypeface(Utility.getFontAwesomeWebFont(mDashBoardActivity));
+            mClassifiedsListHolder.tv_dots.setTypeface(Utility.getMaterialIconsRegular(mDashBoardActivity));
+            mClassifiedsListHolder.tv_dots.setVisibility(View.GONE);
             mClassifiedsListHolder.view.setVisibility(View.GONE);
 
             convertView.setTag(mClassifiedsListHolder);
@@ -125,6 +128,7 @@ public class FindJobsListAdapter extends BaseAdapter
         TextView tv_company_name;
         TextView tv_pos;
         ImageView img_logo;
+        TextView tv_dots;
         View view;
     }
 }

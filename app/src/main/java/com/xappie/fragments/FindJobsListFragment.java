@@ -54,6 +54,12 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
     LinearLayout ll_no_data;
     @BindView(R.id.ll_city_types)
     LinearLayout ll_city_types;
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
+    @BindView(R.id.tv_no_data_event_icon)
+    TextView tv_no_data_event_icon;
+    @BindView(R.id.tv_currently_no_events)
+    TextView tv_currently_no_events;
 
     private StatesListModel mStatesListModel;
 
@@ -114,6 +120,9 @@ public class FindJobsListFragment extends Fragment implements IAsyncCaller {
         stateModel = new StateModel();
         stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
         getCitiesList();
+        tv_currently_no_events.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_no_data_event_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_no_data.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
     private void setGridViewData() {

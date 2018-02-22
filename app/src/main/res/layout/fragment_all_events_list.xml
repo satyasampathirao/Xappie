@@ -42,20 +42,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/hs_types"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center|center_vertical"
+        android:layout_centerVertical="true"
         android:background="@color/white"
-        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/tv_no_data"
+            android:id="@+id/tv_no_data_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/no_events_found"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_25sp" />
+            android:textSize="@dimen/_14sp" />
+        <TextView
+            android:id="@+id/tv_no_data_event_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:textColor="#FFB48E"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/events_busy_icon"
+            android:textSize="@dimen/_70sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_currently_no_events"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_15dp"
+            android:layout_marginEnd="@dimen/_15dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:text="@string/currently_no_events"/>
 
     </LinearLayout>
 

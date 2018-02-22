@@ -489,6 +489,7 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
             tv_details.setText(eventsModel.getDescription());
         } else {
             tv_details.setVisibility(View.GONE);
+            tv_a_weekly_desi.setVisibility(View.GONE);
         }
         if (!Utility.isValueNullOrEmpty(eventsModel.getWebsite())) {
             tv_website_link.setText(eventsModel.getWebsite());

@@ -81,7 +81,7 @@ public class AllMyClassifiedsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_calendar_icon.setTypeface(mFontAwesome);
             mClassifiedsListHolder.tv_price_icon.setTypeface(mMaterialIcon);
             mClassifiedsListHolder.tv_dots.setTypeface(mMaterialIcon);
-            mClassifiedsListHolder.tv_dots.setVisibility(View.GONE);
+
 
 
             convertView.setTag(mClassifiedsListHolder);

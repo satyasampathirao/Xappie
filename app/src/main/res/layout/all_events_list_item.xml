@@ -74,9 +74,18 @@
                     android:textColor="@color/dark_gray"
                     android:textSize="@dimen/_10sp" />
             </LinearLayout>
-
-
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_25dp"
+            android:layout_gravity="center"
+            android:alpha="0.8"
+            android:text="@string/three_dots"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/_22sp" />
     </LinearLayout>
 </LinearLayout>

@@ -162,6 +162,14 @@ public class Utility {
     }
 
     /**
+     * OPEN SANS BOLD TYPEFACE
+     * This method is used to set the icons in Material Icons Regular
+     **/
+    public static Typeface getOpenSansItalic(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Italic.ttf");
+    }
+
+    /**
      * FOUNDATION ICONS TYPEFACE
      * This method is used to set the icons in Foundation Icons
      **/

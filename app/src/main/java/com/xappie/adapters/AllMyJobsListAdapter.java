@@ -65,10 +65,12 @@ public class AllMyJobsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_positions = convertView.findViewById(R.id.tv_positions);
             mClassifiedsListHolder.tv_company_name = convertView.findViewById(R.id.tv_company_name);
             mClassifiedsListHolder.tv_pos = convertView.findViewById(R.id.tv_pos);
+            mClassifiedsListHolder.tv_dots = convertView.findViewById(R.id.tv_dots);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansBoldTypeface);
             mClassifiedsListHolder.tv_positions.setTypeface(mOpenSansRegularTypeface);
             mClassifiedsListHolder.tv_company_name.setTypeface(mOpenSansRegularTypeface);
+            mClassifiedsListHolder.tv_dots.setTypeface(Utility.getMaterialIconsRegular(mDashBoardActivity));
 
             convertView.setTag(mClassifiedsListHolder);
         } else {
@@ -107,5 +109,6 @@ public class AllMyJobsListAdapter extends BaseAdapter {
         TextView tv_company_name;
         ImageView img_logo;
         TextView tv_pos;
+        TextView tv_dots;
     }
 }

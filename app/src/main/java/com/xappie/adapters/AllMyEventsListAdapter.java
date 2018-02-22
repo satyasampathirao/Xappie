@@ -66,10 +66,12 @@ public class AllMyEventsListAdapter extends BaseAdapter {
             mClassifiedsListHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             mClassifiedsListHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             mClassifiedsListHolder.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
+            mClassifiedsListHolder.tv_dots = (TextView) convertView.findViewById(R.id.tv_dots);
 
             mClassifiedsListHolder.tv_title.setTypeface(mOpenSansLightTypeface);
             mClassifiedsListHolder.tv_time.setTypeface(mOpenSansLightTypeface);
             mClassifiedsListHolder.tv_location.setTypeface(mOpenSansLightTypeface);
+            mClassifiedsListHolder.tv_dots.setTypeface(Utility.getMaterialIconsRegular(mDashBoardActivity));
 
 
             convertView.setTag(mClassifiedsListHolder);
@@ -119,5 +121,6 @@ public class AllMyEventsListAdapter extends BaseAdapter {
         TextView tv_time;
         TextView tv_location;
         ImageView img_logo;
+        TextView tv_dots;
     }
 }

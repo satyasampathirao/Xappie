@@ -387,9 +387,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textColor="@color/orange"
-                    android:text="@string/no_events_icon"
-                    android:textSize="@dimen/_80sp" />
+                    android:textColor="#FFB48E"
+                    android:paddingBottom="@dimen/_40dp"
+                    android:text="@string/events_busy_icon"
+                    android:textSize="@dimen/_70sp" />
 
             </LinearLayout>
 
@@ -481,9 +482,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
-                    android:textColor="@color/orange"
-                    android:text="@string/no_events_icon"
-                    android:textSize="@dimen/_80sp" />
+                    android:paddingBottom="@dimen/_40dp"
+                    android:textColor="#FFB48E"
+                    android:text="@string/classifieds_busy_icon"
+                    android:textSize="@dimen/_70sp" />
             </LinearLayout>
             <!-- Jobs layout-->
 
@@ -563,9 +565,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10dp"
-                android:textColor="@color/orange"
+                android:paddingBottom="@dimen/_40dp"
+                android:textColor="#FFB48E"
                 android:text="@string/no_events_icon"
-                android:textSize="@dimen/_80sp" />
+                android:textSize="@dimen/_70sp" />
 
         </LinearLayout>
         </LinearLayout>

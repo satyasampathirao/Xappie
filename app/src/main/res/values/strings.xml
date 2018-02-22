@@ -194,6 +194,11 @@
     <string name="jobs_search">SEARCH JOBS</string>
     <string name="upload_icon">&#xE2C3;</string>
     <string name="no_events_icon">&#xE880;</string>
+    <string name="events_busy_icon">&#xE615;</string>
+    <string name="classifieds_busy_icon">&#xf0b1;</string>
+    <string name="currently_no_events">Currently there are no Events in your Location.. We are working with our Partners for more events.... If you wish to add tap on Add New Event</string>
+    <string name="currently_no_classifieds">Currently there are no Classifieds in your area… We are working with our Partners for more business listings… If you wish to add your business tap on Add Classified </string>
+    <string name="currently_no_jobs">Currently there are no Jobs in your area.. We are working with our Partners for more Jobs.. If you wish to Hire tap on Post Job </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

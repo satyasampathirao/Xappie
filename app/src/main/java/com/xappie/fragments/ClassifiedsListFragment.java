@@ -58,6 +58,10 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
     LinearLayout ll_no_data;
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
+    @BindView(R.id.tv_no_data_event_icon)
+    TextView tv_no_data_event_icon;
+    @BindView(R.id.tv_currently_no_events)
+    TextView tv_currently_no_events;
     private String mId;
     private String mSubId;
 
@@ -87,8 +91,10 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
     }
 
     private void initUI() {
-        tv_no_data.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_no_data.setTypeface(Utility.getOpenSansBold(mParent));
         tv_no_data.setText("No Classifieds found");
+        tv_currently_no_events.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_no_data_event_icon.setTypeface(Utility.getFontAwesomeWebFont(mParent));
         stateModel = new StateModel();
         stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
         getCitiesList();

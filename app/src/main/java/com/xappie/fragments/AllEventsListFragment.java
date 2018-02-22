@@ -55,6 +55,12 @@ public class AllEventsListFragment extends Fragment implements IAsyncCaller {
 
     @BindView(R.id.ll_no_data)
     LinearLayout ll_no_data;
+    @BindView(R.id.tv_no_data_event)
+    TextView tv_no_data_event;
+    @BindView(R.id.tv_no_data_event_icon)
+    TextView tv_no_data_event_icon;
+    @BindView(R.id.tv_currently_no_events)
+    TextView tv_currently_no_events;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +87,9 @@ public class AllEventsListFragment extends Fragment implements IAsyncCaller {
         stateModel = new StateModel();
         stateModel.setId(Utility.getSharedPrefStringData(mParent, Constants.SELECTED_CITY_ID));
         getCitiesList();
+        tv_no_data_event_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_no_data_event.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_currently_no_events.setTypeface(Utility.getOpenSansRegular(mParent));
     }
 
     private void getCitiesList() {

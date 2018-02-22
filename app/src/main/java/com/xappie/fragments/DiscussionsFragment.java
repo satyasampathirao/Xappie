@@ -162,10 +162,10 @@ public class DiscussionsFragment extends Fragment {
         tv_notifications_icon.setTypeface(mTypefaceFontAwesomeWebFont);
         tv_language_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
-        tv_selected.setTypeface(Utility.getOpenSansLight(mParent));
-        tv_ready.setTypeface(Utility.getOpenSansLight(mParent));
-        tv_swipe.setTypeface(Utility.getOpenSansLight(mParent));
-        tv_one_place.setTypeface(Utility.getOpenSansLight(mParent));
+        tv_selected.setTypeface(Utility.getOpenSansItalic(mParent));
+        tv_ready.setTypeface(Utility.getOpenSansItalic(mParent));
+        tv_swipe.setTypeface(Utility.getOpenSansItalic(mParent));
+        tv_one_place.setTypeface(Utility.getOpenSansItalic(mParent));
         tv_coming_soon.setTypeface(mTypefaceOpenSansRegular);
         movies.setTypeface(mTypefaceOpenSansRegular);
         university.setTypeface(mTypefaceOpenSansRegular);
