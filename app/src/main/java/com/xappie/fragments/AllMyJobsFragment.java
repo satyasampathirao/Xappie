@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -49,6 +50,12 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
     SwipeMenuListView listView;
     @BindView(R.id.ll_no_data)
     LinearLayout ll_no_data;
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
+    @BindView(R.id.tv_no_data_event_icon)
+    TextView tv_no_data_event_icon;
+    @BindView(R.id.tv_currently_no_events)
+    TextView tv_currently_no_events;
     private int mDeletePosition = -1;
 
     private JobsListModel jobsListModel;
@@ -85,6 +92,9 @@ public class AllMyJobsFragment extends Fragment implements IAsyncCaller {
 
     private void initUI() {
         getMyJobsData("" + 1);
+        tv_currently_no_events.setTypeface(Utility.getOpenSansRegular(mParent));
+        tv_no_data_event_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_no_data.setTypeface(Utility.getOpenSansBold(mParent));
     }
 
     private void getMyJobsData(String pageNo) {

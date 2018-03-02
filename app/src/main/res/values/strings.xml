@@ -199,6 +199,9 @@
     <string name="currently_no_events">Currently there are no Events in your Location.. We are working with our Partners for more events.... If you wish to add tap on Add New Event</string>
     <string name="currently_no_classifieds">Currently there are no Classifieds in your area… We are working with our Partners for more business listings… If you wish to add your business tap on Add Classified </string>
     <string name="currently_no_jobs">Currently there are no Jobs in your area.. We are working with our Partners for more Jobs.. If you wish to Hire tap on Post Job </string>
+    <string name="no_events_added">No Events Yet Added.. If you wish to Add tap on Add New Event </string>
+    <string name="no_classifieds_added">No Classifieds Yet Added.. If you wish to Add tap on Add Classified </string>
+    <string name="no_jobs_added">No Jobs Yet Added.. If you wish to Add tap on Post Job </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -296,7 +299,7 @@
     <string name="select_country">Select Country</string>
     <string name="icon_share">&#xf1e0;</string>
     <string name="address_icon">&#xE0C8;</string>
-    <string name="three_dots">&#xE5D4;</string>
+    <string name="three_dots">&#xE315;</string>
     <string name="about">About</string>
     <string name="discover">Discover</string>
     <string name="xappie_is_the">Xappie is the only mobile app for Indians</string>

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -57,6 +58,13 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
 
     @BindView(R.id.ll_no_data)
     LinearLayout ll_no_data;
+    @BindView(R.id.tv_no_data_event)
+    TextView tv_no_data_event;
+    @BindView(R.id.tv_no_data_event_icon)
+    TextView tv_no_data_event_icon;
+    @BindView(R.id.tv_currently_no_events)
+    TextView tv_currently_no_events;
+
 
     private IAmGoingModel iAmGoingModel;
     private int mDeletePosition = -1;
@@ -83,6 +91,10 @@ public class AllMyEventsFragment extends Fragment implements IAsyncCaller {
     }
 
     private void initUI() {
+        tv_no_data_event_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
+        tv_no_data_event.setTypeface(Utility.getOpenSansBold(mParent));
+        tv_currently_no_events.setTypeface(Utility.getOpenSansRegular(mParent));
+
         getMyEventsData("" + 1);
     }
 
