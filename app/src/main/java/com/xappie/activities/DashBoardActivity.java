@@ -47,6 +47,7 @@ import com.xappie.fragments.DiscussionsFragment;
 import com.xappie.fragments.EntertainmentFragment;
 import com.xappie.fragments.EventsFragment;
 import com.xappie.fragments.GalleryFragment;
+import com.xappie.fragments.HelpFragment;
 import com.xappie.fragments.HomeFragment;
 import com.xappie.fragments.JobsFragment;
 import com.xappie.fragments.LanguageFragment;
@@ -237,6 +238,10 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                     case R.id.account_settings:
                         drawerLayout.closeDrawers();
                         Utility.navigateDashBoardFragment(new AccountSettingFragment(), AccountSettingFragment.TAG, null, DashBoardActivity.this);
+                        break;
+                    case R.id.help:
+                        drawerLayout.closeDrawers();
+                        Utility.navigateDashBoardFragment(new HelpFragment(), HelpFragment.TAG, null, DashBoardActivity.this);
                         break;
                     case R.id.logout:
                         logout();

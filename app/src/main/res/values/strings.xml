@@ -538,4 +538,17 @@ Changes to the Privacy Policy. Xappie will occasionally update this Privacy Poli
 \n\nResponsible authority
 \nQuestions regarding data privacy and protection should be addressed to \n\nprivacy@xappie.com
 </string>
+    <string name="help">Help</string>
+    <string name="report_a_problem">Report a Problem</string>
+    <string name="general_feedback">General Feedback - </string>
+    <string name="feed_back">feedback@xappie.com</string>
+    <string name="something">Something isn\'t working - </string>
+    <string name="support">support@xappie.com</string>
+    <string name="report_abuse">Report Abuse - </string>
+    <string name="report">report@xappie.com</string>
+    <string name="Advertise">Advertise</string>
+    <string name="Promotions">Promotions</string>
+    <string name="policies">Policies</string>
+    <string name="if_you">if you have installed the app you agreed to the below policies.</string>
+    <string name="Terms_of">Terms of Service</string>
 </resources>
