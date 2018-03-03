@@ -1,10 +1,12 @@
 package com.xappie.models;
 
+import java.io.Serializable;
+
 /**
  * Created by Shankar on 8/24/2017.
  */
 
-public class LanguageModel {
+public class LanguageModel implements Serializable {
     private String id;
     private String name;
     private String name_native;

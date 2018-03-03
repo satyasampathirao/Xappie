@@ -21,7 +21,6 @@ import com.xappie.adapters.ActressGridAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ActressActorsListModel;
-import com.xappie.models.GalleryItemModel;
 import com.xappie.models.GallerySubModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
@@ -104,6 +103,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
         if (getArguments() != null && getArguments().containsKey(Constants.TITLE)) {
             mStringTitle = getArguments().getString(Constants.TITLE);
             mForGallery = getArguments().getString(Constants.FOR_GALLERY);
+            languageModel = (LanguageModel) getArguments().getSerializable(Constants.LANGUAGE_ID);
         }
     }
 
@@ -275,7 +275,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
                 mLanguageListModel = (LanguageListModel) model;
                 if (mLanguageListModel.getLanguageModels().size() > 0) {
                     for (int i = 0; i < mLanguageListModel.getLanguageModels().size(); i++) {
-                        if (Utility.getSharedPrefStringData(mParent, Constants.SELECTED_LANGUAGE_ID)
+                        if (languageModel.getId()
                                 .equalsIgnoreCase(mLanguageListModel.getLanguageModels().get(i).getId())) {
                             languageModel = mLanguageListModel.getLanguageModels().get(i);
                         }

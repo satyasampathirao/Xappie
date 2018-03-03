@@ -489,6 +489,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.TITLE, "Actress");
         bundle.putString(Constants.FOR_GALLERY, "actress");
+        bundle.putSerializable(Constants.LANGUAGE_ID, languageModel);
         Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
     }
 
@@ -497,6 +498,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.TITLE, "Actors");
         bundle.putString(Constants.FOR_GALLERY, "actors");
+        bundle.putSerializable(Constants.LANGUAGE_ID, languageModel);
         Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
     }
 
@@ -505,6 +507,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.TITLE, "Movies");
         bundle.putString(Constants.FOR_GALLERY, "movie");
+        bundle.putSerializable(Constants.LANGUAGE_ID, languageModel);
         Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
     }
 
@@ -513,6 +516,7 @@ public class GalleryFragment extends Fragment implements IAsyncCaller {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.TITLE, "Events");
         bundle.putString(Constants.FOR_GALLERY, "events");
+        bundle.putSerializable(Constants.LANGUAGE_ID, languageModel);
         Utility.navigateDashBoardFragment(new ActressFragment(), ActressFragment.TAG, bundle, mParent);
     }
 
