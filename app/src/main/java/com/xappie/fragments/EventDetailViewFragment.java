@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.activities.LoginActivity;
@@ -145,6 +147,10 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
 
     private String mFromNot = "0";
 
+
+    @BindView(R.id.adView)
+    AdView adView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,6 +185,8 @@ public class EventDetailViewFragment extends Fragment implements IAsyncCaller {
 
     private void initUI() {
         setTypeFace();
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     private void setTypeFace() {

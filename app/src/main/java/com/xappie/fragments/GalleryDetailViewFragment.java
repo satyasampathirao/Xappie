@@ -13,13 +13,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.aynctaskold.IAsyncCaller;
@@ -27,7 +28,6 @@ import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.EntertainmentModel;
 import com.xappie.models.EntertainmentTopStoriesDetailModel;
 import com.xappie.models.Model;
-import com.xappie.models.RelatedTopicsModel;
 import com.xappie.parser.EntertainmentTopStoriesDetailParser;
 import com.xappie.utils.APIConstants;
 import com.xappie.utils.Constants;
@@ -109,6 +109,9 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     @BindView(R.id.b_read_more)
     TextView b_read_more;
 
+    @BindView(R.id.adView)
+    AdView adView;
+
     private Typeface mTypefaceOpenSansRegular;
     private Typeface mTypefaceFontAwesomeWebFont;
     private Typeface mTypefaceMaterialIcons;
@@ -121,6 +124,7 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     private EntertainmentTopStoriesDetailModel entertainmentTopStoriesDetailModel;
 
     private int mPosition = -1;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -160,6 +164,8 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
     private void initUI() {
         setTypeFace();
         entertainmentModels = Utility.getMoreTopicsList(clickedItemPosition(mSelectedId), allEntertainmentModels);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     /**
@@ -360,8 +366,8 @@ public class GalleryDetailViewFragment extends Fragment implements IAsyncCaller 
             });
 
         } else {
-                    b_read_more.setVisibility(View.GONE);
-                }
+            b_read_more.setVisibility(View.GONE);
+        }
 
 
         if (!Utility.isValueNullOrEmpty(entertainmentTopStoriesDetailModel.getmCurrentDetailModel().getRecordedDate())) {

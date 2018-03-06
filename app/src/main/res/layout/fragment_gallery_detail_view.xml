@@ -27,16 +27,16 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:paddingEnd="@dimen/_10dp"
-                android:paddingTop="@dimen/_5dp"
                 android:paddingStart="@dimen/_10dp"
+                android:paddingTop="@dimen/_5dp"
                 android:textColor="@color/gallery_header_color"
                 android:textSize="@dimen/_17sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="@dimen/_2dp"
+                android:orientation="horizontal"
                 android:paddingEnd="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp">
 
@@ -73,28 +73,28 @@
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.2"
                 android:padding="@dimen/_10dp"
                 android:paddingTop="@dimen/_15dp"
-                android:typeface="monospace"
-                android:lineSpacingMultiplier="1.2"
                 android:textColor="@color/gallery_header_color"
-                android:textSize="@dimen/_15sp" />
+                android:textSize="@dimen/_15sp"
+                android:typeface="monospace" />
 
 
             <TextView
                 android:id="@+id/b_read_more"
                 android:layout_width="@dimen/_140dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_25dp"
                 android:layout_marginStart="@dimen/_15dp"
-                android:paddingTop="@dimen/_10dp"
-                android:paddingBottom="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/bordr_text"
+                android:gravity="center"
+                android:paddingBottom="@dimen/_10dp"
+                android:paddingTop="@dimen/_10dp"
                 android:text="@string/read_more"
                 android:textAllCaps="false"
                 android:textColor="@color/orange"
-                android:layout_marginBottom="@dimen/_25dp"
                 android:textSize="@dimen/_17sp" />
 
             <View
@@ -150,6 +150,14 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100dp"
+                android:layout_gravity="center"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
