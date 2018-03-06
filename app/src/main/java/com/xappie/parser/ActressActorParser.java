@@ -2,7 +2,9 @@ package com.xappie.parser;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.xappie.models.ActressActorsListModel;
+import com.xappie.models.GallerySubItemModel;
 import com.xappie.models.GallerySubModel;
 import com.xappie.models.Model;
 
@@ -24,14 +26,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Actors")) {
                 JSONArray actorsJsonArray = jsonObject.optJSONArray("Actors");
-                ArrayList<GallerySubModel> actorsGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubItemModel> actorsGalleryModels = new ArrayList<>();
                 for (int i = 0; i < actorsJsonArray.length(); i++) {
                     JSONObject actorsJsonObject = actorsJsonArray.optJSONObject(i);
-                    GallerySubModel gallerySubModel = new GallerySubModel();
-                    gallerySubModel.setId(actorsJsonObject.optString("id"));
-                    gallerySubModel.setName(actorsJsonObject.optString("name"));
-                    gallerySubModel.setType(actorsJsonObject.optString("type"));
-                    gallerySubModel.setImage(actorsJsonObject.optString("image"));
+                    GallerySubItemModel gallerySubModel = new Gson().fromJson(actorsJsonObject.toString(), GallerySubItemModel.class);
                     actorsGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(actorsGalleryModels);
@@ -42,14 +40,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Actress")) {
                 JSONArray actressJsonArray = jsonObject.optJSONArray("Actress");
-                ArrayList<GallerySubModel> actressGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubItemModel> actressGalleryModels = new ArrayList<>();
                 for (int i = 0; i < actressJsonArray.length(); i++) {
                     JSONObject actressJsonObject = actressJsonArray.optJSONObject(i);
-                    GallerySubModel gallerySubModel = new GallerySubModel();
-                    gallerySubModel.setId(actressJsonObject.optString("id"));
-                    gallerySubModel.setName(actressJsonObject.optString("name"));
-                    gallerySubModel.setType(actressJsonObject.optString("type"));
-                    gallerySubModel.setImage(actressJsonObject.optString("image"));
+                    GallerySubItemModel gallerySubModel = new Gson().fromJson(actressJsonObject.toString(), GallerySubItemModel.class);
                     actressGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(actressGalleryModels);
@@ -60,14 +54,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Movie")) {
                 JSONArray movieJsonArray = jsonObject.optJSONArray("Movie");
-                ArrayList<GallerySubModel> moviesGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubItemModel> moviesGalleryModels = new ArrayList<>();
                 for (int i = 0; i < movieJsonArray.length(); i++) {
                     JSONObject moviesJsonObject = movieJsonArray.optJSONObject(i);
-                    GallerySubModel gallerySubModel = new GallerySubModel();
-                    gallerySubModel.setId(moviesJsonObject.optString("id"));
-                    gallerySubModel.setName(moviesJsonObject.optString("name"));
-                    gallerySubModel.setType(moviesJsonObject.optString("type"));
-                    gallerySubModel.setImage(moviesJsonObject.optString("image"));
+                    GallerySubItemModel gallerySubModel = new Gson().fromJson(moviesJsonObject.toString(), GallerySubItemModel.class);
                     moviesGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(moviesGalleryModels);
@@ -78,14 +68,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Events")) {
                 JSONArray eventsJsonArray = jsonObject.optJSONArray("Events");
-                ArrayList<GallerySubModel> eventsGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubItemModel> eventsGalleryModels = new ArrayList<>();
                 for (int i = 0; i < eventsJsonArray.length(); i++) {
                     JSONObject eventsJsonObject = eventsJsonArray.optJSONObject(i);
-                    GallerySubModel gallerySubModel = new GallerySubModel();
-                    gallerySubModel.setId(eventsJsonObject.optString("id"));
-                    gallerySubModel.setName(eventsJsonObject.optString("name"));
-                    gallerySubModel.setType(eventsJsonObject.optString("type"));
-                    gallerySubModel.setImage(eventsJsonObject.optString("image"));
+                    GallerySubItemModel gallerySubModel = new Gson().fromJson(eventsJsonObject.toString(), GallerySubItemModel.class);
                     eventsGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(eventsGalleryModels);

@@ -7,13 +7,13 @@ import java.util.ArrayList;
  */
 
 public class ActressActorsListModel extends Model {
-    private ArrayList<GallerySubModel> gallerySubModels;
+    private ArrayList<GallerySubItemModel> gallerySubModels;
 
-    public ArrayList<GallerySubModel> getGallerySubModels() {
+    public ArrayList<GallerySubItemModel> getGallerySubModels() {
         return gallerySubModels;
     }
 
-    public void setGallerySubModels(ArrayList<GallerySubModel> gallerySubModels) {
+    public void setGallerySubModels(ArrayList<GallerySubItemModel> gallerySubModels) {
         this.gallerySubModels = gallerySubModels;
     }
 }

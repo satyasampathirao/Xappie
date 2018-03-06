@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import com.xappie.adapters.ActressGridAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ActressActorsListModel;
-import com.xappie.models.GallerySubModel;
+import com.xappie.models.GallerySubItemModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
@@ -84,13 +85,19 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
     @BindView(R.id.tv_no_data_found)
     TextView tv_no_data_found;
 
+    @BindView(R.id.ll_a_to_z)
+    LinearLayout ll_a_to_z;
+
     private String mStringTitle = "";
     private String mForGallery = "";
     private ActressGridAdapter actressGridAdapter;
     private LanguageListModel mLanguageListModel;
     private LanguageModel languageModel;
     private String mCurrentLanguage;
-    private ArrayList<GallerySubModel> actressModels;
+    private ArrayList<GallerySubItemModel> actressModels;
+
+    private String mAtoZLetters[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    public static String mSelectedLetter = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +137,57 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
     private void initUI() {
         setTypeFace();
         getLanguagesData();
+        setAtoZLetters();
+    }
+
+    private void setAtoZLetters() {
+        ll_a_to_z.removeAllViews();
+        for (int i = 0; i < mAtoZLetters.length; i++) {
+            TextView tvLetters = new TextView(mParent);
+            tvLetters.setTypeface(Utility.getOpenSansRegular(mParent));
+            tvLetters.setLayoutParams(new ViewGroup.LayoutParams(100, 100));
+            tvLetters.setPadding(10, 10, 10, 10);
+            tvLetters.setGravity(Gravity.CENTER);
+            tvLetters.setTextColor(Utility.getColor(mParent, R.color.white));
+            tvLetters.setBackgroundColor(Utility.getColor(mParent, R.color.colorPrimary));
+            tvLetters.setText(mAtoZLetters[i]);
+
+            if (!mSelectedLetter.equalsIgnoreCase(mAtoZLetters[i])) {
+                tvLetters.setBackgroundColor(Utility.getColor(mParent, R.color.colorPrimary));
+            } else {
+                tvLetters.setBackgroundColor(Utility.getColor(mParent, R.color.colorPrimary));
+                tvLetters.setBackground(Utility.getDrawable(mParent, R.drawable.circle_letter_selecter));
+            }
+
+            tvLetters.setId(i);
+            tvLetters.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Utility.isNetworkAvailable(mParent)) {
+                        int mPosition = v.getId();
+                        if (mSelectedLetter.equalsIgnoreCase(mAtoZLetters[mPosition])) {
+                            mSelectedLetter = "";
+                            setAtoZLetters();
+                        } else {
+                            mSelectedLetter = mAtoZLetters[mPosition];
+                            setAtoZLetters();
+                            actressModels = null;
+                            getGalleryData("" + 1, mSelectedLetter);
+                        }
+
+                    } else {
+                        Utility.showSettingDialog(
+                                mParent,
+                                Utility.getResourcesString(mParent,
+                                        R.string.no_internet_msg),
+                                Utility.getResourcesString(mParent,
+                                        R.string.no_internet_title),
+                                Utility.NO_INTERNET_CONNECTION).show();
+                    }
+                }
+            });
+            ll_a_to_z.addView(tvLetters);
+        }
     }
 
     private void setTypeFace() {
@@ -166,7 +224,6 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
         }
     }
 
-
     /**
      * This method is used to set the grid view data
      */
@@ -201,7 +258,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
                     setLanguages();
                     endScroll = false;
                     mCurrentLanguage = languageModel.getId();
-                    getGalleryData("" + 1);
+                    getGalleryData("" + 1, mSelectedLetter);
                 }
             });
 
@@ -220,18 +277,19 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
     /**
      * Get the Gallery data
      */
-    private void getGalleryData(String pageNo) {
+    private void getGalleryData(String pageNo, String mSelectedLetter) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             linkedHashMap.put("language", mCurrentLanguage);
             linkedHashMap.put("type", mForGallery);
+            linkedHashMap.put("start_letter", mSelectedLetter);
             linkedHashMap.put(Constants.PAGE_NO, pageNo);
             linkedHashMap.put(Constants.PAGE_SIZE, Constants.PAGE_SIZE_VALUE);
             ActressActorParser actressActorParser = new ActressActorParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
-                    APIConstants.GET_GALLERY_CATEGORIES, linkedHashMap,
+                    APIConstants.GET_GALLERY, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, actressActorParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
@@ -283,7 +341,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
                     setLanguages();
                     if (languageModel != null)
                         mCurrentLanguage = languageModel.getId();
-                    getGalleryData("" + 1);
+                    getGalleryData("" + 1, mSelectedLetter);
                 }
             } else if (model instanceof ActressActorsListModel) {
                 ActressActorsListModel mActressActorsListModel = (ActressActorsListModel) model;
@@ -338,7 +396,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
         if (aaTotalCount == (aaFirstVisibleItem + aaVisibleCount) && !endScroll) {
             if (Utility.isNetworkAvailable(getActivity())) {
                 mPageNumber = mPageNumber + 1;
-                getGalleryData("" + mPageNumber);
+                getGalleryData("" + mPageNumber, mSelectedLetter);
                 Utility.showLog("mPageNumber", "mPageNumber : " + mPageNumber);
             } else {
                 Utility.showSettingDialog(

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.GalleryCategoryFragment;
-import com.xappie.models.GallerySubModel;
+import com.xappie.models.GallerySubItemModel;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -26,10 +26,10 @@ public class ActressGridAdapter extends BaseAdapter {
 
     private DashBoardActivity mDashBoardActivity;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<GallerySubModel> actressModels;
+    private ArrayList<GallerySubItemModel> actressModels;
     private Typeface mOpenSansBoldTypeface;
 
-    public ActressGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<GallerySubModel> actressModels) {
+    public ActressGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<GallerySubItemModel> actressModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
         this.actressModels = actressModels;
@@ -68,12 +68,12 @@ public class ActressGridAdapter extends BaseAdapter {
             mActressGridHolder = (ActressGridAdapter.ActressGridHolder) convertView.getTag();
         }
 
-        GallerySubModel actressModel = actressModels.get(position);
-        mActressGridHolder.tv_related_title.setText(actressModel.getName());
+        GallerySubItemModel actressModel = actressModels.get(position);
+        mActressGridHolder.tv_related_title.setText(actressModel.getCategory_name());
 
-        if (!Utility.isValueNullOrEmpty(actressModel.getImage())) {
+        if (!Utility.isValueNullOrEmpty(actressModel.getProfile_image())) {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
-                    actressModel.getImage(), null, R.drawable.xappie_place_holder);
+                    actressModel.getProfile_image(), null, R.drawable.xappie_place_holder);
         } else {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
                     "", null, R.drawable.xappie_place_holder);
