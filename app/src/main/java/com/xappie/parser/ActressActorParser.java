@@ -26,10 +26,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Actors")) {
                 JSONArray actorsJsonArray = jsonObject.optJSONArray("Actors");
-                ArrayList<GallerySubItemModel> actorsGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> actorsGalleryModels = new ArrayList<>();
                 for (int i = 0; i < actorsJsonArray.length(); i++) {
                     JSONObject actorsJsonObject = actorsJsonArray.optJSONObject(i);
-                    GallerySubItemModel gallerySubModel = new Gson().fromJson(actorsJsonObject.toString(), GallerySubItemModel.class);
+                    GallerySubModel gallerySubModel = new Gson().fromJson(actorsJsonObject.toString(), GallerySubModel.class);
                     actorsGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(actorsGalleryModels);
@@ -40,10 +40,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Actress")) {
                 JSONArray actressJsonArray = jsonObject.optJSONArray("Actress");
-                ArrayList<GallerySubItemModel> actressGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> actressGalleryModels = new ArrayList<>();
                 for (int i = 0; i < actressJsonArray.length(); i++) {
                     JSONObject actressJsonObject = actressJsonArray.optJSONObject(i);
-                    GallerySubItemModel gallerySubModel = new Gson().fromJson(actressJsonObject.toString(), GallerySubItemModel.class);
+                    GallerySubModel gallerySubModel = new Gson().fromJson(actressJsonObject.toString(), GallerySubModel.class);
                     actressGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(actressGalleryModels);
@@ -54,10 +54,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Movie")) {
                 JSONArray movieJsonArray = jsonObject.optJSONArray("Movie");
-                ArrayList<GallerySubItemModel> moviesGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> moviesGalleryModels = new ArrayList<>();
                 for (int i = 0; i < movieJsonArray.length(); i++) {
                     JSONObject moviesJsonObject = movieJsonArray.optJSONObject(i);
-                    GallerySubItemModel gallerySubModel = new Gson().fromJson(moviesJsonObject.toString(), GallerySubItemModel.class);
+                    GallerySubModel gallerySubModel = new Gson().fromJson(moviesJsonObject.toString(), GallerySubModel.class);
                     moviesGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(moviesGalleryModels);
@@ -68,10 +68,10 @@ public class ActressActorParser implements Parser<Model> {
 
             if (jsonObject.has("Events")) {
                 JSONArray eventsJsonArray = jsonObject.optJSONArray("Events");
-                ArrayList<GallerySubItemModel> eventsGalleryModels = new ArrayList<>();
+                ArrayList<GallerySubModel> eventsGalleryModels = new ArrayList<>();
                 for (int i = 0; i < eventsJsonArray.length(); i++) {
                     JSONObject eventsJsonObject = eventsJsonArray.optJSONObject(i);
-                    GallerySubItemModel gallerySubModel = new Gson().fromJson(eventsJsonObject.toString(), GallerySubItemModel.class);
+                    GallerySubModel gallerySubModel = new Gson().fromJson(eventsJsonObject.toString(), GallerySubModel.class);
                     eventsGalleryModels.add(gallerySubModel);
                 }
                 mGalleryModel.setGallerySubModels(eventsGalleryModels);

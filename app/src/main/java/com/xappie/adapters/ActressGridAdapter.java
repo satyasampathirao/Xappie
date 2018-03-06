@@ -13,6 +13,7 @@ import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
 import com.xappie.fragments.GalleryCategoryFragment;
 import com.xappie.models.GallerySubItemModel;
+import com.xappie.models.GallerySubModel;
 import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
@@ -26,10 +27,10 @@ public class ActressGridAdapter extends BaseAdapter {
 
     private DashBoardActivity mDashBoardActivity;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<GallerySubItemModel> actressModels;
+    private ArrayList<GallerySubModel> actressModels;
     private Typeface mOpenSansBoldTypeface;
 
-    public ActressGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<GallerySubItemModel> actressModels) {
+    public ActressGridAdapter(DashBoardActivity mDashBoardActivity, ArrayList<GallerySubModel> actressModels) {
         this.mDashBoardActivity = mDashBoardActivity;
         mLayoutInflater = LayoutInflater.from(mDashBoardActivity);
         this.actressModels = actressModels;
@@ -68,12 +69,12 @@ public class ActressGridAdapter extends BaseAdapter {
             mActressGridHolder = (ActressGridAdapter.ActressGridHolder) convertView.getTag();
         }
 
-        GallerySubItemModel actressModel = actressModels.get(position);
-        mActressGridHolder.tv_related_title.setText(actressModel.getCategory_name());
+        GallerySubModel actressModel = actressModels.get(position);
+        mActressGridHolder.tv_related_title.setText(actressModel.getName());
 
-        if (!Utility.isValueNullOrEmpty(actressModel.getProfile_image())) {
+        if (!Utility.isValueNullOrEmpty(actressModel.getImage())) {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
-                    actressModel.getProfile_image(), null, R.drawable.xappie_place_holder);
+                    actressModel.getImage(), null, R.drawable.xappie_place_holder);
         } else {
             Utility.universalImageLoaderPicLoading(mActressGridHolder.img_topic,
                     "", null, R.drawable.xappie_place_holder);

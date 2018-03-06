@@ -22,7 +22,7 @@ import com.xappie.adapters.ActressGridAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.ActressActorsListModel;
-import com.xappie.models.GallerySubItemModel;
+import com.xappie.models.GallerySubModel;
 import com.xappie.models.LanguageListModel;
 import com.xappie.models.LanguageModel;
 import com.xappie.models.Model;
@@ -94,7 +94,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
     private LanguageListModel mLanguageListModel;
     private LanguageModel languageModel;
     private String mCurrentLanguage;
-    private ArrayList<GallerySubItemModel> actressModels;
+    private ArrayList<GallerySubModel> actressModels;
 
     private String mAtoZLetters[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     public static String mSelectedLetter = "";
@@ -172,6 +172,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
                             mSelectedLetter = mAtoZLetters[mPosition];
                             setAtoZLetters();
                             actressModels = null;
+                            actressGridAdapter = null;
                             getGalleryData("" + 1, mSelectedLetter);
                         }
 
@@ -289,7 +290,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
             ActressActorParser actressActorParser = new ActressActorParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
-                    APIConstants.GET_GALLERY, linkedHashMap,
+                    APIConstants.GET_GALLERY_CATEGORIES, linkedHashMap,
                     APIConstants.REQUEST_TYPE.GET, this, actressActorParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
@@ -346,7 +347,7 @@ public class ActressFragment extends Fragment implements IAsyncCaller, AbsListVi
             } else if (model instanceof ActressActorsListModel) {
                 ActressActorsListModel mActressActorsListModel = (ActressActorsListModel) model;
                 if (actressModels == null) {
-                    if (mActressActorsListModel.getGallerySubModels() == null) {
+                    if (mActressActorsListModel.getGallerySubModels() == null || mActressActorsListModel.getGallerySubModels().size() == 0) {
                         tv_no_data_found.setVisibility(View.VISIBLE);
                         grid_view.setVisibility(View.GONE);
                     } else {

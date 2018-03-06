@@ -15,7 +15,7 @@ android {
         config {
             keyAlias 'Nevexa Digital Private Limited'
             keyPassword 'XAP@2018!#'
-            storeFile file('E:\\Xappie\\KapuKeystore\\Xappie.jks')
+            storeFile file('D:\\Xappie\\KapuKeystore\\Xappie.jks')
             storePassword 'XAP@2018!#'
         }
     }
