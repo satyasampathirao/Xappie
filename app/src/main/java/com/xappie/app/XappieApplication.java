@@ -5,6 +5,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -15,6 +16,7 @@ import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.xappie.R;
+import com.xappie.utils.Utility;
 
 /**
  * Created by Shankar on 2/7/2017.
@@ -41,6 +43,10 @@ public class XappieApplication extends MultiDexApplication {
         Twitter.initialize(config);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
+        MobileAds.initialize(getApplicationContext(), Utility.getResourcesString(this, R.string.banner_ad_unit_id));
+        MobileAds.initialize(getApplicationContext(), Utility.getResourcesString(this, R.string.interstitial_ad_unit_id));
+        MobileAds.initialize(getApplicationContext(), Utility.getResourcesString(this, R.string.native_ad_unit_id));
     }
 
     /**

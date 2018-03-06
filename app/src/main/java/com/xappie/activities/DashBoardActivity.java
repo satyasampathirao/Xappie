@@ -28,6 +28,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -89,6 +91,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
 
     private ImageView img_user_image;
     private TextView tv_first_last;
+    public InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +120,11 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
 
         layout_topics = (LinearLayout) findViewById(R.id.layout_topics);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(Utility.getResourcesString(this, R.string.interstitial_ad_unit_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         initNavigationDrawer();

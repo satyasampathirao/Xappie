@@ -4,8 +4,8 @@ package com.xappie.fragments;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,7 +24,6 @@ import com.xappie.adapters.GalleryDetailImageAdapter;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.models.GalleryImageViewListModel;
-import com.xappie.models.LanguageListModel;
 import com.xappie.models.Model;
 import com.xappie.parser.GalleryImageViewListParser;
 import com.xappie.utils.APIConstants;
@@ -112,6 +111,20 @@ public class GalleryImageViewFragment extends Fragment implements IAsyncCaller {
     private void initUI() {
         setTypeFace();
         getGalleryData();
+
+
+        Handler mSplashHandler = new Handler();
+        Runnable action = new Runnable() {
+            @Override
+            public void run() {
+                if (mParent.mInterstitialAd.isLoaded()) {
+                    mParent.mInterstitialAd.show();
+                } else {
+                    Utility.showLog("TAG", "The interstitial wasn't loaded yet.");
+                }
+            }
+        };
+        mSplashHandler.postDelayed(action, Constants.ADD_TIME_OUT);
     }
 
     /**

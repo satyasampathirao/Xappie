@@ -551,4 +551,11 @@ Changes to the Privacy Policy. Xappie will occasionally update this Privacy Poli
     <string name="policies">Policies</string>
     <string name="if_you">if you have installed the app you agreed to the below policies.</string>
     <string name="Terms_of">Terms of Service</string>
+
+
+    <string name="banner_ad_unit_id">ca-app-pub-4083058088467608/2032993320</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-4083058088467608/5617015116</string>
+    <!--<string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>-->
+    <string name="native_ad_unit_id">ca-app-pub-4083058088467608/2771359923</string>
+
 </resources>

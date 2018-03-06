@@ -9,6 +9,7 @@ public class Constants {
     public static final boolean logMessageOnOrOff = true;
 
     public static int SPLASH_TIME_OUT = 3000;
+    public static int ADD_TIME_OUT = 7000;
 
     /* shared pref */
     public static final String APP_PREF = "Xappie_Pref";
