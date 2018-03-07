@@ -155,6 +155,7 @@
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100dp"
+                android:visibility="gone"
                 android:layout_gravity="center"
                 ads:adSize="SMART_BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id" />

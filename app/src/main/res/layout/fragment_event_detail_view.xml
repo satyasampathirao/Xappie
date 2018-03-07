@@ -356,6 +356,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/ll_who_is"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 ads:adSize="SMART_BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id" />
         </LinearLayout>
