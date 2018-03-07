@@ -111,6 +111,10 @@ public class LocationSelectionActivity extends BaseActivity implements IAsyncCal
             Utility.setSnackBar(this, et_city, "Please select city");
             et_city.requestFocus();
             isValid = false;
+        } else if (Utility.isValueNullOrEmpty(et_locality.getText().toString())) {
+            Utility.setSnackBar(this, et_locality, "Please select Locality");
+            et_locality.requestFocus();
+            isValid = false;
         }
         return isValid;
     }

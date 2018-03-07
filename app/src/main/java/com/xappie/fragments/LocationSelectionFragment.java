@@ -137,6 +137,11 @@ public class LocationSelectionFragment extends Fragment implements IAsyncCaller 
             et_city.requestFocus();
             isValid = false;
         }
+        else if (Utility.isValueNullOrEmpty(et_locality.getText().toString())) {
+            Utility.setSnackBar(mParent, et_locality, "Please select Locality");
+            et_locality.requestFocus();
+            isValid = false;
+        }
         return isValid;
     }
 
