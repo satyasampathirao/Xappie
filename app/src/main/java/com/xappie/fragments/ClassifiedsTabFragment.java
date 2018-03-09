@@ -66,6 +66,7 @@ public class ClassifiedsTabFragment extends Fragment {
 
     private String mId;
     private String mSubId;
+    private String name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,9 @@ public class ClassifiedsTabFragment extends Fragment {
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_CATEGORY_ID)) {
             mId = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
             mSubId = getArguments().getString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID);
+        }
+        if (getArguments() != null && getArguments().containsKey("Name")) {
+            name = getArguments().getString("Name");
         }
     }
 
@@ -122,7 +126,7 @@ public class ClassifiedsTabFragment extends Fragment {
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.classifieds));
+        tv_title.setText(name);
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);

@@ -70,7 +70,7 @@ public class SubClassifiedsAdapter extends BaseAdapter {
             mClassifiedsGridHolder = (SubClassifiedsAdapter.ClassifiedsGridHolder) convertView.getTag();
         }
 
-        ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
+        final ClassifiedsModel classifiedsModel = classifiedsModels.get(position);
         mClassifiedsGridHolder.tv_title.setText(classifiedsModel.getName());
 
         convertView.setId(position);
@@ -81,6 +81,7 @@ public class SubClassifiedsAdapter extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mID);
                 bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, classifiedsModels.get(position).getId());
+                bundle.putString("Name", classifiedsModel.getName());
                 Utility.navigateDashBoardFragment(new ClassifiedsTabFragment(), ClassifiedsTabFragment.TAG, bundle, mDashBoardActivity);
             }
         });
