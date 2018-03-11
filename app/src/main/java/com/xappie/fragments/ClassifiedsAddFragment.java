@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,7 +42,6 @@ import com.xappie.models.LocalityListModel;
 import com.xappie.models.LocalityModel;
 import com.xappie.models.Model;
 import com.xappie.models.SpinnerModel;
-import com.xappie.parser.ClassifiedUpdateParser;
 import com.xappie.parser.ClassifiedsDetailParser;
 import com.xappie.parser.IAmGoingParser;
 import com.xappie.parser.LocalityParser;
@@ -275,7 +276,13 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
     }
 
     private void captureFile() {
+        /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mParent.startActivityForResult(intent, Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_CAMERA_ID);*/
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photo = new File(Environment.getExternalStorageDirectory(), "picture.jpg");
+        mParent.imageUri = FileProvider.getUriForFile(mParent,
+                mParent.getApplicationContext().getPackageName() + ".provider", photo);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mParent.imageUri);
         mParent.startActivityForResult(intent, Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_CAMERA_ID);
     }
 
@@ -434,6 +441,8 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
                 customProgressDialog.dismissProgress();
                 Utility.showToastMessage(mParent, "Your classified is uploaded successfully and is in pending for Approval");
+                String jsonData = response.body().string();
+                Utility.showLog("jsondata", "" + jsonData);
                 mParent.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -483,7 +492,7 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             Utility.setSnackBar(mParent, edt_website, "Please Enter website");
             edt_website.requestFocus();
             isValid = false;
-        }else if (Utility.isValueNullOrEmpty(edt_address.getText().toString())) {
+        } else if (Utility.isValueNullOrEmpty(edt_address.getText().toString())) {
             Utility.setSnackBar(mParent, edt_address, "Please Enter Address");
             edt_address.requestFocus();
             isValid = false;
