@@ -8,15 +8,20 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +31,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.xappie.R;
 import com.xappie.activities.DashBoardActivity;
@@ -65,6 +71,8 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Shankar on 7/28/2017.
@@ -804,8 +812,15 @@ public class AddNewEventFragment extends Fragment implements IAsyncCaller, IUpda
         alertDialog.show();
     }
 
+
     private void captureFile() {
+        /*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mParent.startActivityForResult(intent, Constants.FROM_POST_FORUM_ADD_EVENT_CAMERA_ID);*/
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photo = new File(Environment.getExternalStorageDirectory(), "picture.jpg");
+        mParent.imageUri = FileProvider.getUriForFile(mParent,
+                mParent.getApplicationContext().getPackageName() + ".provider", photo);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mParent.imageUri);
         mParent.startActivityForResult(intent, Constants.FROM_POST_FORUM_ADD_EVENT_CAMERA_ID);
     }
 

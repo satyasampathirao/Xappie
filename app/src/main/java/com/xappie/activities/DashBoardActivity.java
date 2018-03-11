@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -68,6 +69,7 @@ import com.xappie.utils.Constants;
 import com.xappie.utils.Utility;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -93,10 +95,16 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
     private TextView tv_first_last;
     public InterstitialAd mInterstitialAd;
 
+    public static Uri imageUri;
+    private static final String SAVED_INSTANCE_URI = "uri";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
+        if (savedInstanceState != null) {
+            imageUri = Uri.parse(savedInstanceState.getString(SAVED_INSTANCE_URI));
+        }
         setContentView(R.layout.activity_dash_board);
         ButterKnife.bind(this);
         initUI();
@@ -456,11 +464,16 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
             }
         } else if (requestCode == Constants.FROM_POST_FORUM_ADD_EVENT_CAMERA_ID) {
             if (resultCode == Activity.RESULT_OK) {
-                Bitmap bmp = (Bitmap) data.getExtras().get(Utility.getResourcesString(this, R.string.data));
-                String selectedImgPath = Utility.saveBitmap(bmp);
-                AddNewEventFragment.getInstance().updateFile(selectedImgPath);
+                //Bitmap bmp = (Bitmap) data.getExtras().get(Utility.getResourcesString(this, R.string.data));
+                try {
+                    Bitmap bmp = decodeBitmapUri(this, imageUri);
+                    String selectedImgPath = Utility.saveBitmap(bmp);
+                    AddNewEventFragment.getInstance().updateFile(selectedImgPath);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
-        }  else if (requestCode == Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_CAMERA_ID) {
+        } else if (requestCode == Constants.FROM_POST_FORUM_ADD_CLASSIFIEDS_CAMERA_ID) {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bmp = (Bitmap) data.getExtras().get(Utility.getResourcesString(this, R.string.data));
                 String selectedImgPath = Utility.saveBitmap(bmp);
@@ -476,6 +489,23 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
         }
     }
 
+
+    private Bitmap decodeBitmapUri(Context ctx, Uri uri) throws FileNotFoundException {
+        int targetW = 300;
+        int targetH = 680;
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(ctx.getContentResolver().openInputStream(uri), null, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+
+        return BitmapFactory.decodeStream(ctx.getContentResolver()
+                .openInputStream(uri), null, bmOptions);
+    }
 
     /**
      * This method is used to update the profile pic

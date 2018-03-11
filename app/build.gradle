@@ -15,7 +15,7 @@ android {
         config {
             keyAlias 'Nevexa Digital Private Limited'
             keyPassword 'XAP@2018!#'
-            storeFile file('D:\\Xappie\\KapuKeystore\\Xappie.jks')
+            storeFile file('E:\\Xappie\\KapuKeystore\\Xappie.jks')
             storePassword 'XAP@2018!#'
         }
     }
@@ -38,6 +38,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
