@@ -953,11 +953,20 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_events_inner_layout.setVisibility(View.VISIBLE);
             ll_events.setVisibility(View.VISIBLE);
         } else {
-            rl_events_heading.setVisibility(View.VISIBLE);
-            hs_events.setVisibility(View.VISIBLE);
-            hs_events_inner_layout.setVisibility(View.GONE);
-            ll_events.setVisibility(View.GONE);
-            ll_no_data_event.setVisibility(View.VISIBLE);
+            if ((Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                    + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS)).contains("events")) {
+                rl_events_heading.setVisibility(View.VISIBLE);
+                hs_events.setVisibility(View.VISIBLE);
+                hs_events_inner_layout.setVisibility(View.GONE);
+                ll_events.setVisibility(View.GONE);
+                ll_no_data_event.setVisibility(View.VISIBLE);
+            } else {
+                rl_events_heading.setVisibility(View.GONE);
+                hs_events.setVisibility(View.GONE);
+                hs_events_inner_layout.setVisibility(View.GONE);
+                ll_events.setVisibility(View.GONE);
+                ll_no_data_event.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -1000,11 +1009,9 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_title.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getTitle());
                     tv_calendar_icon.setTypeface(Utility.getFontAwesomeWebFont(mParent));
                     tv_price_icon.setTypeface(Utility.getMaterialIconsRegular(mParent));
-                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice()))
-                    {
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice())) {
                         tv_posted_by.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getPrice());
-                    }
-                    else {
+                    } else {
                         tv_posted_by.setVisibility(View.GONE);
                         tv_price_icon.setVisibility(View.GONE);
                     }
@@ -1012,11 +1019,9 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_title.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_sub_classified_name.setTypeface(Utility.getOpenSansRegular(mParent));
                     tv_posted_by.setTypeface(Utility.getOpenSansRegular(mParent));
-                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getLocality()))
-                    {
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getLocality())) {
                         tv_time.setText(mHomePageEventsAdsBannersModel.getClassifiedsModel().get(i).getLocality());
-                    }
-                    else {
+                    } else {
                         tv_calendar_icon.setVisibility(View.GONE);
                     }
 
@@ -1040,11 +1045,20 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_classifieds_inner_layout.setVisibility(View.VISIBLE);
             ll_classifieds.setVisibility(View.VISIBLE);
         } else {
-            rl_classifieds_heading.setVisibility(View.VISIBLE);
-            hs_classifieds.setVisibility(View.VISIBLE);
-            hs_classifieds_inner_layout.setVisibility(View.GONE);
-            ll_classifieds.setVisibility(View.GONE);
-            ll_no_data_classified.setVisibility(View.VISIBLE);
+            if ((Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                    + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS)).contains("classifieds")) {
+                rl_classifieds_heading.setVisibility(View.VISIBLE);
+                hs_classifieds.setVisibility(View.VISIBLE);
+                hs_classifieds_inner_layout.setVisibility(View.GONE);
+                ll_classifieds.setVisibility(View.GONE);
+                ll_no_data_classified.setVisibility(View.VISIBLE);
+            } else {
+                rl_classifieds_heading.setVisibility(View.GONE);
+                hs_classifieds.setVisibility(View.GONE);
+                hs_classifieds_inner_layout.setVisibility(View.GONE);
+                ll_classifieds.setVisibility(View.GONE);
+                ll_no_data_classified.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -1079,12 +1093,10 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                     tv_dots.setTypeface(Utility.getMaterialIconsRegular(mParent));
                     tv_dots.setVisibility(View.GONE);
 
-                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getLocality()))
-                    {
+                    if (!Utility.isValueNullOrEmpty(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getLocality())) {
                         tv_positions.setText(mHomePageEventsAdsBannersModel.getJobsModels().get(i).getLocality());
                         tv_pos.setTypeface(Utility.getFontAwesomeWebFont(mParent));
-                    }
-                    else {
+                    } else {
                         tv_pos.setVisibility(View.GONE);
                         tv_positions.setVisibility(View.GONE);
                     }
@@ -1112,10 +1124,18 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
             hs_jobs.setVisibility(View.VISIBLE);
             ll_jobs.setVisibility(View.VISIBLE);
         } else {
-            rl_jobs.setVisibility(View.VISIBLE);
-            hs_jobs.setVisibility(View.VISIBLE);
-            ll_jobs.setVisibility(View.GONE);
-            ll_no_data_jobs.setVisibility(View.VISIBLE);
+            if ((Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_EVENTS_CONTENTS)
+                    + Utility.getSharedPrefStringData(mParent, Constants.HOME_PAGE_JOBS_CONTENTS)).contains("jobs")) {
+                rl_jobs.setVisibility(View.VISIBLE);
+                hs_jobs.setVisibility(View.VISIBLE);
+                ll_jobs.setVisibility(View.GONE);
+                ll_no_data_jobs.setVisibility(View.VISIBLE);
+            } else {
+                rl_jobs.setVisibility(View.GONE);
+                hs_jobs.setVisibility(View.GONE);
+                ll_jobs.setVisibility(View.GONE);
+                ll_no_data_jobs.setVisibility(View.GONE);
+            }
         }
     }
 
