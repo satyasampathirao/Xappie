@@ -593,6 +593,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                 DashBoardActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Utility.showToastMessage(DashBoardActivity.this, "Your Profile is updated successfully");
 
                     }
                 });
