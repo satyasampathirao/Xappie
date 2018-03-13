@@ -255,6 +255,7 @@
     <string name="no_internet_title">No internet</string>
 
     <string name="select_state">Select State</string>
+    <string name="select_state_region">Select State / Region</string>
     <string name="states">States</string>
     <string name="no_localities_found">No Localities Found</string>
     <string name="no_states_found">No States Found</string>
