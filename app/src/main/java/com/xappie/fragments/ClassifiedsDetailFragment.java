@@ -153,6 +153,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
     private ClassifiedsDetailModel classifiedsDetailModel;
     private StateModel stateModel;
     private String mId;
+    private String name;
 
 
     @Override
@@ -165,6 +166,9 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         Utility.sendGoogleAnalytics(mParent, TAG);
         if (getArguments() != null && getArguments().containsKey(Constants.CLASSIFIEDS_ID)) {
             mId = getArguments().getString(Constants.CLASSIFIEDS_ID);
+        }
+        if (getArguments() != null && getArguments().containsKey("Name")) {
+            name = getArguments().getString("Name");
         }
     }
 
@@ -219,7 +223,7 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         tv_notification_menu_icon.setTypeface(mTypefaceFontAwesomeWebFont);
 
         tv_title.setVisibility(View.VISIBLE);
-        tv_title.setText(Utility.getResourcesString(mParent, R.string.classifieds));
+        tv_title.setText(name);
         tv_title.setTypeface(mTypefaceOpenSansRegular);
 
         tv_location_icon.setTypeface(mTypefaceFontAwesomeWebFont);
@@ -411,7 +415,6 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
 
     private void setViewpagerData() {
         card_pager.setAdapter(new ClassifiedsDetailViewPagerAdapter(mParent, classifiedsDetailModel.getImages()));
-
         addBottomDots(0);
         final Handler handler = new Handler();
 
@@ -434,7 +437,6 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
             }
         }, 100, 4000);
     }
-
     private void addBottomDots(int currentPage) {
         TextView[] dots = new TextView[classifiedsDetailModel.getImages().size()];
         ll_dots.removeAllViews();
@@ -442,11 +444,11 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
             dots[i] = new TextView(mParent);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(45);
-            dots[i].setTextColor(Color.parseColor("#AD343E"));
+            dots[i].setTextColor(Color.parseColor("#c2c2c2"));
             ll_dots.addView(dots[i]);
         }
         if (dots.length > 0)
-            dots[currentPage].setTextColor(Color.parseColor("#FFFFFF"));
+            dots[currentPage].setTextColor(Color.parseColor("#000000"));
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

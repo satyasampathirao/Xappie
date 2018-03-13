@@ -140,6 +140,7 @@ public class ClassifiedsTabFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
         bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, mSubId);
+        bundle.putString("Name", name);
         Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, bundle, mParent);
 
     }
@@ -152,6 +153,7 @@ public class ClassifiedsTabFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.CLASSIFIEDS_CATEGORY_ID, mId);
         bundle.putString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID, mSubId);
+        bundle.putString("Name", name);
         Utility.navigateAllClassifiedsFragment(new ClassifiedsListFragment(), ClassifiedsListFragment.TAG, bundle, mParent);
     }
 

@@ -124,6 +124,8 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
     private String mAuthType = "";
     private String mAuthToken = "";
 
+    private String mFromData = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -316,6 +318,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
      * This method is login with social intigation
      */
     private void saveDetailsInDb(String id, String email, String displayName, String type) {
+        mFromData = type;
         mAuthType = type;
         mAuthToken = id;
         LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
@@ -372,6 +375,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         startActivity(signUpIntent);*/
         if (isValidFields()) {
             mAuthType = Constants.XAPPIE;
+            mFromData = Constants.XAPPIE;
             LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
             paramMap.put(Constants.API_KEY, Constants.API_KEY_VALUE);
             paramMap.put(Constants.AUTH_TYPE, Constants.XAPPIE);
@@ -423,7 +427,7 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
                 if (mLoginModel.isStatus()) {
                     Utility.showToastMessage(LoginActivity.this, Utility.capitalizeFirstLetter(mLoginModel.getMessage()));
                     Utility.setSharedPrefBooleanData(LoginActivity.this, Constants.IS_LOGIN_COMPLETED, true);
-
+                    Utility.setSharedPrefStringData(LoginActivity.this, Constants.IS_FB_LOGIN, mFromData);
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_FIRST_NAME, mLoginModel.getFirst_name());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_LAST_NAME, mLoginModel.getLast_name());
                     Utility.setSharedPrefStringData(LoginActivity.this, Constants.SIGN_UP_DISPLAY_NAME, mLoginModel.getDisplay_name());

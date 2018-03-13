@@ -24,6 +24,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,7 @@ import com.xappie.R;
 import com.xappie.aynctaskold.IAsyncCaller;
 import com.xappie.aynctaskold.ServerIntractorAsync;
 import com.xappie.customviews.CircleTransform;
+import com.xappie.customviews.CustomProgressDialog;
 import com.xappie.customviews.FilePath;
 import com.xappie.designes.MaterialDialog;
 import com.xappie.fragments.AccountSettingFragment;
@@ -72,14 +74,22 @@ import com.xappie.utils.Utility;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
 
+    private static final String TAG ="DashBoardActivity" ;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private AppBarLayout appBarLayout;
@@ -90,6 +100,8 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
 
     private LinearLayout layout_topics;
     private File mSelectedFile;
+    public static File mYourFile;
+    private CustomProgressDialog customProgressDialog;
 
     private ImageUploadModel mImageUploadModel;
 
@@ -110,6 +122,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
         setContentView(R.layout.activity_dash_board);
         ButterKnife.bind(this);
         initUI();
+        customProgressDialog = new CustomProgressDialog(this);
     }
 
     /**
@@ -203,6 +216,13 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
             nav_Menu.findItem(R.id.logout).setVisible(false);
         }
 
+        if (Utility.getSharedPrefStringData(this, Constants.IS_FB_LOGIN).equalsIgnoreCase(Constants.XAPPIE)) {
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.account_settings).setVisible(true);
+        } else {
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.account_settings).setVisible(false);
+        }
        /* navMenuView.addItemDecoration(new DividerItemDecoration(DashBoardActivity.this, DividerItemDecoration.VERTICAL));
         Drawable horizontalDivider = ContextCompat.getDrawable(getActivity(), R.drawable.horizontal_divider);
         horizontalDecoration.setDrawable(horizontalDivider);*/
@@ -531,16 +551,53 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
      * This method is used to update the profile pic
      */
     private void updateImageToServer() {
-        LinkedHashMap<String, String> paramMap = new LinkedHashMap<>();
-        paramMap.put("api_key", Constants.API_KEY_VALUE);
-        paramMap.put("photo", Utility.convertFileToByteArray(mSelectedFile));
-        paramMap.put("photo_name", mSelectedFile.getName());
-        ImageUpdateParser imageUpdateParser = new ImageUpdateParser();
-        ServerIntractorAsync serverIntractorAsync = new ServerIntractorAsync(this, Utility.getResourcesString(this,
-                R.string.please_wait), true,
-                APIConstants.UPDATE_PROFILE_PHOTO, paramMap,
-                APIConstants.REQUEST_TYPE.POST, this, imageUpdateParser);
-        Utility.execute(serverIntractorAsync);
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        if (mSelectedFile != null) {
+            File file = new File(mSelectedFile.getPath());
+            if (file.exists()) {
+                final MediaType MEDIA_TYPE = MediaType.parse(Utility.getMimeType(mSelectedFile.getPath()));
+                builder.addFormDataPart("photo", file.getName(), RequestBody.create(MEDIA_TYPE, file));
+            } else {
+                Log.d(TAG, "file not exist ");
+            }
+        }
+
+        builder.addFormDataPart("api_key", Constants.API_KEY_VALUE);
+        builder.addFormDataPart("photo_name", mSelectedFile.getName());
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(APIConstants.UPDATE_PROFILE_PHOTO)
+                .addHeader("Cookie", "ci_session=" + Utility.getSharedPrefStringData(this, Constants.LOGIN_SESSION_ID) + ";")
+                .post(requestBody)
+                .build();
+        OkHttpClient client = new OkHttpClient.Builder().build();
+
+        Call call = client.newCall(request);
+
+
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                customProgressDialog.dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                customProgressDialog.dismissProgress();
+                String jsonData = response.body().string();
+                Utility.showLog("jsondata", "" + jsonData);
+                Utility.showToastMessage(DashBoardActivity.this, "Your Profile is updated successfully");
+                DashBoardActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -646,6 +703,7 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
      */
     private void logout() {
         Utility.setSharedPrefBooleanData(this, Constants.IS_LOGIN_COMPLETED, false);
+        Utility.setSharedPrefStringData(this, Constants.IS_FB_LOGIN, "");
         Utility.setSharedPrefStringData(this, Constants.SELECTED_COUNTRY_NAME, "");
         finish();
         Intent intent = new Intent(DashBoardActivity.this, DashBoardActivity.class);

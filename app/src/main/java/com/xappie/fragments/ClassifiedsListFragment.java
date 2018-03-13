@@ -64,6 +64,7 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
     TextView tv_currently_no_events;
     private String mId;
     private String mSubId;
+    private String name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,9 @@ public class ClassifiedsListFragment extends Fragment implements IAsyncCaller {
             mId = getArguments().getString(Constants.CLASSIFIEDS_CATEGORY_ID);
             mSubId = getArguments().getString(Constants.CLASSIFIEDS_SUB_CATEGORY_ID);
             Utility.sendGoogleAnalytics(mParent, TAG);
+        }
+        if (getArguments() != null && getArguments().containsKey("Name")) {
+            name = getArguments().getString("Name");
         }
     }
 

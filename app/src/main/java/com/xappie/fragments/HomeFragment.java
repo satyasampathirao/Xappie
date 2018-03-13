@@ -1033,6 +1033,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller, IHomeCustomi
                             int position = view.getId();
                             Bundle bundle = new Bundle();
                             bundle.putString(Constants.CLASSIFIEDS_ID, mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getId());
+                            bundle.putString("Name",mHomePageEventsAdsBannersModel.getClassifiedsModel().get(position).getSub_category());
                             Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle, mParent);
                         }
                     });

@@ -120,6 +120,7 @@ public class ClassifiedsListAdapter extends BaseAdapter {
                 int position = v.getId();
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.CLASSIFIEDS_ID, classifiedsModels.get(position).getId());
+                bundle.putString("Name", classifiedsModel.getSub_category());
                 Utility.navigateDashBoardFragment(new ClassifiedsDetailFragment(), ClassifiedsDetailFragment.TAG, bundle, mDashBoardActivity);
             }
         });

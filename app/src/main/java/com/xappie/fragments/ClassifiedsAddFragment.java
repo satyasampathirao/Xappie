@@ -488,10 +488,6 @@ public class ClassifiedsAddFragment extends Fragment implements IAsyncCaller, IU
             Utility.setSnackBar(mParent, edt_email, "Please Enter Email");
             edt_email.requestFocus();
             isValid = false;
-        } else if (Utility.isValueNullOrEmpty(edt_website.getText().toString())) {
-            Utility.setSnackBar(mParent, edt_website, "Please Enter website");
-            edt_website.requestFocus();
-            isValid = false;
         } else if (Utility.isValueNullOrEmpty(edt_address.getText().toString())) {
             Utility.setSnackBar(mParent, edt_address, "Please Enter Address");
             edt_address.requestFocus();
