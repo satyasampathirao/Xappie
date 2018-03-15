@@ -65,7 +65,7 @@
         android:drawableEnd="@drawable/drop_down_color_arrow"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:hint="@string/select_city"
+        android:hint="@string/select_city_metro_area"
         android:paddingEnd="@dimen/_12dp"
         android:paddingLeft="@dimen/_10dp"
         android:paddingRight="@dimen/_10dp"
