@@ -443,12 +443,12 @@ public class ClassifiedsDetailFragment extends Fragment implements IAsyncCaller 
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new TextView(mParent);
             dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(45);
+            dots[i].setTextSize(40);
             dots[i].setTextColor(Color.parseColor("#c2c2c2"));
             ll_dots.addView(dots[i]);
         }
         if (dots.length > 0)
-            dots[currentPage].setTextColor(Color.parseColor("#000000"));
+            dots[currentPage].setTextColor(Color.parseColor("#FB6A57"));
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -185,6 +185,7 @@
     <string name="select_countries">Select Country</string>
     <string name="united_states">United States</string>
     <string name="select_city">Select City</string>
+    <string name="select_city_metro_area">Select City / Metro Area</string>
     <string name="arrow_right">&#xf105;</string>
     <string name="cities">Cities</string>
     <string name="find_jobs">FIND JOBS</string>
