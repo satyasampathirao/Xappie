@@ -539,7 +539,8 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
-        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+        int scaleFactor = Math.min(photoW / photoW, photoH / photoH);
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
@@ -594,7 +595,6 @@ public class DashBoardActivity extends BaseActivity implements IAsyncCaller {
                     @Override
                     public void run() {
                         Utility.showToastMessage(DashBoardActivity.this, "Your Profile is updated successfully");
-
                     }
                 });
             }
