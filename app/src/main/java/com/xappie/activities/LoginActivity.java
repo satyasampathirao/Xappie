@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -35,6 +36,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterCore;
@@ -69,6 +77,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
+
+import static com.xappie.utils.Constants.RC_SIGN_IN;
 
 public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
     public static final String TAG = LoginActivity.class.getSimpleName();
@@ -151,15 +161,15 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         et_email.setTypeface(Utility.getOpenSansRegular(this));
         et_password.setTypeface(Utility.getOpenSansRegular(this));
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         if (mGoogleApiClient == null)
             mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
+                    .build();*/
 
         try {
             PackageInfo info = this.getPackageManager().getPackageInfo(
@@ -230,14 +240,36 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         });
     }
 
+    protected void signInWithGoogle() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        if (mGoogleApiClient == null)
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+        if (requestCode == RC_SIGN_IN) {
+            /*GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             int statusCode = result.getStatus().getStatusCode();
             Utility.showLog("statusCode : ", "statusCode " + statusCode);
-            handleSignInResult(result);
+            handleSignInResult(result);*/
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                GoogleSignInAccount acct = result.getSignInAccount();
+                fireBaseAuthWithGoogle(acct);
+            } else {
+                Toast.makeText(LoginActivity.this, "There was a trouble signing in-Please try again", Toast.LENGTH_SHORT).show();
+            }
         }
         if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -245,6 +277,26 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
         if (mTwitterAuthClient != null) {
             mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void fireBaseAuthWithGoogle(GoogleSignInAccount acct) {
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            FirebaseUser user = auth.getCurrentUser();
+                            Utility.showLog("User uid", user.getUid());
+                            Utility.showLog("User email", user.getEmail());
+                            saveDetailsInDb(user.getUid(), user.getEmail(), user.getDisplayName(), "google");
+                        }
+                    }
+                });
     }
 
     /**
@@ -363,8 +415,9 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
 
     @OnClick(R.id.imageButton_google)
     void googleSignUp() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
+        /*Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);*/
+        signInWithGoogle();
     }
 
     @OnClick(R.id.btn_check)

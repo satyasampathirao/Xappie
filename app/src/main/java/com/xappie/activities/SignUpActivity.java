@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -34,6 +35,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterCore;
@@ -68,6 +76,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
+
+import static com.xappie.utils.Constants.RC_SIGN_IN;
 
 public class SignUpActivity extends BaseActivity implements IAsyncCaller, GoogleApiClient.OnConnectionFailedListener {
     public static final String TAG = SignUpActivity.class.getSimpleName();
@@ -148,15 +158,15 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         tv_privacy.setTypeface(Utility.getOpenSansRegular(this));
         tv_or_sign_social.setTypeface(Utility.getOpenSansRegular(this));
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         if (mGoogleApiClient == null)
             mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
+                    .build();*/
 
         try {
             PackageInfo info = this.getPackageManager().getPackageInfo(
@@ -179,6 +189,20 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
             FacebookSdk.setIsDebugEnabled(true);
             FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
         }
+    }
+
+    protected void signInWithGoogle() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        if (mGoogleApiClient == null)
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
@@ -323,8 +347,9 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
 
     @OnClick(R.id.imageButton_google)
     void googleSignUp() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);
+        /*Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, Constants.RC_SIGN_IN);*/
+        signInWithGoogle();
     }
 
     /**
@@ -397,6 +422,9 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                 if (mImageUploadModel.isStatus()) {
                     Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
                     startActivity(signUpOtpIntent);
+                } else {
+                    Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                    startActivity(signUpOtpIntent);
                 }
             }
         }
@@ -410,10 +438,26 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            /*GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             int statusCode = result.getStatus().getStatusCode();
             Utility.showLog("statusCode : ", "statusCode " + statusCode);
-            handleSignInResult(result);
+            handleSignInResult(result);*/
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                GoogleSignInAccount acct = result.getSignInAccount();
+                if (acct != null) {
+                    if (acct.getPhotoUrl() != null) {
+                        mProfileImage = acct.getPhotoUrl().toString();
+                        Utility.showLog("url", "" + mProfileImage);
+                    } else {
+                        Utility.showLog("Logging error", "Logging error");
+                    }
+                    Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
+                }
+                fireBaseAuthWithGoogle(acct);
+            } else {
+                Toast.makeText(SignUpActivity.this, "There was a trouble signing in-Please try again", Toast.LENGTH_SHORT).show();
+            }
         }
         if (callbackManager != null) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -421,6 +465,26 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         if (mTwitterAuthClient != null) {
             mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void fireBaseAuthWithGoogle(GoogleSignInAccount acct) {
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            FirebaseUser user = auth.getCurrentUser();
+                            Utility.showLog("User uid", user.getUid());
+                            Utility.showLog("User email", user.getEmail());
+                            saveDetailsInDb(user.getUid(), user.getEmail(), user.getDisplayName(), "google");
+                        }
+                    }
+                });
     }
 
     /**
@@ -441,8 +505,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                 Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
                 saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName(), "google");
             }
-        }
-        else {
+        } else {
             Utility.showLog("Logging error", "Logging error");
         }
     }
