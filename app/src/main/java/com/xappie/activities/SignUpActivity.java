@@ -431,11 +431,18 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
-            mProfileImage = acct.getPhotoUrl().toString();
-            Utility.showLog("url", "" + mProfileImage);
-            saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName(), "google");
-        } else {
+            if (acct != null) {
+                if (acct.getPhotoUrl() != null) {
+                    mProfileImage = acct.getPhotoUrl().toString();
+                    Utility.showLog("url", "" + mProfileImage);
+                } else {
+                    Utility.showLog("Logging error", "Logging error");
+                }
+                Utility.showLog("Logging Success", "Logging Success" + acct.getDisplayName() + " " + acct.getId() + " " + acct.getEmail());
+                saveDetailsInDb(acct.getId(), acct.getEmail(), acct.getDisplayName(), "google");
+            }
+        }
+        else {
             Utility.showLog("Logging error", "Logging error");
         }
     }
