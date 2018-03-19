@@ -122,7 +122,7 @@ public class HelpFragment extends Fragment {
 
     @OnClick(R.id.tv_privacy)
     public void openPrivacy() {
-        String url = "http://xappie.com/pages/privacy_policy";
+        String url = "http://www.xappie.com/pages/privacy_policy";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
@@ -130,7 +130,7 @@ public class HelpFragment extends Fragment {
 
     @OnClick(R.id.tv_promotions)
     public void openPromotions() {
-        String url = "http://xappie.com/pages/advertise";
+        String url = "http://www.xappie.com/pages/advertise";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
@@ -138,7 +138,7 @@ public class HelpFragment extends Fragment {
 
     @OnClick(R.id.tv_terms)
     public void openTerms() {
-        String url = "http://xappie.com/pages/terms_conditions";
+        String url = "http://www.xappie.com/pages/terms_conditions";
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
