@@ -137,7 +137,7 @@ public class JobsFragment extends Fragment {
     @OnClick(R.id.tv_post_job)
     void navigatePostJobs() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "To post a Job, Login First");
+            Utility.showToastMessage(mParent, "Please Login to access the features");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
@@ -148,7 +148,7 @@ public class JobsFragment extends Fragment {
     @OnClick(R.id.tv_my_posts)
     void navigateMyPostJobs() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "To get your posted jobs, Login First");
+            Utility.showToastMessage(mParent, "Please Login to access the features");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
@@ -159,7 +159,7 @@ public class JobsFragment extends Fragment {
     @OnClick(R.id.tv_jobs_applied)
     void navigateJobsApplied() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "To get your Applied jobs, Login First");
+            Utility.showToastMessage(mParent, "Please Login to access the features");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {

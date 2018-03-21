@@ -1,6 +1,7 @@
 package com.xappie.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -219,7 +220,17 @@ public class SignUpOtpActivity extends BaseActivity implements IAsyncCaller {
 
     @OnClick(R.id.tv_privacy)
     void navigatePrivacyPolicy() {
-        Intent intent = new Intent(this, PrivacyPolicyActivity.class);
-        startActivity(intent);
+        String url = "http://www.xappie.com/pages/privacy_policy";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+    @OnClick(R.id.tv_t_c)
+    void navigateTerms()
+    {
+        String url = "http://www.xappie.com/pages/terms_conditions";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 }

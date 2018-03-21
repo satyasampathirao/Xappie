@@ -77,6 +77,38 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_deals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_deals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:layout_weight="1"
+                    android:text="@string/deals"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_13sp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_button_deals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_15dp"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:theme="@style/SCBSwitch" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10dp"
@@ -423,50 +455,6 @@
                 android:layout_marginStart="@dimen/_15dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@color/light_gray" />
-
-
-            <LinearLayout
-                android:id="@+id/linear_deals"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <TextView
-                    android:id="@+id/tv_deals"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20dp"
-                    android:layout_marginTop="@dimen/_15dp"
-                    android:layout_weight="1"
-                    android:text="@string/deals"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/_13sp" />
-
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/switch_button_deals"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_15dp"
-                    android:layout_marginEnd="@dimen/_25dp"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:theme="@style/SCBSwitch" />
-
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/view_deals"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_0.5dp"
-                android:layout_marginEnd="@dimen/_5dp"
-                android:layout_marginStart="@dimen/_15dp"
-                android:layout_marginTop="@dimen/_5dp"
-                android:background="@color/light_gray" />
-
-
             <Button
                 android:id="@+id/b_notification_settings_update"
                 android:layout_width="@dimen/_180dp"

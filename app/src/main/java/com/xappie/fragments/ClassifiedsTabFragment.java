@@ -163,7 +163,7 @@ public class ClassifiedsTabFragment extends Fragment {
     @OnClick(R.id.tv_add_classified)
     void navigateAddNewEvents() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "Login First");
+            Utility.showToastMessage(mParent, "Please Login to access the features");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
@@ -180,7 +180,7 @@ public class ClassifiedsTabFragment extends Fragment {
     @OnClick(R.id.tv_my_classifieds)
     void navigateMyEvents() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "Login First");
+            Utility.showToastMessage(mParent, "Please Login to access the features");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.BuildConfig;
@@ -562,7 +563,17 @@ public class LoginActivity extends BaseActivity implements IAsyncCaller, GoogleA
 
     @OnClick(R.id.tv_privacy)
     void navigatePrivacyPolicy() {
-        Intent intent = new Intent(this, PrivacyPolicyActivity.class);
-        startActivity(intent);
+        String url = "http://www.xappie.com/pages/privacy_policy";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+    @OnClick(R.id.tv_t_c)
+    void navigateTerms()
+    {
+        String url = "http://www.xappie.com/pages/terms_conditions";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 }

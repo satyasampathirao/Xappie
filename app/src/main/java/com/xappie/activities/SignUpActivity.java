@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.BuildConfig;
@@ -413,7 +414,7 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
                     if (!Utility.isValueNullOrEmpty(mProfileImage)) {
                         updateImageToServer();
                     } else {
-                        Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                        Intent signUpOtpIntent = new Intent(this, LoginActivity.class);
                         startActivity(signUpOtpIntent);
                     }
                 } else {
@@ -422,10 +423,10 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
             } else if (model instanceof ImageUploadModel) {
                 mImageUploadModel = (ImageUploadModel) model;
                 if (mImageUploadModel.isStatus()) {
-                    Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                    Intent signUpOtpIntent = new Intent(this, LoginActivity.class);
                     startActivity(signUpOtpIntent);
                 } else {
-                    Intent signUpOtpIntent = new Intent(this, DashBoardActivity.class);
+                    Intent signUpOtpIntent = new Intent(this, LoginActivity.class);
                     startActivity(signUpOtpIntent);
                 }
             }
@@ -551,7 +552,17 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
 
     @OnClick(R.id.tv_privacy)
     void navigatePrivacyPolicy() {
-        Intent intent = new Intent(this, PrivacyPolicyActivity.class);
-        startActivity(intent);
+        String url = "http://www.xappie.com/pages/privacy_policy";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+    @OnClick(R.id.tv_t_c)
+    void navigateTerms()
+    {
+        String url = "http://www.xappie.com/pages/terms_conditions";
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 }

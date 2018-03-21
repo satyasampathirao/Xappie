@@ -145,7 +145,7 @@ public class EventsFragment extends Fragment {
     @OnClick(R.id.tv_add_new_event)
     void navigateAddNewEvents() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "You need to login for add the event");
+            Utility.showToastMessage(mParent, "Please Login to access the features");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
@@ -159,7 +159,7 @@ public class EventsFragment extends Fragment {
     @OnClick(R.id.tv_my_events)
     void navigateMyEvents() {
         if (!Utility.getSharedPrefBooleanData(mParent, Constants.IS_LOGIN_COMPLETED)) {
-            Utility.showToastMessage(mParent, "You need to login for get your events");
+            Utility.showToastMessage(mParent, "Please Login to access the features");
             Intent intent = new Intent(mParent, LoginActivity.class);
             startActivity(intent);
         } else {
