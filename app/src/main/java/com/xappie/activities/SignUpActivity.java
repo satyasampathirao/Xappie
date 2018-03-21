@@ -275,8 +275,10 @@ public class SignUpActivity extends BaseActivity implements IAsyncCaller, Google
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mGoogleApiClient.stopAutoManage(this);
-        mGoogleApiClient.disconnect();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.stopAutoManage(this);
+            mGoogleApiClient.disconnect();
+        }
     }
 
 
