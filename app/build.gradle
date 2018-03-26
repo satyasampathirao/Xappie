@@ -19,6 +19,7 @@ android {
             storePassword 'XAP@2018!#'
         }
     }
+    flavorDimensions "default"
     compileSdkVersion 27
     buildToolsVersion '26.0.2'
     useLibrary 'org.apache.http.legacy'
@@ -26,8 +27,8 @@ android {
         applicationId "com.xappie"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 9
-        versionName "1.0"
+        versionCode 13
+        versionName "1.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -44,6 +45,18 @@ android {
         }
         debug {
             debuggable true
+        }
+    }
+    productFlavors {
+        xappie {
+            applicationId 'com.xappie'
+            versionName '1.1'
+            versionCode 13
+        }
+        xappietest {
+            applicationId 'com.xappie.test'
+            versionName '1.0'
+            versionCode 1
         }
     }
 }
